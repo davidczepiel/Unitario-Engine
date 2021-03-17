@@ -149,6 +149,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorGrafico\main.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
