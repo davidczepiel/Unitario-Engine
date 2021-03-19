@@ -1,3 +1,3 @@
 #pragma once
 
-void saluda();
+void test();
