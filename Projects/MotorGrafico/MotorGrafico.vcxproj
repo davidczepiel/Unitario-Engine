@@ -74,21 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,7 +107,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call $(SolutionDir)dependencies\Ogre\compileOgre_x86.bat</Command>
+      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -124,7 +128,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call $(SolutionDir)dependencies\Ogre\compileOgre_x86.bat</Command>
+      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -141,7 +145,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call $(SolutionDir)dependencies\Ogre\compileOgre_x64.bat</Command>
+      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -162,7 +166,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call $(SolutionDir)dependencies\Ogre\compileOgre_x64.bat</Command>
+      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
