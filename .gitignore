@@ -6,6 +6,7 @@
 *.ipdb
 *.dll
 *.log
+*.lib
 Temp/
 Debug/
 Release/

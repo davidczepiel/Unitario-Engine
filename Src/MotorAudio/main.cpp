@@ -15,7 +15,7 @@ void saluda() {
 
 	FMOD::Sound* sound;
 	result = system->createSound(
-		"assets/sound/startup.mp3", // path al archivo de sonido
+		"Assets/Audio/ProtoDarkMaze_Menu.mp3", // path al archivo de sonido
 		FMOD_DEFAULT, // valores (por defecto en este caso: sin loop, 2D)
 		0, // informacion adicional (nada en este caso)
 		&sound);
@@ -29,4 +29,5 @@ void saluda() {
 		// el sonido ya se esta reproduciendo
 
 		///-----initialization_start-----
+	std::system("Pause");
 }
