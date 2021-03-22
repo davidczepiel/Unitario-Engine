@@ -12,6 +12,8 @@ Release/
 x64/
 Build/
 Build32/
+Buildx86/
+Buildx64/
 bin/MotorUnitario_x64.exe
 bin/MotorUnitario_x64_DEBUG.exe
 bin/MotorUnitario_x86.exe
