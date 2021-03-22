@@ -106,6 +106,10 @@
       <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\fmod 2.01.08\Buildx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>call "$(SolutionDir)dependencies\fmod 2.01.08\compileFmod_x86.bat"</Command>
+      <Message>Importación build 2.01.08 x86 de Fmod</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -126,6 +130,10 @@
     <Lib>
       <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib</AdditionalDependencies>
     </Lib>
+    <PostBuildEvent>
+      <Command>call "$(SolutionDir)dependencies\fmod 2.01.08\compileFmod_x86.bat"</Command>
+      <Message>Importación build 2.01.08 x86 de Fmod</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -143,6 +151,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\fmod 2.01.08\Buildx64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
+    <PostBuildEvent>
+      <Command>call "$(SolutionDir)dependencies\fmod 2.01.08\compileFmod_x64.bat"</Command>
+      <Message>Importación build 2.01.08 x64 de Fmod</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -164,6 +176,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\fmod 2.01.08\dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
+    <PostBuildEvent>
+      <Command>call "$(SolutionDir)dependencies\fmod 2.01.08\compileFmod_x64.bat"</Command>
+      <Message>Importación build 2.01.08 x64 de Fmod</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorAudio\main.cpp" />
