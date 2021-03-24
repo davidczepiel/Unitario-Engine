@@ -110,6 +110,10 @@
       <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Ogre\Build32\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -131,6 +135,10 @@
       <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Ogre\Build32\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -148,6 +156,10 @@
       <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Ogre\Build\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -169,6 +181,10 @@
       <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"</Command>
       <Message>Copiando dlls de ogre</Message>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Ogre\Build\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
