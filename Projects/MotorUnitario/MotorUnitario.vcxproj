@@ -179,6 +179,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +192,9 @@
     <ProjectReference Include="..\MotorGrafico\MotorGrafico.vcxproj">
       <Project>{d07093e9-ce54-4ee0-acb3-fab86c657b28}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
