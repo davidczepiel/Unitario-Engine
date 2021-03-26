@@ -15,44 +15,44 @@ GameObject::GameObject() : _children(), _components(10, nullptr), _parent(nullpt
 void GameObject::start()
 {
 	for (auto& comp : _activeComponents)
-		if(comp.second->getEnable()) 
+		if(comp.second->getEnabled()) 
 			comp.second->start();
 
 	for (GameObject* go : _children)
-		if(go->getEnable()) 
+		if(go->getEnabled()) 
 			go->start();
 }
 
 void GameObject::update()
 {
 	for (auto& comp : _activeComponents)
-		if (comp.second->getEnable())
+		if (comp.second->getEnabled())
 			comp.second->update();
 
 	for (GameObject* go : _children)
-		if (go->getEnable()) 
+		if (go->getEnabled()) 
 			go->update();
 }
 
 void GameObject::fixedUpdate()
 {
 	for (auto& comp : _activeComponents)
-		if (comp.second->getEnable())
+		if (comp.second->getEnabled())
 			comp.second->fixedUpdate();
 
 	for (GameObject* go : _children)
-		if (go->getEnable()) 
+		if (go->getEnabled()) 
 			go->fixedUpdate();
 }
 
 void GameObject::lateUpdate()
 {
 	for (auto& comp : _activeComponents)
-		if (comp.second->getEnable())
+		if (comp.second->getEnabled())
 			comp.second->lateUpdate();
 
 	for (GameObject* go : _children)
-		if (go->getEnable()) 
+		if (go->getEnabled()) 
 			go->lateUpdate();
 }
 

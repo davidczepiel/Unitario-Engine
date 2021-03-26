@@ -80,11 +80,11 @@ public:
 		_parent = gameObject;
 	}
 
-	inline const bool getEnable() const {
+	inline const bool getEnabled() const {
 		return _enable;
 	}
 
-	inline void setEnable(bool enable) {
+	inline void setEnabled(bool enable) {
 		_enable = enable;
 	}
 

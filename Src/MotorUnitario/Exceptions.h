@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iosfwd>
+#include <iostream>
 
 /// <summary>
 /// Class that all exceptions inherit from, and which provides the attribute that stores the Error message.
