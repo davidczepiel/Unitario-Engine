@@ -66,7 +66,7 @@ public:
 	/// Returns a component of the gameObject
 	/// </summary>
 	/// <param name="componentId_">: id of component</param>
-	/// <exception cref="Component.Exception">Thrown when componentId doesnt correspond to any component</exception>
+	/// <exception cref="Component.Exception">Thrown when componentId is below zero</exception>
 	/// <returns>Component* if it exists, nullptr if it doesn't</returns>
 	Component* getComponent(unsigned int componentId) const;
 
