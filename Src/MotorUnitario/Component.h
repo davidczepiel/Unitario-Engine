@@ -53,7 +53,7 @@ public:
 	/// Sets the owner pointer to the given gameObject
 	/// </summary>
 	/// <param name="gameObject">Pointer to the new component's owner</param>
-	inline void setGameObject(GameObject* gameObject);
+	void setGameObject(GameObject* gameObject);
 
 	/// <summary>
 	/// Returns component's id

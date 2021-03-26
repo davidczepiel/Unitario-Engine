@@ -5,6 +5,7 @@
 
 #include <list>
 #include <vector>
+#include <string>
 
 class Transform;
 class Component;
@@ -42,7 +43,8 @@ public:
 
 	/// <summary>
 	/// Adds component to the gameObject vector of components
-	/// <exception cref="Component.Exception">Thrown when componentId doesnt correspond to any component or component already exists</exception>
+	/// <para> If id its bigger than the actual size of the vector of components, it increases the vector size </para>
+	/// <exception cref="Component.Exception">Thrown when componentId is less than 0 or component already exists</exception>
 	/// </summary>
 	void addComponent(Component* component);
 	
@@ -80,6 +82,14 @@ public:
 		_parent = gameObject;
 	}
 
+	inline const std::string& getName() const {
+		return _name;
+	}
+
+	inline void setName(const std::string& name) {
+		_name = name;
+	}
+
 	inline const bool getEnabled() const {
 		return _enable;
 	}
@@ -97,7 +107,6 @@ public:
 	}
 
 private:
-
 	/// <summary>
 	/// Inserts into active components a component ordered using its id
 	/// </summary>
@@ -118,6 +127,8 @@ private:
 	std::list<GameObject*> _children;	
 
 	GameObject* _parent;
+
+	std::string _name;
 
 	bool _enable, _persist;
 };

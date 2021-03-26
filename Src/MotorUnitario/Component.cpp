@@ -8,11 +8,10 @@ Component::Component(unsigned int id, GameObject* gameObject):
 Component::~Component()
 {}
 
-inline void Component::setGameObject(GameObject * gameObject)
+void Component::setGameObject(GameObject * gameObject)
 {
 	if (gameObject == nullptr) {
 		throw NullptrObjectException("Trying to set component's owner to nullptr");
-		return;
 	}
 	_gameObject = gameObject;
 }
