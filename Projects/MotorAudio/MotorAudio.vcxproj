@@ -186,6 +186,7 @@
     <ClCompile Include="..\..\Src\MotorAudio\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorAudio\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorAudio\main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

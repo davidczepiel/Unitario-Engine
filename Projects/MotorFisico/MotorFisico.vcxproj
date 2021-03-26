@@ -150,6 +150,7 @@
     <ClCompile Include="..\..\Src\MotorFisico\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorFisico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorFisico\main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

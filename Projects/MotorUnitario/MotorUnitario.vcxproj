@@ -194,6 +194,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -23,5 +23,8 @@
     <ClInclude Include="..\..\Src\MotorAudio\main.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\MotorAudio\Exceptions.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
