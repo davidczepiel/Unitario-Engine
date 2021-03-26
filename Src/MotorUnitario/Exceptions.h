@@ -90,6 +90,11 @@ DECLARE_EXCEPTION(EArbolVacio);
 /// </summary>
 DECLARE_EXCEPTION(EClaveErronea);
 
+/// <summary>
+/// Exception generated when a pointer to a GameObject is nullptr
+/// </summary>
+DECLARE_EXCEPTION(NullptrObjectException);
+
 #endif // EXCEPTIONS_H
 
 

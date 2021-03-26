@@ -8,7 +8,7 @@ class Component
 {
 public:
 
-	Component(unsigned int id, GameObject* gameObject = nullptr);
+	Component(unsigned int id, GameObject* gameObject);
 	~Component();
 
 	/// <summary>
@@ -53,7 +53,7 @@ public:
 	/// Sets the owner pointer to the given gameObject
 	/// </summary>
 	/// <param name="gameObject">Pointer to the new component's owner</param>
-	inline void setGameObject(GameObject* gameObject) { _gameObject = gameObject; }
+	inline void setGameObject(GameObject* gameObject);
 
 	/// <summary>
 	/// Returns component's id
