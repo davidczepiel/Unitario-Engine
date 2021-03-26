@@ -13,7 +13,12 @@ class GameObject {
 
 public:
 
+	/// <summary>
+	/// Constructs Gameobject initializing vector of componentes with a Transform
+	/// </summary>
 	GameObject();
+
+	~GameObject() {}
 
 	/// <summary>
 	/// Calls start method of every component and then of every children it has
@@ -36,7 +41,8 @@ public:
 	void lateUpdate();
 
 	/// <summary>
-	/// Add a full component to the gameObject vector of component
+	/// Adds component to the gameObject vector of components
+	/// <exception cref="Component.Exception">Thrown when componentId doesnt correspond to any component or component already exists</exception>
 	/// </summary>
 	void addComponent(Component* component);
 	
@@ -57,10 +63,10 @@ public:
 	/// <summary>
 	/// Returns a component of the gameObject
 	/// </summary>
-	/// <param name="componentId_"></param>
+	/// <param name="componentId_">: id of component</param>
 	/// <exception cref="Component.Exception">Thrown when componentId doesnt correspond to any component</exception>
 	/// <returns>Component* if it exists, nullptr if it doesn't</returns>
-	inline Component* getComponent(unsigned int componentId) const;
+	Component* getComponent(unsigned int componentId) const;
 
 	inline const std::list<GameObject*>& getChildren() const {
 		return _children;
@@ -91,16 +97,29 @@ public:
 	}
 
 private:
-	std::list<GameObject*> _children;
 
-	//Si se usa un id, la lista de componentes podria pasar a un vector, o un diccionario (un vector seria mas rapido)
-	//Si se usa un id, el component Transform se podria meter junto a los otros componentes, con id = 0 por ejemplo
+	/// <summary>
+	/// Inserts into active components a component ordered using its id
+	/// </summary>
+	/// <param name="componentId">: id of component</param>
+	/// <param name="component">: component to insert</param>
+	void insertInOrder(unsigned int componentId, Component* component);
+
+	/// <summary>
+	/// Removes component from active components
+	/// </summary>
+	/// <param name="componentId">: id of component</param>
+	void removeFromActiveComponents(unsigned int componentId);
+
 	std::vector<Component*> _components;
+
+	std::list<std::pair<int, Component*>> _activeComponents;
+
+	std::list<GameObject*> _children;	
 
 	GameObject* _parent;
 
 	bool _enable, _persist;
 };
 
-
-#endif GAMEOBJECT_H
+#endif GAMEOBJECT_H /* GameObject.h */
