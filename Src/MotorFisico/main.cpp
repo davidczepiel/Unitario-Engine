@@ -1,5 +1,7 @@
 #include <iostream>
+#include <PxPhysics.h>
 
-void saluda() {
+void pruebaPx() {
 	std::cout << "estoy chachi fisico\n";
+	
 }
