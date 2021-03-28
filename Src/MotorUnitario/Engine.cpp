@@ -1,92 +1,94 @@
-#include "MotorUnitario.h"
+#include "Engine.h"
 //WIP
 #include "MotorGrafico/main.h"
 #include "MotorUnitario/GameObject.h"
 
-MotorUnitario::MotorUnitario() : _run(true)
+Engine* Engine::instance = nullptr;
+
+Engine::Engine() : _run(true)
 {
 }
 
-MotorUnitario::~MotorUnitario()
+Engine::~Engine()
 {
 }
 
-MotorUnitario* MotorUnitario::getInstance()
+Engine* Engine::getInstance()
 {
 	if (instance == nullptr) {
-		instance = new MotorUnitario();
+		instance = new Engine();
 	}
 	return instance;
 }
 
-void MotorUnitario::Tick()
+void Engine::tick()
 {
-	Update();
+	update();
 	//WIP
-	FixedUpdate();
-	LateUpdate();
+	fixedUpdate();
+	lateUpdate();
 }
 
-void MotorUnitario::Init()
+void Engine::init()
 {
 	//Llama al de ogre, temporal
 	test();
 }
 
-void MotorUnitario::Run()
+void Engine::run()
 {
 	while (_run)
 	{
-		Tick();
+		tick();
 
 	}
 }
 
-void MotorUnitario::ChangeScene(std::string scene)
+void Engine::changeScene(std::string scene)
 {
 
 }
 
-void MotorUnitario::StopExecution()
+void Engine::stopExecution()
 {
 	_run = false;
 }
 
-void MotorUnitario::Start()
+void Engine::start()
 {
 	for (auto& it : GOs) {
 		it->start();
 	}
 }
 
-void MotorUnitario::FixedUpdate()
+void Engine::fixedUpdate()
 {
 	for (auto& it : GOs) {
 		it->fixedUpdate();
 	}
 }
 
-void MotorUnitario::Update()
+void Engine::update()
 {
 	for (auto& it : GOs) {
 		it->update();
 	}
 }
 
-void MotorUnitario::LateUpdate()
+void Engine::lateUpdate()
 {
 	for (auto& it : GOs) {
 		it->lateUpdate();
 	}
 }
 
-GameObject* MotorUnitario::addGameObject()
+GameObject* Engine::addGameObject()
 {
 	GOs.push_back(new GameObject());
 	return GOs.back();
 }
 
-void MotorUnitario::remGameObject(GameObject* GO)
+void Engine::remGameObject(GameObject* GO)
 {
 	auto it = GOs.begin();
 	while (it != GOs.end()) {
@@ -99,7 +101,7 @@ void MotorUnitario::remGameObject(GameObject* GO)
 	}
 }
 
-void MotorUnitario::remGameObjectString(std::string const& GOname)
+void Engine::remGameObjectString(std::string const& GOname)
 {
 	auto it = GOs.begin();
 	while (it != GOs.end()) {
@@ -113,7 +115,7 @@ void MotorUnitario::remGameObjectString(std::string const& GOname)
 	}
 }
 
-GameObject* MotorUnitario::findGameObject(std::string name)
+GameObject* Engine::findGameObject(std::string name)
 {
 	auto it = GOs.begin();
 	while (it != GOs.end()) {
@@ -126,6 +128,6 @@ GameObject* MotorUnitario::findGameObject(std::string name)
 	return (it == GOs.end()) ? (nullptr) : (*it);
 }
 
-void MotorUnitario::FreeEnginesResources() {
+void Engine::freeEnginesResources() {
 
 }

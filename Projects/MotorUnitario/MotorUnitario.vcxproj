@@ -180,11 +180,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
-    <ClCompile Include="MotorUnitario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MotorAudio\MotorAudio.vcxproj">
@@ -199,11 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
-    <ClInclude Include="MotorUnitario.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
