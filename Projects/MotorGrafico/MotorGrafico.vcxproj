@@ -188,10 +188,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
+    <ClCompile Include="..\..\Src\MotorGrafico\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorGrafico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\main.h" />
+    <ClInclude Include="..\..\Src\MotorGrafico\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
