@@ -63,7 +63,7 @@ void GameObject::addComponent(Component* component)
 {
 	unsigned int id = component->getId();
 
-	if (id < 0)
+	if ((int)id < 0)
 		throw InvalidAccessException("Id of component cant be below zero");
 
 	if (_components[id] != nullptr)
@@ -79,9 +79,6 @@ void GameObject::addComponent(Component* component)
 
 void GameObject::removeComponent(unsigned int componentId)
 {
-	if (componentId < 0)
-		throw InvalidAccessException("Id of component cant be below zero");
-
 	if (componentId >= _components.size())
 		throw ComponentException("Component doesn't exists or it's not in gameObject named \": " + _name + "\"");
 
@@ -99,9 +96,6 @@ void GameObject::addChild(GameObject* gameObject)
 
 Component* GameObject::getComponent(unsigned int componentId) const
 {
-	if (componentId < 0)
-		throw InvalidAccessException("Id of component cant be below zero");
-
 	if (componentId >= _components.size())
 		return nullptr;
 

@@ -182,6 +182,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
+    <ClCompile Include="MotorUnitario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MotorAudio\MotorAudio.vcxproj">
@@ -198,6 +199,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
+    <ClInclude Include="MotorUnitario.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

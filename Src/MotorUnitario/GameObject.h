@@ -122,7 +122,7 @@ private:
 
 	std::vector<Component*> _components;
 
-	std::list<std::pair<int, Component*>> _activeComponents;
+	std::list<std::pair<unsigned int, Component*>> _activeComponents;
 
 	std::list<GameObject*> _children;	
 
