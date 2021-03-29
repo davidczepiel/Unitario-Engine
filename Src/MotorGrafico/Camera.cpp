@@ -51,3 +51,28 @@ void Camera::setViewportDimensions(float left, float top, float w, float h)
 	_viewport->setDimensions(left, top, w, h);
 
 }
+
+void Camera::setCamera(Ogre::Camera* cam)
+{
+	if (cam == nullptr)
+		throw "Null camera";
+	if (_camera != nullptr)
+	{
+		delete _camera;
+		delete _viewport;
+	}
+	_camera = cam;
+	_viewport = _camera->getViewport();
+}
+
+void Camera::setNode(Ogre::SceneNode* node)
+{
+	if (node == nullptr)
+		throw "null node";
+	if (_node != nullptr) {
+		_node->detachObject(_camera);
+		delete _node;
+	}
+	_node = node;
+	_node->attachObject(_camera);
+}

@@ -97,8 +97,8 @@ DECLARE_EXCEPTION(NullptrObjectException);
   This file is being used for academic purposes.
 
   Estructura de Datos y Algoritmos
-  Facultad de Inform·tica
+  Facultad de Inform√°tica
   Universidad Complutense de Madrid
 
- (c) Marco Antonio GÛmez MartÌn, 2012
+ (c) Marco Antonio G√≥mez Mart√≠n, 2012
 */
