@@ -2,12 +2,12 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include "Vector3.h"  //NOTA: no me deja poner class Vector3; me da error,asi que de momento pongo el include
-//class Vector3;
+#include "Vector3.h"  
+
 class Transform {
 public:
 	Transform();
-	Transform(Vector3 position, Vector3 rotation, Vector3 scale);
+	Transform(const Vector3& position, const Vector3& rotation, const Vector3& scale);
 	~Transform();
 
 	/// <summary>
