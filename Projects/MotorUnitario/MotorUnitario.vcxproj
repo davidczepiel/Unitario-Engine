@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -182,6 +182,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>
