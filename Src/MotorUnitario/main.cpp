@@ -1,6 +1,9 @@
 #include "MotorGrafico/main.h"
 #include "MotorAudio/main.h"
 #include "MotorFisico/main.h"
+#include <SDL.h>
+#include <string>
+#include "Engine.h"
 
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
@@ -11,10 +14,8 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 
 	pruebaPx();
-	test();
-	saluda();
-
+	Engine* prueba = Engine::getInstance();
+	prueba->init();
+	Sleep(1000);
 	return 0;
 }
-
-

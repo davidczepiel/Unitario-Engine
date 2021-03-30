@@ -5,7 +5,10 @@
 
 #include <list>
 #include <string>
+
 class GameObject;
+class SDL_Window;
+class GraphicsEngine;
 
 class Engine
 {
@@ -98,7 +101,6 @@ protected:
 	/// </summary>
 	GameObject* findGameObject(std::string name);
 
-
 private:
 	/// <summary>
 	/// Contructor of the class
@@ -106,6 +108,8 @@ private:
 	Engine();
 
 	static Engine* instance;
+	SDL_Window* sdlWindow;
+	GraphicsEngine* graphicsEngine;
 	std::list<GameObject*> GOs;
 
 	bool _run;

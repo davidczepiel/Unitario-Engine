@@ -2,6 +2,8 @@
 //WIP
 #include "MotorGrafico/main.h"
 #include "MotorUnitario/GameObject.h"
+#include <SDL.h>
+#include "MotorGrafico/GraphicsEngine.h"
 
 Engine* Engine::instance = nullptr;
 
@@ -31,8 +33,15 @@ void Engine::tick()
 
 void Engine::init()
 {
-	//Llama al de ogre, temporal
-	test();
+	SDL_Init(SDL_INIT_EVERYTHING);
+
+	Uint32 flags = SDL_WINDOW_ALLOW_HIGHDPI; //SDL_WINDOW_RESIZABLE
+	std::string nombre = "Prueba";
+	sdlWindow = SDL_CreateWindow(nombre.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, flags);
+
+	graphicsEngine = GraphicsEngine::getInstance();
+	graphicsEngine->initRoot();
+	graphicsEngine->initWindow();
 }
 
 void Engine::run()
@@ -40,13 +49,11 @@ void Engine::run()
 	while (_run)
 	{
 		tick();
-
 	}
 }
 
 void Engine::changeScene(std::string scene)
 {
-
 }
 
 void Engine::stopExecution()
@@ -129,5 +136,4 @@ GameObject* Engine::findGameObject(std::string name)
 }
 
 void Engine::freeEnginesResources() {
-
 }
