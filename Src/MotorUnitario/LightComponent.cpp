@@ -1,7 +1,11 @@
 #include "LightComponent.h"
-#include "MotorGrafico/Light.h"
+#include "ComponentIDs.h"
 
-LightComponent::LightComponent(): Component(2, nullptr)
+LightComponent::LightComponent(GameObject* gameObject): Component(ComponentId::LightComponent, gameObject), _light(nullptr)
 {
-	_light->setDiffuse(5, 5, 5);
+	//TODO: initialize Light's using sceneNode from transform or whatever, i dunno
+}
+
+LightComponent::~LightComponent()
+{
 }
