@@ -1,4 +1,3 @@
-#pragma once
 #include "MotorGrafico/main.h"
 #include "MotorAudio/main.h"
 #include "MotorFisico/main.h"

@@ -1,7 +1,12 @@
 #pragma once
+#ifndef COMPONENTSFACTORY_H
+#define COMPONENTSFACTORY_H
 #include <string>
 #include <map>
 class ComponentFactory;
+
+static std::map<std::string, ComponentFactory*> _componentTranslator;
+
 class ComponentsFactory
 {
 public:
@@ -16,15 +21,18 @@ public:
 	/// </summary>
 	/// <param name="name">The name component</param>
 	/// <param name="factory">The equivalent factory</param>
-	static void add(std::string name, ComponentFactory* factory);
+	static void add(const std::string& name, ComponentFactory* factory);
 	
 	/// <summary>
 	/// gets a component based in the name received
 	/// </summary>
 	/// <param name="name">The name of the desired component</param>
 	/// <returns>The desired component</returns>
-	static ComponentFactory* getComponentByName(std::string name);
+	static ComponentFactory* getComponentByName(const std::string& name);
+
 private:
-	static std::map<std::string, ComponentFactory*> _componentTranslator;
+	
 };
+#endif // !COMPONENTSFACTORY_H
+
 

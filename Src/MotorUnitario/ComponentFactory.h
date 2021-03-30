@@ -1,13 +1,17 @@
 #pragma once
-#include <iostream>
+#ifndef COMPONENTFACTORY_H
+#define COMPONENTFACTORY_H
+
 #define FACTORY(name) virtual name* create(){return new name();}
 class ComponentFactory
 {
 public:
+	virtual ComponentFactory* create() = 0;
+
+private:
 	ComponentFactory() {
 
 	}
 	virtual ~ComponentFactory() {}
-	virtual ComponentFactory* create() {}
-
 };
+#endif // !COMPONENTFACTORY_H
