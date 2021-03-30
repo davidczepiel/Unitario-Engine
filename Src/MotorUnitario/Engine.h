@@ -105,8 +105,8 @@ private:
 	/// </summary>
 	Engine();
 
-	static Engine* instance;
-	std::list<GameObject*> GOs;
+	static Engine* _instance;
+	std::list<GameObject*> _GOs;
 
 	bool _run;
 };

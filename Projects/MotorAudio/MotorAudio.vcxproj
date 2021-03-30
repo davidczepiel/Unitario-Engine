@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -183,13 +183,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorAudio\AudioEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorAudio\AudioSource.cpp" />
-    <ClCompile Include="..\..\Src\MotorAudio\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorAudio\AudioEngine.h" />
     <ClInclude Include="..\..\Src\MotorAudio\AudioSource.h" />
     <ClInclude Include="..\..\Src\MotorAudio\Exceptions.h" />
-    <ClInclude Include="..\..\Src\MotorAudio\main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
