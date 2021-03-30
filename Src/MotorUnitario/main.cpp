@@ -1,7 +1,8 @@
+#pragma once
 #include "MotorGrafico/main.h"
 #include "MotorAudio/main.h"
 #include "MotorFisico/main.h"
-
+#include "ComponentFactory.h"
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
 #else
@@ -13,8 +14,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 	pruebaPx();
 	test();
 	saluda();
-
-	return 0;
+	
 }
 
 

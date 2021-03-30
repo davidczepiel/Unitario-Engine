@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-class Transform;
+class Transformer;
 class Component;
 
 class GameObject {
