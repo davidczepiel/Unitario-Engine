@@ -185,11 +185,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorAudio\AudioEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorAudio\AudioSource.cpp" />
+    <ClCompile Include="..\..\Src\MotorAudio\Listener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorAudio\AudioEngine.h" />
     <ClInclude Include="..\..\Src\MotorAudio\AudioSource.h" />
     <ClInclude Include="..\..\Src\MotorAudio\Exceptions.h" />
+    <ClInclude Include="..\..\Src\MotorAudio\Listener.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

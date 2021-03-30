@@ -20,9 +20,9 @@ AudioEngine* AudioEngine::getInstance()
 
 void AudioEngine::init() {
 	FMOD_RESULT result;
-	result = FMOD::System_Create(&_system); // Creamos el objeto system
-	// 128 canales (numero maximo que podremos utilizar simultaneamente)
-	result = _system->init(128, FMOD_INIT_NORMAL, 0); // Inicializacion de FMOD
+	result = FMOD::System_Create(&_system); // Create the System Objects
+	// 128 channels (max number that we can use)
+	result = _system->init(128, FMOD_INIT_NORMAL, 0); //Fmod Initialization
 
 	if (result != FMOD_OK) {
 		//TO DO

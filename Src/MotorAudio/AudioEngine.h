@@ -15,13 +15,30 @@ public:
 	static AudioEngine* getInstance();
 	void operator=(const AudioEngine&) = delete;
 	AudioEngine(AudioEngine& other) = delete;	
-
+	/// <summary>
+	/// Initialize the system object and prepare FMOD for playback
+	/// </summary>
 	void init();
+	/// <summary>
+	/// Update the system object
+	/// </summary>
 	void update();
+	/// <summary>
+	/// Closes and frees this object and its resources
+	/// </summary>
 	void release();
 
-
 	inline FMOD::System* getSystem() const { return _system; };
+
+	/// <summary>
+	/// Sets the global doppler scale, distance factorand log rolloff scale for all 3D sound in FMOD.
+	/// </summary>
+	/// <param name="dopplerScale"> General scaling factor for how much the pitch varies due to doppler shifting in 3D sound</param>
+	/// <param name="distanceFactor">Relative distance factor to FMOD units. This only affects doppler</param>
+	/// <param name="rolloff">Scaling factor for 3D sound rolloff or attenuation. Setting this value makes the sound drop off faster or slower. 
+	/// The higher the value, the faster volume will attenuate, and conversely the lower the value, the slower it will attenuate</param>
+	inline void set3DSettings(float dopplerScale, float distanceFactor, float rolloff) { _system->set3DSettings(dopplerScale, distanceFactor, rolloff); }
+
 private:
 	
 	/// <summary>
@@ -29,10 +46,8 @@ private:
 	/// </summary>
 	AudioEngine();
 
-	//COMMENTS
 	static AudioEngine* _instance;
 
-	//comments
 	FMOD::System* _system;
 };
 

@@ -102,8 +102,8 @@ DECLARE_EXCEPTION(EAudioSource);
   This file is being used for academic purposes.
 
   Estructura de Datos y Algoritmos
-  Facultad de Informática
+  Facultad de Informatica
   Universidad Complutense de Madrid
 
- (c) Marco Antonio Gómez Martín, 2012
+ (c) Marco Antonio Gomez Martin, 2012
 */
