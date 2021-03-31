@@ -10,17 +10,21 @@ class RenderObject
 {
 public:
 	/// <summary>
-	/// Class constructor
+	/// Creates a new entity with a mesh
 	/// </summary>
 	///<param name="meshName">: Name of the object mesh</param>
-	RenderObject(std::string meshName);
+	RenderObject(std::string const& meshName);
+
+	/// <summary>
+	/// Creates a new entity in a position
+	/// </summary>
 	~RenderObject();
 
 	/// <summary>
 	/// Set the object material
 	/// </summary>
 	///<param name="material name">: Name of the material</param>
-	void setMaterial(std::string materialName);
+	void setMaterial(std::string const& materialName);
 
 	/// <summary>
 	/// Set the object position
@@ -29,15 +33,6 @@ public:
 	///<param name="y">: Y position</param>
 	///<param name="z">: Z position</param>
 	void setPosition(float x, float y, float z);
-
-	/// <summary>
-	/// Set the object orientation
-	/// </summary>
-	///<param name="angle">: Angle to rotate in radians</param>
-	///<param name="x">: X axis</param>
-	///<param name="y">: Y axis</param>
-	///<param name="z">: Z axis</param>
-	void setOrientation(float angle, float x, float y, float z);
 
 	/// <summary>
 	/// Rotates the object
@@ -65,6 +60,14 @@ public:
 	void scale(float x, float y, float z);
 
 	/// <summary>
+	/// Points the local Z direction of this object at a point in space
+	/// </summary>
+	///<param name="x">: X axis point</param>
+	///<param name="y">: Y axis point</param>
+	///<param name="z">: Z axis point</param>
+	void lookAt(float x, float y, float z);
+
+	/// <summary>
 	/// Set the object visibility
 	/// </summary>
 	///<param name="visible">: is visible</param>
@@ -87,4 +90,4 @@ protected:
 private:
 };
 
-#endif /*RENDEROBJECT_H*/
+#endif //!RENDEROBJECT_H

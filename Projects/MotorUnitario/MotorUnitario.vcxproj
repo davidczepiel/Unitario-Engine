@@ -183,6 +183,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\RenderObject_Component.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\RenderObject_Component.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>
