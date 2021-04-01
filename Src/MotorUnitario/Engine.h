@@ -7,7 +7,6 @@
 #include <string>
 
 class GameObject;
-class SDL_Window;
 class GraphicsEngine;
 
 class Engine
@@ -108,7 +107,6 @@ private:
 	Engine();
 
 	static Engine* instance;
-	SDL_Window* sdlWindow;
 	GraphicsEngine* graphicsEngine;
 	std::list<GameObject*> GOs;
 

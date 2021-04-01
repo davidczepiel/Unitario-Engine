@@ -3,7 +3,11 @@
 namespace Ogre {
 	class Root;
 	class RenderWindow;
+
 }
+class SDL_Window;
+
+
 
 class GraphicsEngine {
 public:
@@ -17,7 +21,6 @@ public:
 	void operator=(const GraphicsEngine&) = delete;
 	GraphicsEngine(GraphicsEngine& other) = delete;
 
-	void test();
 
 	/// <summary>
 	/// This method initializes the Ogre Root
@@ -29,6 +32,11 @@ public:
 	/// </summary>
 	void initWindow();
 
+	/// <summary>
+	/// Starts rendering
+	/// </summary>
+	void start();
+
 private:
 
 	/// <summary>
@@ -39,4 +47,5 @@ private:
 	static GraphicsEngine* instance;
 	Ogre::Root* root;
 	Ogre::RenderWindow* window;
+	SDL_Window* sdlWindow;
 };

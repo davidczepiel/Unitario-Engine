@@ -1,3 +1,4 @@
+#define SDL_MAIN_HANDLED
 #include "MotorGrafico/main.h"
 #include "MotorAudio/main.h"
 #include "MotorFisico/main.h"
@@ -16,6 +17,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 	pruebaPx();
 	Engine* prueba = Engine::getInstance();
 	prueba->init();
-	Sleep(1000);
+	prueba->run();
+	//Sleep(1000);
 	return 0;
 }

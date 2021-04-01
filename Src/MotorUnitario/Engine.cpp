@@ -33,11 +33,7 @@ void Engine::tick()
 
 void Engine::init()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
-
-	Uint32 flags = SDL_WINDOW_ALLOW_HIGHDPI; //SDL_WINDOW_RESIZABLE
-	std::string nombre = "Prueba";
-	sdlWindow = SDL_CreateWindow(nombre.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, flags);
+	
 
 	graphicsEngine = GraphicsEngine::getInstance();
 	graphicsEngine->initRoot();
@@ -46,6 +42,7 @@ void Engine::init()
 
 void Engine::run()
 {
+	start();
 	while (_run)
 	{
 		tick();
@@ -63,6 +60,7 @@ void Engine::stopExecution()
 
 void Engine::start()
 {
+	graphicsEngine->start();
 	for (auto& it : GOs) {
 		it->start();
 	}
