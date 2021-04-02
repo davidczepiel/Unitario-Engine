@@ -59,13 +59,13 @@ public:
 
 	/// <summary>
 	/// Makes gamePad rumble
-	/// <param name = "low_frequency_rumble">: The intensity of the low frequency (left) rumble motor, from 0 to 0xFFFF </param>
-	/// <param name = "high_frequency_rumble">: The intensity of the high frequency(right) rumble motor, from 0 to 0xFFFF </param>
-	/// <param name = "duration_ms">: The duration of the rumble effect, in milliseconds (between 0 and 1000) </param>
-	/// <param name = "gPadID">: ID of the controller< param>
+	/// </summary>
+	/// <param name="low_frequency_rumble">: The intensity of the low frequency (left) rumble motor, from 0 to 0xFFFF </param>
+	/// <param name="high_frequency_rumble">: The intensity of the high frequency(right) rumble motor, from 0 to 0xFFFF </param>
+	/// <param name="duration_ms">: The duration of the rumble effect, in milliseconds (between 0 and 1000) </param>
+	/// <param name="gPadID">: ID of the controller</param>
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	/// <exception cref="GamePadException"> throws if duration time is less than 0 or greater than 1000 </exception>
-	/// </summary>
 	void rumbleGamePad(Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms, int gPadID = 0);
 
 private:
@@ -94,19 +94,19 @@ private:
 	/// <summary>
 	/// Removes a controller specified by the given ID
 	/// </summary>
-	/// <param name = "instanceId"> ID of the controller to be removed < / param>
+	/// <param name = "instanceId">: ID of the controller to be removed </param>
 	void removeController(SDL_JoystickID instanceId);
 
 	/// <summary>
 	/// Finds the controller whose button has been pressed and processes it
 	/// </summary>
-	/// <param name = "event"> event triggered < / param>
+	/// <param name = "event">: event triggered </param>
 	void processButtonDown(SDL_Event* event);
 
 	/// <summary>
 	/// Finds the controller whose button has been released and processes it
 	/// </summary>
-	/// <param name = "event"> event triggered < / param>
+	/// <param name = "event">: event triggered </param>
 	void processButtonUp(SDL_Event* event);
 
 	/// <summary>
