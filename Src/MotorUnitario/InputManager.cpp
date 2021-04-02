@@ -5,9 +5,9 @@
 
 std::unique_ptr<InputManager> InputManager::instance = nullptr;
 
-InputManager::InputManager(): _keyBoardInput(KeyBoardInput::getInstance()), 
-	_mouseInput(MouseInput::getInstance()), 
-	_gamepadInput(GamePadInput::getInstance())
+InputManager::InputManager() : _keyBoardInput(KeyBoardInput::getInstance()),
+_mouseInput(MouseInput::getInstance()),
+_gamepadInput(GamePadInput::getInstance())
 {
 }
 

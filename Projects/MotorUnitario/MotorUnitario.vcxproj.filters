@@ -80,5 +80,8 @@
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
