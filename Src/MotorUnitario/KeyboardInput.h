@@ -18,18 +18,8 @@ public:
 	/// Returns the instance of KeyBoardInput, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static KeyBoardInput* getInstance();
-	void operator=(const KeyBoardInput&) = delete;
+	KeyBoardInput& operator=(const KeyBoardInput&) = delete;
 	KeyBoardInput(KeyBoardInput& other) = delete;
-
-	/// <summary>
-	/// Don't call. Resets the key's
-	/// </summary>
-	void reset();
-
-	/// <summary>
-	/// Don't call
-	/// </summary>
-	void receiveEvent(SDL_Event* event);
 
 	/// <summary>
 	/// </summary>
@@ -68,11 +58,28 @@ private:
 	/// Contructor of the class
 	/// </summary>
 	KeyBoardInput();
+
+	/// <summary>
+	/// Resets the key's. Called by InputManager
+	/// </summary>
+	void reset();
+
+	/// <summary>
+	/// Called by InputManager
+	/// </summary>
+	void receiveEvent(SDL_Event* event);
+
 	static std::unique_ptr<KeyBoardInput> instance;
 
 	std::bitset<256> _keyJustDown;
 	std::bitset<256> _keyJustUp;
 	const Uint8* _keyboardState;
+
+	/// <summary>
+	/// Used so only InputManager is able to call 'reset' and 'receiveEvent' methods, 
+	/// if this methods were in public, the user could call those
+	/// </summary>
+	friend class InputManager;
 };
 
 #endif /*KeyBoardInput.h*/

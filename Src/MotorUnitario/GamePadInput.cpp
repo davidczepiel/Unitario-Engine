@@ -1,6 +1,6 @@
 #include "GamePadInput.h"
 
-GamePadInput* GamePadInput::instance = nullptr;
+std::unique_ptr<GamePadInput> GamePadInput::instance = nullptr;
 
 GamePadInput::GamePadInput()
 {
@@ -12,10 +12,10 @@ GamePadInput::~GamePadInput()
 
 GamePadInput* GamePadInput::getInstance()
 {
-	if (instance == nullptr) {
-		instance = new GamePadInput();
+	if (instance.get() == nullptr) {
+		instance.reset(new GamePadInput());
 	}
-	return instance;
+	return instance.get();
 }
 
 void GamePadInput::reset()

@@ -18,7 +18,7 @@ public:
 	/// Returns the instance of InputManager, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static InputManager* getInstance();
-	void operator=(const InputManager&) = delete;
+	InputManager& operator=(const InputManager&) = delete;
 	InputManager(InputManager& other) = delete;
 
 	/// <summary>

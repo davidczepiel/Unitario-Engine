@@ -5,35 +5,31 @@
 
 #include <memory>
 #include <array>
+#include <bitset>
 
 #include "SDL_events.h"
 
 class MouseInput
 {
 public:
+
+	/// <summary>
+	/// Posible mouse buttons. 
+	/// <para> X1 and X2 are optional additional mouse buttons the user might have </para>
+	/// </summary>
 	enum MOUSEBUTTON : Uint8 {
-		LEFT = 0, MIDDLE = 1, RIGHT = 2
+		LEFT, MIDDLE, RIGHT, X1, X2
 	};
 
 public:
 	~MouseInput();
 
 	/// <summary>
-	/// Returns the instance of MotorUnitario, in case there is no such instance, it creates one and returns that one
+	/// Returns the instance of MouseInput, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static MouseInput* getInstance();
 	MouseInput& operator=(const MouseInput&) = delete;
 	MouseInput(MouseInput& other) = delete;
-
-	/// <summary>
-	/// Don't call. Resets the just keys
-	/// </summary>
-	void reset();
-
-	/// <summary>
-	/// Don't call.
-	/// </summary>
-	void receiveEvent(SDL_Event* event);
 
 	/// <summary>
 	/// </summary>
@@ -69,14 +65,27 @@ private:
 	/// Contructor of the class
 	/// </summary>
 	MouseInput();
+
+	/// <summary>
+	/// Resets the key's. Called by InputManager
+	/// </summary>
+	void reset();
+
+	/// <summary>
+	/// Called by InputManager
+	/// </summary>
+	void receiveEvent(SDL_Event* event);
+
 	static std::unique_ptr<MouseInput> instance;
 
 	std::array<double, 2> _mousePos;
-	std::array<bool, 3> _mouseButtonState;
-	std::array<bool, 3> _mouseButtonJustDown;
-	std::array<bool, 3> _mouseButtonJustUp;
+	std::bitset<5> _mouseButtonState;
+	std::bitset<5> _mouseButtonJustDown;
+	std::bitset<5> _mouseButtonJustUp;
 
 	double _mouseWheelDelta;
+
+	friend class InputManager;
 };
 
 #endif /*MouseInput.h*/

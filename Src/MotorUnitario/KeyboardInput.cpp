@@ -2,9 +2,8 @@
 
 std::unique_ptr<KeyBoardInput> KeyBoardInput::instance = nullptr;
 
-KeyBoardInput::KeyBoardInput()
+KeyBoardInput::KeyBoardInput(): _keyJustDown(), _keyJustUp(), _keyboardState(SDL_GetKeyboardState(NULL))
 {
-	_keyboardState = SDL_GetKeyboardState(NULL);
 }
 
 KeyBoardInput::~KeyBoardInput()
