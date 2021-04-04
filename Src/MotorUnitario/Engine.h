@@ -8,6 +8,7 @@
 
 class GameObject;
 class GraphicsEngine;
+class InputManager;
 
 class Engine
 {
@@ -106,9 +107,15 @@ private:
 	/// </summary>
 	Engine();
 
+	/// <summary>
+	/// Process events
+	/// </summary>
+	void processEvents();
+
 	static Engine* instance;
-	GraphicsEngine* graphicsEngine;
-	std::list<GameObject*> GOs;
+	GraphicsEngine* _graphicsEngine;
+	std::list<GameObject*> _GOs;
+	InputManager* _inputManager;
 
 	bool _run;
 };

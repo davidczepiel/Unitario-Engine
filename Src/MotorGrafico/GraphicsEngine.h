@@ -33,9 +33,14 @@ public:
 	void initWindow();
 
 	/// <summary>
-	/// Starts rendering
+	/// Render one frame
 	/// </summary>
-	void start();
+	void render();
+
+	/// <summary>
+	/// Config for the window grab
+	/// </summary>
+	void setWindowGrab(bool _grab);
 
 private:
 
@@ -45,7 +50,7 @@ private:
 	GraphicsEngine();
 
 	static GraphicsEngine* instance;
-	Ogre::Root* root;
-	Ogre::RenderWindow* window;
-	SDL_Window* sdlWindow;
+	Ogre::Root* _root;
+	Ogre::RenderWindow* _window;
+	SDL_Window* _sdlWindow;
 };

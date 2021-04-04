@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include "OgreCamera.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
@@ -84,3 +88,4 @@ private:
 	Ogre::SceneNode* _node;
 };
 
+#endif //!CAMERA_H
