@@ -2,6 +2,7 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamePadInput.h"
+#include "Engine.h"
 
 std::unique_ptr<InputManager> InputManager::instance = nullptr;
 
@@ -13,9 +14,9 @@ _gamepadInput(GamePadInput::getInstance())
 
 InputManager::~InputManager()
 {
-	delete _keyBoardInput;	_keyBoardInput = nullptr;
-	delete _mouseInput;		_mouseInput = nullptr;
-	delete _gamepadInput;	_gamepadInput = nullptr;
+	//delete _keyBoardInput;	_keyBoardInput = nullptr;
+	//delete _mouseInput;		_mouseInput = nullptr;
+	//delete _gamepadInput;	_gamepadInput = nullptr;
 }
 
 InputManager* InputManager::getInstance()
@@ -53,6 +54,9 @@ void InputManager::update()
 			break;
 		case SDL_MOUSEWHEEL:
 			_mouseInput->receiveEvent(&event);
+			break;
+		case SDL_QUIT:
+			Engine::getInstance()->stopExecution();
 			break;
 		}
 	}

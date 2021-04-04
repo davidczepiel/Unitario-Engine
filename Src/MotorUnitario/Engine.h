@@ -39,18 +39,18 @@ public:
 	/// </summary>
 	void changeScene(std::string scene);
 
+	//WIP
+	/// <summary>
+	/// Stops the main loop
+	/// </summary>
+	void stopExecution();
+
 protected:
 
 	/// <summary>
 	/// Includes all the methods related to the GameObjects Update
 	/// </summary>
 	void tick();
-
-	//WIP
-	/// <summary>
-	/// Stops the main loop
-	/// </summary>
-	void stopExecution();
 
 	/// <summary>
 	/// Frees everything related to the engines (Audio, Physics, Graphics)
