@@ -188,9 +188,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp" />
+    <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorGrafico\Camera.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\main.h" />

@@ -97,13 +97,3 @@ DECLARE_EXCEPTION(GamePadException);
 
 #endif // EXCEPTIONS_H
 
-
-/*
-  This file is being used for academic purposes.
-
-  Estructura de Datos y Algoritmos
-  Facultad de Informática
-  Universidad Complutense de Madrid
-
- (c) Marco Antonio Gómez Martín, 2012
-*/
