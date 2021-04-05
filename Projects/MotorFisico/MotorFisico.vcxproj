@@ -108,7 +108,7 @@
       <AdditionalDependencies>LowLevel_static_32.lib;LowLevelAABB_static_32.lib;LowLevelDynamics_static_32.lib;PhysX_32.lib;PhysXCharacterKinematic_static_32.lib;PhysXCommon_32.lib;PhysXCooking_32.lib;PhysXExtensions_static_32.lib;PhysXFoundation_32.lib;PhysXPvdSDK_static_32.lib;PhysXTask_static_32.lib;PhysXVehicle_static_32.lib;SceneQuery_static_32.lib;SimulationController_static_32.lib;SnippetUtils_static_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x86.bat</Command>
+      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x86_DEBUG.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -156,7 +156,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\PhysX\Buildx64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x64.bat</Command>
+      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x64_DEBUG.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
