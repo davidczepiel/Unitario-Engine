@@ -2,10 +2,7 @@
 #include "fmod.h"
 #include <fmod.hpp>
 
-
-
 void saluda() {
-
 	// FMOD TESTING
 	FMOD::System* system;
 	FMOD_RESULT result;

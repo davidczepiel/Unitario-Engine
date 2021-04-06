@@ -1,7 +1,6 @@
-#include "MotorGrafico/main.h"
-#include "MotorAudio/main.h"
-#include "MotorFisico/main.h"
-#include "MotorFisico/PhysxEngine.h"
+#define SDL_MAIN_HANDLED
+
+#include "Engine.h"
 
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
@@ -11,12 +10,9 @@ int WINAPI
 WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #endif
 
-	pruebaPx();
-	test();
-	saluda();
-	PhysxEngine* pEngine = PhysxEngine::getPxInstance();
-	pEngine->init();
+	Engine* prueba = Engine::getInstance();
+	prueba->init();
+	prueba->run();
+
 	return 0;
 }
-
-
