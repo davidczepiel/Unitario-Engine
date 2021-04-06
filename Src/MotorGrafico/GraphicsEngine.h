@@ -20,7 +20,6 @@ public:
 	GraphicsEngine& operator=(const GraphicsEngine&) = delete;
 	GraphicsEngine(GraphicsEngine& other) = delete;
 
-
 	/// <summary>
 	/// This method initializes the Ogre Root
 	/// </summary>
@@ -32,6 +31,11 @@ public:
 	void initWindow();
 
 	/// <summary>
+	/// Sets up the Ogre scene
+	/// </summary>
+	void setup();
+
+	/// <summary>
 	/// Render one frame
 	/// </summary>
 	void render();
@@ -40,6 +44,11 @@ public:
 	/// Config for the window grab
 	/// </summary>
 	void setWindowGrab(bool _grab);
+
+	/// <summary>
+	/// Gets the Scene Manager
+	/// </summary>
+	inline Ogre::SceneManager* getSceneManager() { return _sceneManager; }
 
 private:
 
@@ -51,5 +60,6 @@ private:
 	static GraphicsEngine* instance;
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
+	Ogre::SceneManager* _sceneManager;
 	SDL_Window* _sdlWindow;
 };

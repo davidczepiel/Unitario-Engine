@@ -8,7 +8,7 @@
 
 GraphicsEngine* GraphicsEngine::instance = nullptr;
 
-GraphicsEngine::GraphicsEngine() :_root(nullptr), _window(nullptr)
+GraphicsEngine::GraphicsEngine() :_root(nullptr), _window(nullptr), _sceneManager(nullptr), _sdlWindow(nullptr)
 {
 }
 
@@ -59,6 +59,11 @@ void GraphicsEngine::initWindow() {
 	_window = _root->createRenderWindow("PruebaOgre", 1920, 1080, false, &params);
 
 	setWindowGrab(false);
+}
+
+void GraphicsEngine::setup()
+{
+	_sceneManager = _root->createSceneManager();
 }
 
 void GraphicsEngine::render()
