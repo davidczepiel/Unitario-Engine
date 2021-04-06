@@ -63,24 +63,6 @@ public:
 	/// <param name="h">The viewport new height</param>
 	void setViewportDimensions(float left, float top, float w, float h);
 
-	/// <summary>
-	/// Sets the camera
-	/// </summary>
-	/// <param name="cam">The new Ogre camera</param>
-	void setCamera(Ogre::Camera* cam);
-
-	/// <summary>
-	/// Sets the camera scene node
-	/// </summary>
-	/// <param name="node">The new Ogre scene node</param>
-	void setNode(Ogre::SceneNode* node);
-
-	/// <summary>
-	/// Sets the ogre render window
-	/// </summary>
-	/// <param name="render window">The new RenderWindow</param>
-	void setReenderWindow(Ogre::RenderWindow* renderWin);
-
 private:
 	Ogre::Camera* _camera;
 	Ogre::RenderWindow* _renderWindow;
