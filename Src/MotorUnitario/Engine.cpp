@@ -43,8 +43,10 @@ void Engine::init()
 {
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
+	setResourcesPath("Assets/prueba.cfg");
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
+	_graphicsEngine->setup();
 }
 
 void Engine::run()
@@ -63,6 +65,11 @@ void Engine::changeScene(const std::string& scene)
 void Engine::stopExecution()
 {
 	_run = false;
+}
+
+void Engine::setResourcesPath(std::string const& resourcesPath)
+{
+	_graphicsEngine->setResourcePath(resourcesPath);
 }
 
 void Engine::start()

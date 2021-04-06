@@ -45,6 +45,12 @@ public:
 	/// </summary>
 	void stopExecution();
 
+	/// <summary>
+	/// Sets the resources path
+	/// </summary>
+	/// <param name="resourcesPath"> Resources.cfg path</param>
+	void setResourcesPath(std::string const& resourcesPath);
+
 protected:
 
 	/// <summary>

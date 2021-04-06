@@ -1,9 +1,18 @@
 #pragma once
+#ifndef GRAPHICSENGINE_H
+#define GRAPHICSENGINE_H
+
+#include <string>
 
 namespace Ogre {
 	class Root;
 	class RenderWindow;
 	class SceneManager;
+	class FileSystemLayer;
+	class SGTechniqueResolverListener;
+	namespace RTShader {
+		class ShaderGenerator;
+	}
 }
 class SDL_Window;
 
@@ -50,6 +59,8 @@ public:
 	/// </summary>
 	inline Ogre::SceneManager* getSceneManager() { return _sceneManager; }
 
+	inline void setResourcePath(std::string const& pathName) { _resourcesPath = pathName; }
+
 private:
 
 	/// <summary>
@@ -57,9 +68,36 @@ private:
 	/// </summary>
 	GraphicsEngine();
 
+	/// <summary>
+	/// Locate all resources related to the path
+	/// </summary>
+	/// <param name="path"> Relative route to the resources.cfg</param>
+	void _locateResources(std::string const& path);
+
+	/// <summary>
+	/// Load all the resources
+	/// </summary>
+	void _loadResources();
+
+	//bool initialiseRTShaderSystem();
+
 	static GraphicsEngine* instance;
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
 	Ogre::SceneManager* _sceneManager;
+	// File system abstraction layer
+	Ogre::FileSystemLayer* _mFSLayer; 
+	// The Shader generator instance.
+	Ogre::RTShader::ShaderGenerator* _mShaderGenerator; 
+	// Relative path to solution folder
+	std::string _mSolutionPath;    
+	std::string _mRTShaderLibPath;
+	// Resources path relative to user
+	std::string _resourcesPath;
+	// Shader generator material manager listener.
+	Ogre::SGTechniqueResolverListener* _mMaterialMgrListener; 
 	SDL_Window* _sdlWindow;
+
 };
+
+#endif /*GRAPHICSENGINE.h*/
