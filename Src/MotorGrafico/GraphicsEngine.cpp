@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_video.h>
 #include <SDL_syswm.h>
+#include "Exceptions.h"
 
 #include "Camera.h"
 
@@ -30,7 +31,7 @@ void GraphicsEngine::initRoot()
 #ifdef _DEBUG
 	_root = new Ogre::Root("OgreDEBUG/pluginsDEBUG.cfg", "OgreDEBUG/ogreDEBUG.cfg");
 #else //RELEASE
-	root = new Ogre::Root("OgreRELEASE/pluginsRELEASE.cfg", "OgreRELEASE/ogreRELEASE.cfg");
+	_root = new Ogre::Root("OgreRELEASE/pluginsRELEASE.cfg", "OgreRELEASE/ogreRELEASE.cfg");
 #endif
 }
 
@@ -49,12 +50,14 @@ void GraphicsEngine::initWindow() {
 	std::string nombre = "Prueba";
 
 	_sdlWindow = SDL_CreateWindow(nombre.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, flags);
-	SDL_GetWindowWMInfo(_sdlWindow, &wmInfo);
+	if (SDL_GetWindowWMInfo(_sdlWindow, &wmInfo) == SDL_FALSE) {
+		throw EGraphicEngine("Error creating window");
+	}
 	
 	params["FSAA"] = configuracion["FSAA"].currentValue;     
 	params["vsync"] = configuracion["VSync"].currentValue;
 	params["gamma"] = configuracion["sRGB Gamma Conversion"].currentValue;
-	params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
+	params["externalWindowHandle"] = std::to_string(size_t(wmInfo.info.win.window));
 
 	_window = _root->createRenderWindow("PruebaOgre", 1920, 1080, false, &params);
 
