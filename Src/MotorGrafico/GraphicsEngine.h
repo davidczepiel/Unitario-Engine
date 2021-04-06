@@ -8,17 +8,16 @@ namespace Ogre {
 class SDL_Window;
 
 
-
 class GraphicsEngine {
 public:
 
 	~GraphicsEngine();
 
 	/// <summary>
-	/// Returns the instance of MotorUnitario, in case there is no such instance, it creates one and returns that one
+	/// Returns the instance of GraphicsEngine, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static GraphicsEngine* getInstance();
-	void operator=(const GraphicsEngine&) = delete;
+	GraphicsEngine& operator=(const GraphicsEngine&) = delete;
 	GraphicsEngine(GraphicsEngine& other) = delete;
 
 

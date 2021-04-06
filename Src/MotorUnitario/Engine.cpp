@@ -56,7 +56,7 @@ void Engine::run()
 	}
 }
 
-void Engine::changeScene(std::string scene)
+void Engine::changeScene(const std::string& scene)
 {
 }
 
@@ -112,7 +112,7 @@ void Engine::remGameObject(GameObject* GO)
 	}
 }
 
-void Engine::remGameObjectString(std::string const& GOname)
+void Engine::remGameObjectString(const std::string& GOname)
 {
 	auto it = _GOs.begin();
 	while (it != _GOs.end()) {
@@ -126,7 +126,7 @@ void Engine::remGameObjectString(std::string const& GOname)
 	}
 }
 
-GameObject* Engine::findGameObject(std::string name)
+GameObject* Engine::findGameObject(const std::string& name)
 {
 	auto it = _GOs.begin();
 	while (it != _GOs.end()) {

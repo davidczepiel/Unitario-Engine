@@ -14,9 +14,6 @@ _gamepadInput(GamePadInput::getInstance())
 
 InputManager::~InputManager()
 {
-	//delete _keyBoardInput;	_keyBoardInput = nullptr;
-	//delete _mouseInput;		_mouseInput = nullptr;
-	//delete _gamepadInput;	_gamepadInput = nullptr;
 }
 
 InputManager* InputManager::getInstance()
