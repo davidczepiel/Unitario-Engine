@@ -3,7 +3,7 @@
 namespace Ogre {
 	class Root;
 	class RenderWindow;
-
+	class SceneManager;
 }
 class SDL_Window;
 
