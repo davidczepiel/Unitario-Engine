@@ -62,13 +62,11 @@ public:
 	/// <summary>
 	/// Returns the magnitude(length) of the vector3
 	/// </summary>
-	/// <returns></returns>
 	inline double magnitude() const { return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2)); }
 
 	/// <summary>
 	/// Returns a vector3 with a magnitude of 1  
 	/// </summary>
-	/// <returns></returns>
 	Vector3 normalize() const;
 
 	/// <summary>
