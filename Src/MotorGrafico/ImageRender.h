@@ -2,9 +2,13 @@
 #ifndef IMAGERENDER_H
 #define IMAGERENDER_H
 
-#include <OgreSceneNode.h>
-#include <OgreBillboardSet.h>
 #include <string>
+
+namespace Ogre
+{
+	class SceneNode;
+	class BillboardSet;
+};
 
 class ImageRender {
 public:
@@ -37,31 +41,31 @@ public:
 	/// </summary>
 	/// <param name="width">New width</param>
 	/// <param name="height">New height</param>
-	inline void setDefaultDimensions(float width, float height) { _billboardSet->setDefaultDimensions(width, height); }
+	void setDefaultDimensions(float width, float height);
 
 	/// <summary>
 	/// Sets the name of the material to be used for this billboardSet
 	/// </summary>
 	/// <param name="name"></param>
-	inline void setMaterialName(const std::string& name) { _billboardSet->setMaterialName(name); }
+	void setMaterialName(const std::string& name);
 
 	/// <summary>
 	/// Makes the billboardSet attached to this node become invisible or visible 
 	/// </summary>
 	/// <param name="visible">Whether the objects are to be made visible or invisible</param>
-	inline void setVisible(bool visible) { _billboardSetNode->setVisible(visible); }
+	void setVisible(bool visible);
 
 	/// <summary>
 	/// Sets the point which acts as the origin point for all billboards in this set
 	/// </summary>
 	/// <param name="type">Type of billboardOrigin</param>
-	inline void setBillboardOrigin(BillboardOrigin type) { _billboardSet->setBillboardOrigin((Ogre::BillboardOrigin)type); }
+	void setBillboardOrigin(BillboardOrigin type);
 
 	/// <summary>
 	///Sets the type(orientation) of billboard to use in this set
 	/// </summary>
 	/// <param name="type">Type of billboardOrientation</param>
-	inline void setBillboardType(BillboardType type) { _billboardSet->setBillboardType((Ogre::BillboardType)type); }
+	void setBillboardType(BillboardType type);
 
 private:
 
