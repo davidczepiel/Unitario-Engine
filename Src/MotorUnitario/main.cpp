@@ -21,7 +21,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 	lua_State* L = luaL_newstate();
 
 	int r = luaL_dostring(L, test.c_str());
-	auto aux = luaL_dofile(L, "Assets/Levels/test.lua");
+	auto aux = luaL_dofile(L, "Assets/Levels/test.txt");
 	if (r == LUA_OK) {
 		lua_getglobal(L, "o");
 		if (lua_isnumber(L, -1)) {
