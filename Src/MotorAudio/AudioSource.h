@@ -21,7 +21,7 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	AudioSource();
-	AudioSource(std::string route, bool loop);
+	AudioSource(std::string const& route);
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
@@ -35,7 +35,7 @@ public:
 	/// Play the audio with the id "id"
 	/// </summary>
 	/// <param name="id">Id audio</param>
-	bool play(int id);
+	void play(int id);
 	/// <summary>
 	/// Update the 3d position
 	/// </summary>
@@ -56,13 +56,13 @@ public:
 	/// <param name="loop"> loop = 0 no loop; loop = -1 normal loop; loop = n the audio will repeat n times</param>
 	void setLoop(int id, int loop);
 	/// <summary>
-	/// Sets the audio loop 
+	/// Sets the option mono-stereo in the audio.
 	/// </summary>
 	/// <param name="id">Id audio</param>
 	/// <param name="stereo">If true audio will be stereo. Otherwise it will be mono</param>
 	void set3D(int id, bool stereo);
 	/// <summary>
-	/// Sets the audio directory route  
+	/// Gets the audio directory route  
 	/// </summary>
 	float getVolume() const;
 	/// <summary>

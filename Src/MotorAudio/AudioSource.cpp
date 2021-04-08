@@ -8,8 +8,9 @@ AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _rou
 
 }
 
-AudioSource::AudioSource(std::string route, bool loop): _system(nullptr), _channel(nullptr), _sound(), _route(route)
+AudioSource::AudioSource(std::string const& route): _system(nullptr), _channel(nullptr), _sound(), _route(route)
 {
+	createAudio();
 }
 
 AudioSource::~AudioSource()
@@ -32,7 +33,7 @@ void AudioSource::createAudio()
 	_sound.push_back(audio);
 }
 
-bool AudioSource::play(int id)
+void AudioSource::play(int id)
 {
 	FMOD_RESULT result = _system->playSound(
 		_sound[id],		// buffer which sound in the channel
@@ -40,8 +41,9 @@ bool AudioSource::play(int id)
 		false,			// plays directly(no pause)
 		&_channel);		// return the assigned channel 
 		
-	if (result == FMOD_OK) return true;
-	//throw EAudioSource("There are no free channels to play the sound or the sound pointer is nullptr");
+	if (result != FMOD_OK) {
+		//throw EAudioSource("There are no free channels to play the sound or the sound pointer is nullptr");
+	}
 }
 
 void AudioSource::update()
