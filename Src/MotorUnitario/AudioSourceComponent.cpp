@@ -3,11 +3,11 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "Vector3.h"
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(9,gameObject), _audioSource(nullptr), _route()
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(9,gameObject), _audioSource(nullptr), _tr(nullptr), _route()
 {
 }
 
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(9,gameObject), _audioSource(nullptr), _route(route)
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(9,gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
 {
 }
 

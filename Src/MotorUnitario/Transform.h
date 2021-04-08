@@ -2,12 +2,12 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include "Vector3.h"  
-
+#include "Component.h"
+#include "Vector3.h"
 class Transform : public Component {
 public:
-	Transform();
-	Transform(const Vector3& position, const Vector3& rotation, const Vector3& scale);
+	Transform(GameObject* gameObject);
+	Transform(const Vector3& position, const Vector3& rotation, const Vector3& scale, GameObject* gameObject);
 	~Transform();
 
 	/// <summary>

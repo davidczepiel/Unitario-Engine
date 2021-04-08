@@ -95,7 +95,7 @@ public:
 
 private:
 	AudioSource* _audioSource;
-	Transform* _transform;
+	Transform* _tr;
 	// Sound route
 	std::string _route;
 };

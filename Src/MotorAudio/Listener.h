@@ -2,7 +2,7 @@
 #ifndef LISTENER_H
 #define LISTENER_H
 
-#include "fmod.hpp"
+struct FMOD_3D_ATTRIBUTES;
 
 class Listener {
 public:
