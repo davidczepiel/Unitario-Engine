@@ -5,6 +5,7 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 class GameObject;
 class GraphicsEngine;
@@ -118,7 +119,7 @@ private:
 	/// </summary>
 	void processEvents();
 
-	static Engine* instance;
+	static std::unique_ptr<Engine> instance;
 	GraphicsEngine* _graphicsEngine;
 	std::list<GameObject*> _GOs;
 	InputManager* _inputManager;

@@ -6,7 +6,7 @@
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
 
-Engine* Engine::instance = nullptr;
+std::unique_ptr<Engine> Engine::instance = nullptr;
 
 Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
@@ -23,10 +23,10 @@ Engine::~Engine()
 
 Engine* Engine::getInstance()
 {
-	if (instance == nullptr) {
-		instance = new Engine();
+	if (instance.get() == nullptr) {
+		instance.reset(new Engine());
 	}
-	return instance;
+	return instance.get();
 }
 
 void Engine::tick()

@@ -3,6 +3,7 @@
 #define GRAPHICSENGINE_H
 
 #include <string>
+#include <memory>
 
 namespace Ogre {
 	class Root;
@@ -15,7 +16,6 @@ namespace Ogre {
 	}
 }
 class SDL_Window;
-
 
 class GraphicsEngine {
 public:
@@ -81,23 +81,22 @@ private:
 
 	//bool initialiseRTShaderSystem();
 
-	static GraphicsEngine* instance;
+	static std::unique_ptr<GraphicsEngine> instance;
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
 	Ogre::SceneManager* _sceneManager;
 	// File system abstraction layer
-	Ogre::FileSystemLayer* _mFSLayer; 
+	Ogre::FileSystemLayer* _mFSLayer;
 	// The Shader generator instance.
-	Ogre::RTShader::ShaderGenerator* _mShaderGenerator; 
+	Ogre::RTShader::ShaderGenerator* _mShaderGenerator;
 	// Relative path to solution folder
-	std::string _mSolutionPath;    
+	std::string _mSolutionPath;
 	std::string _mRTShaderLibPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
 	// Shader generator material manager listener.
-	Ogre::SGTechniqueResolverListener* _mMaterialMgrListener; 
+	Ogre::SGTechniqueResolverListener* _mMaterialMgrListener;
 	SDL_Window* _sdlWindow;
-
 };
 
 #endif /*GRAPHICSENGINE.h*/

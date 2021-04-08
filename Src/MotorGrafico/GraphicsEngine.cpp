@@ -11,9 +11,10 @@
 #include "OgreShaderGenerator.h"
 #include <OgreMaterialManager.h>
 
-GraphicsEngine* GraphicsEngine::instance = nullptr;
+std::unique_ptr<GraphicsEngine> GraphicsEngine::instance = nullptr;
 
-GraphicsEngine::GraphicsEngine() :_root(nullptr), _window(nullptr), _sceneManager(nullptr), _sdlWindow(nullptr)
+GraphicsEngine::GraphicsEngine() :_root(nullptr), _window(nullptr), _sceneManager(nullptr), _sdlWindow(nullptr),
+_mFSLayer(nullptr), _mShaderGenerator(nullptr), _mMaterialMgrListener(nullptr)
 {
 }
 
@@ -23,13 +24,11 @@ GraphicsEngine::~GraphicsEngine()
 
 GraphicsEngine* GraphicsEngine::getInstance()
 {
-	if (instance == nullptr) {
-		instance = new GraphicsEngine();
+	if (instance.get() == nullptr) {
+		instance.reset(new GraphicsEngine());
 	}
-	return instance;
+	return instance.get();
 }
-
-
 
 void GraphicsEngine::initRoot()
 {
@@ -38,7 +37,7 @@ void GraphicsEngine::initRoot()
 	std::string pluginsPath;
 	pluginsPath = _mFSLayer->getConfigFilePath("plugins.cfg");
 
-	_mSolutionPath = pluginsPath;    // IG2: añadido para definir directorios relativos al de la solución 
+	_mSolutionPath = pluginsPath;    // IG2: añadido para definir directorios relativos al de la solución
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
 	_mFSLayer->setHomePath(_mSolutionPath);   // IG2: para los archivos de configuración ogre. (en el bin de la solubión)
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);   // IG2: Quito /bin
@@ -55,12 +54,12 @@ void GraphicsEngine::initWindow() {
 	_root->initialise(false);
 	Ogre::NameValuePairList params;
 	Ogre::ConfigOptionMap configuracion = _root->getRenderSystem()->getConfigOptions();
-	
+
 	SDL_Init(SDL_INIT_EVERYTHING);
-	
+
 	SDL_SysWMinfo wmInfo;
 	SDL_VERSION(&wmInfo.version);
-	
+
 	Uint32 flags = SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
 	std::string nombre = "Prueba";
 
@@ -68,8 +67,8 @@ void GraphicsEngine::initWindow() {
 	if (SDL_GetWindowWMInfo(_sdlWindow, &wmInfo) == SDL_FALSE) {
 		throw EGraphicEngine("Error creating window");
 	}
-	
-	params["FSAA"] = configuracion["FSAA"].currentValue;     
+
+	params["FSAA"] = configuracion["FSAA"].currentValue;
 	params["vsync"] = configuracion["VSync"].currentValue;
 	params["gamma"] = configuracion["sRGB Gamma Conversion"].currentValue;
 	params["externalWindowHandle"] = std::to_string(size_t(wmInfo.info.win.window));
