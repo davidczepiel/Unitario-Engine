@@ -2,11 +2,19 @@
 //WIP
 #include "MotorGrafico/main.h"
 #include "MotorUnitario/GameObject.h"
+#include <SDL.h>
+#include "MotorGrafico/GraphicsEngine.h"
+#include "InputManager.h"
 
 Engine* Engine::instance = nullptr;
 
-Engine::Engine() : _run(true)
+Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
+}
+
+void Engine::processEvents()
+{
+	_inputManager->update();
 }
 
 Engine::~Engine()
@@ -23,30 +31,33 @@ Engine* Engine::getInstance()
 
 void Engine::tick()
 {
+	processEvents();
 	update();
 	//WIP
 	fixedUpdate();
 	lateUpdate();
+	_graphicsEngine->render();
 }
 
 void Engine::init()
 {
-	//Llama al de ogre, temporal
-	test();
+	_inputManager = InputManager::getInstance();
+	_graphicsEngine = GraphicsEngine::getInstance();
+	_graphicsEngine->initRoot();
+	_graphicsEngine->initWindow();
 }
 
 void Engine::run()
 {
+	start();
 	while (_run)
 	{
 		tick();
-
 	}
 }
 
-void Engine::changeScene(std::string scene)
+void Engine::changeScene(const std::string& scene)
 {
-
 }
 
 void Engine::stopExecution()
@@ -56,44 +67,44 @@ void Engine::stopExecution()
 
 void Engine::start()
 {
-	for (auto& it : GOs) {
+	for (auto& it : _GOs) {
 		it->start();
 	}
 }
 
 void Engine::fixedUpdate()
 {
-	for (auto& it : GOs) {
+	for (auto& it : _GOs) {
 		it->fixedUpdate();
 	}
 }
 
 void Engine::update()
 {
-	for (auto& it : GOs) {
+	for (auto& it : _GOs) {
 		it->update();
 	}
 }
 
 void Engine::lateUpdate()
 {
-	for (auto& it : GOs) {
+	for (auto& it : _GOs) {
 		it->lateUpdate();
 	}
 }
 
 GameObject* Engine::addGameObject()
 {
-	GOs.push_back(new GameObject());
-	return GOs.back();
+	_GOs.push_back(new GameObject());
+	return _GOs.back();
 }
 
 void Engine::remGameObject(GameObject* GO)
 {
-	auto it = GOs.begin();
-	while (it != GOs.end()) {
+	auto it = _GOs.begin();
+	while (it != _GOs.end()) {
 		if ((*it) == GO) {
-			it = GOs.erase(it);
+			it = _GOs.erase(it);
 			break;
 		}
 		else
@@ -101,13 +112,13 @@ void Engine::remGameObject(GameObject* GO)
 	}
 }
 
-void Engine::remGameObjectString(std::string const& GOname)
+void Engine::remGameObjectString(const std::string& GOname)
 {
-	auto it = GOs.begin();
-	while (it != GOs.end()) {
+	auto it = _GOs.begin();
+	while (it != _GOs.end()) {
 		if ((*it)->getName() == GOname) {
 			delete (*it);
-			it = GOs.erase(it);
+			it = _GOs.erase(it);
 			break;
 		}
 		else
@@ -115,19 +126,18 @@ void Engine::remGameObjectString(std::string const& GOname)
 	}
 }
 
-GameObject* Engine::findGameObject(std::string name)
+GameObject* Engine::findGameObject(const std::string& name)
 {
-	auto it = GOs.begin();
-	while (it != GOs.end()) {
+	auto it = _GOs.begin();
+	while (it != _GOs.end()) {
 		if ((*it)->getName() == name) {
 			break;
 		}
 		else
 			it++;
 	}
-	return (it == GOs.end()) ? (nullptr) : (*it);
+	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
 
 void Engine::freeEnginesResources() {
-
 }
