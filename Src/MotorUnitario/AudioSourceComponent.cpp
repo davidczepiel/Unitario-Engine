@@ -1,10 +1,13 @@
 #include "AudioSourceComponent.h"
 #include "MotorAudio/AudioSource.h"
-AudioSourceComponent::AudioSourceComponent(unsigned int id, GameObject* gameObject): Component(id,gameObject), _audioSource(nullptr)
+#include "Transform.h"
+#include "GameObject.h"
+#include "Vector3.h"
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(9,gameObject), _audioSource(nullptr), _route()
 {
 }
 
-AudioSourceComponent::AudioSourceComponent(unsigned int id, GameObject* gameObject, std::string const& route) : Component(id,gameObject), _route(route), _audioSource(nullptr)
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(9,gameObject), _audioSource(nullptr), _route(route)
 {
 }
 
@@ -16,6 +19,12 @@ AudioSourceComponent::~AudioSourceComponent()
 void AudioSourceComponent::start()
 {
 	_audioSource = new AudioSource();
+	_tr = static_cast<Transform*>(_gameObject->getComponent(7));
+}
+
+void AudioSourceComponent::update()
+{
+	_audioSource->setPosition(_tr->getPosition().getX(), _tr->getPosition().getY(), _tr->getPosition().getZ());
 }
 
 void AudioSourceComponent::lateUpdate()
@@ -42,6 +51,37 @@ void AudioSourceComponent::stopChannel()
 {
 	_audioSource->stop();
 }
+
+void AudioSourceComponent::setAudioLoop(int id, int loop)
+{
+	_audioSource->setLoop(id, loop);
+}
+
+void AudioSourceComponent::setStereo(int id, bool stereo)
+{
+	_audioSource->set3D(id, stereo);
+}
+
+float AudioSourceComponent::getVolumeChannel() const
+{
+	return _audioSource->getVolumeAudio();
+}
+
+void AudioSourceComponent::setVolumeChannel(float v)
+{
+	_audioSource->setVolumeAudio(v);
+}
+
+void AudioSourceComponent::set3DConeSetting(float insideAngle, float outsideAngle, float outsideVolume)
+{
+	_audioSource->set3DConeSettings(insideAngle, outsideAngle, outsideVolume);
+}
+
+void AudioSourceComponent::set3DMinMaxDistanceChannel(float min, float max)
+{
+	_audioSource->set3DMinMaxDistance(min, max);
+}
+
 
 
 

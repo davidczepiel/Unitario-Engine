@@ -8,13 +8,8 @@ namespace FMOD {
 	class System;
 	class Channel;
 	class Sound;
-	struct FMOD_VECTOR {
-		float x;
-		float y;
-		float z;
-	};
 }
-
+struct FMOD_VECTOR;
 class AudioSource {
 public:
 	/// <summary>
@@ -64,11 +59,11 @@ public:
 	/// <summary>
 	/// Gets the audio directory route  
 	/// </summary>
-	float getVolume() const;
+	float getVolumeAudio() const;
 	/// <summary>
 	/// Sets the audio volume  
 	/// </summary>
-	void setVolume(float v);
+	void setVolumeAudio(float v);
 	/// <summary>
 	/// Sets the audio directory route  
 	/// </summary>
@@ -99,9 +94,9 @@ public:
 private:
 	std::vector<FMOD::Sound*> _sound;
 	//Entity position
-	FMOD::FMOD_VECTOR* _position;
+	FMOD_VECTOR* _position;
 	//Entity velocity
-	FMOD::FMOD_VECTOR* _velocity;
+	FMOD_VECTOR* _velocity;
 	FMOD::System* _system;
 	FMOD::Channel* _channel;
 	std::string _route;

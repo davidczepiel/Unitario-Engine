@@ -1,7 +1,7 @@
-#include "..\..\Src\MotorAudio\AudioSource.h"
-#include "..\..\Src\MotorAudio\AudioEngine.h"
-//#include "..\..\Src\MotorAudio\Exceptions.h"
-#include <fmod.hpp>
+#include "AudioEngine.h"
+#include "AudioSource.h"
+#include "Exceptions.h"
+#include "fmod.hpp"
 
 AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route("")
 {
@@ -41,9 +41,8 @@ void AudioSource::play(int id)
 		false,			// plays directly(no pause)
 		&_channel);		// return the assigned channel 
 		
-	if (result != FMOD_OK) {
-		//throw EAudioSource("There are no free channels to play the sound or the sound pointer is nullptr");
-	}
+	if (result != FMOD_OK) 
+		throw EAudioSource("There are no free channels to play the sound or the sound pointer is nullptr");
 }
 
 void AudioSource::update()
@@ -89,7 +88,7 @@ void AudioSource::set3D(int id, bool stereo)
 		_sound[id]->setMode(FMOD_2D);
 }
 
-float AudioSource::getVolume() const
+float AudioSource::getVolumeAudio() const
 {
 	float volume = 0.0f;
 	if (_channel != nullptr) {
@@ -98,7 +97,7 @@ float AudioSource::getVolume() const
 	return volume;
 }
 
-void AudioSource::setVolume(float v)
+void AudioSource::setVolumeAudio(float v)
 {
 	_channel->setVolume(v);
 }
@@ -115,7 +114,7 @@ void AudioSource::set3DMinMaxDistance(float min, float max)
 
 void AudioSource::setPosition(float x, float y, float z)
 {
-	*_position = { x,y,z };
+	*_position = {x,y,z };
 }
 
 void AudioSource::setVelocity(float x, float y, float z)

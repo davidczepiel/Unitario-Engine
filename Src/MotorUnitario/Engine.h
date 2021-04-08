@@ -112,7 +112,7 @@ private:
 	/// </summary>
 	void processEvents();
 
-	static Engine* instance;
+	static Engine* _instance;
 	GraphicsEngine* _graphicsEngine;
 	std::list<GameObject*> _GOs;
 	InputManager* _inputManager;

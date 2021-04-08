@@ -4,7 +4,7 @@
 
 #include "Vector3.h"  
 
-class Transform {
+class Transform : public Component {
 public:
 	Transform();
 	Transform(const Vector3& position, const Vector3& rotation, const Vector3& scale);

@@ -2,22 +2,7 @@
 #ifndef LISTENER_H
 #define LISTENER_H
 
-namespace FMOD {
-	struct FMOD_VECTOR
-	{
-		float x;
-		float y;
-		float z;
-	};
-	struct FMOD_3D_ATTRIBUTES
-	{
-		FMOD_VECTOR position;
-		FMOD_VECTOR velocity;
-		FMOD_VECTOR forward;
-		FMOD_VECTOR up;
-	};
-}
-
+#include "fmod.hpp"
 
 class Listener {
 public:
@@ -42,7 +27,7 @@ public:
 
 private:
 	//Struct with all the parametres of the listener
-	FMOD::FMOD_3D_ATTRIBUTES _attributes;
+	FMOD_3D_ATTRIBUTES* _attributes;
 	//Id number of the listener
 	int _listenerNumber;
 };

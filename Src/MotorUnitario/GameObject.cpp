@@ -93,7 +93,6 @@ void GameObject::addChild(GameObject* gameObject)
 	gameObject->setParent(this);
 	_children.push_back(gameObject);
 }
-
 Component* GameObject::getComponent(unsigned int componentId) const
 {
 	if (componentId >= _components.size())
