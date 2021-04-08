@@ -9,6 +9,7 @@
 class GameObject;
 class GraphicsEngine;
 class InputManager;
+class AudioEngine;
 
 class Engine
 {
@@ -114,6 +115,7 @@ private:
 
 	static Engine* _instance;
 	GraphicsEngine* _graphicsEngine;
+	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
 	InputManager* _inputManager;
 
