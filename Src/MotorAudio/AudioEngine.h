@@ -2,8 +2,9 @@
 #ifndef AUDIOENGINE_H
 #define AUDIOENGINE_H
 
-#include <fmod.hpp>
-
+namespace FMOD {
+	class System;
+}
 class AudioEngine {
 public:
 	~AudioEngine();
@@ -28,7 +29,7 @@ public:
 	/// </summary>
 	void release();
 
-	inline FMOD::System* getSystem() const { return _system; };
+	FMOD::System* getSystem() const;
 
 	/// <summary>
 	/// Sets the global doppler scale, distance factorand log rolloff scale for all 3D sound in FMOD.
@@ -37,7 +38,7 @@ public:
 	/// <param name="distanceFactor">Relative distance factor to FMOD units. This only affects doppler</param>
 	/// <param name="rolloff">Scaling factor for 3D sound rolloff or attenuation. Setting this value makes the sound drop off faster or slower. 
 	/// The higher the value, the faster volume will attenuate, and conversely the lower the value, the slower it will attenuate</param>
-	inline void set3DSettings(float dopplerScale, float distanceFactor, float rolloff) { _system->set3DSettings(dopplerScale, distanceFactor, rolloff); }
+	void set3DSettings(float dopplerScale, float distanceFactor, float rolloff);
 
 private:
 	
@@ -47,7 +48,6 @@ private:
 	AudioEngine();
 
 	static AudioEngine* _instance;
-
 	FMOD::System* _system;
 };
 

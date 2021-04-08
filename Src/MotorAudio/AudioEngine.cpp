@@ -1,6 +1,6 @@
 #include "..\..\Src\MotorAudio\AudioEngine.h"
 
-#include "fmod.h"
+#include <fmod.hpp>
 
 AudioEngine* AudioEngine::_instance = nullptr;
 
@@ -38,6 +38,16 @@ void AudioEngine::release()
 {
 	if(_system != nullptr)
 		_system->release();
+}
+
+FMOD::System* AudioEngine::getSystem() const
+{
+	return _system;
+}
+
+void AudioEngine::set3DSettings(float dopplerScale, float distanceFactor, float rolloff)
+{
+	_system->set3DSettings(dopplerScale, distanceFactor, rolloff);
 }
 
 AudioEngine::AudioEngine(): _system(nullptr){

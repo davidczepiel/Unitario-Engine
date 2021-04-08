@@ -1,7 +1,7 @@
 #include "..\..\Src\MotorAudio\AudioSource.h"
 #include "..\..\Src\MotorAudio\AudioEngine.h"
 //#include "..\..\Src\MotorAudio\Exceptions.h"
-
+#include <fmod.hpp>
 
 AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route("")
 {
@@ -94,4 +94,29 @@ float AudioSource::getVolume() const
 		_channel->getVolume(&volume);
 	}
 	return volume;
+}
+
+void AudioSource::setVolume(float v)
+{
+	_channel->setVolume(v);
+}
+
+void AudioSource::set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume)
+{
+	_channel->set3DConeSettings(insideAngle, outsideAngle, outsideVolume);
+}
+
+void AudioSource::set3DMinMaxDistance(float min, float max)
+{
+	_channel->set3DMinMaxDistance(min, max);
+}
+
+void AudioSource::setPosition(float x, float y, float z)
+{
+	*_position = { x,y,z };
+}
+
+void AudioSource::setVelocity(float x, float y, float z)
+{
+	*_velocity = { x,y,z };
 }

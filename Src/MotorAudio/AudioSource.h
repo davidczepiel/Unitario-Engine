@@ -4,7 +4,16 @@
 
 #include <string>
 #include <vector>
-#include <fmod.hpp>
+namespace FMOD {
+	class System;
+	class Channel;
+	class Sound;
+	struct FMOD_VECTOR {
+		float x;
+		float y;
+		float z;
+	};
+}
 
 class AudioSource {
 public:
@@ -59,40 +68,40 @@ public:
 	/// <summary>
 	/// Sets the audio volume  
 	/// </summary>
-	inline void setVolume(float v) { _channel->setVolume(v); }
+	void setVolume(float v);
 	/// <summary>
 	/// Sets the audio directory route  
 	/// </summary>
 	/// <param name="route">FileRoute</param>
-	inline void setRoute(std::string route) { _route = route; }
+	void setRoute(std::string route) { _route = route; }
 	/// <summary>
 	/// Sets the anglesand attenuation levels of a 3D cone shape, for simulated occlusion which is based on direction.
 	/// </summary>
 	/// <param name="insideAngle">This is the angle spread within which the sound is unattenuated.</param>
 	/// <param name="outsideAngle">This is the angle spread outside of which the sound is attenuated to its outsidevolume.</param>
 	/// <param name="outsideVolume">Cone outside volume</param>
-	inline void set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume) { _channel->set3DConeSettings(insideAngle, outsideAngle, outsideVolume); }
+	void set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume);
 	/// <summary>
 	/// Sets the minimum and maximum audible distance for a 3D sound
 	/// </summary>
 	/// <param name="min">minimum distance</param>
 	/// <param name="max">maximum distance</param>
-	inline void set3DMinMaxDistance(float min, float max) { _channel->set3DMinMaxDistance(min, max); }
+	void set3DMinMaxDistance(float min, float max);
 	/// <summary>
 	/// Sets the current position of the entity.
 	/// </summary>
-	inline void setPosition(float x, float y, float z) {*_position = { x,y,z }; }
+	void setPosition(float x, float y, float z);
 	/// <summary>
 	/// Sets the current velocity of the entity.
 	/// </summary>
-	inline void setVelocity(float x, float y, float z) { *_velocity = { x,y,z }; }
+	void setVelocity(float x, float y, float z);
 	
 private:
 	std::vector<FMOD::Sound*> _sound;
 	//Entity position
-	FMOD_VECTOR* _position;
+	FMOD::FMOD_VECTOR* _position;
 	//Entity velocity
-	FMOD_VECTOR* _velocity;
+	FMOD::FMOD_VECTOR* _velocity;
 	FMOD::System* _system;
 	FMOD::Channel* _channel;
 	std::string _route;
