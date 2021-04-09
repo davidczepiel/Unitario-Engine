@@ -179,7 +179,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ComponentsFactory.cpp" />
@@ -207,7 +206,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentsFactory.h" />
