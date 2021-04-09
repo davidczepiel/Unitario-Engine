@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorFisico\main.h">
@@ -30,6 +33,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorFisico\PhysxEngine.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorFisico\Collider.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

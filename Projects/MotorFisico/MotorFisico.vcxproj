@@ -185,10 +185,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\main.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorFisico\Collider.h" />
     <ClInclude Include="..\..\Src\MotorFisico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorFisico\main.h" />
     <ClInclude Include="..\..\Src\MotorFisico\PhysxEngine.h" />
