@@ -1,11 +1,13 @@
 #include "LightComponent.h"
 #include "ComponentIDs.h"
+#include "GameObject.h"
 
 LightComponent::LightComponent(GameObject* gameObject): Component(ComponentId::LightComponent, gameObject), _light(nullptr)
 {
-	//TODO: initialize Light's using sceneNode from transform or whatever, i dunno
+	_light = new Light(gameObject->getName());
 }
 
 LightComponent::~LightComponent()
 {
+	delete _light; _light = nullptr;
 }

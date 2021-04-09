@@ -5,8 +5,11 @@
 #include <string>
 #include <array>
 
-#include "OgreLight.h"
 #include "Colour.h"
+
+namespace Ogre {
+	class Light;
+};
 
 class Light
 {
@@ -22,20 +25,20 @@ public:
 
 public:
 
-	Light();
+	Light(const std::string& gameObjectName);
 	~Light();
 
 	/// <summary>
 	/// Changes light type to given type
 	/// </summary>
 	/// <param name="type">: light's type</param>
-	inline void setLightType(LightType type) { _light->setType((Ogre::Light::LightTypes)type); }
+	void setLightType(LightType type);
 
 	/// <summary>
 	/// Return light's type
 	/// </summary>
 	/// <returns>Light's type</returns>
-	inline LightType getLightType() { return (LightType)_light->getType(); }
+	LightType getLightType();
 
 	/// <summary>
 	/// Sets light's diffuse to given color
@@ -43,13 +46,13 @@ public:
 	/// <param name="red">: R parameter of the color</param>
 	/// <param name="green">: G parameter of the color</param>
 	/// <param name="blue">: B parameter of the color</param>
-	inline void setDiffuse(float red, float green, float blue) { _light->setDiffuseColour(red, green, blue); }
+	void setDiffuse(float red, float green, float blue);
 
 	/// <summary>
 	/// Sets light's diffuse to given color
 	/// </summary>
 	/// <param name="diffuse">: Colour structure</param>
-	inline void setDiffuse(const Colour& diffuse) { _light->setDiffuseColour(diffuse.red, diffuse.green, diffuse.blue); }
+	void setDiffuse(const Colour& diffuse);
 
 	/// <summary>
 	/// Returns light's diffuse color
@@ -63,13 +66,13 @@ public:
 	/// <param name="red">: R parameter of the color</param>
 	/// <param name="green">: G parameter of the color</param>
 	/// <param name="blue">: B parameter of the color</param>
-	inline void setSpecular(float red, float green, float blue) { _light->setSpecularColour(red, green, blue); }
+	void setSpecular(float red, float green, float blue);
 
 	/// <summary>
 	/// Sets light's diffuse to given color
 	/// </summary>
 	/// <param name="specular">: Colour structure</param>
-	inline void setSpecular(const Colour& specular) { _light->setSpecularColour(specular.red, specular.green, specular.blue); }
+	void setSpecular(const Colour& specular);
 
 	/// <summary>
 	/// Returns light's specular color
@@ -84,31 +87,31 @@ public:
 	/// <param name="constant">: The constant factor in the attenuation formula: 1.0 means never attenuate, 0.0 is complete attenuation.</param>
 	/// <param name="linear">: The linear factor in the attenuation formula: 1 means attenuate evenly over the distance.</param>
 	/// <param name="quadratic">: The quadratic factor in the attenuation formula: adds a curvature to the attenuation formula.</param>
-	inline void setAttenuation(float range, float constant, float linear, float quadratic) { _light->setAttenuation(range, constant, linear, quadratic); }
+	void setAttenuation(float range, float constant, float linear, float quadratic);
 	
 	/// <summary>
 	/// Returns light's attenuation range
 	/// </summary>
 	/// <returns>The absolute upper range of the light in world units</returns>
-	inline const float getAttenuationRange() const { return _light->getAttenuationRange(); }
+	const float getAttenuationRange() const;
 
 	/// <summary>
 	/// Returns the constant factor in the attenuation formula
 	/// </summary>
 	/// <returns>Constant factor of light's attenuation</returns>
-	inline const float getAttenuationConstant() const { return _light->getAttenuationConstant(); }
+	const float getAttenuationConstant() const;
 
 	/// <summary>
 	/// Returns the linear factor in the attenuation formula
 	/// </summary>
 	/// <returns>Linear factor of light's attenuation</returns>
-	inline const float getAttenuationLinear() const { return _light->getAttenuationLinear(); }
+	const float getAttenuationLinear() const;
 
 	/// <summary>
 	/// Returns the quadric factor in the attenuation formula
 	/// </summary>
 	/// <returns>quadric factor of light's attenuation</returns>
-	inline const float getAttenuationQuadric() const { return _light->getAttenuationQuadric(); }
+	const float getAttenuationQuadric() const;
 
 	/// <summary>
 	/// Only usefull if the type of this light is set to SpotLight
@@ -123,43 +126,43 @@ public:
 	/// Only usefull if light's type is set to spotLight
 	/// </summary>
 	/// <returns>splotlight fallOf</returns>
-	inline const float getSpotlightFallOff() const { return _light->getSpotlightFalloff(); }
+	const float getSpotlightFallOff() const;
 
 	/// <summary>
 	/// Only usefull if light's type is set to spotLight
 	/// </summary>
 	/// <returns>splotlight inner angle</returns>
-	inline const float getSpotlightInnerAngle() const { return _light->getSpotlightInnerAngle().valueRadians(); }
+	const float getSpotlightInnerAngle() const;
 	
 	/// <summary>
 	/// Only usefull if light's type is set to spotLight
 	/// </summary>
 	/// <returns>splotlight outter angle</returns>
-	inline const float getSpotlightOuterAngle() const { return _light->getSpotlightOuterAngle().valueRadians(); }
+	const float getSpotlightOuterAngle() const;
 
 	/// <summary>
 	/// Sets the intensity of this light
 	/// </summary>
 	/// <param name="power">: Default value is already set at 1</param>
-	inline void setPowerScale(float power) { _light->setPowerScale(power); }
+	void setPowerScale(float power);
 
 	/// <summary>
 	/// Return the intensity of this light
 	/// </summary>
 	/// <returns>intensity of this light</returns>
-	inline const float getPowerScale() const { _light->getPowerScale(); }
+	const float getPowerScale() const;
 	
 	/// <summary>
 	/// Changes light visibility
 	/// </summary>
 	/// <param name="visible">true means visible</param>
-	inline void setVisible(bool visible) { _light->setVisible(visible); }
+	void setVisible(bool visible);
 
 	/// <summary>
 	/// Returns the value set by MovableObject::setVisible only.
 	/// </summary>
 	/// <returns>if it's visible or not</returns>
-	inline const bool getVisible() const { return _light->getVisible(); }
+	const bool getVisible() const;
 
 	/// <summary>
 	/// Static count of lights, used so each Light has a unique name
