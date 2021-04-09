@@ -8,7 +8,10 @@ namespace Ogre
 {
 	class SceneNode;
 	class BillboardSet;
+	class SceneManager;
 };
+
+class GraphicsEngine;
 
 class ImageRender {
 public:
@@ -31,6 +34,14 @@ public:
 		BBT_PERPENDICULAR_COMMON=3,
 		//Billboards are perpendicular to their own direction vector (their own Z axis, the facing direction) and X, Y axis are determined by a shared up-vertor
 		BBT_PERPENDICULAR_SELF=4
+	};
+
+	//Here we have all the rotation types of a billboard
+	enum BillboardRotationType {
+		/// Rotate the billboard's vertices around their facing direction
+		BBR_VERTEX=0,
+		/// Rotate the billboard's texture coordinates
+		BBR_TEXCOORD=1
 	};
 
 	ImageRender();
@@ -67,8 +78,40 @@ public:
 	/// <param name="type">Type of billboardOrientation</param>
 	void setBillboardType(BillboardType type);
 
+	/// <summary>
+	///Sets the rotation type of billboard to use in this set
+	/// </summary>
+	/// <param name="type">Type of rotation</param>
+	void setBillboardRotationType(BillboardRotationType type);
+
+	/// <summary>
+	/// Sets the position of the parentNode of the billboardSet
+	/// </summary>
+	/// <param name="x">New x position</param>
+	/// <param name="y">New y position</param>
+	/// <param name="z">New z position</param>
+	void setPosition(float x,float y,float z);
+
+	/// <summary>
+	/// Sets the scale of the billboardSetNode 
+	/// </summary>
+	/// <param name="x">New x scale</param>
+	/// <param name="y">New y scale</param>
+	/// <param name="z">New z scale</param>
+	void setScale(float x, float y, float z);
+
+	/// <summary>
+	/// Rotate the billboardSetNode around an arbitrary axis(x,y,z) 
+	/// </summary>
+	/// <param name="x">x axis</param>
+	/// <param name="y">y axis</param>
+	/// <param name="z">z axis</param>
+	/// <param name="angle">Angle to rotate</param>
+	void setRotation(float x, float y, float z,float angle);
+
 private:
 
+	Ogre::SceneNode* _parentNode;
 	Ogre::SceneNode* _billboardSetNode;
 	Ogre::BillboardSet* _billboardSet;	
 };
