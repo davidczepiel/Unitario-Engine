@@ -5,7 +5,10 @@
 
 #include <list>
 #include <string>
+
 class GameObject;
+class GraphicsEngine;
+class InputManager;
 
 class Engine
 {
@@ -14,10 +17,10 @@ public:
 
 	//WIP
 	/// <summary>
-	/// Returns the instance of MotorUnitario, in case there is no such instance, it creates one and returns that one
+	/// Returns the instance of Engine, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static Engine* getInstance();
-	void operator=(const Engine&) = delete;
+	Engine& operator=(const Engine&) = delete;
 	Engine(Engine& other) = delete;
 
 	/// <summary>
@@ -34,7 +37,13 @@ public:
 	/// Adds component to the gameObject vector of components
 	/// <param name="scene">: Contains the file directory where the dats of the next scene is</param>
 	/// </summary>
-	void changeScene(std::string scene);
+	void changeScene(const std::string& scene);
+
+	//WIP
+	/// <summary>
+	/// Stops the main loop
+	/// </summary>
+	void stopExecution();
 
 protected:
 
@@ -42,12 +51,6 @@ protected:
 	/// Includes all the methods related to the GameObjects Update
 	/// </summary>
 	void tick();
-
-	//WIP
-	/// <summary>
-	/// Stops the main loop
-	/// </summary>
-	void stopExecution();
 
 	/// <summary>
 	/// Frees everything related to the engines (Audio, Physics, Graphics)
@@ -89,15 +92,14 @@ protected:
 	/// Removes the first appearance of a GameObject based on its name
 	/// <param name="GOname">: name of the GameObject to remove</param>
 	/// </summary>
-	void remGameObjectString(std::string const& GOname);
+	void remGameObjectString(const std::string& GOname);
 
 	/// <summary>
 	/// Searches a GameObject by its name and returns it if found, or null if not
 	///<param name="componentId">: id of component</param>
 	/// <returns>Returns the GameObject if it is found</returns>
 	/// </summary>
-	GameObject* findGameObject(std::string name);
-
+	GameObject* findGameObject(const std::string& name);
 
 private:
 	/// <summary>
@@ -105,8 +107,15 @@ private:
 	/// </summary>
 	Engine();
 
+	/// <summary>
+	/// Process events
+	/// </summary>
+	void processEvents();
+
 	static Engine* instance;
-	std::list<GameObject*> GOs;
+	GraphicsEngine* _graphicsEngine;
+	std::list<GameObject*> _GOs;
+	InputManager* _inputManager;
 
 	bool _run;
 };
