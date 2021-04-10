@@ -1,6 +1,11 @@
 #include "Component.h"
 #include "Exceptions.h"
 
+Component::Component(unsigned int id):_id(id), _gameObject(nullptr), _enabled(true)
+{
+
+}
+
 Component::Component(unsigned int id, GameObject* gameObject):
 	_id(id), _gameObject(gameObject), _enabled(true)
 {}

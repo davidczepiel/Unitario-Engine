@@ -6,6 +6,8 @@
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
+#include "ComponentsFactory.h"
+#include "ComponentFactory.h"
 
 Engine* Engine::_instance = nullptr;
 
@@ -47,6 +49,16 @@ void Engine::init()
 	_audioEngine = AudioEngine::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
+	_graphicsEngine->setup();
+
+	ComponentsFactory::add("ImageRenderer", new ImageRenderFactory());
+	ComponentsFactory::add("Light", new LightComponentFactory());
+
+	GameObject* go = new GameObject();
+	Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
+	ir->setGameObject(go);
+	go->addComponent(ir);
+	go->addComponent(ComponentsFactory::getComponentByName("Light"));
 }
 
 void Engine::run()

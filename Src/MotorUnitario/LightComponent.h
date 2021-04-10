@@ -21,6 +21,7 @@ public:
 
 public:
 
+	LightComponent();
 	LightComponent(const std::string& gameObjectName, GameObject* gameObject);
 	~LightComponent();
 

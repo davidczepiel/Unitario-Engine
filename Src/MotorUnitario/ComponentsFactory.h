@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 class ComponentFactory;
-
+class Component;
 static std::map<std::string, ComponentFactory*> _componentTranslator;
 
 class ComponentsFactory
@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	/// <param name="name">The name of the desired component</param>
 	/// <returns>The desired component</returns>
-	static ComponentFactory* getComponentByName(const std::string& name);
+	static Component* getComponentByName(const std::string& name);
 
 private:
 	

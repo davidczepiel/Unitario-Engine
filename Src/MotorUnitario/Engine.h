@@ -10,6 +10,9 @@ class GameObject;
 class GraphicsEngine;
 class InputManager;
 class AudioEngine;
+class ComponentsFactory;
+
+#define ADD(className)ComponentsFactory::add(className,classNameFactory);
 
 class Engine
 {

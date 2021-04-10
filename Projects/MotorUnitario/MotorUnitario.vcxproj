@@ -179,6 +179,17 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MotorAudio\MotorAudio.vcxproj">
+      <Project>{31f3c005-c623-403b-9b3e-f073ee5df54e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MotorFisico\MotorFisico.vcxproj">
+      <Project>{7c1832bd-e26f-40d8-a137-1334d56f05d0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MotorGrafico\MotorGrafico.vcxproj">
+      <Project>{d07093e9-ce54-4ee0-acb3-fab86c657b28}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
@@ -186,8 +197,8 @@
     <ClCompile Include="..\..\Src\MotorUnitario\ComponentsFactory.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
-    <ClCompile Include="..\..\Src\MotorUnitario\ImageRenderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ImageRenderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\InputManager.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\KeyboardInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
@@ -201,17 +212,6 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MotorAudio\MotorAudio.vcxproj">
-      <Project>{31f3c005-c623-403b-9b3e-f073ee5df54e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\MotorFisico\MotorFisico.vcxproj">
-      <Project>{7c1832bd-e26f-40d8-a137-1334d56f05d0}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\MotorGrafico\MotorGrafico.vcxproj">
-      <Project>{d07093e9-ce54-4ee0-acb3-fab86c657b28}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
@@ -220,9 +220,9 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\ImageRenderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ImageRenderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />

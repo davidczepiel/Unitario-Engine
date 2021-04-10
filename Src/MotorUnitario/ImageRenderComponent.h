@@ -9,6 +9,7 @@ class GameObject;
 
 class ImageRenderComponent : public Component {
 public:
+	ImageRenderComponent();
 	ImageRenderComponent(GameObject* gameObject);
 	~ImageRenderComponent();
 

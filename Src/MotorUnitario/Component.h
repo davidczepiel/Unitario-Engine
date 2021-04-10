@@ -8,6 +8,7 @@ class Component
 {
 public:
 
+	Component(unsigned int id);
 	Component(unsigned int id, GameObject* gameObject);
 	~Component();
 
@@ -72,6 +73,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	inline bool getEnabled() { return _enabled; }
+
+
 
 protected:
 
