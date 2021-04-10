@@ -180,6 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ComponentsFactory.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
@@ -208,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentsFactory.h" />
@@ -222,6 +225,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\ListenerComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>

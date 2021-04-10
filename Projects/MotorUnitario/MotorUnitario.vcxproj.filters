@@ -16,6 +16,8 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
@@ -35,5 +37,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
   </ItemGroup>
 </Project>
