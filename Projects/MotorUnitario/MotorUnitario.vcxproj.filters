@@ -22,26 +22,85 @@
     <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\ComponentFactory.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\ComponentsFactory.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\ListenerComponent.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h" />
+    <ClCompile Include="..\..\Src\MotorUnitario\main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\InputManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\KeyboardInput.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\ImageRenderComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Component.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Transform.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Engine.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Logger.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\ImageRenderComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
