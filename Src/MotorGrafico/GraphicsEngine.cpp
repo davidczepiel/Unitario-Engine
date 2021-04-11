@@ -11,10 +11,18 @@
 #include "OgreShaderGenerator.h"
 #include <OgreMaterialManager.h>
 
+#include "Camera.h"
+#include <OgreEntity.h>
+#include <OgreSceneNode.h>
+//#include <OgreSGTechniqueResolverListener.h>
+
+#include <iostream>
+
 std::unique_ptr<GraphicsEngine> GraphicsEngine::instance = nullptr;
 
 GraphicsEngine::GraphicsEngine() :_root(nullptr), _window(nullptr), _sceneManager(nullptr), _sdlWindow(nullptr),
-_mFSLayer(nullptr), _mShaderGenerator(nullptr), _mMaterialMgrListener(nullptr)
+_mFSLayer(nullptr), _mShaderGenerator(nullptr)
+//, _mMaterialMgrListener(nullptr)
 {
 }
 
@@ -85,7 +93,14 @@ void GraphicsEngine::setup()
 	_locateResources("resources.cfg");
 	//WIP
 	//_locateResources(_resourcesPath);
+	initialiseRTShaderSystem();
 	_loadResources();
+
+	Camera* cam = new Camera(_sceneManager, _window);
+	cam->setPlanes();
+	Ogre::SceneNode* nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("pruebaCubo");
+	Ogre::Entity* ent = _sceneManager->createEntity("cube.mesh");
+	nodo->attachObject(ent);
 }
 
 void GraphicsEngine::_locateResources(std::string const& path) {
@@ -176,32 +191,39 @@ void GraphicsEngine::_locateResources(std::string const& path) {
 }
 
 //WIP
-//bool GraphicsEngine::initialiseRTShaderSystem()
-//{
-//	if (Ogre::RTShader::ShaderGenerator::initialize())
-//	{
-//		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-//		// Core shader libs not found -> shader generating will fail.
-//		if (_mRTShaderLibPath.empty())
-//			return false;
-//		// Create and register the material manager listener if it doesn't exist yet.
-//		if (!_mMaterialMgrListener) {
-//			_mMaterialMgrListener = new Ogre::SGTechniqueResolverListener(_mShaderGenerator);
-//			Ogre::MaterialManager::getSingleton().addListener(_mMaterialMgrListener);
-//		}
-//	}
-//
-//	return true;
-//}
+bool GraphicsEngine::initialiseRTShaderSystem()
+{
+	if (Ogre::RTShader::ShaderGenerator::initialize())
+	{
+		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+		_mShaderGenerator->addSceneManager(_sceneManager);
+		// Core shader libs not found -> shader generating will fail.
+		if (_mRTShaderLibPath.empty())
+			return false;
+		// Create and register the material manager listener if it doesn't exist yet.
+		/*if (!_mMaterialMgrListener) {
+			_mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(_mShaderGenerator);
+			Ogre::MaterialManager::getSingleton().addListener(_mMaterialMgrListener);
+		}*/
+	}
+
+	return true;
+}
 
 void GraphicsEngine::_loadResources()
 {
-	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	try {
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	}
+	catch (Ogre::Exception e) { std::cout << e.what() << "\n"; }
 }
 
 void GraphicsEngine::render()
 {
-	_root->renderOneFrame();
+	try {
+		_root->renderOneFrame();
+	}
+	catch (Ogre::Exception e) { std::cout << e.what() << "\n"; }
 }
 
 void GraphicsEngine::setWindowGrab(bool _grab)

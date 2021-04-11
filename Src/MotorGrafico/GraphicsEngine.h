@@ -10,11 +10,14 @@ namespace Ogre {
 	class RenderWindow;
 	class SceneManager;
 	class FileSystemLayer;
-	class SGTechniqueResolverListener;
 	namespace RTShader {
 		class ShaderGenerator;
 	}
 }
+//namespace OgreBites {
+//	class SGTechniqueResolverListener;
+//}
+
 class SDL_Window;
 
 class GraphicsEngine {
@@ -79,7 +82,7 @@ private:
 	/// </summary>
 	void _loadResources();
 
-	//bool initialiseRTShaderSystem();
+	bool initialiseRTShaderSystem();
 
 	static std::unique_ptr<GraphicsEngine> instance;
 	Ogre::Root* _root;
@@ -95,7 +98,7 @@ private:
 	// Resources path relative to user
 	std::string _resourcesPath;
 	// Shader generator material manager listener.
-	Ogre::SGTechniqueResolverListener* _mMaterialMgrListener;
+	//OgreBites::SGTechniqueResolverListener* _mMaterialMgrListener;
 	SDL_Window* _sdlWindow;
 };
 

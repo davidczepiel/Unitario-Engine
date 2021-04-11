@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build32\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\Bites\include;$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build32\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -113,7 +113,7 @@
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86\;$(SolutionDir)dependencies\Ogre\Build32\lib\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;SDL2.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain_d.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OgreRTShaderSystem_d.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Build32\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\Bites\include;$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Build32\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -139,7 +139,7 @@
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86\;$(SolutionDir)dependencies\Ogre\Build32\lib\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;SDL2.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OgreRTShaderSystem.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\Bites\include;$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -161,7 +161,7 @@
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64\;$(SolutionDir)dependencies\Ogre\Build\lib\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;SDL2.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain_d.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OgreRTShaderSystem_d.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -172,7 +172,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Build\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\Bites\include;$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include\;$(SolutionDir)dependencies\Ogre\Build\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -187,7 +187,7 @@
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64\;$(SolutionDir)dependencies\Ogre\Build\lib\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;SDL2.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OgreRTShaderSystem.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
