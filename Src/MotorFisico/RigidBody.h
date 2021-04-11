@@ -25,8 +25,6 @@ public:
 	/// <summary>
 	/// creates a dynamic spherical rigidBody
 	/// </summary>
-	/// <param name="physx">The physx instance</param>
-	/// <param name="scene">The rigidBody scene</param>
 	/// <param name="radious">The radious of the sphere</param>
 	/// <param name="isStatic">Set true if a static rigid body needed; false if dynamic rigid body needed</param>
 	/// <param name="position">The object initial position</param>
@@ -40,15 +38,13 @@ public:
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
 
-	RigidBody(physx::PxPhysics* physx, physx::PxScene* scene, float radious, bool isStatic = false,
-		std::tuple<float, float, float> position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false, float linearDamping = 0,
-		float angularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
+	RigidBody(float radious, bool isStatic = false, std::tuple<float, float, float> position = std::tuple<float, float, float>(0, 0, 0), 
+		bool isKinematic = false, float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f, 
+		float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
 
 	/// <summary>
 	/// creates a dynamic box rigidBody
 	/// </summary>
-	/// <param name="physx">The physx instance</param>
-	/// <param name="scene">The rigidBody scene</param>
 	/// <param name="width">The width of the box</param>
 	/// <param name="height">The height of the box</param>
 	/// <param name="depth">The depth of the box</param>
@@ -64,16 +60,14 @@ public:
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
 
-	RigidBody(physx::PxPhysics* physx, physx::PxScene* scene, float width, float height,
-		float depth, bool isStatic = false, std::tuple<float, float, float> position = std::tuple<float, float, float>(0, 0, 0),
-		bool isKinematic = false, float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f,
+	RigidBody(float width, float height, float depth, bool isStatic = false, 
+		std::tuple<float, float, float> position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false, 
+		float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f,
 		float restitution = 1.0f, float mass = 1000.0f);
 
 	/// <summary>
 	/// creates a dynamic capsule rigidBody
 	/// </summary>
-	/// <param name="physx">The physx instance</param>
-	/// <param name="scene">The rigidBody scene</param>
 	/// <param name="radious">The radious of the capsule</param>
 	/// <param name="height">The height of the capsule</param>
 	/// <param name="isStatic">Set true if a static rigid body needed; false if dynamic rigid body needed</param>
@@ -85,7 +79,7 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-	RigidBody(physx::PxPhysics* physx, physx::PxScene* scene, float radious, float height, bool isStatic = false,
+	RigidBody(float radious, float height, bool isStatic = false,
 		std::tuple<float, float, float> position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false, float linearDamping = 0,
 		float AngularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
 
@@ -204,6 +198,7 @@ private:
 	std::list<physx::PxMaterial*>getAllMaterials();
 
 	physx::PxPhysics* _physx;
+	physx::PxScene* _scene;
 	physx::PxTransform* _transform;
 	physx::PxRigidDynamic* _dynamicBody;
 	physx::PxRigidStatic* _staticBody;

@@ -5,57 +5,54 @@
 #include "PxRigidBody.h"
 #include "PxRigidDynamic.h"
 #include "PxRigidStatic.h"
+#include "PhysxEngine.h"
 
-
-RigidBody::RigidBody(physx::PxPhysics* physx, physx::PxScene* scene, float radious,
-
-
-	bool isKinematic,
-	std::tuple<float, float, float> position, bool isStatic, float linearDamping, float angularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :_physx(nullptr), _transform(), _dynamicBody(nullptr),
-	_staticBody(nullptr), _isStatic(isStatic)
+RigidBody::RigidBody(float radious,bool isKinematic, std::tuple<float, float, float> position, 
+	bool isStatic, float linearDamping, float angularDamping, float staticFriction, 
+	float dynamicFriction, float restitution, float mass) :_physx(nullptr), _transform(), _dynamicBody(nullptr),
+	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
 {
 
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
 	physx::PxSphereGeometry aux(radious);
-	physx::PxMaterial* mat = physx->createMaterial(staticFriction, dynamicFriction, restitution);
-	physx::PxShape* e = physx->createShape(aux, *mat);
+	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
+	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
 	e->release();
 	_dynamicBody->attachShape(*e);
-	scene->addActor(*_dynamicBody);
-
+	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(physx::PxPhysics* physx, physx::PxScene* scene, float width, float height,
-	float depth, bool isStatic, std::tuple<float, float, float> position, bool isKinematic, float linearDamping, float angularDamping, float staticFriction,
+RigidBody::RigidBody(float width, float height, float depth, bool isStatic, std::tuple<float, float, float> position, 
+	bool isKinematic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float mass) :
-	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic)
+	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
 {
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
-	physx::PxMaterial* mat = physx->createMaterial(staticFriction, dynamicFriction, restitution);
+	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
 	physx::PxBoxGeometry aux(2 * width, 2 * height, 2 * depth);
-	physx::PxShape* e = physx->createShape(aux, *mat);
+	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
 	_dynamicBody->attachShape(*e);
 	e->release();
-	scene->addActor(*_dynamicBody);
+	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(physx::PxPhysics* physx, physx::PxScene* scene, float radious, float height, bool isStatic, std::tuple<float, float, float> position,
-	bool isKinematic, float linearDamping, float AngularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
-	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic)
+RigidBody::RigidBody(float radious, float height, bool isStatic, std::tuple<float, float, float> position, bool isKinematic, 
+	float linearDamping, float AngularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
+	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
 {
 	initParams(position, mass, isKinematic, linearDamping, AngularDamping);
-	physx::PxMaterial* mat = physx->createMaterial(staticFriction, dynamicFriction, restitution);
+	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
 	physx::PxCapsuleGeometry aux(radious, 2 * height);
-	physx::PxShape* e = physx->createShape(aux, *mat);
+	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
 	_dynamicBody->attachShape(*e);
 	e->release();
-	scene->addActor(*_dynamicBody);
+	_scene->addActor(*_dynamicBody);
 }
 
 RigidBody::~RigidBody()
@@ -204,6 +201,9 @@ void RigidBody::setFlags(physx::PxShape* shape)
 
 void RigidBody::initParams(std::tuple<float, float, float> pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
 {
+	_physx = &PhysxEngine::getPxInstance()->getScene()->getPhysics();
+	_scene = PhysxEngine::getPxInstance()->getScene();
+
 	_transform = new physx::PxTransform(VEC3(pos));
 	if (_isStatic)
 		_staticBody = _physx->createRigidStatic(*_transform);
@@ -215,9 +215,6 @@ void RigidBody::initParams(std::tuple<float, float, float> pos, float mass, bool
 		_dynamicBody->setAngularDamping(angularDamping);
 	}
 	_dynamicBody->setMass(mass);
-
-
-
 }
 
 std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
