@@ -3,8 +3,12 @@
 #ifndef RENDEROBJECT_H
 #define RENDEROBJECT_H
 
-#include <OgreSceneNode.h>
-#include <OgreEntity.h>
+#include <string>
+
+namespace Ogre {
+	class SceneNode;
+	class Entity;
+}
 
 class RenderObject
 {
@@ -13,7 +17,7 @@ public:
 	/// Creates a new entity with a mesh
 	/// </summary>
 	///<param name="meshName">: Name of the object mesh</param>
-	RenderObject(std::string const& meshName);
+	RenderObject(std::string const& meshName, std::string const& objectName);
 
 	/// <summary>
 	/// Creates a new entity in a position

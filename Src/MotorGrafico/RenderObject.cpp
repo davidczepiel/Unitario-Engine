@@ -1,13 +1,15 @@
 #include "RenderObject.h"
+#include "GraphicsEngine.h"
+#include <OgreSceneNode.h>
+#include <OgreEntity.h>
 #include <OgreQuaternion.h>
+#include <OgreSceneManager.h>
 
-RenderObject::RenderObject(std::string const& meshName)
+RenderObject::RenderObject(std::string const& meshName, std::string const& objectName)
 {
-	//WIP
-	//SceneManager instance will create a scene node for this object here
-
-	//Need the sceneManager to create a new entity with mesh
-	//objectEntity = sceneManager->createEntity(meshName);
+	Ogre::SceneManager* sM = GraphicsEngine::getInstance()->getSceneManager();
+	objectNode = sM->getRootSceneNode()->createChildSceneNode(objectName);
+	objectEntity = sM->createEntity(meshName);
 	objectNode->attachObject(objectEntity);
 }
 
