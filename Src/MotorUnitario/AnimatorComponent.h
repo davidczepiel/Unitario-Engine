@@ -17,6 +17,7 @@ public:
 	struct State;
 	struct State {
 		std::string name;
+		bool loop;
 		std::list<Transition> transitions;
 	};
 	struct Transition {
@@ -46,7 +47,8 @@ public:
 	/// Creates a state 
 	/// </summary>
 	/// <param name="name">: name of state must be an animation</param>
-	void createState(const std::string& name);
+	/// /// <exception cref="AnimatorException">throws if that state already exists</exception>
+	void createState(const std::string& name, bool loop = true);
 
 	/// <summary>
 	/// Adds a transition in origin to another state in its list of transitions
@@ -54,11 +56,28 @@ public:
 	/// <param name="origin">: origin state from which the transition will be made</param>
 	/// <param name="function">: must return a boolean. If it returns true, the transition will be made</param>
 	/// <param name="end">: the next state from origin</param>
+	/// <exception cref="AnimatorException">throws if origin or end States doesn't exist</exception>
 	void addTransition(const std::string& origin, TransitionFunction* function, const std::string& end);
+
+	/// <summary>
+	/// Stops the animation from moving, but it can still change
+	/// </summary>
+	void stopAnimation();
+
+	/// <summary>
+	/// If it was stopped by stopAnimation(), makes the animation move again
+	/// </summary>
+	void continueAnimation();
+
+	/// <summary>
+	/// Restarts the animation to initialState and makes the animation move if it was stopped by stopAnimation()
+	/// </summary>
+	/// <exception cref="AnimatorException">throws initial state is not set</exception>
+	void restartAnimation();
 
 private:
 	std::list<State> _states;
-	State* _actualState;
+	State* _actualState, *_initialState;
 
 	Animator* _animator;
 

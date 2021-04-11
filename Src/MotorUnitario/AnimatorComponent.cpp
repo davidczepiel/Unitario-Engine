@@ -4,25 +4,31 @@
 #include "Logger.h"
 
 AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(6, gameObject), 
-	_states(), _actualState(nullptr), _animator(new Animator())
+	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator())
 {
 	
 }
 
 AnimatorComponent::~AnimatorComponent()
 {
-	
+	delete _animator; _animator = nullptr;
 }
 
 void AnimatorComponent::lateUpdate()
 {
-	for(AnimatorComponent::Transition& transition : _actualState->transitions){
+	//If initialState hasn't been set
+	if (_actualState == nullptr) 
+		return;
+
+	for(const AnimatorComponent::Transition& transition : _actualState->transitions){
 		if(transition.transition()) {
 			_actualState = transition.nextState;
-			//a lo mejor cambiar de estado en ogre con el animator
+			_animator->changeAnimation(_actualState->name, _actualState->loop);
 			break;
 		}
 	}
+
+	//_animator->update(0.2f); Need time since last frame
 }
 
 void AnimatorComponent::setInitialState(const std::string& name)
@@ -33,13 +39,15 @@ void AnimatorComponent::setInitialState(const std::string& name)
 		if (currentstate.name == name) state = &currentstate;
 		if (state != nullptr){
 			_actualState = state;
+			_initialState = state;
+			_animator->changeAnimation(_actualState->name, _actualState->loop);
 			return;
 		}
 	}
 	Logger::getInstance()->log(name + " state does not exist", Logger::Level::WARN);
 }
 
-void AnimatorComponent::createState(const std::string& name)
+void AnimatorComponent::createState(const std::string& name, bool loop)
 {
 	bool foundState = false;
 	for (const AnimatorComponent::State& state : _states) {
@@ -48,7 +56,7 @@ void AnimatorComponent::createState(const std::string& name)
 			break;
 		}
 	}
-	if(!foundState) _states.push_back({ name, std::list<AnimatorComponent::Transition>() });
+	if(!foundState) _states.push_back({ name, loop, std::list<AnimatorComponent::Transition>() });
 	throw AnimatorException(name + " already exists");
 }
 
@@ -68,5 +76,27 @@ void AnimatorComponent::addTransition(const std::string& origin, TransitionFunct
 	if (endState == nullptr)	throw AnimatorException(end + " doesn't exists");
 	
 	originState->transitions.push_back({function, endState});
+}
+
+void AnimatorComponent::stopAnimation()
+{
+	if(_animator->hasAnimation())
+		_animator->stopAnimation();
+}
+
+void AnimatorComponent::continueAnimation()
+{
+	if (_animator->hasAnimation())
+		_animator->continueAnimation();
+}
+
+void AnimatorComponent::restartAnimation()
+{
+	_actualState = _initialState;
+	if (_actualState != nullptr && _animator->hasAnimation()) {
+		_animator->changeAnimation(_actualState->name, _actualState->loop);
+		_animator->restartAnimation();
+	}
+	else throw AnimatorException("initial state is not set to any animation");
 }
 
