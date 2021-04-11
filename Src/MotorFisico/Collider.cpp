@@ -70,7 +70,7 @@ void Collider::setTriggerProperties()
 
 /*
 Broad-Phase callback
-Es el callback al que se va a llamar en caso de que algún elemento se salga de los límites del mundo
+Es el callback al que se va a llamar en caso de que algï¿½n elemento se salga de los lï¿½mites del mundo
 El usuario debe determinar lo que hacer con el callback y los objetos que se detecten que se han salido
 */
 
@@ -89,6 +89,6 @@ void disableShapeInSceneQueryTests(PxShape* shape)
 */
 
 /*
-//Para que el actor no participe en la simulacion (la simulación no lo va a mover y solo se va a mover manualmente)
+//Para que el actor no participe en la simulacion (la simulaciï¿½n no lo va a mover y solo se va a mover manualmente)
 PxActorFlag::eDISABLE_SIMULATION).
 */
