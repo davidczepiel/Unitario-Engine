@@ -41,8 +41,8 @@ BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger,
 	float staticFriction, float dynamicFriction, float restitution)
 	: Collider(isTrigger, staticFriction, dynamicFriction, restitution)
 {
-	physx::PxMaterial* mat = GetPhysx().createMaterial(0.5f,0.5f,0.5);
-	physx::PxBoxGeometry aux( width/2, heigh/2, depth/2);
+	physx::PxMaterial* mat = GetPhysx().createMaterial(0.5f, 0.5f, 0.5);
+	physx::PxBoxGeometry aux(width / 2, heigh / 2, depth / 2);
 	_mShape = GetPhysx().createShape(aux, *mat);
 }
 
@@ -52,8 +52,8 @@ void BoxCollider::setScale(int width, int heigh, int depth) {
 
 ///////////////////////////////////////////////
 
-SphereCollider::SphereCollider(int radius, bool isTrigger ,float staticFriction, float dynamicFriction , float restitution) 
-	:Collider(isTrigger, staticFriction, dynamicFriction,restitution)
+SphereCollider::SphereCollider(int radius, bool isTrigger, float staticFriction, float dynamicFriction, float restitution)
+	:Collider(isTrigger, staticFriction, dynamicFriction, restitution)
 {
 	physx::PxSphereGeometry aux(radius);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
@@ -66,16 +66,15 @@ void SphereCollider::setScale(int r) {
 
 /////////////////////////////////////////////////
 
-CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger 
-	,float staticFriction, float dynamicFriction , float restitution) 
-	:Collider(isTrigger, staticFriction, dynamicFriction,restitution) 
+CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger
+	, float staticFriction, float dynamicFriction, float restitution)
+	:Collider(isTrigger, staticFriction, dynamicFriction, restitution)
 {
-	physx::PxCapsuleGeometry aux(radius, length/2);
+	physx::PxCapsuleGeometry aux(radius, length / 2);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
 	_mShape = GetPhysx().createShape(aux, *mat);
 }
 
 void CapsuleCollider::setScale(int radius, int length) {
-	_mShape->setGeometry(physx::PxCapsuleGeometry(radius, length/2));
+	_mShape->setGeometry(physx::PxCapsuleGeometry(radius, length / 2));
 }
-

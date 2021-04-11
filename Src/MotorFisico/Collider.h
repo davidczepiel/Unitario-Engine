@@ -20,7 +20,7 @@ public:
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
-	virtual ~Collider(){}
+	virtual ~Collider() {}
 
 	/// <summary>
 	/// Configures the collider component so that it collides with other elements of the world
@@ -51,25 +51,22 @@ class BoxCollider : public Collider {
 public:
 	BoxCollider(int width, int heigh, int depth, bool isTrigger,
 		float staticFriction = 0.5f, float dynamicFriction = 0.5f, float restitution = 0.5f);
-	virtual ~BoxCollider(){}
+	virtual ~BoxCollider() {}
 	void setScale(int x, int y, int z);
-
 };
 
 class SphereCollider : public Collider {
 public:
-	SphereCollider(int r, bool isTrigger,float staticFriction=0.5, float dynamicFriction=0.5 , float restitution=0.5);
-	virtual ~SphereCollider(){}
+	SphereCollider(int r, bool isTrigger, float staticFriction = 0.5, float dynamicFriction = 0.5, float restitution = 0.5);
+	virtual ~SphereCollider() {}
 	void setScale(int r);
-
 };
 
 class CapsuleCollider : public Collider {
 public:
-	CapsuleCollider(int radius, int length, bool isTrigger,float staticFriction=0.5, float dynamicFriction=0.5 , float restitution=0.5);
-	virtual ~CapsuleCollider(){}
+	CapsuleCollider(int radius, int length, bool isTrigger, float staticFriction = 0.5, float dynamicFriction = 0.5, float restitution = 0.5);
+	virtual ~CapsuleCollider() {}
 	void setScale(int r, int l);
-
 };
 
 #endif //!COLLIDER_H
