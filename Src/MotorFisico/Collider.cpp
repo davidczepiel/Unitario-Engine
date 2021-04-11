@@ -11,84 +11,71 @@
 
 #define GetPhysx() PhysxEngine::getPxInstance()->getScene()->getPhysics()
 
-Collider::Collider(bool isTrigger) :_isTrigger(isTrigger)
+Collider::Collider(bool isTrigger, float staticFriction, float dynamicFriction, float restitution) :_isTrigger(isTrigger)
 {
-	//Hace falta meterle un material
-	physx::PxMaterial* gMaterial = GetPhysx().createMaterial(0.5f, 0.5f, 0.5f);
-	_mShape = PhysxEngine::getPxInstance()->getScene()->getPhysics().createShape(
-		physx::PxSphereGeometry(1.0f), gMaterial, true);
-	//_mActor->attachShape(PxBoxGeometry());
-	position = new physx::PxVec3(0, 0, 0);
+	physx::PxMaterial* gMaterial = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
+
+	if (isTrigger) setTrigger();
+	else setCollider();
 }
 
-Collider::~Collider()
+void Collider::setCollider()
 {
-	if (position != nullptr) delete position;
+	_mShape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, true);
+	_mShape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, false);
+	_mShape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, false);
+	_mShape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
 }
 
-void Collider::setBoxCollider(int x, int y, int z)
+void Collider::setTrigger()
 {
+	_mShape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+	_mShape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, true);
+	_mShape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+	_mShape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
 }
 
-void Collider::setSphereCollider(int radius)
+//////////////////////////////////////////////////
+
+BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger,
+	float staticFriction, float dynamicFriction, float restitution)
+	: Collider(isTrigger, staticFriction, dynamicFriction, restitution)
 {
+	physx::PxMaterial* mat = GetPhysx().createMaterial(0.5f,0.5f,0.5);
+	physx::PxBoxGeometry aux( width/2, heigh/2, depth/2);
+	_mShape = GetPhysx().createShape(aux, *mat);
 }
 
-void Collider::setStatic()
-{
+void BoxCollider::setScale(int width, int heigh, int depth) {
+	_mShape->setGeometry(physx::PxBoxGeometry(width, heigh, depth));
 }
 
-void Collider::setDynamic()
+///////////////////////////////////////////////
+
+SphereCollider::SphereCollider(int radius, bool isTrigger ,float staticFriction, float dynamicFriction , float restitution) 
+	:Collider(isTrigger, staticFriction, dynamicFriction,restitution)
 {
+	physx::PxSphereGeometry aux(radius);
+	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
+	_mShape = GetPhysx().createShape(aux, *mat);
 }
 
-void Collider::setKinematic()
-{
-	/* //Para generar un objeto de la escena kinematico
-PxRigidDynamic* meshActor = getPhysics().createRigidDynamic(PxTransform(1.0f));
-PxShape* meshShape;
-if(meshActor)
-{
-	meshActor->setRigidDynamicFlag(PxRigidDynamicFlag::eKINEMATIC, true);
-
-	PxTriangleMeshGeometry triGeom;
-	triGeom.triangleMesh = triangleMesh;
-	meshShape = PxRigidActorExt::createExclusiveShape(*meshActor,triGeom,
-		defaultMaterial);
-	getScene().addActor(*meshActor);
-}
-*/
+void SphereCollider::setScale(int r) {
+	_mShape->setGeometry(physx::PxSphereGeometry(2 * r));
 }
 
-void Collider::setColliderProperties()
+/////////////////////////////////////////////////
+
+CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger 
+	,float staticFriction, float dynamicFriction , float restitution) 
+	:Collider(isTrigger, staticFriction, dynamicFriction,restitution) 
 {
+	physx::PxCapsuleGeometry aux(radius, length/2);
+	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
+	_mShape = GetPhysx().createShape(aux, *mat);
 }
 
-void Collider::setTriggerProperties()
-{
+void CapsuleCollider::setScale(int radius, int length) {
+	_mShape->setGeometry(physx::PxCapsuleGeometry(radius, length/2));
 }
 
-/*
-Broad-Phase callback
-Es el callback al que se va a llamar en caso de que alg�n elemento se salga de los l�mites del mundo
-El usuario debe determinar lo que hacer con el callback y los objetos que se detecten que se han salido
-*/
-
-/* //Para que una shape pase o deje de participar en las colisiones de una escena
-void disableShapeInContactTests(PxShape* shape)
-{
-	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE,bool);
-}
-*/
-
-/*  //Para activar/desactivar que la shape participe en scene query tests (raycasts)
-void disableShapeInSceneQueryTests(PxShape* shape)
-{
-	shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE,false);
-}
-*/
-
-/*
-//Para que el actor no participe en la simulacion (la simulaci�n no lo va a mover y solo se va a mover manualmente)
-PxActorFlag::eDISABLE_SIMULATION).
-*/

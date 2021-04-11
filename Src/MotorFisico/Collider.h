@@ -4,7 +4,7 @@
 #define COLLIDER_H
 
 namespace physx {
-	class PxPhysx;
+	class PxPhysics;
 	class PxShape;
 	class PxRigidDynamic;
 	class PxRigidActor;
@@ -16,60 +16,60 @@ class Transform;
 class Collider
 {
 public:
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	Collider(bool isTrigger);
 
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
-	~Collider();
-
-	/// <summary>
-	/// Configures the collider so that it has a Box Geometry
-	/// </summary>
-	void setBoxCollider(int x, int y, int z);
-
-	/// <summary>
-	/// Configures the collider so that it has a Sphere Geometry
-	/// </summary>
-	void setSphereCollider(int radius);
-
-	/// <summary>
-	/// Configures the collider so that it is static
-	/// </summary>
-	void setStatic();
-
-	/// <summary>
-	/// Configures the collider so that it is dynamic
-	/// </summary>
-	void setDynamic();
-
-	/// <summary>
-	/// Configures the collider so that it is dynamic
-	/// </summary>
-	void setKinematic();
-
-private:
+	virtual ~Collider(){}
 
 	/// <summary>
 	/// Configures the collider component so that it collides with other elements of the world
 	/// </summary>
-	void setColliderProperties();
+	void setCollider();
 
 	/// <summary>
 	/// Configures the collider so that it operates as a Trigger
 	/// </summary>
-	void setTriggerProperties();
+	void setTrigger();
 
-	physx::PxRigidActor* _mActor;
+protected:
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	/// <param name="isTrigger">Shape is initially a trigger</param>
+	/// <param name="staticFriction">Static friction of the shape</param>
+	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
+	/// <param name="restitution">Shape's restitution coefficient</param>
+	Collider(bool isTrigger, float staticFriction, float dynamicFriction, float restitution);
+
 	physx::PxShape* _mShape;
-	physx::PxPhysx* _pxPhysx;
-
-	physx::PxVec3* position;
-
 	bool _isTrigger;
+};
+
+class BoxCollider : public Collider {
+public:
+	BoxCollider(int width, int heigh, int depth, bool isTrigger,
+		float staticFriction = 0.5f, float dynamicFriction = 0.5f, float restitution = 0.5f);
+	virtual ~BoxCollider(){}
+	void setScale(int x, int y, int z);
+
+};
+
+class SphereCollider : public Collider {
+public:
+	SphereCollider(int r, bool isTrigger,float staticFriction=0.5, float dynamicFriction=0.5 , float restitution=0.5);
+	virtual ~SphereCollider(){}
+	void setScale(int r);
+
+};
+
+class CapsuleCollider : public Collider {
+public:
+	CapsuleCollider(int radius, int length, bool isTrigger,float staticFriction=0.5, float dynamicFriction=0.5 , float restitution=0.5);
+	virtual ~CapsuleCollider(){}
+	void setScale(int r, int l);
+
 };
 
 #endif //!COLLIDER_H
