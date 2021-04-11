@@ -1,6 +1,10 @@
 #include "ColliderComponent.h"
 //#include "ComponentIDs.h"
 
+ColliderComponent::ColliderComponent() : Component(7),_collider(nullptr)
+{
+}
+
 ColliderComponent::ColliderComponent(GameObject* gameObject) : Component(/*ComponentId::ImageRender*/1, gameObject), _collider(nullptr)
 {
 	//_collider = new Collider();

@@ -14,6 +14,7 @@ public:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
+	AudioSourceComponent();
 	AudioSourceComponent(std::string const& route, GameObject* gameObject);
 	AudioSourceComponent(GameObject* gameObject);
 

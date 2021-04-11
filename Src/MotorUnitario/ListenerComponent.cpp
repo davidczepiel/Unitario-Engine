@@ -3,6 +3,10 @@
 #include "GameObject.h"
 #include "Transform.h"
 
+ListenerComponent::ListenerComponent():Component(9),_tr(nullptr),_listener(nullptr)
+{
+}
+
 ListenerComponent::ListenerComponent(GameObject* gameObject) :Component(9, gameObject), _tr(nullptr), _listener(nullptr)
 {
 }

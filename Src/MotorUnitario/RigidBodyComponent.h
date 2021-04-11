@@ -11,6 +11,8 @@ class GameObject;
 class RigidBodyComponent : public Component {
 public:
 
+	RigidBodyComponent();
+
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>

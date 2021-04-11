@@ -1,10 +1,8 @@
 #include "ImageRenderComponent.h"
 //#include "ComponentIDs.h"
-#include <iostream>
 
 ImageRenderComponent::ImageRenderComponent() : Component(2), imageRender(nullptr)
 {
-	std::cout << "IMAGERENDER CREADO\n";
 	imageRender = new ImageRender();
 }
 

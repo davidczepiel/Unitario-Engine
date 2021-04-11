@@ -11,6 +11,9 @@ class Transform;
 class ListenerComponent : public Component
 {
 public:
+
+	ListenerComponent();
+
 	/// <summary>
 	/// Default constructor of the class
 	/// </summary>

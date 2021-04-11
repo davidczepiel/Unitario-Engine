@@ -2,6 +2,10 @@
 #include "MotorAudio/AudioSource.h"
 //#include "ComponentIDs.h"
 
+AudioSourceComponent::AudioSourceComponent() : Component(8),_audioSource(nullptr)
+{
+}
+
 AudioSourceComponent::AudioSourceComponent(std::string const& route, GameObject* gameObject) :Component(/*ComponentId::ImageRender*/1, gameObject), _audioSource(nullptr)
 {
 	_audioSource = new AudioSource(route);

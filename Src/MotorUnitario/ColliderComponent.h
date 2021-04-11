@@ -10,6 +10,8 @@ class GameObject;
 class ColliderComponent : public Component {
 public:
 
+	ColliderComponent();
+
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>

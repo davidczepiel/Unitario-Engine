@@ -11,6 +11,9 @@
 class RenderObjectComponent : public Component
 {
 public:
+
+	RenderObjectComponent();
+
 	/// <summary>
 	/// Creates a new renderObject for an entity
 	/// </summary>

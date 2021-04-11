@@ -51,14 +51,26 @@ void Engine::init()
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
 
-	ComponentsFactory::add("ImageRenderer", new ImageRenderFactory());
+	//This is for testing the factories
+	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
 	ComponentsFactory::add("Light", new LightComponentFactory());
+	ComponentsFactory::add("RenderObject", new RenderObjectComponentFactory());
+	ComponentsFactory::add("Listener", new ListenerComponentFactory());
+	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
+	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
+	ComponentsFactory::add("Collider", new ColliderComponentFactory());
+
 
 	GameObject* go = new GameObject();
 	Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
 	ir->setGameObject(go);
 	go->addComponent(ir);
 	go->addComponent(ComponentsFactory::getComponentByName("Light"));
+	go->addComponent(ComponentsFactory::getComponentByName("RenderObject"));
+	go->addComponent(ComponentsFactory::getComponentByName("Listener"));
+	go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
+	go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
+	go->addComponent(ComponentsFactory::getComponentByName("Collider"));
 }
 
 void Engine::run()

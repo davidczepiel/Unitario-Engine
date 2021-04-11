@@ -1,5 +1,9 @@
 #include "RenderObjectComponent.h"
 
+RenderObjectComponent::RenderObjectComponent() : Component(1),_renderObject(nullptr)
+{
+}
+
 RenderObjectComponent::RenderObjectComponent(std::string const& meshName, GameObject* gameObject) : Component(/*ComponentId::ImageRender*/1, gameObject), _renderObject(nullptr)
 {
 	//_renderObject = new RenderObject(meshName);
