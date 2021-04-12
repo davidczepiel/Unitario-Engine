@@ -211,6 +211,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ListenerComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\LuaParser.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
@@ -242,6 +243,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ListenerComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\LuaParser.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
