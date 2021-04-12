@@ -10,7 +10,7 @@
 #include "AudioSourceComponent.h"
 #include "RigidBodyComponent.h"
 #include "ColliderComponent.h"
-//Camera
+#include "CameraComponent.h"
 //Animator
 //ParticleSystem
 
@@ -89,5 +89,12 @@ CMP_FACTORY(RigidBodyComponentFactory, RigidBodyComponent);
 #define COLLIDERCOMPONENTFACTORY_H
 
 CMP_FACTORY(ColliderComponentFactory, ColliderComponent);
+
+#endif // !COLLIDERCOMPONENTFACTORY_H
+
+#ifndef CAMERACOMPONENTFACTORY_H
+#define CAMERACOMPONENTFACTORY_H
+
+CMP_FACTORY(CameraComponentFactory, CameraComponent);
 
 #endif // !COLLIDERCOMPONENTFACTORY_H

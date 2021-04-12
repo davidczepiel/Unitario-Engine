@@ -1,10 +1,12 @@
 #include "Camera.h"
+#include <OgreSceneManager.h>
+#include <OgreCamera.h>
 #include <OgreRenderWindow.h>
+#include <OgreViewport.h>
 
 Camera::Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum) :_camera(nullptr), _renderWindow(rWin), _node(nullptr),
 _viewport(nullptr)
 {
-	//CHANGE: si tenemos algo que gestione la escena llamarlo para que sea hijo de otro nodo
 	_camera = scn->createCamera("camera" + cameraNum);
 	_camera->setAutoAspectRatio(true);
 	_node = scn->getRootSceneNode()->createChildSceneNode(_camera->getName());
@@ -13,6 +15,14 @@ _viewport(nullptr)
 	_viewport = rWin->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.2, 0.2, 0.2));
 	_viewport->setOverlaysEnabled(true);
+}
+
+Camera::Camera():_camera(nullptr), _renderWindow(nullptr), _node(nullptr),_viewport(nullptr)
+{
+}
+
+Camera::Camera(std::string path): _camera(nullptr), _renderWindow(nullptr), _node(nullptr),_viewport(nullptr)
+{
 }
 
 Camera::~Camera()
