@@ -3,7 +3,7 @@
 #include <tuple>
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
-#define VEC3(tuple) physx::PxVec3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
+#define TUPLE_TO_PHYSXVEC3(tuple) physx::PxVec3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
 namespace physx {
 
 	class PxPhysics;
@@ -131,25 +131,28 @@ public:
 	/// Adds a force if it's a dynamic rigid body 
 	/// </summary>
 	/// <param name="force">The force to add</param>
-	void addForce(std::tuple<float, float, float> force);
+	std::tuple<float, float, float, bool> addForce(std::tuple<float, float, float>& force);
 
 	/// <summary>
 	/// Adds an impulse if it's a dynamic rigid body 
 	/// </summary>
 	/// <param name="impulse">The impulse to add</param>
-	void addImpulse(std::tuple<float, float, float> impulse);
+	std::tuple<float, float, float, bool> addImpulse(std::tuple<float, float, float>& impulse);
 
 	/// <summary>
 	/// Adds a torque if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="torque">The torque to add</param>
-	void addTorque(std::tuple<float, float, float> torque);
+	/// <returns>The new rotation of the object and if it's valid</returns>
+	std::tuple<float, float, float, bool> addTorque(std::tuple<float, float, float>& torque);
 
 	/// <summary>
 	/// Moves the rigidBody to a point, (only if Kinematic)
 	/// </summary>
 	/// <param name="dest">The point where the rigidBody will be moved</param>
-	void moveTo(std::tuple<float, float, float> dest);
+	/// <returns>The new position of the object and if it's valid</returns>
+	
+	std::tuple<float,float,float,bool> moveTo(std::tuple<float, float, float>& dest);
 
 	/// <summary>
 	/// Enables or disables the constraint in the rigid body x axis
