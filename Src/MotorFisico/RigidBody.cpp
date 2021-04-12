@@ -7,7 +7,7 @@
 #include "PxRigidStatic.h"
 #include "PhysxEngine.h"
 
-RigidBody::RigidBody(float radious,bool isKinematic, std::tuple<float, float, float> position, 
+RigidBody::RigidBody(float radious,bool isKinematic,const std::tuple<float, float, float>& position, 
 	bool isStatic, float linearDamping, float angularDamping, float staticFriction, 
 	float dynamicFriction, float restitution, float mass) :_physx(nullptr), _transform(), _dynamicBody(nullptr),
 	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
@@ -24,7 +24,7 @@ RigidBody::RigidBody(float radious,bool isKinematic, std::tuple<float, float, fl
 	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(float width, float height, float depth, bool isStatic, std::tuple<float, float, float> position, 
+RigidBody::RigidBody(float width, float height, float depth, bool isStatic,const std::tuple<float, float, float>& position, 
 	bool isKinematic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float mass) :
 	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
@@ -40,7 +40,7 @@ RigidBody::RigidBody(float width, float height, float depth, bool isStatic, std:
 	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(float radious, float height, bool isStatic, std::tuple<float, float, float> position, bool isKinematic, 
+RigidBody::RigidBody(float radious, float height, bool isStatic,const std::tuple<float, float, float>& position, bool isKinematic, 
 	float linearDamping, float AngularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
 	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
 {
@@ -53,7 +53,6 @@ RigidBody::RigidBody(float radious, float height, bool isStatic, std::tuple<floa
 	_dynamicBody->attachShape(*e);
 	e->release();
 	_scene->addActor(*_dynamicBody);
-	_dynamicBody->userData = this;
 }
 
 RigidBody::~RigidBody()
@@ -109,23 +108,43 @@ void RigidBody::setMass(float m)
 		_dynamicBody->setMass(m);
 }
 
-void RigidBody::setLinearVelocity(std::tuple<float, float, float> vel)
+void RigidBody::setLinearVelocity(const std::tuple<float, float, float>& vel)
 {
 	if (!_isStatic)
 		_dynamicBody->setLinearVelocity(TUPLE_TO_PHYSXVEC3(vel));
 }
 
-void RigidBody::setAngularVelocity(std::tuple<float, float, float> vel)
+void RigidBody::setAngularVelocity(const std::tuple<float, float, float>& vel)
 {
 	if (!_isStatic)
 		_dynamicBody->setAngularVelocity(TUPLE_TO_PHYSXVEC3(vel));
 }
 
-std::tuple<float, float, float, bool> RigidBody::addForce(std::tuple<float, float, float>& force)
+const std::tuple<float, float, float>& RigidBody::getAngularVelocity()
+{
+	if (_isStatic)
+		return std::tuple<float, float, float>(0, 0, 0);
+	else return  PHYSXVEC3_TO_TUPLE (_dynamicBody->getAngularVelocity());
+}
+
+const std::tuple<float, float, float>& RigidBody::getLinearVelocity()
+{
+	if (_isStatic)
+		return std::tuple<float, float, float>(0, 0, 0);
+	else return  PHYSXVEC3_TO_TUPLE(_dynamicBody->getLinearVelocity());
+}
+
+float RigidBody::getMass()
+{
+	if (_isStatic)
+		0;
+	else return _dynamicBody->getMass();
+}
+const std::tuple<float, float, float, bool>& RigidBody::addForce(std::tuple<float, float, float>& force)
 {
 	if (_isStatic) {
 		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(force));
-		physx::PxVec3 pos = _dynamicBody->getGlobalPose().p;
+		physx::PxVec3 pos = _transform->p;
 		return std::tuple<float, float, float, bool>(pos.x, pos.y, pos.z, true);
 
 	}
@@ -133,11 +152,11 @@ std::tuple<float, float, float, bool> RigidBody::addForce(std::tuple<float, floa
 
 }
 
-std::tuple<float, float, float, bool> RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
+const std::tuple<float, float, float, bool>& RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
 {
 	if (!_isStatic) {
 		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(impulse), physx::PxForceMode::eIMPULSE);
-		physx::PxVec3 pos = _dynamicBody->getGlobalPose().p;
+		physx::PxVec3 pos = _transform->p;
 		return std::tuple<float, float, float, bool>(pos.x, pos.y, pos.z, true);
 
 	}
@@ -145,12 +164,12 @@ std::tuple<float, float, float, bool> RigidBody::addImpulse(std::tuple<float, fl
 
 }
 
-std::tuple<float, float, float, bool> RigidBody::addTorque(std::tuple<float, float, float>& torque)
+const std::tuple<float, float, float, bool>& RigidBody::addTorque(std::tuple<float, float, float>& torque)
 {
 	if (!_isStatic)
 	{
 		_dynamicBody->addTorque(TUPLE_TO_PHYSXVEC3(torque));
-		physx::PxVec3 rotation = _dynamicBody->getGlobalPose().q.getImaginaryPart();
+		physx::PxVec3 rotation = _transform->q.getImaginaryPart();
 		return std::tuple<float, float, float, bool>(rotation.x, rotation.y, rotation.z, true);
 
 	}
@@ -160,18 +179,19 @@ std::tuple<float, float, float, bool> RigidBody::addTorque(std::tuple<float, flo
 }
 
 
+
 void RigidBody::setGravity(bool g)
 {
 	if (!_isStatic)
 		_dynamicBody->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, !g);
 }
 
-std::tuple<float, float, float, bool> RigidBody::moveTo(std::tuple<float, float, float>& dest)
+const std::tuple<float, float, float, bool>& RigidBody::moveTo(std::tuple<float, float, float>& dest)
 {
 	if (!_isStatic && _dynamicBody->getRigidBodyFlags().isSet(physx::PxRigidBodyFlag::eKINEMATIC)) {
 
 		_dynamicBody->setKinematicTarget(physx::PxTransform(TUPLE_TO_PHYSXVEC3(dest)));
-		physx::PxVec3 pos = _dynamicBody->getGlobalPose().p;
+		physx::PxVec3 pos = _transform->p;
 		return std::tuple<float, float, float, bool>(pos.x, pos.y, pos.z, true);
 	}
 	return std::tuple<float, float, float, bool>(0,0,0, false);
@@ -224,7 +244,7 @@ void RigidBody::setFlags(physx::PxShape* shape)
 
 }
 
-void RigidBody::initParams(std::tuple<float, float, float> pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
+void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
 {
 	_physx = &PhysxEngine::getPxInstance()->getScene()->getPhysics();
 	_scene = PhysxEngine::getPxInstance()->getScene();
