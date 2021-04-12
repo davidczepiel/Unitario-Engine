@@ -133,7 +133,7 @@ void Light::setPowerScale(float power)
 
 const float Light::getPowerScale() const 
 { 
-	_light->getPowerScale(); 
+	return _light->getPowerScale(); 
 }
 
 void Light::setVisible(bool visible) 

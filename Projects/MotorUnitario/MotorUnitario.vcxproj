@@ -186,6 +186,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\InputManager.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\KeyboardInput.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ListenerComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ListenerComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
