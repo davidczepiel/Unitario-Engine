@@ -21,6 +21,56 @@ CameraComponent::~CameraComponent()
 	delete _camera; _camera == nullptr;
 }
 
+void CameraComponent::lookAt(float x, float y, float z)
+{
+	_camera->lookAt(x, y, z);
+}
+
+void CameraComponent::pitchDegrees(float degrees)
+{
+	_camera->pitchDegrees(degrees);
+}
+
+void CameraComponent::pitchRadians(float radians)
+{
+	_camera->pitchRadians(radians);
+}
+
+void CameraComponent::yawDegrees(float degrees)
+{
+	_camera->yawDegrees(degrees);
+}
+
+void CameraComponent::yawRadians(float radians)
+{
+	_camera->yawRadians(radians);
+}
+
+void CameraComponent::rollDegrees(float degrees)
+{
+	_camera->rollDegrees(degrees);
+}
+
+void CameraComponent::rollRadians(float radians)
+{
+	_camera->rollRadians(radians);
+}
+
+void CameraComponent::setOrientation(float w, float x, float y, float z)
+{
+	_camera->setOrientation(w, x, y, z);
+}
+
+void CameraComponent::setPosition(float x, float y, float z)
+{
+	_camera->setPosition(x, y, z);
+}
+
+void CameraComponent::translate(float x, float y, float z)
+{
+	_camera->translate(x, y, z);
+}
+
 void CameraComponent::setPlanes(float near, float far)
 {
 	_camera->setPlanes(near, far);
@@ -50,5 +100,3 @@ void CameraComponent::setViewportDimensions(float left, float top, float w, floa
 {
 	_camera->setViewportDimensions(left, top, w, h);
 }
-
-
