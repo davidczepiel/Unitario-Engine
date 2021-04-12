@@ -2,7 +2,7 @@
 #include "MotorGrafico/Camera.h"
 //#include "ComponentIDs.h"
 
-CameraComponent::CameraComponent() : Component(8), _camera(nullptr)
+CameraComponent::CameraComponent() : Component(11), _camera(nullptr)
 {
 }
 

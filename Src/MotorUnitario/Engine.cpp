@@ -59,6 +59,7 @@ void Engine::init()
 	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
 	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
 	ComponentsFactory::add("Collider", new ColliderComponentFactory());
+	ComponentsFactory::add("Camera", new CameraComponentFactory());
 
 
 	GameObject* go = new GameObject();
@@ -71,6 +72,7 @@ void Engine::init()
 	go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
 	go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
 	go->addComponent(ComponentsFactory::getComponentByName("Collider"));
+	go->addComponent(ComponentsFactory::getComponentByName("Camera"));
 }
 
 void Engine::run()

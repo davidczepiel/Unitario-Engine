@@ -17,13 +17,13 @@ class ImageRender {
 public:
 
 	//Here we have all the types of origins of a billboard
-	enum BillboardOrigin {
+	enum class BillboardOrigin {
 		BBO_TOP_LEFT=0, BBO_TOP_CENTER=1, BBO_TOP_RIGHT=2, BBO_CENTER_LEFT=3, BBO_CENTER=4, 
 		BBO_CENTER_RIGHT=5, BBO_BOTTOM_LEFT=6, BBO_BOTTOM_CENTER=7, BBO_BOTTOM_RIGHT=8				
 	};
 
 	//Here we have all the orientation types of a billboard
-	enum BillboardType {
+	enum class BillboardType {
 		//Standard point billboard (default), always faces the camera completely and is always upright
 		BBT_POINT=0, 
 		//Billboards are oriented around a shared direction vector(used as Y axis) and only rotate around this to face the camera
@@ -37,7 +37,7 @@ public:
 	};
 
 	//Here we have all the rotation types of a billboard
-	enum BillboardRotationType {
+	enum class BillboardRotationType {
 		/// Rotate the billboard's vertices around their facing direction
 		BBR_VERTEX=0,
 		/// Rotate the billboard's texture coordinates
