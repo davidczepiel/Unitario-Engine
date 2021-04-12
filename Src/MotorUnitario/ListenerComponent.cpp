@@ -2,8 +2,9 @@
 #include "MotorAudio/Listener.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "ComponentIDs.h"
 
-ListenerComponent::ListenerComponent(GameObject* gameObject):Component(9,gameObject), _tr(nullptr), _listener(nullptr)
+ListenerComponent::ListenerComponent(GameObject* gameObject):Component(ComponentId::ListenerComponent,gameObject), _tr(nullptr), _listener(nullptr)
 {
 }
 

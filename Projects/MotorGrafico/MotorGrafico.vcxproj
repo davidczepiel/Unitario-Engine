@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -193,13 +193,16 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp" />
+    <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorGrafico\Camera.h" />
+    <ClInclude Include="..\..\Src\MotorGrafico\Colour.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h" />
+    <ClInclude Include="..\..\Src\MotorGrafico\Light.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\main.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h" />
   </ItemGroup>
