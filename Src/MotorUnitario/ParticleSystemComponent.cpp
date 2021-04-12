@@ -2,8 +2,9 @@
 #include "MotorGrafico/ParticleSystem.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "ComponentIDs.h"
 
-ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject): Component(3,gameObject), _pSystem(nullptr), _tr(nullptr), _path()
+ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject): Component(ComponentId::ParticleSystem,gameObject), _pSystem(nullptr), _tr(nullptr), _path()
 {
 }
 
