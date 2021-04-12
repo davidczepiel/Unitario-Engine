@@ -25,8 +25,6 @@ GraphicsEngine* GraphicsEngine::getInstance()
 	return instance;
 }
 
-
-
 void GraphicsEngine::initRoot()
 {
 #ifdef _DEBUG
@@ -41,12 +39,12 @@ void GraphicsEngine::initWindow() {
 	_root->initialise(false);
 	Ogre::NameValuePairList params;
 	Ogre::ConfigOptionMap configuracion = _root->getRenderSystem()->getConfigOptions();
-	
+
 	SDL_Init(SDL_INIT_EVERYTHING);
-	
+
 	SDL_SysWMinfo wmInfo;
 	SDL_VERSION(&wmInfo.version);
-	
+
 	Uint32 flags = SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
 	std::string nombre = "Prueba";
 
@@ -54,8 +52,8 @@ void GraphicsEngine::initWindow() {
 	if (SDL_GetWindowWMInfo(_sdlWindow, &wmInfo) == SDL_FALSE) {
 		throw EGraphicEngine("Error creating window");
 	}
-	
-	params["FSAA"] = configuracion["FSAA"].currentValue;     
+
+	params["FSAA"] = configuracion["FSAA"].currentValue;
 	params["vsync"] = configuracion["VSync"].currentValue;
 	params["gamma"] = configuracion["sRGB Gamma Conversion"].currentValue;
 	params["externalWindowHandle"] = std::to_string(size_t(wmInfo.info.win.window));

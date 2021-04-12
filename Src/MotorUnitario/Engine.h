@@ -8,6 +8,7 @@
 
 class GameObject;
 class GraphicsEngine;
+class PhysxEngine;
 class InputManager;
 
 class Engine
@@ -113,6 +114,7 @@ private:
 	void processEvents();
 
 	static Engine* instance;
+	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;
 	std::list<GameObject*> _GOs;
 	InputManager* _inputManager;

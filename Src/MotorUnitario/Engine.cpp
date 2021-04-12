@@ -4,6 +4,7 @@
 #include "MotorUnitario/GameObject.h"
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
+#include "MotorFisico/PhysxEngine.h"
 #include "InputManager.h"
 
 Engine* Engine::instance = nullptr;
@@ -41,10 +42,12 @@ void Engine::tick()
 
 void Engine::init()
 {
+	_physxEngine = PhysxEngine::getPxInstance();
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
+	_physxEngine->init();
 }
 
 void Engine::run()
