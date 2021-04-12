@@ -119,9 +119,9 @@ private:
 	/// </summary>
 	void processEvents();
 
+	std::list<GameObject*> _GOs;
 	static std::unique_ptr<Engine> instance;
 	GraphicsEngine* _graphicsEngine;
-	std::list<GameObject*> _GOs;
 	InputManager* _inputManager;
 
 	bool _run;

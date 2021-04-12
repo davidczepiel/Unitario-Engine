@@ -90,6 +90,9 @@ private:
 	/// </summary>
 	void _loadResources();
 
+	/// <summary>
+	/// Initialise RTSS
+	/// </summary>
 	bool _initialiseRTShaderSystem();
 
 	static std::unique_ptr<GraphicsEngine> instance;
@@ -100,16 +103,18 @@ private:
 	Ogre::FileSystemLayer* _mFSLayer;
 	// The Shader generator instance.
 	Ogre::RTShader::ShaderGenerator* _mShaderGenerator;
-	SDL_Window* _sdlWindow;
+	// Ogre Listener for RTSS-Shading Generation
 	RTSSDefaultTechniqueListener* _mTechniqueListener;
+	SDL_Window* _sdlWindow;
 	// Relative path to solution folder
 	std::string _mSolutionPath;
+	// Path relative to RTShader folder
 	std::string _mRTShaderLibPath;
+	// Path relative to shadowVolume folder
 	std::string _mVolumeShaderPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
-	// Shader generator material manager listener.
-	//OgreBites::SGTechniqueResolverListener* _mMaterialMgrListener;
+
 };
 
 #endif /*GRAPHICSENGINE.h*/
