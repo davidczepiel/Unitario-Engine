@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -179,13 +179,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\InputManager.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\KeyboardInput.cpp" />
-    <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ListenerComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
@@ -204,6 +205,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
@@ -214,7 +216,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />
-    <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ListenerComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />

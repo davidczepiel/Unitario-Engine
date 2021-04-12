@@ -5,8 +5,9 @@
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
+#include "MotorAudio/AudioEngine.h"
 
-Engine* Engine::instance = nullptr;
+Engine* Engine::_instance = nullptr;
 
 Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
@@ -23,10 +24,10 @@ Engine::~Engine()
 
 Engine* Engine::getInstance()
 {
-	if (instance == nullptr) {
-		instance = new Engine();
+	if (_instance == nullptr) {
+		_instance = new Engine();
 	}
-	return instance;
+	return _instance;
 }
 
 void Engine::tick()
@@ -43,6 +44,7 @@ void Engine::init()
 {
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
+	_audioEngine = AudioEngine::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 }
@@ -91,6 +93,7 @@ void Engine::lateUpdate()
 	for (auto& it : _GOs) {
 		it->lateUpdate();
 	}
+	_audioEngine->update();
 }
 
 GameObject* Engine::addGameObject()
