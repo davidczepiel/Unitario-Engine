@@ -1,12 +1,13 @@
 #include "AnimatorComponent.h"
 #include "MotorGrafico/Animator.h"
+#include "GameObject.h"
 #include "Exceptions.h"
 #include "Logger.h"
 
 AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(6, gameObject), 
-	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator())
+	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator(gameObject->getName()))
 {
-	
+
 }
 
 AnimatorComponent::~AnimatorComponent()
@@ -28,7 +29,7 @@ void AnimatorComponent::lateUpdate()
 		}
 	}
 
-	//_animator->update(0.2f); Need time since last frame
+	//TODO: _animator->update(0.2f); Need time since last frame
 }
 
 void AnimatorComponent::setInitialState(const std::string& name)
