@@ -22,7 +22,7 @@ public:
 	~LuaParser();
 	void test();
 	void closeLuaVM();
-	void JsonParser();
+	void LuaParser();
 private:
 	lua_State* LuaVM;
 	bool checkLua(lua_State* L, int r);
