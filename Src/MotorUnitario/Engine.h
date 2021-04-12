@@ -10,6 +10,7 @@
 class GameObject;
 class GraphicsEngine;
 class InputManager;
+class AudioEngine;
 
 class Engine
 {
@@ -119,9 +120,10 @@ private:
 	/// </summary>
 	void processEvents();
 
+	GraphicsEngine* _graphicsEngine;
+	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
 	static std::unique_ptr<Engine> instance;
-	GraphicsEngine* _graphicsEngine;
 	InputManager* _inputManager;
 
 	bool _run;

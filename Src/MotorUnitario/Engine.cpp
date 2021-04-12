@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
+#include "MotorAudio/AudioEngine.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -44,6 +45,7 @@ void Engine::init()
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
+	_audioEngine = AudioEngine::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
@@ -99,6 +101,7 @@ void Engine::lateUpdate()
 	for (auto& it : _GOs) {
 		it->lateUpdate();
 	}
+	_audioEngine->update();
 }
 
 GameObject* Engine::addGameObject()
