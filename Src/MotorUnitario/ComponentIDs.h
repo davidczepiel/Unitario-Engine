@@ -6,20 +6,23 @@ It's recommendable to keep an order when introducing a new Component to the enum
 	(Eg. first graphic-related objects, then audio, etc)
 */
 
-enum ComponentId : unsigned int {
-	Transform = 0,
-	ImageRenderer,
-	RenderObject,
-	Animator,
-	LightComponent,
-	ParticleSystem,
-	Camera,
+namespace ComponentId {
+	enum ComponentId : unsigned int {
+		Transform = 0,
+		ImageRenderer,
+		RenderObject,
+		Animator,
+		LightComponent,
+		ParticleSystem,
+		Camera,
 	
-	Rigidbody,
-	Collider,
+		Rigidbody,
+		Collider,
 	
-	AudioSource,
+		AudioSource,
+		ListenerComponent,
 
-	//from this point, every id forward is of a component defined by the user
-	__StartPointUser__
-};
+		//from this point, every id forward is of a component defined by the user
+		__StartPointUser__
+	};
+}
