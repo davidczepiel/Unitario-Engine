@@ -3,7 +3,9 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "Vector3.h"
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(9,gameObject), _audioSource(nullptr), _tr(nullptr), _route()
+#include "ComponentIDs.h"
+
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
 {
 }
 
