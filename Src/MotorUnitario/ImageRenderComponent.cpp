@@ -1,12 +1,12 @@
 #include "ImageRenderComponent.h"
-//#include "ComponentIDs.h"
+#include "ComponentIDs.h"
 
-ImageRenderComponent::ImageRenderComponent() : Component(2), imageRender(nullptr)
+ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), imageRender(nullptr)
 {
 	imageRender = new ImageRender();
 }
 
-ImageRenderComponent::ImageRenderComponent(GameObject* gameObject) :Component(/*ComponentId::ImageRender*/1, gameObject), imageRender(nullptr)
+ImageRenderComponent::ImageRenderComponent(GameObject* gameObject) :Component(ComponentId::ImageRender, gameObject), imageRender(nullptr)
 {
 	imageRender = new ImageRender();
 }

@@ -1,11 +1,11 @@
 #include "RigidBodyComponent.h"
-//#include "ComponentIDs.h"
+#include "ComponentIDs.h"
 
-RigidBodyComponent::RigidBodyComponent():Component(6),_rigidBody(nullptr)
+RigidBodyComponent::RigidBodyComponent():Component(ComponentId::Rigidbody),_rigidBody(nullptr)
 {
 }
 
-RigidBodyComponent::RigidBodyComponent(GameObject* gameObject) : Component(/*ComponentId::ImageRender*/1, gameObject), _rigidBody(nullptr)
+RigidBodyComponent::RigidBodyComponent(GameObject* gameObject) : Component(ComponentId::Rigidbody, gameObject), _rigidBody(nullptr)
 {
 	//_rigidBody = new RigidBody();
 }

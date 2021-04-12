@@ -1,17 +1,17 @@
 #include "CameraComponent.h"
 #include "MotorGrafico/Camera.h"
-//#include "ComponentIDs.h"
+#include "ComponentIDs.h"
 
-CameraComponent::CameraComponent() : Component(11), _camera(nullptr)
+CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
 }
 
-CameraComponent::CameraComponent(std::string const& route, GameObject* gameObject) : Component(/*ComponentId::Camera*/1, gameObject), _camera(nullptr)
+CameraComponent::CameraComponent(std::string const& route, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
 {
 	_camera = new Camera(route);
 }
 
-CameraComponent::CameraComponent(GameObject* gameObject) : Component(/*ComponentId::Camera*/1, gameObject), _camera(nullptr)
+CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
 {
 	_camera = new Camera();
 }

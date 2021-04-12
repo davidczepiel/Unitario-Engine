@@ -1,11 +1,11 @@
 #include "ColliderComponent.h"
-//#include "ComponentIDs.h"
+#include "ComponentIDs.h"
 
-ColliderComponent::ColliderComponent() : Component(7),_collider(nullptr)
+ColliderComponent::ColliderComponent() : Component(ComponentId::Collider),_collider(nullptr)
 {
 }
 
-ColliderComponent::ColliderComponent(GameObject* gameObject) : Component(/*ComponentId::ImageRender*/1, gameObject), _collider(nullptr)
+ColliderComponent::ColliderComponent(GameObject* gameObject) : Component(ComponentId::Collider, gameObject), _collider(nullptr)
 {
 	//_collider = new Collider();
 }
