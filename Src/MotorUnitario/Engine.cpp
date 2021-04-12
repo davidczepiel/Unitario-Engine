@@ -47,6 +47,7 @@ void Engine::init()
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
+	_graphicsEngine->loadScene(); //WIP
 }
 
 void Engine::run()
