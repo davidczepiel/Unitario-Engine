@@ -10,7 +10,6 @@ ListenerComponent::ListenerComponent(GameObject* gameObject):Component(9,gameObj
 ListenerComponent::~ListenerComponent()
 {
 	delete _listener;
-	delete _tr;
 }
 
 void ListenerComponent::start()
