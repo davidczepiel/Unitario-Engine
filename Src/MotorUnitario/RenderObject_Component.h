@@ -7,13 +7,24 @@
 #include "MotorGrafico/RenderObject.h"
 #include <string>
 
-class GameObject;
+class Transform;
 
 class RenderObjectComponent : public Component {
 public:
+	/// <summary>
+	/// Constructor of the class
+	/// </summary>
+	///<param name="meshName">: mesh filename </param>
 	RenderObjectComponent(GameObject* gameObject, std::string const& meshName);
 	~RenderObjectComponent();
-
+	/// <summary>
+	/// Initialize the component
+	/// </summary>
+	virtual void start() override;
+	/// <summary>
+	/// Updates the position with Transform Component
+	/// </summary>
+	virtual void update() override;
 	/// <summary>
 	/// Set the object material
 	/// </summary>
@@ -81,6 +92,8 @@ public:
 protected:
 private:
 	RenderObject* _renderObject;
+	Transform* _transform;
+	std::string _meshName;
 };
 
 #endif //!RENDEROBJECT_COMPONENT_H

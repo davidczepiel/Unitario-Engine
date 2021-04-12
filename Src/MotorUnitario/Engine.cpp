@@ -6,6 +6,7 @@
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
+#include "RenderObject_Component.h"
 
 Engine* Engine::_instance = nullptr;
 
@@ -52,6 +53,7 @@ void Engine::init()
 void Engine::run()
 {
 	start();
+	
 	while (_run)
 	{
 		tick();

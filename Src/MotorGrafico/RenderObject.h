@@ -24,20 +24,7 @@ public:
 	/// </summary>
 	~RenderObject();
 
-	/// <summary>
-	/// Set the object material
-	/// </summary>
-	///<param name="material name">: Name of the material</param>
-	void setMaterial(std::string const& materialName);
-
-	/// <summary>
-	/// Set the object position
-	/// </summary>
-	///<param name="x">: X position</param>
-	///<param name="y">: Y position</param>
-	///<param name="z">: Z position</param>
-	void setPosition(float x, float y, float z);
-
+	void init();
 	/// <summary>
 	/// Rotates the object
 	/// </summary>
@@ -46,14 +33,6 @@ public:
 	///<param name="y">: Y axis</param>
 	///<param name="z">: Z axis</param>
 	void rotate(float angle, float x, float y, float z);
-
-	/// <summary>
-	/// Sets the object scale
-	/// </summary>
-	///<param name="x">: X scale</param>
-	///<param name="y">: Y scale</param>
-	///<param name="z">: Z scale</param>
-	void setScale(float x, float y, float z);
 
 	/// <summary>
 	/// Scales the object
@@ -88,9 +67,34 @@ public:
 	/// </summary>
 	///<param name="distance">: render distance</param>
 	void setRenderingDistance(float distance);
+
+	/// <summary>
+	/// Sets the object scale
+	/// </summary>
+	///<param name="x">: X scale</param>
+	///<param name="y">: Y scale</param>
+	///<param name="z">: Z scale</param>
+	void setScale(float x, float y, float z);
+
+	/// <summary>
+	/// Set the object material
+	/// </summary>
+	///<param name="material name">: Name of the material</param>
+	void setMaterial(std::string const& materialName);
+
+	/// <summary>
+	/// Set the object position
+	/// </summary>
+	///<param name="x">: X position</param>
+	///<param name="y">: Y position</param>
+	///<param name="z">: Z position</param>
+	void setPosition(float x, float y, float z);
 protected:
-	Ogre::SceneNode* objectNode;
-	Ogre::Entity* objectEntity;
+	Ogre::SceneNode* _objectNode;
+	Ogre::Entity* _objectEntity;
+
+	std::string _objectName;
+	std::string _meshName;
 private:
 };
 
