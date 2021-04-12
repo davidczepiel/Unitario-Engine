@@ -45,7 +45,7 @@ public:
 	void stop();
 
 	/// <summary>
-	/// Sets the audio loop 
+	/// Sets the audio loop
 	/// </summary>
 	/// <param name="id">Id audio</param>
 	/// <param name="loop"> loop = 0 no loop; loop = -1 normal loop; loop = n the audio will repeat n times</param>
@@ -57,18 +57,18 @@ public:
 	/// <param name="stereo">If true audio will be stereo. Otherwise it will be mono</param>
 	void set3D(int id, bool stereo);
 	/// <summary>
-	/// Gets the audio directory route  
+	/// Gets the audio directory route
 	/// </summary>
 	float getVolumeAudio() const;
 	/// <summary>
-	/// Sets the audio volume  
+	/// Sets the audio volume
 	/// </summary>
 	void setVolumeAudio(float v);
 	/// <summary>
-	/// Sets the audio directory route  
+	/// Sets the audio directory route
 	/// </summary>
 	/// <param name="route">FileRoute</param>
-	void setRoute(std::string route) { _route = route; }
+	void setRoute(std::string const& route) { _route = route; }
 	/// <summary>
 	/// Sets the anglesand attenuation levels of a 3D cone shape, for simulated occlusion which is based on direction.
 	/// </summary>
@@ -90,7 +90,7 @@ public:
 	/// Sets the current velocity of the entity.
 	/// </summary>
 	void setVelocity(float x, float y, float z);
-	
+
 private:
 	std::vector<FMOD::Sound*> _sound;
 	//Entity position
