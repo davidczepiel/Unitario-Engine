@@ -12,11 +12,10 @@ class ListenerComponent : public Component
 {
 public:
 
-	ListenerComponent();
-
 	/// <summary>
 	/// Default constructor of the class
 	/// </summary>
+	ListenerComponent();
 	ListenerComponent(GameObject* gameObject);
 	/// <summary>
 	/// Destructor of the class

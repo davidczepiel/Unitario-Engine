@@ -1,40 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\Src\MotorUnitario\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\InputManager.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\KeyboardInput.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\CameraComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp">
@@ -94,13 +64,12 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\CameraComponent.cpp">
-    <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\CameraComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h">
@@ -110,6 +79,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentFactory.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentsFactory.h">
@@ -166,25 +138,16 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\CameraComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{681c4c47-1ff3-4314-bc65-5efe1f4c37dd}</UniqueIdentifier>
+      <UniqueIdentifier>{fddd8990-45f6-4cc4-aa8b-2cff5ae0efc6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{32b15142-5228-4b72-bb56-4aee2ab439b3}</UniqueIdentifier>
+      <UniqueIdentifier>{404a5a6a-279f-49b2-8335-9e052d0b67d1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{0fd87ee3-3536-40b5-9510-8b23246c474e}</UniqueIdentifier>
+      <UniqueIdentifier>{d659465b-9332-4113-97e0-874109ae8e92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

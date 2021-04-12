@@ -2,7 +2,7 @@
 #include "ComponentIDs.h"
 #include "GameObject.h"
 
-LightComponent::LightComponent() :Component(ComponentId::LightComponent)
+LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(nullptr)
 {
 }
 
