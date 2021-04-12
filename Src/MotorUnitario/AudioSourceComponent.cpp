@@ -1,6 +1,13 @@
 #include "AudioSourceComponent.h"
 #include "MotorAudio/AudioSource.h"
-//#include "ComponentIDs.h"
+#include "Transform.h"
+#include "GameObject.h"
+#include "Vector3.h"
+#include "ComponentIDs.h"
+
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
+{
+}
 
 AudioSourceComponent::AudioSourceComponent() : Component(8),_audioSource(nullptr)
 {
