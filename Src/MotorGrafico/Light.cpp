@@ -38,7 +38,7 @@ Light::~Light()
 {
 }
 
-void Light::setLightType(LightType type)
+void Light::setLightType(Light::LightType type)
 {
 	_light->setType((Ogre::Light::LightTypes)type);
 }
@@ -58,7 +58,7 @@ void Light::setDiffuse(const Colour& diffuse)
 	_light->setDiffuseColour(diffuse.red, diffuse.green, diffuse.blue);
 }
 
-const Colour& Light::getDiffuse() const
+const Colour Light::getDiffuse() const
 {
 	const Ogre::ColourValue& colourOgre = _light->getDiffuseColour();
 
@@ -75,7 +75,7 @@ void Light::setSpecular(const Colour& specular)
 	_light->setSpecularColour(specular.red, specular.green, specular.blue);
 }
 
-const Colour& Light::getSpecular() const
+const Colour Light::getSpecular() const
 {
 	const Ogre::ColourValue& colourOgre = _light->getSpecularColour();
 
@@ -102,7 +102,7 @@ const float Light::getAttenuationLinear() const
 	return _light->getAttenuationLinear();
 }
 
-const float  Light::getAttenuationQuadric() const 
+const float Light::getAttenuationQuadric() const 
 { 
 	return _light->getAttenuationQuadric(); 
 }

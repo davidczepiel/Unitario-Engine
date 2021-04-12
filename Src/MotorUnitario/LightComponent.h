@@ -107,7 +107,7 @@ public:
 	/// <param name="outerAngle">: Angle covered by the outer cone.</param>
 	/// <param name="fallof">:  The rate of falloff between the inner and outer cones. 1.0 means a linear falloff, 
 	///							less means slower falloff, higher means faster falloff.</param>
-	void setSpotlightRange(float innerAngle, float outerAngle, float fallof);
+	inline void setSpotlightRange(float innerAngle, float outerAngle, float falloff) { _light->setSpotlightRange(innerAngle, outerAngle, falloff); }
 
 	/// <summary>
 	/// Only usefull if light's type is set to spotLight

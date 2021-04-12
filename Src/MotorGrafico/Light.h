@@ -14,7 +14,7 @@ namespace Ogre {
 class Light
 {
 public:
-	enum LightType {
+	enum class LightType {
 		/// Point light sources give off light equally in all directions, so require only position not direction
 		POINT = 0,
 		/// Directional lights simulate parallel light beams from a distant source, hence have direction but no position
@@ -58,7 +58,7 @@ public:
 	/// Returns light's diffuse color
 	/// </summary>
 	/// <returns>diffuse colour</returns>
-	const Colour& getDiffuse() const;
+	const Colour getDiffuse() const;
 
 	/// <summary>
 	/// Sets light's specular to given color
@@ -78,7 +78,7 @@ public:
 	/// Returns light's specular color
 	/// </summary>
 	/// <returns>specular colour</returns>
-	const Colour& getSpecular() const;
+	const Colour getSpecular() const;
 
 	/// <summary>
 	/// Sets attenuation for the light
