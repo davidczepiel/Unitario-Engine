@@ -7,12 +7,11 @@
 #include "PxRigidStatic.h"
 #include "PhysxEngine.h"
 
-RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback,bool isKinematic,const std::tuple<float, float, float>& position,
-	bool isStatic, float linearDamping, float angularDamping, float staticFriction, 
+RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isKinematic, const std::tuple<float, float, float>& position,
+	bool isStatic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float mass) :_physx(nullptr), _transform(), _dynamicBody(nullptr),
 	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), _gameObject(gameObject), _collisionCallback(collisionCallback)
 {
-
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
 	physx::PxSphereGeometry aux(radious);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
@@ -24,10 +23,10 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* col
 	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic,const std::tuple<float, float, float>& position,
+RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position,
 	bool isKinematic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float mass) :
-	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), 
+	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr),
 	_gameObject(gameObject), _collisionCallback(collisionCallback)
 {
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
@@ -41,9 +40,9 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic,const std::tuple<float, float, float>& position, bool isKinematic,
+RigidBody::RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position, bool isKinematic,
 	float linearDamping, float angularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
-	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), 
+	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr),
 	_gameObject(gameObject), _collisionCallback(collisionCallback)
 {
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
@@ -59,7 +58,6 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, Contac
 
 RigidBody::~RigidBody()
 {
-
 	if (_dynamicBody != nullptr)
 		_dynamicBody->release();
 	if (_staticBody != nullptr)
@@ -71,7 +69,6 @@ RigidBody::~RigidBody()
 void RigidBody::setStaticFriction(float f)
 {
 	if (!_isStatic) {
-
 		std::list<physx::PxMaterial*> materials = getAllMaterials();
 		for (auto it = materials.begin(); it != materials.end(); ++it)
 		{
@@ -83,7 +80,6 @@ void RigidBody::setStaticFriction(float f)
 void RigidBody::setDynamicFriction(float f)
 {
 	if (!_isStatic) {
-
 		std::list<physx::PxMaterial*> materials = getAllMaterials();
 		for (auto it = materials.begin(); it != materials.end(); ++it)
 		{
@@ -95,7 +91,6 @@ void RigidBody::setDynamicFriction(float f)
 void RigidBody::setBounciness(float b)
 {
 	if (!_isStatic) {
-
 		std::list<physx::PxMaterial*> materials = getAllMaterials();
 		for (auto it = materials.begin(); it != materials.end(); ++it)
 		{
@@ -126,7 +121,7 @@ const std::tuple<float, float, float>& RigidBody::getAngularVelocity()
 {
 	if (_isStatic)
 		return std::tuple<float, float, float>(0, 0, 0);
-	else return  PHYSXVEC3_TO_TUPLE (_dynamicBody->getAngularVelocity());
+	else return  PHYSXVEC3_TO_TUPLE(_dynamicBody->getAngularVelocity());
 }
 
 const std::tuple<float, float, float>& RigidBody::getLinearVelocity()
@@ -142,45 +137,23 @@ float RigidBody::getMass()
 		0;
 	else return _dynamicBody->getMass();
 }
-const std::tuple<float, float, float, bool>& RigidBody::addForce(std::tuple<float, float, float>& force)
+void RigidBody::addForce(std::tuple<float, float, float>& force)
 {
-	if (_isStatic) {
+	if (_isStatic)
 		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(force));
-		physx::PxVec3 pos = _transform->p;
-		return std::tuple<float, float, float, bool>(pos.x, pos.y, pos.z, true);
-
-	}
-	return std::tuple<float, float, float, bool>(0, 0, 0, false);
-
 }
 
-const std::tuple<float, float, float, bool>& RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
-{
-	if (!_isStatic) {
-		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(impulse), physx::PxForceMode::eIMPULSE);
-		physx::PxVec3 pos = _transform->p;
-		return std::tuple<float, float, float, bool>(pos.x, pos.y, pos.z, true);
-
-	}
-	return std::tuple<float, float, float, bool>(0, 0, 0, false);
-
-}
-
-const std::tuple<float, float, float, bool>& RigidBody::addTorque(std::tuple<float, float, float>& torque)
+void RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
 {
 	if (!_isStatic)
-	{
-		_dynamicBody->addTorque(TUPLE_TO_PHYSXVEC3(torque));
-		physx::PxVec3 rotation = _transform->q.getImaginaryPart();
-		return std::tuple<float, float, float, bool>(rotation.x, rotation.y, rotation.z, true);
-
-	}
-	return std::tuple<float, float, float, bool>(0, 0, 0, false);
-
-	
+		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(impulse), physx::PxForceMode::eIMPULSE);
 }
 
-
+void RigidBody::addTorque(std::tuple<float, float, float>& torque)
+{
+	if (!_isStatic)
+		_dynamicBody->addTorque(TUPLE_TO_PHYSXVEC3(torque));
+}
 
 void RigidBody::setGravity(bool g)
 {
@@ -188,16 +161,10 @@ void RigidBody::setGravity(bool g)
 		_dynamicBody->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, !g);
 }
 
-const std::tuple<float, float, float, bool>& RigidBody::moveTo(std::tuple<float, float, float>& dest)
+void RigidBody::moveTo(std::tuple<float, float, float>& dest)
 {
-	if (!_isStatic && _dynamicBody->getRigidBodyFlags().isSet(physx::PxRigidBodyFlag::eKINEMATIC)) {
-
+	if (!_isStatic && _dynamicBody->getRigidBodyFlags().isSet(physx::PxRigidBodyFlag::eKINEMATIC))
 		_dynamicBody->setKinematicTarget(physx::PxTransform(TUPLE_TO_PHYSXVEC3(dest)));
-		physx::PxVec3 pos = _transform->p;
-		return std::tuple<float, float, float, bool>(pos.x, pos.y, pos.z, true);
-	}
-	return std::tuple<float, float, float, bool>(0,0,0, false);
-
 }
 
 void RigidBody::constrainX(bool constrain, bool linear)
@@ -233,8 +200,94 @@ void RigidBody::constrainZ(bool constrain, bool linear)
 	}
 }
 
+void RigidBody::setPosition(const std::tuple<float, float, float>& position)
+{
+	if (!_isStatic) {
+		_transform->p = TUPLE_TO_PHYSXVEC3(position);
+		_dynamicBody->setGlobalPose(*_transform);
+	}
+	//else Exception?
+}
 
+void RigidBody::setRotation(const std::tuple<float, float, float>& position)
+{
+	if (!_isStatic) {
+		//physx::PxQuat();
+		//_transform->q = TUPLE_TO_PHYSXVEC3(position);
+		//_dynamicBody->setGlobalPose();
+	}
+}
 
+void RigidBody::setScale(const std::tuple<float, float, float>& scale)
+{
+	//else Exception?
+	if (!_isStatic) {
+		int nbShapes = _dynamicBody->getNbShapes();
+		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
+		_dynamicBody->getShapes(shapes, nbShapes);
+		for (int i = 0; i < nbShapes; i++) {
+			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eBOX) {
+				shapes[i]->setGeometry(physx::PxBoxGeometry(TUPLE_TO_PHYSXVEC3(scale)));
+			}
+			else {
+				//Exception
+			}
+		}
+	}
+}
+
+void RigidBody::setScale(const std::tuple<float, float>& scale)
+{
+	//else Exception?
+	if (!_isStatic) {
+		int nbShapes = _dynamicBody->getNbShapes();
+		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
+		_dynamicBody->getShapes(shapes, nbShapes);
+		for (int i = 0; i < nbShapes; i++) {
+			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eCAPSULE) {
+				//shapes[i]->setGeometry(physx::PxSphereGeometry(TUPLE_TO_PHYSXVEC3(scale)));
+			}
+			else {
+				//Exception
+			}
+		}
+	}
+}
+
+void RigidBody::setScale(const std::tuple<float>& scale)
+{
+	//else Exception?
+	if (!_isStatic) {
+		int nbShapes = _dynamicBody->getNbShapes();
+		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
+		_dynamicBody->getShapes(shapes, nbShapes);
+		for (int i = 0; i < nbShapes; i++) {
+			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eSPHERE) {
+				//shapes[i]->setGeometry(physx::PxBoxGeometry(TUPLE_TO_PHYSXVEC3(scale)));
+			}
+			else {
+				//Exception
+			}
+		}
+	}
+}
+
+const std::tuple<float, float, float>& RigidBody::getPosition()
+{
+	if (_isStatic) {
+		return PHYSXVEC3_TO_TUPLE(_staticBody->getGlobalPose().p);
+	}
+	else
+		return PHYSXVEC3_TO_TUPLE(_dynamicBody->getGlobalPose().p);
+}
+
+const std::tuple<float, float, float>& RigidBody::getRotation()
+{
+	float angle = 0;
+	physx::PxVec3 axis;
+	_transform->q.toRadiansAndUnitAxis(angle, axis);
+	return PHYSXVEC3_TO_TUPLE(axis);
+}
 
 void RigidBody::setFlags(physx::PxShape* shape)
 {
@@ -242,8 +295,6 @@ void RigidBody::setFlags(physx::PxShape* shape)
 	shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, false);
 	shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, false);
 	shape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
-
-
 }
 
 void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
@@ -282,6 +333,9 @@ std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
 		{
 			list.push_back(auxMaterials[i]);
 		}
+		delete[] auxMaterials;
 	}
+
+	delete[] shapes;
 	return list;
 }

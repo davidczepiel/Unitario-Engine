@@ -2,6 +2,9 @@
 #include "Transform.h"
 #include "MotorFisico/RigidBody.h"
 #include "GameObject.h"
+#include "Transform.h"
+#include "ComponentIDs.h"
+#include "Vector3.h"
 
 RigidBodyComponent::RigidBodyComponent(GameObject* go) :Component(3, go), _rb(nullptr), _tr(nullptr)
 {
@@ -18,6 +21,32 @@ RigidBodyComponent::RigidBodyComponent() : Component(3, nullptr), _rb(nullptr), 
 RigidBodyComponent::~RigidBodyComponent()
 {
 	delete _rb; _rb = nullptr;
+}
+
+void RigidBodyComponent::fixedUpdate()
+{
+	Vector3 position = TUPLE_TO_VEC3(_rb->getPosition());
+	Vector3 rotation = TUPLE_TO_VEC3(_rb->getRotation());
+
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	t->updateFromPhysics(position, rotation);
+}
+
+void RigidBodyComponent::setPosition(Vector3 pos)
+{
+	_rb->setPosition(VEC3_TO_TUPLE(pos));
+}
+
+void RigidBodyComponent::setRotation(Vector3 rot)
+{
+	//WIP
+	_rb->setRotation(VEC3_TO_TUPLE(rot));
+}
+
+void RigidBodyComponent::setScale(Vector3 scale)
+{
+	//WIP
+	_rb->setScale(VEC3_TO_TUPLE(scale));
 }
 
 void RigidBodyComponent::setStaticFriction(float f)
@@ -60,14 +89,6 @@ const Vector3& RigidBodyComponent::getAngularVelocity()
 	return TUPLE_TO_VEC3(_rb->getAngularVelocity());
 }
 
-
-
-
-
-
-
-
-
 const Vector3& RigidBodyComponent::getLinearVelocity()
 {
 	return TUPLE_TO_VEC3(_rb->getLinearVelocity());
@@ -81,37 +102,25 @@ float RigidBodyComponent::getMass()
 void RigidBodyComponent::addForce(Vector3& force)
 {
 	auto tupleForce = VEC3_TO_TUPLE(force);
-	auto pos = _rb->addForce(tupleForce);
-	//if the returned position was valid, apply it
-	if (std::get<3>(pos))
-		_tr->setPosition(TUPLE_TO_VEC3(pos));
+	_rb->addForce(tupleForce);
 }
 
 void RigidBodyComponent::addImpulse(Vector3& impulse)
 {
 	auto tupleImpulse = VEC3_TO_TUPLE(impulse);
-	auto pos = _rb->addImpulse(tupleImpulse);
-	//if the returned position was valid, apply it
-	if (std::get<3>(pos))
-		_tr->setPosition(TUPLE_TO_VEC3(pos));
+	_rb->addImpulse(tupleImpulse);
 }
 
 void RigidBodyComponent::addTorque(Vector3& torque)
 {
 	auto tupleTorque = VEC3_TO_TUPLE(torque);
-	auto rotation = _rb->addTorque(tupleTorque);
-	//if the returned position was valid, apply it
-	if (std::get<3>(rotation))
-		_tr->setRotation(TUPLE_TO_VEC3(rotation));
+	_rb->addTorque(tupleTorque);
 }
 
 void RigidBodyComponent::moveTo(Vector3& dest)
 {
 	auto tupleDest = VEC3_TO_TUPLE(dest);
-	auto pos = _rb->moveTo(tupleDest);
-	//if the returned position was valid, apply it
-	if (std::get<3>(pos))
-		_tr->setPosition(TUPLE_TO_VEC3(pos));
+	_rb->moveTo(tupleDest);
 }
 
 void RigidBodyComponent::constrainX(bool constrain, bool linear)
@@ -128,6 +137,3 @@ void RigidBodyComponent::constrainZ(bool constrain, bool linear)
 {
 	_rb->constrainZ(constrain, linear);
 }
-
-
-

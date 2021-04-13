@@ -20,6 +20,26 @@ public:
 	virtual ~RigidBodyComponent();
 
 	/// <summary>
+	/// Called each pshyical step to update physiscal information
+	/// </summary>
+	virtual void fixedUpdate();
+
+	/// <summary>
+	/// Sets the position of the transform to a specified one
+	/// </summary>
+	void setPosition(Vector3 pos);
+
+	/// <summary>
+	/// Sets the rotation of the transform to a specified one
+	/// </summary>
+	void setRotation(Vector3 pos);
+
+	/// <summary>
+	/// Sets the scale of the transform to a specified one
+	/// </summary>
+	void setScale(Vector3 scale);
+
+	/// <summary>
 	/// Sets the body static friction if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="f">The new static friction</param>
@@ -71,13 +91,13 @@ public:
 	/// <returns>The mass of the body</returns>
 	float getMass();
 	/// <summary>
-	/// Adds a force if it's a dynamic rigid body 
+	/// Adds a force if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="force">The force to add</param>
 	void addForce(Vector3& force);
 
 	/// <summary>
-	/// Adds an impulse if it's a dynamic rigid body 
+	/// Adds an impulse if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="impulse">The impulse to add</param>
 	void addImpulse(Vector3& impulse);
@@ -115,10 +135,8 @@ public:
 	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
 	void constrainZ(bool constrain, bool linear = true);
 
-
 private:
 	RigidBody* _rb;
 	Transform* _tr;
 };
 #endif //!RIGIDBODYCOMPONENT_H
-

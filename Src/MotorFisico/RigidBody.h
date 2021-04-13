@@ -10,7 +10,7 @@ class GameObject;
 
 #define TUPLE_TO_PHYSXVEC3(tuple) physx::PxVec3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
 #define PHYSXVEC3_TO_TUPLE(vec) std::tuple<float,float,float>(vec.x,vec.y,vec.z)
-using ContactCallback = void(GameObject* thisGO, GameObject* otherGO);
+using ContactCallback = void(GameObject * thisGO, GameObject * otherGO);
 
 namespace physx {
 	class PxPhysics;
@@ -38,7 +38,7 @@ public:
 	/// <param name="isKinematic">Set true if a kinematic rigid body needed</param>
 	/// <param name="linearDamping">The linear damping of the body</param>
 	/// <param name="angularDamping">The angular damping  of the body</param>
-	/// <param name="staticFriction">The static friction, between 0 and 3.4 e 38. 
+	/// <param name="staticFriction">The static friction, between 0 and 3.4 e 38.
 	/// Static friction defines the amount of friction that is applied between surfaces that are not moving lateral to each-other</param>
 	/// <param name="dynamicFriction">The dynamic friction, between 0 and 3.4 e 38.
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
@@ -60,7 +60,7 @@ public:
 	/// <param name="isKinematic">Set true if a kinematic rigid body needed</param>
 	/// <param name="linearDamping">The linear damping of the body</param>
 	/// <param name="angularDamping">The angular damping  of the body</param>
-	/// <param name="staticFriction">The static friction, between 0 and 3.4 e 38. 
+	/// <param name="staticFriction">The static friction, between 0 and 3.4 e 38.
 	/// Static friction defines the amount of friction that is applied between surfaces that are not moving lateral to each-other</param>
 	/// <param name="dynamicFriction">The dynamic friction, between 0 and 3.4 e 38.
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
@@ -80,7 +80,7 @@ public:
 	/// <param name="isStatic">Set true if a static rigid body needed; false if dynamic rigid body needed</param>
 	/// <param name="position">The object initial position</param>
 	/// <param name="isKinematic">Set true if a kinematic rigid body needed</param>
-	/// <param name="staticFriction">The static friction, between 0 and 3.4 e 38. 
+	/// <param name="staticFriction">The static friction, between 0 and 3.4 e 38.
 	/// Static friction defines the amount of friction that is applied between surfaces that are not moving lateral to each-other</param>
 	/// <param name="dynamicFriction">The dynamic friction, between 0 and 3.4 e 38.
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
@@ -93,23 +93,23 @@ public:
 	~RigidBody();
 
 	/// <summary>
-	/// Adds a force if it's a dynamic rigid body 
+	/// Adds a force if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="force">The force to add</param>
-	const std::tuple<float, float, float, bool>& addForce(std::tuple<float, float, float>& force);
+	void addForce(std::tuple<float, float, float>& force);
 
 	/// <summary>
-	/// Adds an impulse if it's a dynamic rigid body 
+	/// Adds an impulse if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="impulse">The impulse to add</param>
-	const std::tuple<float, float, float, bool>& addImpulse(std::tuple<float, float, float>& impulse);
+	void addImpulse(std::tuple<float, float, float>& impulse);
 
 	/// <summary>
 	/// Adds a torque if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="torque">The torque to add</param>
 	/// <returns>The new rotation of the object and if it's valid</returns>
-	const std::tuple<float, float, float, bool>& addTorque(std::tuple<float, float, float>& torque);
+	void  addTorque(std::tuple<float, float, float>& torque);
 
 	/// <summary>
 	/// Moves the rigidBody to a point, (only if Kinematic)
@@ -117,7 +117,7 @@ public:
 	/// <param name="dest">The point where the rigidBody will be moved</param>
 	/// <returns>The new position of the object and if it's valid</returns>
 
-	const std::tuple<float, float, float, bool>& moveTo(std::tuple<float, float, float>& dest);
+	void  moveTo(std::tuple<float, float, float>& dest);
 
 	/// <summary>
 	/// Enables or disables the constraint in the rigid body x axis
@@ -139,6 +139,36 @@ public:
 	/// <param name="constrain">True to enable the constraint</param>
 	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
 	void constrainZ(bool constrain, bool linear = true);
+
+	/// <summary>
+	/// Sets the transform position to a specified one
+	/// </summary>
+	/// <param name="position">Set of values that determine the position</param>
+	void setPosition(const std::tuple<float, float, float>& position);
+
+	/// <summary>
+	/// Sets the transform rotation to a specified one
+	/// </summary>
+	/// <param name="position">Set of values that determine the position</param>
+	void setRotation(const std::tuple<float, float, float>& position);
+
+	/// <summary>
+	/// Sets the rigidbodys scale to a specified one
+	/// </summary>
+	/// <param name="scale">Set of values that determine the scale</param>
+	void setScale(const std::tuple<float, float, float>& scale);
+
+	/// <summary>
+	/// Sets the rigidbodys scale
+	/// </summary>
+	/// <param name="scale">Set of values that determine the scale</param>
+	void setScale(const std::tuple<float, float>& scale);
+
+	/// <summary>
+	/// Sets the rigidbodys scale
+	/// </summary>
+	/// <param name="scale">Set of values that determine the scale</param>
+	void setScale(const std::tuple<float>& scale);
 
 	/// <summary>
 	/// Sets the body static friction if it's a dynamic rigid body
@@ -207,6 +237,10 @@ public:
 	inline GameObject* getGameObject() const { return _gameObject; }
 
 	inline ContactCallback* getColliderCallback() const { return _collisionCallback; }
+
+	const std::tuple<float, float, float>& getPosition();
+
+	const std::tuple<float, float, float>& getRotation();
 
 private:
 	/// <summary>
