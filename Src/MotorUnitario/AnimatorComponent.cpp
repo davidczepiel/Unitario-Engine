@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Exceptions.h"
 #include "Logger.h"
+#include "Time.h"
 
 AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(6, gameObject), 
 	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator(gameObject->getName()))
@@ -29,7 +30,7 @@ void AnimatorComponent::lateUpdate()
 		}
 	}
 
-	//TODO: _animator->update(0.2f); Need time since last frame
+	_animator->update(Time::getInstance()->deltaTime()); 
 }
 
 void AnimatorComponent::setInitialState(const std::string& name)
