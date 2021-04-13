@@ -12,6 +12,6 @@ Component* ComponentsFactory::getComponentByName(const std::string& name)
 {
 	auto it = _componentTranslator.find(name);
 	if (it == _componentTranslator.end())
-		throw ComponentException("This component doesn't exist");
+		throw ComponentException("The component" + name + "doesn't exist");
 	return (*it).second->create();
 }

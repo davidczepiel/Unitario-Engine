@@ -117,6 +117,12 @@ private:
 	/// </summary>
 	void processEvents();
 
+	/// <summary>
+	/// Adds all the components factories of the engine and creates componenets.
+	///This is for testing the factorires
+	/// </summary>
+	void initFactories();
+
 	static Engine* _instance;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
