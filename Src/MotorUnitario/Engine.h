@@ -5,6 +5,7 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 class GameObject;
 class GraphicsEngine;
@@ -45,6 +46,12 @@ public:
 	/// Stops the main loop
 	/// </summary>
 	void stopExecution();
+
+	/// <summary>
+	/// Sets the resources path
+	/// </summary>
+	/// <param name="resourcesPath"> Resources.cfg path</param>
+	void setResourcesPath(std::string const& resourcesPath);
 
 protected:
 
@@ -113,10 +120,10 @@ private:
 	/// </summary>
 	void processEvents();
 
-	static Engine* _instance;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
+	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
 
 	bool _run;
