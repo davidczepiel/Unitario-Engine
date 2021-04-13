@@ -11,7 +11,9 @@
 
 #define GetPhysx() PhysxEngine::getPxInstance()->getScene()->getPhysics()
 
-Collider::Collider(bool isTrigger, float staticFriction, float dynamicFriction, float restitution) :_isTrigger(isTrigger)
+Collider::Collider(bool isTrigger, GameObject* gameObject, ContactCallback* coliderCallback, ContactCallback* triggerCallback,
+	float staticFriction, float dynamicFriction, float restitution)
+	:_isTrigger(isTrigger), _gameObject(gameObject), _contCallback(coliderCallback), _triggerCallback(triggerCallback)
 {
 	physx::PxMaterial* gMaterial = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
 
@@ -37,13 +39,14 @@ void Collider::setTrigger()
 
 //////////////////////////////////////////////////
 
-BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger,
+BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 	float staticFriction, float dynamicFriction, float restitution)
-	: Collider(isTrigger, staticFriction, dynamicFriction, restitution)
+	: Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution)
 {
 	physx::PxMaterial* mat = GetPhysx().createMaterial(0.5f, 0.5f, 0.5);
 	physx::PxBoxGeometry aux(width / 2, heigh / 2, depth / 2);
 	_mShape = GetPhysx().createShape(aux, *mat);
+	_mShape->userData = this;
 }
 
 void BoxCollider::setScale(int width, int heigh, int depth) {
@@ -52,12 +55,14 @@ void BoxCollider::setScale(int width, int heigh, int depth) {
 
 ///////////////////////////////////////////////
 
-SphereCollider::SphereCollider(int radius, bool isTrigger, float staticFriction, float dynamicFriction, float restitution)
-	:Collider(isTrigger, staticFriction, dynamicFriction, restitution)
+SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObject, ContactCallback* callback, ContactCallback* triggerCallback,
+	float staticFriction, float dynamicFriction, float restitution)
+	:Collider(isTrigger, gameObject, callback, triggerCallback, staticFriction, dynamicFriction, restitution)
 {
 	physx::PxSphereGeometry aux(radius);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
 	_mShape = GetPhysx().createShape(aux, *mat);
+	_mShape->userData = this;
 }
 
 void SphereCollider::setScale(int r) {
@@ -66,13 +71,14 @@ void SphereCollider::setScale(int r) {
 
 /////////////////////////////////////////////////
 
-CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger
-	, float staticFriction, float dynamicFriction, float restitution)
-	:Collider(isTrigger, staticFriction, dynamicFriction, restitution)
+CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	float staticFriction, float dynamicFriction, float restitution)
+	:Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution)
 {
 	physx::PxCapsuleGeometry aux(radius, length / 2);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
 	_mShape = GetPhysx().createShape(aux, *mat);
+	_mShape->userData = this;
 }
 
 void CapsuleCollider::setScale(int radius, int length) {

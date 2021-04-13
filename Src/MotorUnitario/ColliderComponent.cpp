@@ -24,7 +24,7 @@ void ColliderComponent::setTrigger() {
 
 BoxColliderComponent::BoxColliderComponent(GameObject* gameObject) : ColliderComponent(/*ComponentId::ImageRender*/1, gameObject)
 {
-	_collider = new BoxCollider(1, 1, 1, false);
+	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered);
 }
 
 BoxColliderComponent::~BoxColliderComponent()
@@ -41,7 +41,7 @@ void BoxColliderComponent::setScale(int width, int heigh, int depth)
 
 SphereColliderComponent::SphereColliderComponent(GameObject* gameObject) : ColliderComponent(/*ComponentId::ImageRender*/1, gameObject)
 {
-	_collider = new SphereCollider(1, false);
+	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered);
 }
 
 SphereColliderComponent::~SphereColliderComponent()
@@ -58,7 +58,7 @@ void SphereColliderComponent::setScale(int radius)
 
 CapsuleColliderComponent::CapsuleColliderComponent(GameObject* gameObject) : ColliderComponent(/*ComponentId::ImageRender*/1, gameObject)
 {
-	_collider = new CapsuleCollider(1, 1, false);
+	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered);
 }
 
 CapsuleColliderComponent::~CapsuleColliderComponent()
@@ -69,4 +69,16 @@ CapsuleColliderComponent::~CapsuleColliderComponent()
 void CapsuleColliderComponent::setScale(int radius, int length)
 {
 	static_cast<CapsuleCollider*>(_collider)->setScale(radius, length);
+}
+
+void ColliderComponent::gameObjectsCollision(GameObject* thisGO, GameObject* otherGO)
+{
+	thisGO->onCollision(otherGO);
+	otherGO->onCollision(thisGO);
+}
+
+void ColliderComponent::gameObjectTriggered(GameObject* thisGO, GameObject* otherGO)
+{
+	thisGO->onTrigger(otherGO);
+	otherGO->onTrigger(thisGO);
 }

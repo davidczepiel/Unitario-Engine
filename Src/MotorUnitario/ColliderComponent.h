@@ -13,6 +13,9 @@ class CapsuleCollider;
 class ColliderComponent : public Component {
 public:
 
+	static void gameObjectsCollision(GameObject* thisGO, GameObject* otherGO);
+	static void gameObjectTriggered(GameObject* thisGO, GameObject* otherGO);
+
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>

@@ -7,10 +7,10 @@
 #include "PxRigidStatic.h"
 #include "PhysxEngine.h"
 
-RigidBody::RigidBody(float radious,bool isKinematic,const std::tuple<float, float, float>& position, 
+RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback,bool isKinematic,const std::tuple<float, float, float>& position,
 	bool isStatic, float linearDamping, float angularDamping, float staticFriction, 
 	float dynamicFriction, float restitution, float mass) :_physx(nullptr), _transform(), _dynamicBody(nullptr),
-	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
+	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), _gameObject(gameObject), _collisionCallback(collisionCallback)
 {
 
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
@@ -24,14 +24,15 @@ RigidBody::RigidBody(float radious,bool isKinematic,const std::tuple<float, floa
 	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(float width, float height, float depth, bool isStatic,const std::tuple<float, float, float>& position, 
+RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic,const std::tuple<float, float, float>& position,
 	bool isKinematic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float mass) :
-	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
+	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), 
+	_gameObject(gameObject), _collisionCallback(collisionCallback)
 {
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
-	physx::PxBoxGeometry aux(2 * width, 2 * height, 2 * depth);
+	physx::PxBoxGeometry aux(width / 2, height / 2, depth / 2);
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
@@ -40,13 +41,14 @@ RigidBody::RigidBody(float width, float height, float depth, bool isStatic,const
 	_scene->addActor(*_dynamicBody);
 }
 
-RigidBody::RigidBody(float radious, float height, bool isStatic,const std::tuple<float, float, float>& position, bool isKinematic, 
-	float linearDamping, float AngularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
-	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr)
+RigidBody::RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic,const std::tuple<float, float, float>& position, bool isKinematic,
+	float linearDamping, float angularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
+	_physx(nullptr), _transform(), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), 
+	_gameObject(gameObject), _collisionCallback(collisionCallback)
 {
-	initParams(position, mass, isKinematic, linearDamping, AngularDamping);
+	initParams(position, mass, isKinematic, linearDamping, angularDamping);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
-	physx::PxCapsuleGeometry aux(radious, 2 * height);
+	physx::PxCapsuleGeometry aux(radious, height / 2);
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
@@ -250,14 +252,17 @@ void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mas
 	_scene = PhysxEngine::getPxInstance()->getScene();
 
 	_transform = new physx::PxTransform(TUPLE_TO_PHYSXVEC3(pos));
-	if (_isStatic)
+	if (_isStatic) {
 		_staticBody = _physx->createRigidStatic(*_transform);
+		_staticBody->userData = this;
+	}
 	else
 	{
 		_dynamicBody = _physx->createRigidDynamic(*_transform);
 		_dynamicBody->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, isKinematic);
 		_dynamicBody->setLinearDamping(linearDamping);
 		_dynamicBody->setAngularDamping(angularDamping);
+		_dynamicBody->userData = this;
 	}
 	_dynamicBody->setMass(mass);
 }

@@ -1,12 +1,18 @@
 #pragma once
-#include <list>
-#include <tuple>
+
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
+
+#include <list>
+#include <tuple>
+
+class GameObject;
+
 #define TUPLE_TO_PHYSXVEC3(tuple) physx::PxVec3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
 #define PHYSXVEC3_TO_TUPLE(vec) std::tuple<float,float,float>(vec.x,vec.y,vec.z)
-namespace physx {
+using ContactCallback = void(GameObject* thisGO, GameObject* otherGO);
 
+namespace physx {
 	class PxPhysics;
 	class PxRigidBody;
 	class PxRigidDynamic;
@@ -39,7 +45,7 @@ public:
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
 
-	RigidBody(float radious, bool isStatic = false, const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0),
+	RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false, const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0),
 		bool isKinematic = false, float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f,
 		float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
 
@@ -61,7 +67,7 @@ public:
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
 
-	RigidBody(float width, float height, float depth, bool isStatic = false,
+	RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false,
 		const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false,
 		float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f,
 		float restitution = 1.0f, float mass = 1000.0f);
@@ -80,11 +86,59 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-	RigidBody(float radious, float height, bool isStatic = false,
+	RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false,
 		const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false, float linearDamping = 0,
 		float AngularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
 
 	~RigidBody();
+
+	/// <summary>
+	/// Adds a force if it's a dynamic rigid body 
+	/// </summary>
+	/// <param name="force">The force to add</param>
+	const std::tuple<float, float, float, bool>& addForce(std::tuple<float, float, float>& force);
+
+	/// <summary>
+	/// Adds an impulse if it's a dynamic rigid body 
+	/// </summary>
+	/// <param name="impulse">The impulse to add</param>
+	const std::tuple<float, float, float, bool>& addImpulse(std::tuple<float, float, float>& impulse);
+
+	/// <summary>
+	/// Adds a torque if it's a dynamic rigid body
+	/// </summary>
+	/// <param name="torque">The torque to add</param>
+	/// <returns>The new rotation of the object and if it's valid</returns>
+	const std::tuple<float, float, float, bool>& addTorque(std::tuple<float, float, float>& torque);
+
+	/// <summary>
+	/// Moves the rigidBody to a point, (only if Kinematic)
+	/// </summary>
+	/// <param name="dest">The point where the rigidBody will be moved</param>
+	/// <returns>The new position of the object and if it's valid</returns>
+
+	const std::tuple<float, float, float, bool>& moveTo(std::tuple<float, float, float>& dest);
+
+	/// <summary>
+	/// Enables or disables the constraint in the rigid body x axis
+	/// </summary>
+	/// <param name="constrain">True to enable the constraint</param>
+	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
+	void constrainX(bool constrain, bool linear = true);
+
+	/// <summary>
+	/// Enables or disables the constraint in the rigid body y axis
+	/// </summary>
+	/// <param name="constrain">True to enable the constraint</param>
+	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
+	void constrainY(bool constrain, bool linear = true);
+
+	/// <summary>
+	/// Enables or disables the constraint in the rigid body z axis
+	/// </summary>
+	/// <param name="constrain">True to enable the constraint</param>
+	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
+	void constrainZ(bool constrain, bool linear = true);
 
 	/// <summary>
 	/// Sets the body static friction if it's a dynamic rigid body
@@ -147,53 +201,12 @@ public:
 	float getMass();
 
 	/// <summary>
-	/// Adds a force if it's a dynamic rigid body 
+	/// Get the GameObject owner of the component owning thre collider
 	/// </summary>
-	/// <param name="force">The force to add</param>
-	const std::tuple<float, float, float, bool>& addForce(std::tuple<float, float, float>& force);
+	/// <returns>A pointer to the GameObject owner of the component owning thre collider</returns>
+	inline GameObject* getGameObject() const { return _gameObject; }
 
-	/// <summary>
-	/// Adds an impulse if it's a dynamic rigid body 
-	/// </summary>
-	/// <param name="impulse">The impulse to add</param>
-	const std::tuple<float, float, float, bool>& addImpulse(std::tuple<float, float, float>& impulse);
-
-	/// <summary>
-	/// Adds a torque if it's a dynamic rigid body
-	/// </summary>
-	/// <param name="torque">The torque to add</param>
-	/// <returns>The new rotation of the object and if it's valid</returns>
-	const std::tuple<float, float, float, bool>& addTorque(std::tuple<float, float, float>& torque);
-
-	/// <summary>
-	/// Moves the rigidBody to a point, (only if Kinematic)
-	/// </summary>
-	/// <param name="dest">The point where the rigidBody will be moved</param>
-	/// <returns>The new position of the object and if it's valid</returns>
-
-	const std::tuple<float, float, float, bool>& moveTo(std::tuple<float, float, float>& dest);
-
-	/// <summary>
-	/// Enables or disables the constraint in the rigid body x axis
-	/// </summary>
-	/// <param name="constrain">True to enable the constraint</param>
-	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
-	void constrainX(bool constrain, bool linear = true);
-
-	/// <summary>
-	/// Enables or disables the constraint in the rigid body y axis
-	/// </summary>
-	/// <param name="constrain">True to enable the constraint</param>
-	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
-	void constrainY(bool constrain, bool linear = true);
-
-	/// <summary>
-	/// Enables or disables the constraint in the rigid body z axis
-	/// </summary>
-	/// <param name="constrain">True to enable the constraint</param>
-	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
-	void constrainZ(bool constrain, bool linear = true);
-
+	inline ContactCallback* getColliderCallback() const { return _collisionCallback; }
 
 private:
 	/// <summary>
@@ -224,6 +237,10 @@ private:
 	physx::PxTransform* _transform;
 	physx::PxRigidDynamic* _dynamicBody;
 	physx::PxRigidStatic* _staticBody;
+
+	GameObject* _gameObject;
+	ContactCallback* _collisionCallback;
+
 	bool _isStatic;
 };
 #endif //!RIGIDBODY_H

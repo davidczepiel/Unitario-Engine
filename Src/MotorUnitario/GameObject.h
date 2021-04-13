@@ -41,6 +41,10 @@ public:
 	/// </summary>
 	void lateUpdate();
 
+	void onCollision(GameObject* other);
+
+	void onTrigger(GameObject* other);
+
 	/// <summary>
 	/// Adds component to the gameObject vector of components
 	/// <para> If id its bigger than the actual size of the vector of components, it increases the vector size </para>
