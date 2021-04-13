@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorUnitario\AnimatorComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -52,28 +55,29 @@
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\RenderObjectComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Time.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp">
-    <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp">
-    <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Time.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\AnimatorComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\AnimatorComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -131,39 +135,37 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h">
-    <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h">
-    <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\Time.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\AnimatorComponent.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{fddd8990-45f6-4cc4-aa8b-2cff5ae0efc6}</UniqueIdentifier>
+      <UniqueIdentifier>{cba1e095-1dec-44ec-9dbd-79dcff6edf0f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{404a5a6a-279f-49b2-8335-9e052d0b67d1}</UniqueIdentifier>
+      <UniqueIdentifier>{3dd5a50e-6692-49bd-9a3f-5b7f6a2c578e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{d659465b-9332-4113-97e0-874109ae8e92}</UniqueIdentifier>
+      <UniqueIdentifier>{920412c9-21ed-4695-8aec-6fa819cfebdb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

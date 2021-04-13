@@ -1,28 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorGrafico\Animator.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorGrafico\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp">
+    <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\MotorGrafico\ImageRender.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp">
-    <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp">
     <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorGrafico\Animator.cpp">
+    <ClCompile Include="..\..\Src\MotorGrafico\main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorGrafico\Animator.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\MotorGrafico\Camera.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -39,26 +43,24 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorGrafico\Light.h">
-    <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h">
-    <ClInclude Include="..\..\Src\MotorGrafico\Colour.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorGrafico\main.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorGrafico\Animator.h">
+    <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{40f774c0-91ba-4029-9e99-c14b787fc5f1}</UniqueIdentifier>
+      <UniqueIdentifier>{ab8cb670-4e8d-4a6a-a60e-1e543e6ffd6b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{efb33be5-22dd-4cd9-bb6f-616a82cf2d3c}</UniqueIdentifier>
+      <UniqueIdentifier>{be65464e-22a4-4ba5-b4da-4d655a5bcb26}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{f22c0269-0e74-41bd-8fab-c685acc560a7}</UniqueIdentifier>
+      <UniqueIdentifier>{43827e81-834e-40dc-bd72-15ccaa419d1e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

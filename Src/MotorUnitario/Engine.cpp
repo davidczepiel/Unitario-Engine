@@ -54,7 +54,7 @@ void Engine::init()
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
 
-	//This is for testing the factories
+	//This is for testing the factories and the creation of components
 	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
 	ComponentsFactory::add("Light", new LightComponentFactory());
 	ComponentsFactory::add("RenderObject", new RenderObjectComponentFactory());
@@ -63,6 +63,8 @@ void Engine::init()
 	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
 	ComponentsFactory::add("Collider", new ColliderComponentFactory());
 	ComponentsFactory::add("Camera", new CameraComponentFactory());
+	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
+	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
 
 
 	GameObject* go = new GameObject();
@@ -76,6 +78,8 @@ void Engine::init()
 	go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
 	go->addComponent(ComponentsFactory::getComponentByName("Collider"));
 	go->addComponent(ComponentsFactory::getComponentByName("Camera"));
+	go->addComponent(ComponentsFactory::getComponentByName("Animator"));
+	go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
 }
 
 void Engine::run()

@@ -11,9 +11,8 @@
 #include "RigidBodyComponent.h"
 #include "ColliderComponent.h"
 #include "CameraComponent.h"
-//Animator
-//ParticleSystem
-
+#include "AnimatorComponent.h"
+#include "ParticleSystemComponent.h"
 
 /// <summary>
 /// This is a macro that defines a factoryComponent class
@@ -98,3 +97,17 @@ CMP_FACTORY(ColliderComponentFactory, ColliderComponent);
 CMP_FACTORY(CameraComponentFactory, CameraComponent);
 
 #endif // !COLLIDERCOMPONENTFACTORY_H
+
+#ifndef ANIMATORCOMPONENTFACTORY_H
+#define ANIMATORCOMPONENTFACTORY_H
+
+CMP_FACTORY(AnimatorComponentFactory, AnimatorComponent);
+
+#endif // !ANIMATORCOMPONENTFACTORY_H
+
+#ifndef PARTICLESYSTEMCOMPONENTFACTORY_H
+#define PARTICLESYSTEMCOMPONENTFACTORY_H
+
+CMP_FACTORY(ParticleSystemComponentFactory, ParticleSystemComponent);
+
+#endif // !PARTICLESYSTEMCOMPONENTFACTORY_H
