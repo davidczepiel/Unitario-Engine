@@ -1,6 +1,6 @@
 #include "Logger.h"
 
-#include <ctime>
+#include "Time.h"
 
 std::unique_ptr<Logger> Logger::instance = nullptr;
 
@@ -28,18 +28,16 @@ void Logger::log(const std::string& message, Level logLevel)
 		return;
 
 	// get time
-	struct tm newtime;
-	time_t now = time(0);
-	localtime_s(&newtime, &now);
+	Time::Date date = Time::getInstance()->getDate();
 
-	if (newtime.tm_hour < 10) _logFile << "0";
-	_logFile << newtime.tm_hour << ":";
+	if (date.hour < 10) _logFile << "0";
+	_logFile << date.hour << ":";
 
-	if (newtime.tm_min < 10) _logFile << "0";
-	_logFile << newtime.tm_min << ":";
+	if (date.min < 10) _logFile << "0";
+	_logFile << date.min << ":";
 
-	if (newtime.tm_sec < 10) _logFile << "0";
-	_logFile << newtime.tm_sec;
+	if (date.sec < 10) _logFile << "0";
+	_logFile << date.sec;
 
 	_logFile << " -> " << getLevelAsString(logLevel) << message << '\n' << std::flush;
 }

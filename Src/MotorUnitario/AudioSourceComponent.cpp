@@ -3,7 +3,9 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "Vector3.h"
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(9,gameObject), _audioSource(nullptr), _tr(nullptr), _route()
+#include "ComponentIDs.h"
+
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
 {
 }
 
@@ -24,7 +26,10 @@ void AudioSourceComponent::start()
 
 void AudioSourceComponent::update()
 {
-	_audioSource->setPosition(_tr->getPosition().getX(), _tr->getPosition().getY(), _tr->getPosition().getZ());
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+	_audioSource->setPosition(x, y, z);
 }
 
 void AudioSourceComponent::lateUpdate()

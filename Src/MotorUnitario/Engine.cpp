@@ -6,6 +6,7 @@
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
+#include "Time.h"
 
 Engine* Engine::_instance = nullptr;
 
@@ -38,6 +39,7 @@ void Engine::tick()
 	fixedUpdate();
 	lateUpdate();
 	_graphicsEngine->render();
+	_time->update();
 }
 
 void Engine::init()
@@ -45,6 +47,7 @@ void Engine::init()
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	_audioEngine = AudioEngine::getInstance();
+	_time = Time::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 }
