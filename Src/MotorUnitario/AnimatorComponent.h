@@ -29,6 +29,7 @@ public:
 	/// <summary>
 	/// </summary>
 	/// <param name="gameObject"></param>
+	AnimatorComponent();
 	AnimatorComponent(GameObject* gameObject);
 	~AnimatorComponent();
 

@@ -4,8 +4,15 @@
 #include "Exceptions.h"
 #include "Logger.h"
 #include "Time.h"
+#include "ComponentIDs.h"
 
-AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(6, gameObject), 
+AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
+_states(), _actualState(nullptr), _initialState(nullptr), _animator(nullptr)
+{
+
+}
+
+AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(ComponentId::Animator, gameObject),
 	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator(gameObject->getName()))
 {
 
