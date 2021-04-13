@@ -192,6 +192,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\Time.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
@@ -223,6 +224,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\Time.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>
