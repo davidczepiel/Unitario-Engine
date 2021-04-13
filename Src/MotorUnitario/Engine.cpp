@@ -63,6 +63,8 @@ void Engine::run()
 	{
 		tick();
 	}
+
+	shutDown();
 }
 
 void Engine::changeScene(const std::string& scene)
@@ -106,6 +108,15 @@ void Engine::lateUpdate()
 		it->lateUpdate();
 	}
 	_audioEngine->update();
+}
+
+void Engine::shutDown()
+{
+	if (_graphicsEngine != nullptr) {
+		_graphicsEngine->shutdown();
+		delete _graphicsEngine;
+		_graphicsEngine = nullptr;
+	}
 }
 
 GameObject* Engine::addGameObject()

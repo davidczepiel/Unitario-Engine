@@ -96,6 +96,24 @@ void GraphicsEngine::setup()
 	_loadResources();
 }
 
+void GraphicsEngine::shutdown()
+{
+	_mShaderGenerator->removeSceneManager(_sceneManager);
+	_root->destroySceneManager(_sceneManager);
+
+	destroyRTShaderSystem();
+
+	if (_mFSLayer != nullptr) {
+		delete _mFSLayer;
+		_mFSLayer = nullptr;
+	}
+
+	if (_sdlWindow != nullptr) {
+		SDL_DestroyWindow(_sdlWindow);
+		_sdlWindow = nullptr;
+	}
+}
+
 void GraphicsEngine::_locateResources(std::string const& path) {
 	// load resource paths from config file
 	Ogre::ConfigFile cf;
@@ -224,6 +242,27 @@ void GraphicsEngine::_loadResources()
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 	catch (Ogre::Exception e) { std::cout << e.what() << "\n"; }
+}
+
+void GraphicsEngine::destroyRTShaderSystem()
+{
+	// Restore default scheme.
+	Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
+
+	// Unregister the Technique manager listener.
+	if (_mTechniqueListener != nullptr)
+	{
+		Ogre::MaterialManager::getSingleton().removeListener(_mTechniqueListener);
+		delete _mTechniqueListener;
+		_mTechniqueListener = nullptr;
+	}
+
+	// Destroy RTShader system.
+	if (_mShaderGenerator != nullptr)
+	{
+		Ogre::RTShader::ShaderGenerator::destroy();
+		_mShaderGenerator = nullptr;
+	}
 }
 
 void GraphicsEngine::render()

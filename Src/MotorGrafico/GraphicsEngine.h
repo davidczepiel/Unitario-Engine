@@ -46,6 +46,16 @@ public:
 	void setup();
 
 	/// <summary>
+	/// Free all resources in this engine
+	/// </summary>
+	void shutdown();
+
+	/// <summary>
+	/// Restores default scheme, unregisters the technique manager listener and destroy RTSS
+	/// </summary>
+	void destroyRTShaderSystem();
+
+	/// <summary>
 	/// Render one frame
 	/// </summary>
 	void render();

@@ -87,6 +87,11 @@ protected:
 	void lateUpdate();
 
 	/// <summary>
+	/// Called before the end of execution (free resources and shutdown engines)
+	/// </summary>
+	void shutDown();
+
+	/// <summary>
 	/// Adds a GameObject to the list
 	/// </summary>
 	GameObject* addGameObject();
