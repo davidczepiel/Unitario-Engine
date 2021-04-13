@@ -9,7 +9,7 @@ class Component
 public:
 
 	Component(unsigned int id, GameObject* gameObject);
-	~Component();
+	virtual ~Component();
 
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution

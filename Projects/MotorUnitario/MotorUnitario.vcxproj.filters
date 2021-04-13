@@ -48,10 +48,20 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp">
+    <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp">
+    <ClCompile Include="..\..\Src\MotorUnitario\ListenerComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp">
+    <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\Time.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\AnimatorComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,10 +105,23 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\ListenerComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\LightComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Time.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\AnimatorComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

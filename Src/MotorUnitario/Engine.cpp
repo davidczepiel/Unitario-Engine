@@ -6,8 +6,10 @@
 #include "MotorGrafico/GraphicsEngine.h"
 #include "MotorFisico/PhysxEngine.h"
 #include "InputManager.h"
+#include "MotorAudio/AudioEngine.h"
+#include "Time.h"
 
-Engine* Engine::instance = nullptr;
+Engine* Engine::_instance = nullptr;
 
 Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
@@ -24,10 +26,10 @@ Engine::~Engine()
 
 Engine* Engine::getInstance()
 {
-	if (instance == nullptr) {
-		instance = new Engine();
+	if (_instance == nullptr) {
+		_instance = new Engine();
 	}
-	return instance;
+	return _instance;
 }
 
 void Engine::tick()
@@ -38,6 +40,7 @@ void Engine::tick()
 	fixedUpdate();
 	lateUpdate();
 	_graphicsEngine->render();
+	_time->update();
 }
 
 void Engine::init()
@@ -45,6 +48,8 @@ void Engine::init()
 	_physxEngine = PhysxEngine::getPxInstance();
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
+	_audioEngine = AudioEngine::getInstance();
+	_time = Time::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_physxEngine->init();
@@ -94,6 +99,7 @@ void Engine::lateUpdate()
 	for (auto& it : _GOs) {
 		it->lateUpdate();
 	}
+	_audioEngine->update();
 }
 
 GameObject* Engine::addGameObject()
