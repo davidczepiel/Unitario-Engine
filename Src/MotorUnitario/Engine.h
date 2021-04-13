@@ -13,6 +13,7 @@ class AudioEngine;
 class ComponentsFactory;
 
 #define ADD(className)ComponentsFactory::add(className,classNameFactory);
+class Time;
 
 class Engine
 {
@@ -121,6 +122,7 @@ private:
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
 	InputManager* _inputManager;
+	Time* _time;
 
 	bool _run;
 };

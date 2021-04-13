@@ -190,6 +190,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorUnitario\AnimatorComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\CameraComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp" />
@@ -209,10 +210,24 @@
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RenderObjectComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\Time.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MotorAudio\MotorAudio.vcxproj">
+      <Project>{31f3c005-c623-403b-9b3e-f073ee5df54e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MotorFisico\MotorFisico.vcxproj">
+      <Project>{7c1832bd-e26f-40d8-a137-1334d56f05d0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MotorGrafico\MotorGrafico.vcxproj">
+      <Project>{d07093e9-ce54-4ee0-acb3-fab86c657b28}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\AnimatorComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\CameraComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
@@ -235,6 +250,8 @@
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\Time.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>

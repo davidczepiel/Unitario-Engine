@@ -14,6 +14,11 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp">
+    <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp">
+    <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\Animator.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,9 +39,14 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorGrafico\Light.h">
+    <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h">
+    <ClInclude Include="..\..\Src\MotorGrafico\Colour.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorGrafico\main.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\Animator.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,6 @@ ListenerComponent::ListenerComponent(GameObject* gameObject):Component(Component
 ListenerComponent::~ListenerComponent()
 {
 	delete _listener; _listener = nullptr;
-	delete _tr;		  _tr = nullptr;
 }
 
 void ListenerComponent::start()
