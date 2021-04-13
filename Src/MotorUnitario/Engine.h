@@ -11,6 +11,7 @@ class GameObject;
 class GraphicsEngine;
 class InputManager;
 class AudioEngine;
+class Time;
 
 class Engine
 {
@@ -125,6 +126,7 @@ private:
 	std::list<GameObject*> _GOs;
 	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
+	Time* _time;
 
 	bool _run;
 };
