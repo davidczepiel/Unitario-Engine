@@ -6,4 +6,13 @@
 --player["Transform"] = "1,1,1"
 --player["Level"] = 2
 
-player = {Name = "Apple", X = 1, Y = 1, Level = 2}
+player = {Name = "Apple",Id = 1, Level = 2, Transform = {X = 1, Y = 1, Z = 1} }
+
+objetos = {} --New array
+objetos[0] = {Name = "Yikes", Id = 0}
+objetos[1] = {Name = "Is this shit working?", Id = 1}
+
+function getObjetos(n)
+    printDone("Metodo accedido locario")
+    return objetos[n]
+end

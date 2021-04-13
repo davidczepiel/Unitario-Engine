@@ -1,6 +1,8 @@
 #include "LuaParser.h"
 #include <iostream>
 #include "Vector3.h"
+#include "LuaBridge/LuaBridge.h"
+
 LuaParser::LuaParser()
 {
 #if (defined _DEBUG)
@@ -46,7 +48,7 @@ void LuaParser::closeLuaVM()
 	lua_close(LuaVM);
 }
 
-void LuaParser::LuaParser()
+void LuaParser::LuaParsingTest()
 {
 	struct auxiliar
 	{
@@ -56,6 +58,7 @@ void LuaParser::LuaParser()
 	} algo;
 	
 	if (checkLua(LuaVM, luaL_dofile(LuaVM, "Assets/Levels/prueba.lua"))) {
+		//Se consiguen las variables en el .lua pusheando y moviendo la stack
 		lua_getglobal(LuaVM, "player");
 		if (lua_istable(LuaVM, -1)) {
 			lua_pushstring(LuaVM, "Name");
@@ -81,11 +84,46 @@ void LuaParser::LuaParser()
 		}
 	}
 	std::cout << "Player: " << algo.name << " con Coordenadas: " << algo.transform.getX() << "," << algo.transform.getY() << " Nivel: " << algo.level << std::endl;
-
-
+	
+	//lua_getglobal(LuaVM, "player");
 	//auto a = luaL_dofile(LuaVM, "json2lua.lua");
 	//lua_getglobal(LuaVM, "fruit");
-	//std::string something = (std::string)lua_tostring(LuaVM, -1);
+}
+
+void printDone(const std::string& s) {
+	std::cout << s << std::endl;
+}
+void LuaParser::luaBridgeParsingtest()
+{
+	luabridge::getGlobalNamespace(LuaVM);
+	luabridge::LuaRef pruebaLua = luabridge::getGlobal(LuaVM, "player");
+
+	std::string nombre = pruebaLua["Name"].cast<std::string>();
+
+	int Id = pruebaLua["Id"].cast<int>();
+
+	luabridge::LuaRef Level = pruebaLua["Level"];
+	std::string Nivel = Level.cast<std::string>();
+
+	//std::string transform = Transform.cast<std::string>();
+	if (!pruebaLua.isNil() ) {
+		luabridge::LuaRef transform = pruebaLua["Transform"];
+		Vector3 aux = {transform["X"].cast<double>(),transform["Y"].cast<double>(),transform["Z"].cast<double>() };
+	}
+
+
+	lua_getglobal(LuaVM, "getObjetos");
+	if (lua_isfunction(LuaVM, -1)) {
+		//lua_pushnumber(LuaVM, 0);
+		luabridge::getGlobalNamespace(LuaVM).
+			addFunction("printDone", printDone);
+		luabridge::LuaRef getObjetos = luabridge::getGlobal(LuaVM, "getObjetos");
+
+		luabridge::LuaRef objeto = getObjetos(0);
+		std::string ObjetoName = objeto["Name"].cast<std::string>();
+		int ObjetoId = objeto["Id"].cast<int>();
+		std::cout << "objeto: " << ObjetoName << " con id: " << ObjetoId << std::endl;
+	}
 
 }
 

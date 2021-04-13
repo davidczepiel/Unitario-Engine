@@ -8,13 +8,13 @@
 class lauxlib;
 class lua;*/
 
+
 extern "C"
 {
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
 }
-
 class LuaParser
 {
 public:
@@ -22,8 +22,12 @@ public:
 	~LuaParser();
 	void test();
 	void closeLuaVM();
-	void LuaParser();
+	void LuaParsingTest();
+	void luaBridgeParsingtest();
 private:
+	/// <summary>
+	/// Virtual Machine of Lua, all the functions related to lua will need to call this method, Luabridge or regular Lua, both
+	/// </summary>
 	lua_State* LuaVM;
 	bool checkLua(lua_State* L, int r);
 };
