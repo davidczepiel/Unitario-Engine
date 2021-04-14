@@ -150,7 +150,11 @@ public:
 	/// Returns the viewport of the camera
 	/// </summary>
 	/// <return> returns the camera viewport <return>
-	Ogre::Viewport* getViewPort();
+	inline Ogre::Viewport* getViewPort() { return _viewport; };
+
+	void setPosition(float x, float y, float z) {
+		_node->setPosition(Ogre::Vector3(x, y, z));
+	}
 
 private:
 	Ogre::Camera* _camera;

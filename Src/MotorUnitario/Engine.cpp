@@ -10,7 +10,7 @@
 #include "ComponentFactory.h"
 #include "Time.h"
 
-Engine* Engine::_instance = nullptr;
+std::unique_ptr<Engine> Engine::instance = nullptr;
 
 Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
@@ -27,10 +27,10 @@ Engine::~Engine()
 
 Engine* Engine::getInstance()
 {
-	if (_instance == nullptr) {
-		_instance = new Engine();
+	if (instance.get() == nullptr) {
+		instance.reset(new Engine());
 	}
-	return _instance;
+	return instance.get();
 }
 
 void Engine::tick()
@@ -46,24 +46,29 @@ void Engine::tick()
 
 void Engine::init()
 {
+	initFactories();
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
+	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
 	_audioEngine = AudioEngine::getInstance();
 	_time = Time::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
 
-	initFactories();
+	_graphicsEngine->loadScene(); //WIP
 }
 
 void Engine::run()
 {
 	start();
+	
 	while (_run)
 	{
 		tick();
 	}
+
+	shutDown();
 }
 
 void Engine::changeScene(const std::string& scene)
@@ -73,6 +78,11 @@ void Engine::changeScene(const std::string& scene)
 void Engine::stopExecution()
 {
 	_run = false;
+}
+
+void Engine::setResourcesPath(std::string const& resourcesPath)
+{
+	_graphicsEngine->setResourcePath(resourcesPath);
 }
 
 void Engine::start()
@@ -102,6 +112,13 @@ void Engine::lateUpdate()
 		it->lateUpdate();
 	}
 	_audioEngine->update();
+}
+
+void Engine::shutDown()
+{
+	if (_graphicsEngine != nullptr) {
+		_graphicsEngine->shutdown();
+	}
 }
 
 GameObject* Engine::addGameObject()
@@ -166,17 +183,18 @@ void Engine::initFactories()
 	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
 	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
 
-	GameObject* go = new GameObject();
-	Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
-	ir->setGameObject(go);
-	go->addComponent(ir);
-	go->addComponent(ComponentsFactory::getComponentByName("Light"));
-	go->addComponent(ComponentsFactory::getComponentByName("RenderObject"));
-	go->addComponent(ComponentsFactory::getComponentByName("Listener"));
-	go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
-	go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
-	go->addComponent(ComponentsFactory::getComponentByName("Collider"));
-	go->addComponent(ComponentsFactory::getComponentByName("Camera"));
-	go->addComponent(ComponentsFactory::getComponentByName("Animator"));
-	go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
+	// GameObject* go = new GameObject();
+	// Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
+	// ir->setGameObject(go);
+	// go->addComponent(ir);
+	// go->addComponent(ComponentsFactory::getComponentByName("Light"));
+	// go->addComponent(ComponentsFactory::getComponentByName("RenderObject"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Listener"));
+	// go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
+	// go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Collider"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Camera"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
+	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
+}
 }
