@@ -62,11 +62,6 @@ protected:
 	void tick();
 
 	/// <summary>
-	/// Frees everything related to the engines (Audio, Physics, Graphics)
-	/// </summary>
-	void freeEnginesResources();
-
-	/// <summary>
 	/// Calls the Start method of each GameObject in the list
 	/// </summary>
 	void start();

@@ -164,6 +164,3 @@ GameObject* Engine::findGameObject(const std::string& name)
 	}
 	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
-
-void Engine::freeEnginesResources() {
-}
