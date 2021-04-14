@@ -124,7 +124,6 @@ void LuaParser::luaBridgeParsingtest()
 		int ObjetoId = objeto["Id"].cast<int>();
 		std::cout << "objeto: " << ObjetoName << " con id: " << ObjetoId << std::endl;
 	}
-
 }
 
 bool LuaParser::checkLua(lua_State * L, int r)
