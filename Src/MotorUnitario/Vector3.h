@@ -2,6 +2,8 @@
 #ifndef VECTOR3_H
 #define VECTOR3_H
 
+#include <math.h>
+
 class Vector3 {
 public:
 
@@ -57,6 +59,16 @@ public:
 	/// <param name="z">New z component</param>
 	inline void set(double x, double y, double z) { _x = x; _y = y; _z = z; }
 		
+	/// <summary>
+	/// Returns the magnitude(length) of the vector3
+	/// </summary>
+	inline double magnitude() const { return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2)); }
+
+	/// <summary>
+	/// Returns a vector3 with a magnitude of 1  
+	/// </summary>
+	Vector3 normalize() const;
+
 	/// <summary>
 	/// Allows subtraction of vectors
 	/// </summary>

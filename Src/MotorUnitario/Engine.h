@@ -11,6 +11,9 @@ class GameObject;
 class GraphicsEngine;
 class InputManager;
 class AudioEngine;
+class ComponentsFactory;
+
+#define ADD(className)ComponentsFactory::add(className,classNameFactory);
 class Time;
 
 class Engine
@@ -121,6 +124,13 @@ private:
 	/// </summary>
 	void processEvents();
 
+	/// <summary>
+	/// Adds all the components factories of the engine and creates componenets.
+	///This is for testing the factorires
+	/// </summary>
+	void initFactories();
+
+	static Engine* _instance;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;

@@ -11,11 +11,11 @@ public:
 
 	//WIP
 	/// <summary>
-	/// Returns the instance of MotorUnitario, in case there is no such instance, it creates one and returns that one
+	/// Returns the instance of AudioEngine, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static AudioEngine* getInstance();
 	void operator=(const AudioEngine&) = delete;
-	AudioEngine(AudioEngine& other) = delete;	
+	AudioEngine(AudioEngine& other) = delete;
 	/// <summary>
 	/// Initialize the system object and prepare FMOD for playback
 	/// </summary>
@@ -36,12 +36,12 @@ public:
 	/// </summary>
 	/// <param name="dopplerScale"> General scaling factor for how much the pitch varies due to doppler shifting in 3D sound</param>
 	/// <param name="distanceFactor">Relative distance factor to FMOD units. This only affects doppler</param>
-	/// <param name="rolloff">Scaling factor for 3D sound rolloff or attenuation. Setting this value makes the sound drop off faster or slower. 
+	/// <param name="rolloff">Scaling factor for 3D sound rolloff or attenuation. Setting this value makes the sound drop off faster or slower.
 	/// The higher the value, the faster volume will attenuate, and conversely the lower the value, the slower it will attenuate</param>
 	void set3DSettings(float dopplerScale, float distanceFactor, float rolloff);
 
 private:
-	
+
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>

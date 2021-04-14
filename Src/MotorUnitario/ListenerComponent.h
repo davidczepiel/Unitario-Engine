@@ -11,12 +11,14 @@ class Transform;
 class ListenerComponent : public Component
 {
 public:
+
 	/// <summary>
 	/// Default constructor of the class
 	/// </summary>
+	ListenerComponent();
 	ListenerComponent(GameObject* gameObject);
 	/// <summary>
-	/// Destructor of the class 
+	/// Destructor of the class
 	/// </summary>
 	~ListenerComponent();
 
@@ -29,7 +31,7 @@ public:
 	/// </summary>
 	virtual void update();
 	/// <summary>
-	/// Called each frame after update. 
+	/// Called each frame after update.
 	/// </summary>
 	virtual void lateUpdate();
 

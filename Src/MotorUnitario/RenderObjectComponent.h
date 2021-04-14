@@ -11,6 +11,7 @@ class Transform;
 
 class RenderObjectComponent : public Component {
 public:
+	RenderObjectComponent();
 	/// <summary>
 	/// Constructor of the class
 	/// </summary>

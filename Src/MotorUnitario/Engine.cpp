@@ -6,6 +6,8 @@
 #include "MotorGrafico/GraphicsEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
+#include "ComponentsFactory.h"
+#include "ComponentFactory.h"
 #include "Time.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
@@ -44,6 +46,7 @@ void Engine::tick()
 
 void Engine::init()
 {
+	initFactories();
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
@@ -52,6 +55,7 @@ void Engine::init()
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
+
 	_graphicsEngine->loadScene(); //WIP
 }
 
@@ -162,3 +166,34 @@ GameObject* Engine::findGameObject(const std::string& name)
 	}
 	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
+
+
+
+void Engine::initFactories()
+{
+	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
+	ComponentsFactory::add("Light", new LightComponentFactory());
+	ComponentsFactory::add("RenderObject", new RenderObjectComponentFactory());
+	ComponentsFactory::add("Listener", new ListenerComponentFactory());
+	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
+	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
+	ComponentsFactory::add("Collider", new ColliderComponentFactory());
+	ComponentsFactory::add("Camera", new CameraComponentFactory());
+	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
+	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
+
+	// GameObject* go = new GameObject();
+	// Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
+	// ir->setGameObject(go);
+	// go->addComponent(ir);
+	// go->addComponent(ComponentsFactory::getComponentByName("Light"));
+	// go->addComponent(ComponentsFactory::getComponentByName("RenderObject"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Listener"));
+	// go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
+	// go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Collider"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Camera"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
+	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
+}
+
