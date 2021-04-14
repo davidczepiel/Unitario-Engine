@@ -1,44 +1,44 @@
 #pragma once
 
-#ifndef RENDEROBJECTCOMPONENT_H
-#define RENDEROBJECTCOMPONENT_H
+#ifndef RENDEROBJECT_COMPONENT_H
+#define RENDEROBJECT_COMPONENT_H
 
 #include "Component.h"
+#include "MotorGrafico/RenderObject.h"
 #include <string>
 
-//class RenderObject
+class Transform;
 
-class RenderObjectComponent : public Component
-{
+class RenderObjectComponent : public Component {
 public:
-
 	RenderObjectComponent();
-
 	/// <summary>
-	/// Creates a new renderObject for an entity
+	/// Constructor of the class
 	/// </summary>
-	///<param name="meshName">: Name of the object mesh</param>
-	///<param name="gameObject">: GameObject which will contain this component</param>
-	RenderObjectComponent(std::string const& meshName, GameObject* gameObject);
-
-	/// <summary>
-	/// Destructor of the class
-	/// </summary>
+	///<param name="meshName">: mesh filename </param>
+	RenderObjectComponent(GameObject* gameObject, std::string const& meshName);
 	~RenderObjectComponent();
-
+	/// <summary>
+	/// Initialize the component
+	/// </summary>
+	virtual void start() override;
+	/// <summary>
+	/// Updates the position with Transform Component
+	/// </summary>
+	virtual void update() override;
 	/// <summary>
 	/// Set the object material
 	/// </summary>
 	///<param name="material name">: Name of the material</param>
-	void setMaterial(std::string const& materialName);
+	inline void setMaterial(std::string const& materialName) { _renderObject->setMaterial(materialName); }
 
 	/// <summary>
-	/// Set the renderObjects position
+	/// Set the object position
 	/// </summary>
 	///<param name="x">: X position</param>
 	///<param name="y">: Y position</param>
 	///<param name="z">: Z position</param>
-	void setPosition(float x, float y, float z);
+	inline void setPosition(float x, float y, float z) { _renderObject->setPosition(x, y, z); }
 
 	/// <summary>
 	/// Rotates the object
@@ -47,7 +47,7 @@ public:
 	///<param name="x">: X axis</param>
 	///<param name="y">: Y axis</param>
 	///<param name="z">: Z axis</param>
-	void rotate(float angle, float x, float y, float z);
+	inline void rotate(float angle, float x, float y, float z) { _renderObject->rotate(angle, x, y, z); }
 
 	/// <summary>
 	/// Sets the object scale
@@ -55,7 +55,7 @@ public:
 	///<param name="x">: X scale</param>
 	///<param name="y">: Y scale</param>
 	///<param name="z">: Z scale</param>
-	void setScale(float x, float y, float z);
+	inline void setScale(float x, float y, float z) { _renderObject->setScale(x, y, z); }
 
 	/// <summary>
 	/// Scales the object
@@ -63,35 +63,38 @@ public:
 	///<param name="x">: X scale</param>
 	///<param name="y">: Y scale</param>
 	///<param name="z">: Z scale</param>
-	void scale(float x, float y, float z);
+	inline void scale(float x, float y, float z) { _renderObject->scale(x, y, z); }
 
 	/// <summary>
-	/// Points the renderObject "forward" vector to a specific position
+	/// Points the local Z direction of this object at a point in space
 	/// </summary>
 	///<param name="x">: X axis point</param>
 	///<param name="y">: Y axis point</param>
 	///<param name="z">: Z axis point</param>
-	void lookAt(float x, float y, float z);
+	void lookAt(float x, float y, float z) { _renderObject->scale(x, y, z); }
 
 	/// <summary>
-	/// Set the renderObject visibility
+	/// Set the object visibility
 	/// </summary>
 	///<param name="visible">: is visible</param>
-	void setVisible(bool visible);
+	inline void setVisible(bool visible) { _renderObject->setVisible(visible); }
 
 	/// <summary>
-	/// Sets wheter or not this object will cast shadows
+	/// Sets wheter or not this object will cast shadows 
 	/// </summary>
 	///<param name="castShadows">: cast shadows</param>
-	void setCastShadows(bool castShadows);
+	inline void setCastShadows(bool castShadows) { _renderObject->setCastShadows(castShadows); }
 
 	/// <summary>
 	/// Sets the distance at which the object is no longer rendered
 	/// </summary>
 	///<param name="distance">: render distance</param>
-	void setRenderingDistance(float distance);
+	inline void setRenderingDistance(float distance) { _renderObject->setRenderingDistance(distance); }
 protected:
-	Component* _renderObject;
+private:
+	RenderObject* _renderObject;
+	Transform* _transform;
+	std::string _meshName;
 };
 
-#endif //!RENDEROBJECTCOMPONENT_H
+#endif //!RENDEROBJECT_COMPONENT_H

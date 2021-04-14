@@ -11,9 +11,11 @@
 #include "OgreShaderGenerator.h"
 #include "RTSSDefaultTechniqueListener.h"
 
+
 #include "Camera.h"			//Testing
 #include <OgreEntity.h>		//Testing
 #include <OgreSceneNode.h>	//Testing
+#include <OgreViewport.h>
 
 #include <iostream>	//Testing
 
@@ -44,9 +46,9 @@ void GraphicsEngine::initRoot()
 	std::string pluginsPath;
 	pluginsPath = _mFSLayer->getConfigFilePath("plugins.cfg");
 
-	_mSolutionPath = pluginsPath;    // IG2: añadido para definir directorios relativos al de la solución
+	_mSolutionPath = pluginsPath;    // IG2: aï¿½adido para definir directorios relativos al de la soluciï¿½n
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
-	_mFSLayer->setHomePath(_mSolutionPath);   // IG2: para los archivos de configuración ogre. (en el bin de la solubión)
+	_mFSLayer->setHomePath(_mSolutionPath);   // IG2: para los archivos de configuraciï¿½n ogre. (en el bin de la solubiï¿½n)
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);   // IG2: Quito /bin
 
 #ifdef _DEBUG

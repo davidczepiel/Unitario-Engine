@@ -167,8 +167,7 @@ GameObject* Engine::findGameObject(const std::string& name)
 	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
 
-void Engine::freeEnginesResources() {
-}
+
 
 void Engine::initFactories()
 {
@@ -197,4 +196,4 @@ void Engine::initFactories()
 	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
 	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
 }
-}
+

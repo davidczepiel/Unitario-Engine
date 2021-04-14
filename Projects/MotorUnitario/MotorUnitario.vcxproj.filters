@@ -28,7 +28,6 @@
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\RenderObject_Component.cpp">
     <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -112,7 +111,6 @@
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\RenderObject_Component.h">
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -137,37 +135,34 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\Transform.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\Time.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Time.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Transform.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{cba1e095-1dec-44ec-9dbd-79dcff6edf0f}</UniqueIdentifier>
+      <UniqueIdentifier>{1742624c-aeee-4c18-9687-fc055d3992e2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{3dd5a50e-6692-49bd-9a3f-5b7f6a2c578e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{920412c9-21ed-4695-8aec-6fa819cfebdb}</UniqueIdentifier>
+      <UniqueIdentifier>{1f0ff1a8-1b6a-4219-9677-2c9240a956a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
