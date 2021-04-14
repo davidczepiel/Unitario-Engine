@@ -114,8 +114,6 @@ void Engine::shutDown()
 {
 	if (_graphicsEngine != nullptr) {
 		_graphicsEngine->shutdown();
-		delete _graphicsEngine;
-		_graphicsEngine = nullptr;
 	}
 }
 
