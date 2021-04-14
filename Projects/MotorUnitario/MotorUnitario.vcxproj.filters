@@ -33,6 +33,7 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\MotorUnitario\RenderObject_Component.cpp">
     <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -84,6 +85,7 @@
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\RenderObject_Component.h">
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>

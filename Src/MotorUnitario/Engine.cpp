@@ -8,7 +8,7 @@
 #include "MotorAudio/AudioEngine.h"
 #include "Time.h"
 
-Engine* Engine::_instance = nullptr;
+std::unique_ptr<Engine> Engine::instance = nullptr;
 
 Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
@@ -25,10 +25,10 @@ Engine::~Engine()
 
 Engine* Engine::getInstance()
 {
-	if (_instance == nullptr) {
-		_instance = new Engine();
+	if (instance.get() == nullptr) {
+		instance.reset(new Engine());
 	}
-	return _instance;
+	return instance.get();
 }
 
 void Engine::tick()
@@ -46,19 +46,25 @@ void Engine::init()
 {
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
+	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
 	_audioEngine = AudioEngine::getInstance();
 	_time = Time::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
+	_graphicsEngine->setup();
+	_graphicsEngine->loadScene(); //WIP
 }
 
 void Engine::run()
 {
 	start();
+	
 	while (_run)
 	{
 		tick();
 	}
+
+	shutDown();
 }
 
 void Engine::changeScene(const std::string& scene)
@@ -68,6 +74,11 @@ void Engine::changeScene(const std::string& scene)
 void Engine::stopExecution()
 {
 	_run = false;
+}
+
+void Engine::setResourcesPath(std::string const& resourcesPath)
+{
+	_graphicsEngine->setResourcePath(resourcesPath);
 }
 
 void Engine::start()
@@ -97,6 +108,13 @@ void Engine::lateUpdate()
 		it->lateUpdate();
 	}
 	_audioEngine->update();
+}
+
+void Engine::shutDown()
+{
+	if (_graphicsEngine != nullptr) {
+		_graphicsEngine->shutdown();
+	}
 }
 
 GameObject* Engine::addGameObject()
@@ -143,7 +161,4 @@ GameObject* Engine::findGameObject(const std::string& name)
 			it++;
 	}
 	return (it == _GOs.end()) ? (nullptr) : (*it);
-}
-
-void Engine::freeEnginesResources() {
 }

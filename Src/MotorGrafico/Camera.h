@@ -63,6 +63,12 @@ public:
 	/// <param name="h">The viewport new height</param>
 	void setViewportDimensions(float left, float top, float w, float h);
 
+	inline Ogre::Viewport* getViewPort() { return _viewport; };
+
+	void setPosition(float x, float y, float z) {
+		_node->setPosition(Ogre::Vector3(x, y, z));
+	}
+
 private:
 	Ogre::Camera* _camera;
 	Ogre::RenderWindow* _renderWindow;

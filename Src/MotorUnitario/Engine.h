@@ -5,6 +5,7 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 class GameObject;
 class GraphicsEngine;
@@ -47,17 +48,18 @@ public:
 	/// </summary>
 	void stopExecution();
 
+	/// <summary>
+	/// Sets the resources path
+	/// </summary>
+	/// <param name="resourcesPath"> Resources.cfg path</param>
+	void setResourcesPath(std::string const& resourcesPath);
+
 protected:
 
 	/// <summary>
 	/// Includes all the methods related to the GameObjects Update
 	/// </summary>
 	void tick();
-
-	/// <summary>
-	/// Frees everything related to the engines (Audio, Physics, Graphics)
-	/// </summary>
-	void freeEnginesResources();
 
 	/// <summary>
 	/// Calls the Start method of each GameObject in the list
@@ -78,6 +80,11 @@ protected:
 	/// Calls the LateUpdate method of each GameObject in the list
 	/// </summary>
 	void lateUpdate();
+
+	/// <summary>
+	/// Called before the end of execution (free resources and shutdown engines)
+	/// </summary>
+	void shutDown();
 
 	/// <summary>
 	/// Adds a GameObject to the list
@@ -114,10 +121,10 @@ private:
 	/// </summary>
 	void processEvents();
 
-	static Engine* _instance;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
+	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
 	Time* _time;
 
