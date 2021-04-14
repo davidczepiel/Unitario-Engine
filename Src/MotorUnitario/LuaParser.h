@@ -21,8 +21,19 @@ public:
 	LuaParser();
 	~LuaParser();
 	void test();
+	/// <summary>
+	/// Closes the Lua virtual machine, do this when you stop using Lua
+	/// </summary>
 	void closeLuaVM();
+
+	/// <summary>
+	/// Using regular Lua 
+	/// </summary>
 	void LuaParsingTest();
+
+	/// <summary>
+	/// Using LuaBridge Namespace library
+	/// </summary>
 	void luaBridgeParsingtest();
 private:
 	/// <summary>
