@@ -13,6 +13,10 @@ public:
 	virtual ~Component();
 
 	/// <summary>
+	/// Initializes the component parameters with LUA, called once at the Factories.
+	/// </summary>
+	virtual void preinit() {}
+	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
 	virtual void start() {}
