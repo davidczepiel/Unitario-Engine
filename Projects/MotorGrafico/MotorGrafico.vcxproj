@@ -108,8 +108,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"</Command>
-      <Message>Copiando dlls de ogre</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86\;$(SolutionDir)dependencies\Ogre\Build32\lib\$(Configuration)</AdditionalLibraryDirectories>
@@ -134,8 +136,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"</Command>
-      <Message>Copiando dlls de ogre</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86\;$(SolutionDir)dependencies\Ogre\Build32\lib\$(Configuration)</AdditionalLibraryDirectories>
@@ -156,8 +160,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"</Command>
-      <Message>Copiando dlls de ogre</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64\;$(SolutionDir)dependencies\Ogre\Build\lib\$(Configuration)</AdditionalLibraryDirectories>
@@ -182,8 +188,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"</Command>
-      <Message>Copiando dlls de ogre</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64\;$(SolutionDir)dependencies\Ogre\Build\lib\$(Configuration)</AdditionalLibraryDirectories>
@@ -196,7 +204,6 @@
     <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\RenderObject.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp" />
@@ -209,7 +216,6 @@
     <ClInclude Include="..\..\Src\MotorGrafico\ImageRender.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\Light.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\main.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\RenderObject.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h" />

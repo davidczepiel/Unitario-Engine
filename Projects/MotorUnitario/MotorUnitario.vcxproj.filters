@@ -49,9 +49,6 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
