@@ -1,6 +1,5 @@
 #include "Engine.h"
 //WIP
-#include "MotorGrafico/main.h"
 #include "MotorUnitario/GameObject.h"
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
