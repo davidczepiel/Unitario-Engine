@@ -13,7 +13,7 @@ _viewport(nullptr)
 	_node->attachObject(_camera);
 
 	_viewport = rWin->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.98, 0.972, 0.949));
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.2, 0.2, 0.2));
 	_viewport->setOverlaysEnabled(true);
 }
 

@@ -15,7 +15,12 @@
 #include "Camera.h"			//Testing
 #include <OgreEntity.h>		//Testing
 #include <OgreSceneNode.h>	//Testing
-#include <OgreViewport.h>
+#include <OgreViewport.h>	//Testing
+#include <OgreOverlay.h>	//Testing
+#include <OgreOverlayManager.h>	//Testing
+#include <OgreOverlayElement.h>
+#include <OgreOverlaySystem.h>	//Testing
+#include <OgreOverlayContainer.h>
 
 #include <iostream>	//Testing
 
@@ -60,6 +65,7 @@ void GraphicsEngine::initRoot()
 
 void GraphicsEngine::initWindow() {
 	_root->restoreConfig();
+	_oveSys = new Ogre::OverlaySystem();
 	_root->initialise(false);
 	Ogre::NameValuePairList params;
 	Ogre::ConfigOptionMap configuracion = _root->getRenderSystem()->getConfigOptions();
@@ -90,6 +96,8 @@ void GraphicsEngine::initWindow() {
 void GraphicsEngine::setup()
 {
 	_sceneManager = _root->createSceneManager();
+	_sceneManager->addRenderQueueListener(_oveSys);
+	_oveMng = Ogre::OverlayManager::getSingletonPtr();
 
 	_locateResources("resources.cfg");
 	//WIP
@@ -305,6 +313,17 @@ void GraphicsEngine::loadScene()
 	nodo->scale(Ogre::Vector3(5, 5, 5));
 	nodo->setPosition(Ogre::Vector3(550, 0, -1000));
 	nodo->attachObject(ent);
+
+	Ogre::Overlay* overlay = _oveMng->create("Prueba");
+	Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(_oveMng->createOverlayElement("BorderPanel", "panelPrueba"));
+	panel->setPosition(0.0, 0.0);
+	panel->setDimensions(0.1, 0.1);
+	panel->setMaterialName("Prueba");
+	// Add the panel to the overlay
+	overlay->add2D(panel);
+
+	// Show the overlay
+	overlay->show();
 }
 
 void GraphicsEngine::setWindowGrab(bool _grab)

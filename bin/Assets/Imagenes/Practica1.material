@@ -18,6 +18,16 @@ material Practica1/Yellow{
 	}
 }
 
+material Prueba{
+	technique{
+		pass{
+			texture_unit{
+				texture MomiaMeme.png
+			}
+		}
+	}
+}
+
 material Practica1/Brown{
 	technique{
 		pass{

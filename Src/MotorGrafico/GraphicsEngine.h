@@ -10,6 +10,8 @@ namespace Ogre {
 	class RenderWindow;
 	class SceneManager;
 	class FileSystemLayer;
+	class OverlaySystem;
+	class OverlayManager;
 
 	namespace RTShader {
 		class ShaderGenerator;
@@ -116,6 +118,10 @@ private:
 	Ogre::RTShader::ShaderGenerator* _mShaderGenerator;
 	// Ogre Listener for RTSS-Shading Generation
 	RTSSDefaultTechniqueListener* _mTechniqueListener;
+	// Ogre Overlay System (for GUI)
+	Ogre::OverlaySystem* _oveSys;
+	// Ogre Overlay Manager
+	Ogre::OverlayManager* _oveMng;
 	SDL_Window* _sdlWindow;
 	// Relative path to solution folder
 	std::string _mSolutionPath;
