@@ -7,7 +7,7 @@
 #include <array>
 #include <bitset>
 
-#include "SDL_events.h"
+union SDL_Event;
 
 class MouseInput
 {
@@ -17,7 +17,7 @@ public:
 	/// Posible mouse buttons. 
 	/// <para> X1 and X2 are optional additional mouse buttons the user might have </para>
 	/// </summary>
-	enum MOUSEBUTTON : Uint8 {
+	enum MOUSEBUTTON : unsigned char {
 		LEFT, MIDDLE, RIGHT, X1, X2
 	};
 

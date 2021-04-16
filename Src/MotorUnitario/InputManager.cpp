@@ -2,6 +2,7 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamePadInput.h"
+#include "SDL_events.h"
 #include "Engine.h"
 
 std::unique_ptr<InputManager> InputManager::instance = nullptr;
