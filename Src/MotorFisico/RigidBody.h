@@ -96,20 +96,20 @@ public:
 	/// Adds a force if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="force">The force to add</param>
-	void addForce(std::tuple<float, float, float>& force);
+	bool addForce(std::tuple<float, float, float>& force);
 
 	/// <summary>
 	/// Adds an impulse if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="impulse">The impulse to add</param>
-	void addImpulse(std::tuple<float, float, float>& impulse);
+	bool addImpulse(std::tuple<float, float, float>& impulse);
 
 	/// <summary>
 	/// Adds a torque if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="torque">The torque to add</param>
 	/// <returns>The new rotation of the object and if it's valid</returns>
-	void  addTorque(std::tuple<float, float, float>& torque);
+	bool  addTorque(std::tuple<float, float, float>& torque);
 
 	/// <summary>
 	/// Moves the rigidBody to a point, (only if Kinematic)
@@ -117,100 +117,88 @@ public:
 	/// <param name="dest">The point where the rigidBody will be moved</param>
 	/// <returns>The new position of the object and if it's valid</returns>
 
-	void  moveTo(std::tuple<float, float, float>& dest);
+	bool  moveTo(std::tuple<float, float, float>& dest);
 
 	/// <summary>
 	/// Enables or disables the constraint in the rigid body x axis
 	/// </summary>
 	/// <param name="constrain">True to enable the constraint</param>
 	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
-	void constrainX(bool constrain, bool linear = true);
+	bool constrainX(bool constrain, bool linear = true);
 
 	/// <summary>
 	/// Enables or disables the constraint in the rigid body y axis
 	/// </summary>
 	/// <param name="constrain">True to enable the constraint</param>
 	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
-	void constrainY(bool constrain, bool linear = true);
+	bool constrainY(bool constrain, bool linear = true);
 
 	/// <summary>
 	/// Enables or disables the constraint in the rigid body z axis
 	/// </summary>
 	/// <param name="constrain">True to enable the constraint</param>
 	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
-	void constrainZ(bool constrain, bool linear = true);
+	bool constrainZ(bool constrain, bool linear = true);
 
 	/// <summary>
 	/// Sets the transform position to a specified one
 	/// </summary>
 	/// <param name="position">Set of values that determine the position</param>
-	void setPosition(const std::tuple<float, float, float>& position);
+	bool setPosition(const std::tuple<float, float, float>& position);
 
 	/// <summary>
 	/// Sets the transform rotation to a specified one
 	/// </summary>
 	/// <param name="position">Set of values that determine the position</param>
-	void setRotation(const std::tuple<float, float, float>& position);
+	bool rotate(const std::tuple<float, float, float>& position);
 
 	/// <summary>
 	/// Sets the rigidbodys scale to a specified one
 	/// </summary>
 	/// <param name="scale">Set of values that determine the scale</param>
-	void setScale(const std::tuple<float, float, float>& scale);
-
-	/// <summary>
-	/// Sets the rigidbodys scale
-	/// </summary>
-	/// <param name="scale">Set of values that determine the scale</param>
-	void setScale(const std::tuple<float, float>& scale);
-
-	/// <summary>
-	/// Sets the rigidbodys scale
-	/// </summary>
-	/// <param name="scale">Set of values that determine the scale</param>
-	void setScale(const std::tuple<float>& scale);
+	bool setScale(const std::tuple<float, float, float>& scale);
 
 	/// <summary>
 	/// Sets the body static friction if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="f">The new static friction</param>
-	void setStaticFriction(float f);
+	bool setStaticFriction(float f);
 
 	/// <summary>
 	/// Sets the body dynamic friction if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="f">The new dynamic friction</param>
-	void setDynamicFriction(float f);
+	bool setDynamicFriction(float f);
 
 	/// <summary>
 	/// Sets the body bounciness if it's a dynamic rigid body
 	/// </summary>
 	/// <param name="b">The new bounciness</param>
-	void setBounciness(float b);
+	bool setBounciness(float b);
 
 	/// <summary>
 	/// Sets the body mass if it's a dynamic rigid body (static rigid bodies don't have mass)
 	/// </summary>
 	/// <param name="m">The new mass</param>
-	void setMass(float m);
+	bool setMass(float m);
 
 	/// <summary>
 	/// Sets the body linear velocity if it's a dynamic rigid body (static rigid bodies don't have mass)
 	/// </summary>
 	/// <param name="vel">The new velocity</param>
-	void setLinearVelocity(const std::tuple<float, float, float>& vel);
+	bool setLinearVelocity(const std::tuple<float, float, float>& vel);
 
 	/// <summary>
 	/// Sets the body angular velocity if it's a dynamic rigid body (static rigid bodies don't have mass)
 	/// </summary>
 	/// <param name="vel">The new velocity</param>
-	void setAngularVelocity(const std::tuple<float, float, float>& vel);
+	bool setAngularVelocity(const std::tuple<float, float, float>& vel);
 
 	/// <summary>
 	/// Enables or disables the gravity
 	/// </summary>
 	/// <param name="g">true if gravity enabled</param>
-	void setGravity(bool g);
+	bool setGravity(bool g);
 
 	/// <summary>
 	/// Gets the angular velocity of the body
@@ -265,6 +253,12 @@ private:
 	/// </summary>
 	/// <returns></returns>
 	std::list<physx::PxMaterial*>getAllMaterials();
+	/// <summary>
+	/// gets the greater component of one tuple
+	/// </summary>
+	/// <param name="tuple">the tuple to get the greater component</param>
+	/// <returns></returns>
+	float getGreater(std::tuple<float, float, float> tuple);
 
 	physx::PxPhysics* _physx;
 	physx::PxScene* _scene;

@@ -4,18 +4,24 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ComponentIDs.h"
+#include "Logger.h"
 #include "Vector3.h"
 
-RigidBodyComponent::RigidBodyComponent(GameObject* go) :Component(3, go), _rb(nullptr), _tr(nullptr)
+RigidBodyComponent::RigidBodyComponent(GameObject* go) :Component(3, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
+	_log = Logger::getInstance();
 }
 
-RigidBodyComponent::RigidBodyComponent(const std::string& path, GameObject* go) : Component(3, go), _rb(nullptr), _tr(nullptr)
+RigidBodyComponent::RigidBodyComponent(const std::string& path, GameObject* go) : Component(3, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
+	_log = Logger::getInstance();
+
 }
 
-RigidBodyComponent::RigidBodyComponent() : Component(3, nullptr), _rb(nullptr), _tr(nullptr)
+RigidBodyComponent::RigidBodyComponent() : Component(3, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
+	_log = Logger::getInstance();
+
 }
 
 RigidBodyComponent::~RigidBodyComponent()
@@ -39,49 +45,64 @@ void RigidBodyComponent::setPosition(Vector3 pos)
 
 void RigidBodyComponent::setRotation(Vector3 rot)
 {
-	//WIP
-	_rb->setRotation(VEC3_TO_TUPLE(rot));
+	if (!_rb->rotate(VEC3_TO_TUPLE(rot)))
+		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setScale(Vector3 scale)
 {
-	//WIP
-	_rb->setScale(VEC3_TO_TUPLE(scale));
+	if (!_rb->setScale(VEC3_TO_TUPLE(scale)))
+		_log->log("trying to scale a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setStaticFriction(float f)
 {
-	_rb->setStaticFriction(f);
+	if (!_rb->setStaticFriction(f))
+		_log->log("trying to set the static friction of a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setDynamicFriction(float f)
 {
-	_rb->setDynamicFriction(f);
+	if (_rb->setDynamicFriction(f))
+		_log->log("trying to set the dynamic friction of a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setBounciness(float b)
 {
-	_rb->setBounciness(b);
+	if (!_rb->setBounciness(b))
+		_log->log("trying to set the bounciness of a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setMass(float m)
 {
-	_rb->setMass(m);
+	if (!_rb->setMass(m))
+		_log->log("trying to set the mass of a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setLinearVelocity(const Vector3& vel)
 {
-	_rb->setLinearVelocity(VEC3_TO_TUPLE(vel));
+	if (!_rb->setLinearVelocity(VEC3_TO_TUPLE(vel)))
+		_log->log("trying to set the linear velocity of a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setAngularVelocity(const Vector3& vel)
 {
-	_rb->setAngularVelocity(VEC3_TO_TUPLE(vel));
+	if (!_rb->setAngularVelocity(VEC3_TO_TUPLE(vel)))
+		_log->log("trying to set the angular velocity of a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::setGravity(bool g)
 {
-	_rb->setGravity(g);
+	if (!_rb->setGravity(g))
+		_log->log("trying to enable or disable the gravity of a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 const Vector3& RigidBodyComponent::getAngularVelocity()
@@ -102,38 +123,52 @@ float RigidBodyComponent::getMass()
 void RigidBodyComponent::addForce(Vector3& force)
 {
 	auto tupleForce = VEC3_TO_TUPLE(force);
-	_rb->addForce(tupleForce);
+	if (!_rb->addForce(tupleForce))
+		_log->log("trying to move a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::addImpulse(Vector3& impulse)
 {
 	auto tupleImpulse = VEC3_TO_TUPLE(impulse);
-	_rb->addImpulse(tupleImpulse);
+	if (!_rb->addImpulse(tupleImpulse))
+		_log->log("trying to move a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::addTorque(Vector3& torque)
 {
 	auto tupleTorque = VEC3_TO_TUPLE(torque);
-	_rb->addTorque(tupleTorque);
+	if (!_rb->addTorque(tupleTorque))
+		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::moveTo(Vector3& dest)
 {
 	auto tupleDest = VEC3_TO_TUPLE(dest);
-	_rb->moveTo(tupleDest);
+	if (!_rb->moveTo(tupleDest))
+		_log->log("trying to move a static/not kinematic rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::constrainX(bool constrain, bool linear)
 {
-	_rb->constrainX(constrain, linear);
+	if (!_rb->constrainX(constrain, linear))
+		_log->log("trying to constrain a static rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::constrainY(bool constrain, bool linear)
 {
-	_rb->constrainY(constrain, linear);
+	if (!_rb->constrainY(constrain, linear))
+		_log->log("trying to move a constrain rigidBody will result in nothig", Logger::Level::WARN);
+
 }
 
 void RigidBodyComponent::constrainZ(bool constrain, bool linear)
 {
-	_rb->constrainZ(constrain, linear);
+	if (!_rb->constrainZ(constrain, linear))
+		_log->log("trying to move a constrain rigidBody will result in nothig", Logger::Level::WARN);
+
 }

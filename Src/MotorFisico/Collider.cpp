@@ -50,7 +50,7 @@ BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameOb
 }
 
 void BoxCollider::setScale(int width, int heigh, int depth) {
-	_mShape->setGeometry(physx::PxBoxGeometry(width, heigh, depth));
+	_mShape->setGeometry(physx::PxBoxGeometry(width / 2, heigh / 2, depth / 2));
 }
 
 ///////////////////////////////////////////////
@@ -66,7 +66,7 @@ SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObjec
 }
 
 void SphereCollider::setScale(int r) {
-	_mShape->setGeometry(physx::PxSphereGeometry(2 * r));
+	_mShape->setGeometry(physx::PxSphereGeometry(r));
 }
 
 /////////////////////////////////////////////////

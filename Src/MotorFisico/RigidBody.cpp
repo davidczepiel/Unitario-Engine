@@ -66,7 +66,7 @@ RigidBody::~RigidBody()
 	_transform = nullptr;
 }
 
-void RigidBody::setStaticFriction(float f)
+bool RigidBody::setStaticFriction(float f)
 {
 	if (!_isStatic) {
 		std::list<physx::PxMaterial*> materials = getAllMaterials();
@@ -74,10 +74,12 @@ void RigidBody::setStaticFriction(float f)
 		{
 			(*it)->setStaticFriction(f);
 		}
+		return true;
 	}
+	return false;
 }
 
-void RigidBody::setDynamicFriction(float f)
+bool RigidBody::setDynamicFriction(float f)
 {
 	if (!_isStatic) {
 		std::list<physx::PxMaterial*> materials = getAllMaterials();
@@ -85,10 +87,13 @@ void RigidBody::setDynamicFriction(float f)
 		{
 			(*it)->setDynamicFriction(f);
 		}
+		return true;
 	}
+	return false;
+
 }
 
-void RigidBody::setBounciness(float b)
+bool RigidBody::setBounciness(float b)
 {
 	if (!_isStatic) {
 		std::list<physx::PxMaterial*> materials = getAllMaterials();
@@ -96,25 +101,44 @@ void RigidBody::setBounciness(float b)
 		{
 			(*it)->setRestitution(b);
 		}
+		return true;
+
 	}
+	return false;
+
 }
 
-void RigidBody::setMass(float m)
+bool RigidBody::setMass(float m)
 {
 	if (!_isStatic)
+	{
 		_dynamicBody->setMass(m);
+		return true;
+	}
+	return false;
+
 }
 
-void RigidBody::setLinearVelocity(const std::tuple<float, float, float>& vel)
+bool RigidBody::setLinearVelocity(const std::tuple<float, float, float>& vel)
 {
 	if (!_isStatic)
+	{
 		_dynamicBody->setLinearVelocity(TUPLE_TO_PHYSXVEC3(vel));
+		return true;
+	}
+	return false;
+
 }
 
-void RigidBody::setAngularVelocity(const std::tuple<float, float, float>& vel)
+bool RigidBody::setAngularVelocity(const std::tuple<float, float, float>& vel)
 {
 	if (!_isStatic)
+	{
 		_dynamicBody->setAngularVelocity(TUPLE_TO_PHYSXVEC3(vel));
+		return true;
+	}
+	return false;
+
 }
 
 const std::tuple<float, float, float>& RigidBody::getAngularVelocity()
@@ -137,37 +161,60 @@ float RigidBody::getMass()
 		0;
 	else return _dynamicBody->getMass();
 }
-void RigidBody::addForce(std::tuple<float, float, float>& force)
+bool RigidBody::addForce(std::tuple<float, float, float>& force)
 {
-	if (_isStatic)
+	if (_isStatic) {
+
 		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(force));
+		return true;
+	}
+	return false;
 }
 
-void RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
+bool RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
 {
 	if (!_isStatic)
+	{
 		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(impulse), physx::PxForceMode::eIMPULSE);
+		return true;
+	}
+	return false;
+
 }
 
-void RigidBody::addTorque(std::tuple<float, float, float>& torque)
+bool RigidBody::addTorque(std::tuple<float, float, float>& torque)
 {
 	if (!_isStatic)
+	{
 		_dynamicBody->addTorque(TUPLE_TO_PHYSXVEC3(torque));
+		return true;
+	}
+	return false;
 }
 
-void RigidBody::setGravity(bool g)
+bool RigidBody::setGravity(bool g)
 {
 	if (!_isStatic)
+	{
 		_dynamicBody->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, !g);
+		return true;
+
+	}
+	return false;
 }
 
-void RigidBody::moveTo(std::tuple<float, float, float>& dest)
+bool RigidBody::moveTo(std::tuple<float, float, float>& dest)
 {
 	if (!_isStatic && _dynamicBody->getRigidBodyFlags().isSet(physx::PxRigidBodyFlag::eKINEMATIC))
+	{
 		_dynamicBody->setKinematicTarget(physx::PxTransform(TUPLE_TO_PHYSXVEC3(dest)));
+		return true;
+
+	}
+	return false;
 }
 
-void RigidBody::constrainX(bool constrain, bool linear)
+bool RigidBody::constrainX(bool constrain, bool linear)
 {
 	if (!_isStatic)
 	{
@@ -175,10 +222,14 @@ void RigidBody::constrainX(bool constrain, bool linear)
 			_dynamicBody->setRigidDynamicLockFlag(physx::PxRigidDynamicLockFlag::eLOCK_LINEAR_X, constrain);
 		else
 			_dynamicBody->setRigidDynamicLockFlag(physx::PxRigidDynamicLockFlag::eLOCK_ANGULAR_X, constrain);
+		return true;
+
 	}
+	return false;
+
 }
 
-void RigidBody::constrainY(bool constrain, bool linear)
+bool RigidBody::constrainY(bool constrain, bool linear)
 {
 	if (!_isStatic)
 	{
@@ -186,10 +237,14 @@ void RigidBody::constrainY(bool constrain, bool linear)
 			_dynamicBody->setRigidDynamicLockFlag(physx::PxRigidDynamicLockFlag::eLOCK_LINEAR_Y, constrain);
 		else
 			_dynamicBody->setRigidDynamicLockFlag(physx::PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y, constrain);
+		return true;
+
 	}
+	return false;
+
 }
 
-void RigidBody::constrainZ(bool constrain, bool linear)
+bool RigidBody::constrainZ(bool constrain, bool linear)
 {
 	if (!_isStatic)
 	{
@@ -197,80 +252,73 @@ void RigidBody::constrainZ(bool constrain, bool linear)
 			_dynamicBody->setRigidDynamicLockFlag(physx::PxRigidDynamicLockFlag::eLOCK_LINEAR_Z, constrain);
 		else
 			_dynamicBody->setRigidDynamicLockFlag(physx::PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z, constrain);
+		return true;
+
 	}
+	return false;
+
 }
 
-void RigidBody::setPosition(const std::tuple<float, float, float>& position)
+bool RigidBody::setPosition(const std::tuple<float, float, float>& position)
 {
 	if (!_isStatic) {
 		_transform->p = TUPLE_TO_PHYSXVEC3(position);
 		_dynamicBody->setGlobalPose(*_transform);
+		return true;
+
 	}
-	//else Exception?
+	return false;
+
 }
 
-void RigidBody::setRotation(const std::tuple<float, float, float>& position)
+bool RigidBody::rotate(const std::tuple<float, float, float>& position)
 {
 	if (!_isStatic) {
-		//physx::PxQuat();
-		//_transform->q = TUPLE_TO_PHYSXVEC3(position);
-		//_dynamicBody->setGlobalPose();
+		_transform->q.rotate(TUPLE_TO_PHYSXVEC3(position).getNormalized());
+		return true;
+
 	}
+	return false;
 }
 
-void RigidBody::setScale(const std::tuple<float, float, float>& scale)
+bool RigidBody::setScale(const std::tuple<float, float, float>& scale)
 {
-	//else Exception?
 	if (!_isStatic) {
 		int nbShapes = _dynamicBody->getNbShapes();
 		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
 		_dynamicBody->getShapes(shapes, nbShapes);
 		for (int i = 0; i < nbShapes; i++) {
 			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eBOX) {
-				shapes[i]->setGeometry(physx::PxBoxGeometry(TUPLE_TO_PHYSXVEC3(scale)));
+				physx::PxVec3 boxScale = shapes[i]->getGeometry().box().halfExtents;
+				physx::PxVec3 newScale = TUPLE_TO_PHYSXVEC3(scale);
+				boxScale.x *= newScale.x;
+				boxScale.y *= newScale.y;
+				boxScale.z *= newScale.z;
+
+				shapes[i]->setGeometry(physx::PxBoxGeometry(boxScale));
 			}
-			else {
-				//Exception
+			else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eSPHERE) {
+
+				float sphereScale = shapes[i]->getGeometry().sphere().radius;
+				shapes[i]->setGeometry(physx::PxSphereGeometry(getGreater(scale) * sphereScale));
 			}
+			else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eCAPSULE)
+			{
+				float capsuleRadious = shapes[i]->getGeometry().capsule().radius;
+				float capsuleHalfHeight = shapes[i]->getGeometry().capsule().halfHeight;
+				float greater = getGreater(scale);
+				shapes[i]->setGeometry(physx::PxCapsuleGeometry(capsuleRadious * greater, capsuleHalfHeight * greater));
+
+			}
+
 		}
+		return true;
 	}
+	return false;
+
 }
 
-void RigidBody::setScale(const std::tuple<float, float>& scale)
-{
-	//else Exception?
-	if (!_isStatic) {
-		int nbShapes = _dynamicBody->getNbShapes();
-		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
-		_dynamicBody->getShapes(shapes, nbShapes);
-		for (int i = 0; i < nbShapes; i++) {
-			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eCAPSULE) {
-				//shapes[i]->setGeometry(physx::PxSphereGeometry(TUPLE_TO_PHYSXVEC3(scale)));
-			}
-			else {
-				//Exception
-			}
-		}
-	}
-}
 
-void RigidBody::setScale(const std::tuple<float>& scale)
-{
-	//else Exception?
-	if (!_isStatic) {
-		int nbShapes = _dynamicBody->getNbShapes();
-		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
-		_dynamicBody->getShapes(shapes, nbShapes);
-		for (int i = 0; i < nbShapes; i++) {
-			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eSPHERE) {
-				//shapes[i]->setGeometry(physx::PxBoxGeometry(TUPLE_TO_PHYSXVEC3(scale)));
-			}
-			else {
-				//Exception
-			}
-		}
-	}
-}
 
 const std::tuple<float, float, float>& RigidBody::getPosition()
 {
@@ -338,4 +386,15 @@ std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
 
 	delete[] shapes;
 	return list;
+}
+
+float RigidBody::getGreater(std::tuple<float, float, float> tuple)
+{
+	float greater;
+	if (std::get<0>(tuple) > std::get<1>(tuple))
+		greater = std::get<0>(tuple);
+	else greater = std::get<1>(tuple);
+	if (greater < std::get<2>(tuple))
+		greater = std::get<2>(tuple);
+	return greater;
 }

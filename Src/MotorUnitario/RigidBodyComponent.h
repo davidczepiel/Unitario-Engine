@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "Vector3.h"
 #include <string>
+class Logger;
 class RigidBody;
 class Vector3;
 class Transform;
@@ -138,5 +139,6 @@ public:
 private:
 	RigidBody* _rb;
 	Transform* _tr;
+	Logger* _log;
 };
 #endif //!RIGIDBODYCOMPONENT_H
