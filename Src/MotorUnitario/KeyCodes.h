@@ -2,6 +2,18 @@
 #ifndef KEYCODES_H
 #define KEYCODES_H
 
+/// <summary>
+/// Posible mouse buttons.
+/// <para> X1 and X2 are optional additional mouse buttons the user might have </para>
+/// </summary>
+enum MouseButton {
+	LEFT,
+	MIDDLE,
+	RIGHT,
+	X1,
+	X2
+};
+
 typedef enum {
 	KEYCODE_UNKNOWN = 0,
 

@@ -46,7 +46,6 @@ void Engine::tick()
 	_graphicsEngine->render();
 	_time->update();
 	testing();
-
 }
 
 void Engine::init()
@@ -63,14 +62,14 @@ void Engine::init()
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-	
+
 	_graphicsEngine->loadScene(); //WIP
 }
 
 void Engine::run()
 {
 	start();
-	
+
 	while (_run)
 	{
 		tick();
@@ -95,12 +94,11 @@ void Engine::setResourcesPath(std::string const& resourcesPath)
 
 void Engine::testing()
 {
-	
-	if (KeyBoardInput::getInstance()->isKeyJustDown(KeyCode::KEYCODE_A)) {
-		std::cout << "La tecla A justo ha sido presionada \n";
+	if (MouseInput::getInstance()->isMouseButtonJustUp(MouseButton::X1)) {
+		std::cout << "El boton del raton esta abajo \n";
 	}
-	else if (KeyBoardInput::getInstance()->isKeyJustUp(KeyCode::KEYCODE_B)) {
-		std::cout << "La tecla B esta suelta \n";
+	if (MouseInput::getInstance()->isMouseButtonJustDown(MouseButton::MIDDLE)) {
+		std::cout << "La rueda se ha pulsado \n";
 	}
 }
 
@@ -186,8 +184,6 @@ GameObject* Engine::findGameObject(const std::string& name)
 	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
 
-
-
 void Engine::initFactories()
 {
 	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
@@ -215,4 +211,3 @@ void Engine::initFactories()
 	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
 	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
 }
-

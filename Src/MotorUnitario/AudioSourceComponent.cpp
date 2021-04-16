@@ -5,15 +5,15 @@
 #include "Vector3.h"
 #include "ComponentIDs.h"
 
-AudioSourceComponent::AudioSourceComponent(): Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
+AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
 {
 }
 
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject) : Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
 {
 }
 
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(ComponentId::AudioSource,gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
 {
 }
 
@@ -33,7 +33,7 @@ void AudioSourceComponent::update()
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
-	_audioSource->setPosition(x, y, z);
+	//_audioSource->setPosition(x, y, z);
 }
 
 void AudioSourceComponent::lateUpdate()
@@ -90,7 +90,3 @@ void AudioSourceComponent::set3DMinMaxDistanceChannel(float min, float max)
 {
 	_audioSource->set3DMinMaxDistance(min, max);
 }
-
-
-
-
