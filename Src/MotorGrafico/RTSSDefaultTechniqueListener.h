@@ -41,7 +41,6 @@ public:
 				*originalMaterial,
 				Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
 				schemeName);
-
 			// Case technique registration succeeded.
 			if (techniqueCreated)
 			{

@@ -21,8 +21,10 @@ material Practica1/Yellow{
 material Prueba{
 	technique{
 		pass{
+			lighting off
 			texture_unit{
 				texture MomiaMeme.png
+				depth_check
 			}
 		}
 	}

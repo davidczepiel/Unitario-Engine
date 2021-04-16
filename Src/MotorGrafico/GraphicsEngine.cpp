@@ -18,9 +18,10 @@
 #include <OgreViewport.h>	//Testing
 #include <OgreOverlay.h>	//Testing
 #include <OgreOverlayManager.h>	//Testing
-#include <OgreOverlayElement.h>
+#include <OgreOverlayElement.h> //
 #include <OgreOverlaySystem.h>	//Testing
 #include <OgreOverlayContainer.h>
+#include <OgreFontManager.h>
 
 #include <iostream>	//Testing
 
@@ -65,7 +66,7 @@ void GraphicsEngine::initRoot()
 
 void GraphicsEngine::initWindow() {
 	_root->restoreConfig();
-	_oveSys = new Ogre::OverlaySystem();
+	_overlaySystem = new Ogre::OverlaySystem();
 	_root->initialise(false);
 	Ogre::NameValuePairList params;
 	Ogre::ConfigOptionMap configuracion = _root->getRenderSystem()->getConfigOptions();
@@ -96,11 +97,9 @@ void GraphicsEngine::initWindow() {
 void GraphicsEngine::setup()
 {
 	_sceneManager = _root->createSceneManager();
-	_sceneManager->addRenderQueueListener(_oveSys);
+	_sceneManager->addRenderQueueListener(_overlaySystem);
 	_oveMng = Ogre::OverlayManager::getSingletonPtr();
 
-	_locateResources("resources.cfg");
-	//WIP
 	_locateResources(_resourcesPath);
 	_initialiseRTShaderSystem();
 	_loadResources();
@@ -193,22 +192,22 @@ void GraphicsEngine::_locateResources(std::string const& path) {
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
 	}
 
-	_mRTShaderLibPath = arch + "/RTShaderLib";
-	_mVolumeShaderPath = arch + "/ShadowVolume";
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/materials", type, sec);
+	std::string mRTShaderLibPath = arch + "/RTShaderLib";
+	std::string mVolumeShaderPath = arch + "/ShadowVolume";
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
 
 	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/GLSL", type, sec);
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/GLSLES", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSLES", type, sec);
 	}
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
 	}
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/HLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/HLSL", type, sec);
 	}
 }
 
@@ -219,10 +218,6 @@ bool GraphicsEngine::_initialiseRTShaderSystem()
 	{
 		// Grab the shader generator pointer.
 		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-
-		// Add the shader libs resource location.
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath, "FileSystem");
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mVolumeShaderPath, "FileSystem");
 
 		Ogre::String cachePath = _mFSLayer->getConfigFilePath("/Assets/ShaderCache");
 		// Set shader cache path.
@@ -239,6 +234,7 @@ bool GraphicsEngine::_initialiseRTShaderSystem()
 		//added
 		_mTechniqueListener = new RTSSDefaultTechniqueListener(_mShaderGenerator);
 		Ogre::MaterialManager::getSingleton().addListener(_mTechniqueListener);
+		//Ogre::MaterialManager::getSingleton().
 
 		return true;
 	}
@@ -313,17 +309,6 @@ void GraphicsEngine::loadScene()
 	nodo->scale(Ogre::Vector3(5, 5, 5));
 	nodo->setPosition(Ogre::Vector3(550, 0, -1000));
 	nodo->attachObject(ent);
-
-	Ogre::Overlay* overlay = _oveMng->create("Prueba");
-	Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(_oveMng->createOverlayElement("BorderPanel", "panelPrueba"));
-	panel->setPosition(0.0, 0.0);
-	panel->setDimensions(0.1, 0.1);
-	panel->setMaterialName("Prueba");
-	// Add the panel to the overlay
-	overlay->add2D(panel);
-
-	// Show the overlay
-	overlay->show();
 }
 
 void GraphicsEngine::setWindowGrab(bool _grab)

@@ -12,7 +12,6 @@ namespace Ogre {
 	class FileSystemLayer;
 	class OverlaySystem;
 	class OverlayManager;
-
 	namespace RTShader {
 		class ShaderGenerator;
 	}
@@ -111,6 +110,7 @@ private:
 	static std::unique_ptr<GraphicsEngine> instance;
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
+	// Pointer to scene Manager
 	Ogre::SceneManager* _sceneManager;
 	// File system abstraction layer
 	Ogre::FileSystemLayer* _mFSLayer;
@@ -119,16 +119,12 @@ private:
 	// Ogre Listener for RTSS-Shading Generation
 	RTSSDefaultTechniqueListener* _mTechniqueListener;
 	// Ogre Overlay System (for GUI)
-	Ogre::OverlaySystem* _oveSys;
+	Ogre::OverlaySystem* _overlaySystem;
 	// Ogre Overlay Manager
 	Ogre::OverlayManager* _oveMng;
 	SDL_Window* _sdlWindow;
 	// Relative path to solution folder
 	std::string _mSolutionPath;
-	// Path relative to RTShader folder
-	std::string _mRTShaderLibPath;
-	// Path relative to shadowVolume folder
-	std::string _mVolumeShaderPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
 
