@@ -9,6 +9,9 @@ class GameObject;
 
 class Transform : public Component {
 public:
+	/// <summary>
+	/// 
+	/// </summary>
 	Transform();
 	Transform(GameObject* gameObject);
 	Transform(GameObject* gameObject,const Vector3& position, const Vector3& rotation, const Vector3& scale);

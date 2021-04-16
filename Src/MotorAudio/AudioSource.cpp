@@ -113,7 +113,11 @@ void AudioSource::set3DMinMaxDistance(float min, float max)
 
 void AudioSource::setPosition(float x, float y, float z)
 {
-	*_position = { x,y,z };
+	//WIP, NOT WORKING
+	//*_position = { x,y,z };
+	_position->x = x;
+	_position->y = y;
+	_position->z = z;
 }
 
 void AudioSource::setVelocity(float x, float y, float z)

@@ -25,7 +25,7 @@ AudioSourceComponent::~AudioSourceComponent()
 void AudioSourceComponent::start()
 {
 	_audioSource = new AudioSource();
-	_tr = static_cast<Transform*>(_gameObject->getComponent(7));
+	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 }
 
 void AudioSourceComponent::update()

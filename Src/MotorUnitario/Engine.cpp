@@ -9,6 +9,7 @@
 #include "ComponentsFactory.h"
 #include "ComponentFactory.h"
 #include "Time.h"
+#include "Transform.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -47,6 +48,9 @@ void Engine::tick()
 void Engine::init()
 {
 	initFactories();
+	GameObject* TEST = addGameObject();
+	TEST->addComponent(new Transform(TEST));
+	TEST->addComponent(new AudioSourceComponent(TEST, "Assets\Audio\ProtoDarkMaze_Menu.mp3"));
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
@@ -55,7 +59,7 @@ void Engine::init()
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-
+	
 	_graphicsEngine->loadScene(); //WIP
 }
 
