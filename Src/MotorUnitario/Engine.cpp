@@ -10,6 +10,8 @@
 #include "ComponentFactory.h"
 #include "Time.h"
 #include "Transform.h"
+#include "KeyCodes.h"
+#include <iostream>
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -43,6 +45,8 @@ void Engine::tick()
 	lateUpdate();
 	_graphicsEngine->render();
 	_time->update();
+	testing();
+
 }
 
 void Engine::init()
@@ -87,6 +91,17 @@ void Engine::stopExecution()
 void Engine::setResourcesPath(std::string const& resourcesPath)
 {
 	_graphicsEngine->setResourcePath(resourcesPath);
+}
+
+void Engine::testing()
+{
+	
+	if (KeyBoardInput::getInstance()->isKeyJustDown(KeyCode::KEYCODE_A)) {
+		std::cout << "La tecla A justo ha sido presionada \n";
+	}
+	else if (KeyBoardInput::getInstance()->isKeyJustUp(KeyCode::KEYCODE_B)) {
+		std::cout << "La tecla B esta suelta \n";
+	}
 }
 
 void Engine::start()
