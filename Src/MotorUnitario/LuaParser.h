@@ -15,6 +15,11 @@ extern "C"
 #include "lauxlib.h"
 #include "lualib.h"
 }
+#include "LuaBridge/LuaBridge.h"
+class GameObject;
+
+enum class ComponentType{ AudioSource, Transform, RigidBody, Collider, Light };
+
 class LuaParser
 {
 public:
@@ -42,6 +47,13 @@ public:
 	/// </summary>
 	void luaBridgeParsingtest();
 private:
+	/// <summary>
+	/// 
+	/// </summary>
+	void attachComponent(GameObject* go, std::string cmp, luabridge::LuaRef &data);
+
+	ComponentType getComponentType(std::string cmp);
+
 	/// <summary>
 	/// Virtual Machine of Lua, all the functions related to lua will need to call this method, Luabridge or regular Lua, both
 	/// </summary>

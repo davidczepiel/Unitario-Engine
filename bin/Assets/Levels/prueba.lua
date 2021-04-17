@@ -13,7 +13,7 @@ aS1 = { Name = "NombreDelObjeto", HowMany = 2}
 
 aS = {}
 aS[0] = { Name = "NombreDelObjeto", HowMany = 2}
-aS[1] = { Component = "Transform", Data = {X = 1, Y = 1, Z = 1}}
+aS[1] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
 aS[2] = { Component = "AudioSource", Route = "./asdfasdf/bleh.mp3"}
 
 objetos = {} --New array

@@ -18,20 +18,10 @@ AudioSourceComponent::~AudioSourceComponent()
 	delete _audioSource;
 }
 
-void AudioSourceComponent::awake(luabridge::LuaRef& data)
+void AudioSourceComponent::awake(luabridge::LuaRef &data)
 {
-	//std::string nombre = pruebaLua["Name"].cast<std::string>();
-
-	//int Id = pruebaLua["Id"].cast<int>();
-
-	//luabridge::LuaRef Level = pruebaLua["Level"];
-	//std::string Nivel = Level.cast<std::string>();
-
-	////std::string transform = Transform.cast<std::string>();
-	//if (!pruebaLua.isNil()) {
-	//	luabridge::LuaRef transform = pruebaLua["Transform"];
-	//	Vector3 aux = { transform["X"].cast<double>(),transform["Y"].cast<double>(),transform["Z"].cast<double>() };
-	//}
+	_route = data["Route"].cast<std::string>();
+	std::cout << "As: " << _route << std::endl;
 }
 
 void AudioSourceComponent::start()

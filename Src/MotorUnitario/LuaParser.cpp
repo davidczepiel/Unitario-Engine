@@ -1,10 +1,11 @@
 #include "LuaParser.h"
 #include <iostream>
 #include "Vector3.h"
-#include "LuaBridge/LuaBridge.h"
+//#include "LuaBridge/LuaBridge.h"
 
 #include "GameObject.h"
 #include "AudioSourceComponent.h"
+#include "Transform.h"
 
 LuaParser::LuaParser()
 {
@@ -64,14 +65,19 @@ bool LuaParser::loadScene(std::string scene)
 		std::string GO_name = GO_name_lua.cast<std::string>();
 		//HowMany components
 		int howMany = as_Lua["HowMany"].cast<int>();
-		
-		/*int p = 0;
+
+		GameObject* go = new GameObject();
+
 		for (int x = 1; x <= howMany; x++) {
-			
-			luabridge::LuaRef component = getAs_Lua(0);
-			std::string type = component["Component"].cast <std::string>();
-		}*/
-		//luabridge::LuaRef transformLua = gameObject["Transform"];
+			luabridge::LuaRef componentData = getAs_Lua(x);
+			std::string type = componentData["Component"].cast <std::string>();
+			//std::cout << "Componente " << x << ": " << type << std::endl;
+
+			//Attach component to game object
+			attachComponent(go, type, componentData);
+		}
+
+
 	}
 	else {
 		load = false;
@@ -83,7 +89,6 @@ void LuaParser::closeLuaVM()
 {
 	lua_close(LuaVM);
 }
-
 void LuaParser::LuaParsingTest()
 {
 	struct auxiliar
@@ -125,7 +130,6 @@ void LuaParser::LuaParsingTest()
 	//auto a = luaL_dofile(LuaVM, "json2lua.lua");
 	//lua_getglobal(LuaVM, "fruit");
 }
-
 void printDone(const std::string& s) {
 	std::cout << s << std::endl;
 }
@@ -161,7 +165,6 @@ void LuaParser::luaBridgeParsingtest()
 		std::cout << "objeto: " << ObjetoName << " con id: " << ObjetoId << std::endl;
 	}
 }
-
 bool LuaParser::checkLua(lua_State * L, int r)
 {
 	if (r != LUA_OK) {
@@ -170,3 +173,43 @@ bool LuaParser::checkLua(lua_State * L, int r)
 	}
 	else return true;
 }
+
+
+void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaRef &data) {
+	switch (getComponentType(cmp)) {
+		case ComponentType::AudioSource:
+		{
+			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			AudioSourceComponent* as = new AudioSourceComponent(go);
+			as->awake(data);
+			go->addComponent(as);
+
+			go->removeComponent(as->getId());
+			break;
+		}
+		case ComponentType::Transform: {
+			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			Transform * tr = new Transform(go);
+			tr->awake(data);
+			go->addComponent(tr);
+
+			go->removeComponent(tr->getId());
+			break;
+		}
+	}
+	
+}
+
+ComponentType LuaParser::getComponentType(std::string cmp)
+{
+	if(cmp == "AudioSource")
+		return ComponentType::AudioSource;
+	else if(cmp == "Transform")
+		return ComponentType::Transform;
+	else if(cmp == "RigidBody")
+		return ComponentType::RigidBody;
+	else if(cmp == "Collider")
+		return ComponentType::Collider;
+
+}
+
