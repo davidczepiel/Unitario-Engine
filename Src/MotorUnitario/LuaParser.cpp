@@ -26,39 +26,35 @@ LuaParser::~LuaParser()
 
 bool LuaParser::loadScene(std::string scene)
 {
-	bool load = true;
 	if (checkLua(LuaVM, luaL_dofile(LuaVM, scene.c_str()))) {
 		luabridge::getGlobalNamespace(LuaVM);
-		std::string baseName = "go_0";
-		//int cont = 0;
+		std::string baseName = "go_";
+		for (int i = 0; i < 2; ++i) {
 
-		//baseName += cont;
+			std::string GOname = baseName + std::to_string(i);
 
-		luabridge::LuaRef getAs_Lua = luabridge::getGlobal(LuaVM, baseName.c_str());
+			luabridge::LuaRef gameObject_Lua = luabridge::getGlobal(LuaVM, GOname.c_str());
 
-		luabridge::LuaRef as_Lua = getAs_Lua[0];
+			luabridge::LuaRef gameObjectData_Lua = gameObject_Lua[0];
 
-		//Name
-		luabridge::LuaRef GO_name_lua = as_Lua["Name"];
-		std::string GO_name = GO_name_lua.cast<std::string>();
-		//HowMany components
-		int howMany = as_Lua["HowMany"].cast<int>();
+			//Name
+			std::string GO_name = gameObjectData_Lua["Name"].cast<std::string>();
+			//HowMany components
+			int howMany = gameObjectData_Lua["HowMany"].cast<int>();
 
-		GameObject* go = new GameObject();
+			GameObject* go = new GameObject();
 
-		for (int x = 1; x <= howMany; x++) {
-			luabridge::LuaRef componentData = getAs_Lua(x);
-			std::string type = componentData["Component"].cast <std::string>();
+			for (int x = 1; x <= howMany; x++) {
+				luabridge::LuaRef componentData = gameObject_Lua[x];
+				std::string type = componentData["Component"].cast <std::string>();
 
-			//Attach component to game object
-			attachComponent(go, type, componentData);
+				//Attach component to game object
+				attachComponent(go, type, componentData);
+			}
 		}
-
+		return true;
 	}
-	else {
-		load = false;
-	}
-	return load;
+	return false;
 }
 
 void LuaParser::closeLuaVM()
