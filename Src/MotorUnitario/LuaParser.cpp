@@ -76,23 +76,30 @@ bool LuaParser::checkLua(lua_State * L, int r)
 
 void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaRef &data) {
 	switch (getComponentType(cmp)) {
-		case ComponentId::ComponentId::AudioSource:
-		{
+		case ComponentId::ComponentId::Transform :
+		{ 
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
-			AudioSourceComponent* as = new AudioSourceComponent(go);
-			as->awake(data);
-			go->addComponent(as);
-
-			break;
-		}
-		case ComponentId::ComponentId::Transform: {
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
-			Transform * tr = new Transform(go);
+			Transform* tr = new Transform(go);
 			tr->awake(data);
 			go->addComponent(tr);
-
-			break;
+			break; 
 		}
+		case ComponentId::ComponentId::ImageRenderer: { break; }
+		case ComponentId::ComponentId::RenderObject: { break; }
+		case ComponentId::ComponentId::Animator: { break; }
+		case ComponentId::ComponentId::LightComponent: { break; }
+		case ComponentId::ComponentId::ParticleSystem: { break; }
+		case ComponentId::ComponentId::Camera: { break; }
+		case ComponentId::ComponentId::Rigidbody: { break; }
+		case ComponentId::ComponentId::Collider: { break; }
+		case ComponentId::ComponentId::AudioSource: 
+		{
+			AudioSourceComponent* as = new AudioSourceComponent(go);
+			as->awake(data);
+			go->addComponent(as); 
+			break; 
+		}
+		case ComponentId::ComponentId::ListenerComponent: { break; }
 		default:break;
 	}
 	
@@ -100,17 +107,27 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 
 unsigned int LuaParser::getComponentType(std::string cmp)
 {
-	if (cmp == "AudioSource")
-		return ComponentId::ComponentId::AudioSource;
-	else if(cmp == "Transform")
+	if (cmp == "Transform")
 		return ComponentId::ComponentId::Transform;
-	else if(cmp == "RigidBody")
+	else if (cmp == "ImageRenderer")
+		return ComponentId::ComponentId::ImageRenderer;
+	else if (cmp == "RenderObject")
+		return ComponentId::ComponentId::RenderObject;
+	else if(cmp == "Animator")
+		return ComponentId::ComponentId::Animator;
+	else if(cmp == "LightComponent")
+		return ComponentId::ComponentId::LightComponent;
+	else if(cmp == "ParticleSystem")
+		return ComponentId::ComponentId::ParticleSystem;
+	else if (cmp == "Camera")
+		return ComponentId::ComponentId::Camera;
+	else if (cmp == "Rigidbody")
 		return ComponentId::ComponentId::Rigidbody;
-	else if(cmp == "Collider")
-		return ComponentId::ComponentId::Collider;
+	else if (cmp == "AudioSource")
+		return ComponentId::ComponentId::AudioSource;
+	else if (cmp == "ListenerComponent")
+		return ComponentId::ComponentId::ListenerComponent;
 }
-
-
 
 //void LuaParser::test()
 //{
