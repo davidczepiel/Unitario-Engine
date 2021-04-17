@@ -25,6 +25,11 @@ public:
 	/// </summary>
 	~AudioSourceComponent();
 
+
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data);
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>

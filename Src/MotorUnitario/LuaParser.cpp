@@ -3,6 +3,9 @@
 #include "Vector3.h"
 #include "LuaBridge/LuaBridge.h"
 
+#include "GameObject.h"
+#include "AudioSourceComponent.h"
+
 LuaParser::LuaParser()
 {
 #if (defined _DEBUG)
@@ -10,6 +13,7 @@ LuaParser::LuaParser()
 #endif
 	LuaVM = luaL_newstate();
 	luaL_openlibs(LuaVM);
+	loadScene("Assets/Levels/prueba.lua");
 }
 
 LuaParser::~LuaParser()
@@ -41,6 +45,38 @@ void LuaParser::test()
 	}
 	else std::cout << "error archivo" << std::endl;
 
+}
+
+bool LuaParser::loadScene(std::string scene)
+{
+	bool load = true;
+	if (checkLua(LuaVM, luaL_dofile(LuaVM, scene.c_str()))) {
+		luabridge::getGlobalNamespace(LuaVM);
+		luabridge::LuaRef gameObject = luabridge::getGlobal(LuaVM, "aS");
+		
+
+
+		luabridge::LuaRef getAs_Lua = luabridge::getGlobal(LuaVM, "getaS");
+		luabridge::LuaRef as_Lua = getAs_Lua(0);
+
+		//Name
+		luabridge::LuaRef GO_name_lua = as_Lua["Name"];
+		std::string GO_name = GO_name_lua.cast<std::string>();
+		//HowMany components
+		int howMany = as_Lua["HowMany"].cast<int>();
+		
+		/*int p = 0;
+		for (int x = 1; x <= howMany; x++) {
+			
+			luabridge::LuaRef component = getAs_Lua(0);
+			std::string type = component["Component"].cast <std::string>();
+		}*/
+		//luabridge::LuaRef transformLua = gameObject["Transform"];
+	}
+	else {
+		load = false;
+	}
+	return load;
 }
 
 void LuaParser::closeLuaVM()

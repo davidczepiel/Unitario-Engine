@@ -2,6 +2,13 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+extern "C"
+{
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
+}
+#include "LuaBridge/LuaBridge.h"
 class GameObject;
 
 class Component
@@ -10,6 +17,11 @@ public:
 
 	Component(unsigned int id, GameObject* gameObject);
 	virtual ~Component();
+
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef &data) {}
 
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
@@ -81,7 +93,6 @@ private:
 
 	unsigned int _id;
 	bool _enabled;
-
 };
 
 #endif COMPONENT_H
