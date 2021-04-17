@@ -22,14 +22,14 @@ LuaParser::~LuaParser()
 
 }
 
-
-
 bool LuaParser::loadScene(std::string scene)
 {
 	if (checkLua(LuaVM, luaL_dofile(LuaVM, scene.c_str()))) {
 		luabridge::getGlobalNamespace(LuaVM);
 		std::string baseName = "go_";
-		for (int i = 0; i < 2; ++i) {
+		int howManyGos = luabridge::getGlobal(LuaVM, "HowManyGameObjects");
+
+		for (int i = 0; i < howManyGos; ++i) {
 
 			std::string GOname = baseName + std::to_string(i);
 
@@ -40,7 +40,7 @@ bool LuaParser::loadScene(std::string scene)
 			//Name
 			std::string GO_name = gameObjectData_Lua["Name"].cast<std::string>();
 			//HowMany components
-			int howMany = gameObjectData_Lua["HowMany"].cast<int>();
+			int howMany = gameObjectData_Lua["HowManyCmps"].cast<int>();
 
 			GameObject* go = new GameObject();
 
@@ -81,6 +81,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			as->awake(data);
 			go->addComponent(as);
 
+			//QUITAR ESTA LÍNEA TAMBIÉN
 			go->removeComponent(as->getId());
 			break;
 		}
@@ -90,6 +91,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			tr->awake(data);
 			go->addComponent(tr);
 
+			//QUITAR ESTA LÍNEA TAMBIÉN
 			go->removeComponent(tr->getId());
 			break;
 		}
