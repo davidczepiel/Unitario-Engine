@@ -27,27 +27,46 @@ public:
 	GamePadInput(GamePadInput& other) = delete;
 
 	/// <summary>
+	/// Returns wether a determined button is being pressed or not
 	/// </summary>
+	/// <param name="buttonCode">: button that we are going to ask about </param>
+	/// <param name="gPadID">: id of the gamepad we are going to ask about </param>
+	/// <return> True if the button is being pressed/False if not <return>
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	const bool isButtonDown(GamePadCode buttonCode, int gpadId = 0);
 
 	/// <summary>
+	/// Returns wether a determined button is not being pressed or not
 	/// </summary>
+	/// <param name="buttonCode">: button that we are going to ask about </param>
+	/// <param name="gPadID">: id of the gamepad we are going to ask about </param>
+	/// <return> True if the button is not being pressed/False if not <return>
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	const bool isButtonUp(GamePadCode buttonCode, int gPadID = 0);
 
 	/// <summary>
+	/// Returns wether a determined button has just been pressed or not
 	/// </summary>
+	/// <param name="buttonCode">: button that we are going to ask about </param>
+	/// <param name="gPadID">: id of the gamepad we are going to ask about </param>
+	/// <return> True if the button has just been pressed/False if not <return>
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	const bool isButtonJustDown(GamePadCode buttonCode, int gPadID = 0);
 
 	/// <summary>
+	/// Returns wether a determined button has just been released or not
 	/// </summary>
+	/// <param name="buttonCode">: button that we are going to ask about </param>
+	/// <param name="gPadID">: id of the gamepad we are going to ask about </param>
+	/// <return> True if the button has just been released/False if not <return>
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	const bool isButtonJustUp(GamePadCode buttonCode, int gPadID = 0);
 
 	/// <summary>
+	/// Get the actual value of a determined axis
 	/// </summary>
+	/// <param name="axisCode">: axis that we are going to ask about </param>
+	/// <param name="gPadID">: id of the gamepad we are going to ask about </param>
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	/// <returns> axis value between -1 and 1 </returns>
 	const double getAxisValue(GamePadAxis axisCode, int gPadID = 0);
@@ -67,6 +86,13 @@ public:
 	/// <exception cref="GamePadException"> throws if gPadId is not between [0, MAX_NUMBER_GAMEPADS) range </exception>
 	/// <exception cref="GamePadException"> throws if duration time is less than 0 or greater than 1000 </exception>
 	void rumbleGamePad(Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms, int gPadID = 0);
+
+	/// <summary>
+	/// Returns wether or not a gamepad is connected/avaliable to use
+	/// </summary>
+	/// <param name="gPadID"> ID of the gamePad</param>
+	/// <returns> True if the controller is ready to use, False if the controller is not connected</returns>
+	const bool isControllerAvaliable(Uint16 gPadID);
 
 private:
 	/// <summary>

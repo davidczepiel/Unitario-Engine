@@ -52,6 +52,18 @@ void InputManager::update()
 		case SDL_MOUSEWHEEL:
 			_mouseInput->receiveEvent(&event);
 			break;
+		case SDL_CONTROLLERBUTTONDOWN:
+			_gamepadInput->receiveEvent(&event);
+			break;
+		case SDL_CONTROLLERBUTTONUP:
+			_gamepadInput->receiveEvent(&event);
+			break;
+		case SDL_CONTROLLERDEVICEADDED:
+			_gamepadInput->receiveEvent(&event);
+			break;
+		case SDL_CONTROLLERDEVICEREMOVED:
+			_gamepadInput->receiveEvent(&event);
+			break;
 		case SDL_QUIT:
 			Engine::getInstance()->stopExecution();
 			break;

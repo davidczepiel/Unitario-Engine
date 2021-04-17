@@ -99,6 +99,14 @@ void GamePadInput::rumbleGamePad(Uint16 low_frequency_rumble, Uint16 high_freque
 		throw GamePadException("gpad is unable to rumble");
 }
 
+const bool GamePadInput::isControllerAvaliable(Uint16 gPadID)
+{
+	if (gPadID < 0 || gPadID >= MAX_NUMBER_GAMEPADS)
+		throw GamePadException("gpadId must be between [0, MAX_NUMBER_GAMEPADS)");
+
+	return _gamePads[gPadID] != nullptr;
+}
+
 void GamePadInput::reset()
 {
 	for (int i = 0; i < MAX_NUMBER_GAMEPADS; ++i) {
@@ -150,7 +158,7 @@ void GamePadInput::processButtonDown(SDL_Event* event)
 	int index = findIndexOfGameController(event->cdevice.which);
 
 	if (index < MAX_NUMBER_GAMEPADS)
-		_buttonJustDown[index][event->button.button] = 1;
+		_buttonJustDown[index][event->jbutton.button] = 1;
 }
 
 void GamePadInput::processButtonUp(SDL_Event* event)
@@ -158,7 +166,7 @@ void GamePadInput::processButtonUp(SDL_Event* event)
 	int index = findIndexOfGameController(event->cdevice.which);
 
 	if (index < MAX_NUMBER_GAMEPADS)
-		_buttonJustUp[index][event->button.button] = 1;
+		_buttonJustUp[index][event->jbutton.button] = 1;
 }
 
 int GamePadInput::findIndexOfGameController(SDL_JoystickID instanceID)

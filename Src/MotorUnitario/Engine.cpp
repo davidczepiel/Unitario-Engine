@@ -11,6 +11,7 @@
 #include "Time.h"
 #include "Transform.h"
 #include "KeyCodes.h"
+#include "GamePadCodes.h"
 #include <iostream>
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
@@ -94,11 +95,21 @@ void Engine::setResourcesPath(std::string const& resourcesPath)
 
 void Engine::testing()
 {
-	if (MouseInput::getInstance()->isMouseButtonJustUp(MouseButton::X1)) {
-		std::cout << "El boton del raton esta abajo \n";
+	if (GamePadInput::getInstance()->isControllerAvaliable(0) && GamePadInput::getInstance()->isButtonDown(GamePadCode::CONTROLLER_BUTTON_A)) {
+		GamePadInput::getInstance()->setJoystickDeadZone(0.75);
+		std::cout << "El mando 1 tiene el axis X en" << GamePadInput::getInstance()->getAxisValue(GamePadAxis::CONTROLLER_AXIS_TRIGGERLEFT) << " \n";
+		GamePadInput::getInstance()->rumbleGamePad(0, 0xFFFF, 1000, 0);
 	}
-	if (MouseInput::getInstance()->isMouseButtonJustDown(MouseButton::MIDDLE)) {
-		std::cout << "La rueda se ha pulsado \n";
+	if (GamePadInput::getInstance()->isControllerAvaliable(0) && GamePadInput::getInstance()->isButtonDown(GamePadCode::CONTROLLER_BUTTON_Y)) {
+		std::cout << "El mando 1 tiene el axis Y en" << GamePadInput::getInstance()->getAxisValue(GamePadAxis::CONTROLLER_AXIS_TRIGGERRIGHT) << " \n";
+	}
+
+	if (GamePadInput::getInstance()->isControllerAvaliable(1) && GamePadInput::getInstance()->isButtonDown(GamePadCode::CONTROLLER_BUTTON_A, 1)) {
+		std::cout << "El mando 2 tiene el axis X en" << GamePadInput::getInstance()->getAxisValue(GamePadAxis::CONTROLLER_AXIS_TRIGGERLEFT, 1) << " \n";
+		GamePadInput::getInstance()->rumbleGamePad(0, 0xFFFF, 1000, 1);
+	}
+	if (GamePadInput::getInstance()->isControllerAvaliable(1) && GamePadInput::getInstance()->isButtonDown(GamePadCode::CONTROLLER_BUTTON_Y, 1)) {
+		std::cout << "El mando 2 tiene el axis Y en" << GamePadInput::getInstance()->getAxisValue(GamePadAxis::CONTROLLER_AXIS_TRIGGERRIGHT, 1) << " \n";
 	}
 }
 
