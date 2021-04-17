@@ -9,6 +9,7 @@ extern "C"
 #include "lualib.h"
 }
 #include "LuaBridge/LuaBridge.h"
+#include "ComponentIDs.h"
 class GameObject;
 
 class Component

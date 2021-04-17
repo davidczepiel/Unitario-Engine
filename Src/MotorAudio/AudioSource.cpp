@@ -5,11 +5,18 @@
 
 AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route("")
 {
-
+	_position = new FMOD_VECTOR;
+	_position->x = 0;
+	_position->y = 0;
+	_position->z = 0;
 }
 
 AudioSource::AudioSource(std::string const& route): _system(nullptr), _channel(nullptr), _sound(), _route(route)
 {
+	_position = new FMOD_VECTOR;
+	_position->x = 0;
+	_position->y = 0;
+	_position->z = 0;
 	createAudio();
 }
 

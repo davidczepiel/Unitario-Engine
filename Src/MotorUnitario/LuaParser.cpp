@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "AudioSourceComponent.h"
 #include "Transform.h"
+#include "Engine.h"
 
 LuaParser::LuaParser()
 {
@@ -42,7 +43,7 @@ bool LuaParser::loadScene(std::string scene)
 			//HowMany components
 			int howMany = gameObjectData_Lua["HowManyCmps"].cast<int>();
 
-			GameObject* go = new GameObject();
+			GameObject* go = Engine::getInstance()->addGameObject();
 
 			for (int x = 1; x <= howMany; x++) {
 				luabridge::LuaRef componentData = gameObject_Lua[x];
@@ -51,6 +52,7 @@ bool LuaParser::loadScene(std::string scene)
 				//Attach component to game object
 				attachComponent(go, type, componentData);
 			}
+			
 		}
 		return true;
 	}
@@ -74,42 +76,38 @@ bool LuaParser::checkLua(lua_State * L, int r)
 
 void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaRef &data) {
 	switch (getComponentType(cmp)) {
-		case ComponentType::AudioSource:
+		case ComponentId::ComponentId::AudioSource:
 		{
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
 			AudioSourceComponent* as = new AudioSourceComponent(go);
 			as->awake(data);
 			go->addComponent(as);
 
-			//QUITAR ESTA LÍNEA TAMBIÉN
-			go->removeComponent(as->getId());
 			break;
 		}
-		case ComponentType::Transform: {
+		case ComponentId::ComponentId::Transform: {
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
 			Transform * tr = new Transform(go);
 			tr->awake(data);
 			go->addComponent(tr);
 
-			//QUITAR ESTA LÍNEA TAMBIÉN
-			go->removeComponent(tr->getId());
 			break;
 		}
+		default:break;
 	}
 	
 }
 
-ComponentType LuaParser::getComponentType(std::string cmp)
+unsigned int LuaParser::getComponentType(std::string cmp)
 {
-	if(cmp == "AudioSource")
-		return ComponentType::AudioSource;
+	if (cmp == "AudioSource")
+		return ComponentId::ComponentId::AudioSource;
 	else if(cmp == "Transform")
-		return ComponentType::Transform;
+		return ComponentId::ComponentId::Transform;
 	else if(cmp == "RigidBody")
-		return ComponentType::RigidBody;
+		return ComponentId::ComponentId::Rigidbody;
 	else if(cmp == "Collider")
-		return ComponentType::Collider;
-
+		return ComponentId::ComponentId::Collider;
 }
 
 

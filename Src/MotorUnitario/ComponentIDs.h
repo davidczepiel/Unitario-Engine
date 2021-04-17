@@ -5,6 +5,7 @@ This enum controls de order of updates of components in every gameObject,
 It's recommendable to keep an order when introducing a new Component to the enum 
 	(Eg. first graphic-related objects, then audio, etc)
 */
+#pragma once
 
 namespace ComponentId {
 	enum ComponentId : unsigned int {

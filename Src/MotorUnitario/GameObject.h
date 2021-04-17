@@ -19,7 +19,7 @@ public:
 	/// </summary>
 	GameObject();
 
-	~GameObject() {}
+	~GameObject();
 
 	/// <summary>
 	/// Calls start method of every component and then of every children it has

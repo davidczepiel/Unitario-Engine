@@ -4,7 +4,8 @@
 -- Step2: Structure
 --  go_Number = {}   								-> where "Number" is the next to the last go declared
 --  go_Number[0] = { Name = "", HowManyCmps = X}	-> Name is the name of the GameObject. HowManyCmps is the number of components of the go
---  go_Number[1] = { Component = " ", General Data} -> Component is the ENUM used to identify the COMPONENT. General Data is the component data
+--  go_Number[1] = { Component = " ", General Data} -> Component is the ENUM used to identify the COMPONENT (getComponentType method from LuaParser). 
+--													   General Data is the component data
 
 -- You must bear in mind that in the definition of go, the first position of the array will always be the data that it needs to know its name 
 -- and how many components it has. The following positions in the array will be used to define the components

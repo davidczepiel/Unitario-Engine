@@ -46,6 +46,11 @@ public:
 	/// </summary>
 	void stopExecution();
 
+	/// <summary>
+	/// Adds a GameObject to the list
+	/// </summary>
+	GameObject* addGameObject();
+
 protected:
 
 	/// <summary>
@@ -77,11 +82,6 @@ protected:
 	/// Calls the LateUpdate method of each GameObject in the list
 	/// </summary>
 	void lateUpdate();
-
-	/// <summary>
-	/// Adds a GameObject to the list
-	/// </summary>
-	GameObject* addGameObject();
 
 	/// <summary>
 	/// Removes the first appeareance of a GameObject
