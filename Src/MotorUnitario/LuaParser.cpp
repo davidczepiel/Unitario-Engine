@@ -22,43 +22,21 @@ LuaParser::~LuaParser()
 
 }
 
-void LuaParser::test()
-{
-	std::string test = "o = 4 + 5";
 
-	int r = luaL_dostring(LuaVM, test.c_str());
-	auto aux = luaL_dofile(LuaVM, "Assets/Levels/test.txt");
-	if (r == LUA_OK) {
-		lua_getglobal(LuaVM, "o");
-		if (lua_isnumber(LuaVM, -1)) {
-			int a = (int)lua_tonumber(LuaVM, -1);
-			std::cout << "suma guay " << a << std::endl;
-		}
-	}
-	else
-	{
-		std::cout << lua_tostring(LuaVM, -1) << std::endl;
-	}
-
-	if (aux == LUA_OK) {
-		int b = (int)lua_tonumber(LuaVM, -1);
-		std::cout << "archivo guay " << b << std::endl;
-	}
-	else std::cout << "error archivo" << std::endl;
-
-}
 
 bool LuaParser::loadScene(std::string scene)
 {
 	bool load = true;
 	if (checkLua(LuaVM, luaL_dofile(LuaVM, scene.c_str()))) {
 		luabridge::getGlobalNamespace(LuaVM);
-		luabridge::LuaRef gameObject = luabridge::getGlobal(LuaVM, "aS");
-		
+		std::string baseName = "go_0";
+		//int cont = 0;
 
+		//baseName += cont;
 
-		luabridge::LuaRef getAs_Lua = luabridge::getGlobal(LuaVM, "getaS");
-		luabridge::LuaRef as_Lua = getAs_Lua(0);
+		luabridge::LuaRef getAs_Lua = luabridge::getGlobal(LuaVM, baseName.c_str());
+
+		luabridge::LuaRef as_Lua = getAs_Lua[0];
 
 		//Name
 		luabridge::LuaRef GO_name_lua = as_Lua["Name"];
@@ -71,12 +49,10 @@ bool LuaParser::loadScene(std::string scene)
 		for (int x = 1; x <= howMany; x++) {
 			luabridge::LuaRef componentData = getAs_Lua(x);
 			std::string type = componentData["Component"].cast <std::string>();
-			//std::cout << "Componente " << x << ": " << type << std::endl;
 
 			//Attach component to game object
 			attachComponent(go, type, componentData);
 		}
-
 
 	}
 	else {
@@ -89,82 +65,7 @@ void LuaParser::closeLuaVM()
 {
 	lua_close(LuaVM);
 }
-void LuaParser::LuaParsingTest()
-{
-	struct auxiliar
-	{
-		Vector3 transform;
-		std::string name;
-		int level;
-	} algo;
-	
-	if (checkLua(LuaVM, luaL_dofile(LuaVM, "Assets/Levels/prueba.lua"))) {
-		//Se consiguen las variables en el .lua pusheando y moviendo la stack
-		lua_getglobal(LuaVM, "player");
-		if (lua_istable(LuaVM, -1)) {
-			lua_pushstring(LuaVM, "Name");
-			lua_gettable(LuaVM, -2);
-			algo.name = lua_tostring(LuaVM, -1);
-			lua_pop(LuaVM, 1);
 
-			lua_pushstring(LuaVM, "X");
-			lua_gettable(LuaVM, -2);
-			algo.transform.setX(lua_tonumber(LuaVM, -1));
-			lua_pop(LuaVM, 1);
-
-			lua_pushstring(LuaVM, "Y");
-			lua_gettable(LuaVM, -2);
-			algo.transform.setY(lua_tonumber(LuaVM, -1));
-			lua_pop(LuaVM, 1);
-
-
-			lua_pushstring(LuaVM, "Level");
-			lua_gettable(LuaVM, -2);
-			algo.level = lua_tonumber(LuaVM, -1);
-			lua_pop(LuaVM, 1);
-		}
-	}
-	std::cout << "Player: " << algo.name << " con Coordenadas: " << algo.transform.getX() << "," << algo.transform.getY() << " Nivel: " << algo.level << std::endl;
-	
-	//lua_getglobal(LuaVM, "player");
-	//auto a = luaL_dofile(LuaVM, "json2lua.lua");
-	//lua_getglobal(LuaVM, "fruit");
-}
-void printDone(const std::string& s) {
-	std::cout << s << std::endl;
-}
-void LuaParser::luaBridgeParsingtest()
-{
-	luabridge::getGlobalNamespace(LuaVM);
-	luabridge::LuaRef pruebaLua = luabridge::getGlobal(LuaVM, "player");
-
-	std::string nombre = pruebaLua["Name"].cast<std::string>();
-
-	int Id = pruebaLua["Id"].cast<int>();
-
-	luabridge::LuaRef Level = pruebaLua["Level"];
-	std::string Nivel = Level.cast<std::string>();
-
-	//std::string transform = Transform.cast<std::string>();
-	if (!pruebaLua.isNil() ) {
-		luabridge::LuaRef transform = pruebaLua["Transform"];
-		Vector3 aux = {transform["X"].cast<double>(),transform["Y"].cast<double>(),transform["Z"].cast<double>() };
-	}
-
-
-	lua_getglobal(LuaVM, "getObjetos");
-	if (lua_isfunction(LuaVM, -1)) {
-		//lua_pushnumber(LuaVM, 0);
-		luabridge::getGlobalNamespace(LuaVM).
-			addFunction("printDone", printDone);
-		luabridge::LuaRef getObjetos = luabridge::getGlobal(LuaVM, "getObjetos");
-
-		luabridge::LuaRef objeto = getObjetos(0);
-		std::string ObjetoName = objeto["Name"].cast<std::string>();
-		int ObjetoId = objeto["Id"].cast<int>();
-		std::cout << "objeto: " << ObjetoName << " con id: " << ObjetoId << std::endl;
-	}
-}
 bool LuaParser::checkLua(lua_State * L, int r)
 {
 	if (r != LUA_OK) {
@@ -213,3 +114,107 @@ ComponentType LuaParser::getComponentType(std::string cmp)
 
 }
 
+
+
+//void LuaParser::test()
+//{
+//	std::string test = "o = 4 + 5";
+//
+//	int r = luaL_dostring(LuaVM, test.c_str());
+//	auto aux = luaL_dofile(LuaVM, "Assets/Levels/test.txt");
+//	if (r == LUA_OK) {
+//		lua_getglobal(LuaVM, "o");
+//		if (lua_isnumber(LuaVM, -1)) {
+//			int a = (int)lua_tonumber(LuaVM, -1);
+//			std::cout << "suma guay " << a << std::endl;
+//		}
+//	}
+//	else
+//	{
+//		std::cout << lua_tostring(LuaVM, -1) << std::endl;
+//	}
+//
+//	if (aux == LUA_OK) {
+//		int b = (int)lua_tonumber(LuaVM, -1);
+//		std::cout << "archivo guay " << b << std::endl;
+//	}
+//	else std::cout << "error archivo" << std::endl;
+//
+//}
+
+//void LuaParser::LuaParsingTest()
+//{
+//	struct auxiliar
+//	{
+//		Vector3 transform;
+//		std::string name;
+//		int level;
+//	} algo;
+//
+//	if (checkLua(LuaVM, luaL_dofile(LuaVM, "Assets/Levels/prueba.lua"))) {
+//		//Se consiguen las variables en el .lua pusheando y moviendo la stack
+//		lua_getglobal(LuaVM, "player");
+//		if (lua_istable(LuaVM, -1)) {
+//			lua_pushstring(LuaVM, "Name");
+//			lua_gettable(LuaVM, -2);
+//			algo.name = lua_tostring(LuaVM, -1);
+//			lua_pop(LuaVM, 1);
+//
+//			lua_pushstring(LuaVM, "X");
+//			lua_gettable(LuaVM, -2);
+//			algo.transform.setX(lua_tonumber(LuaVM, -1));
+//			lua_pop(LuaVM, 1);
+//
+//			lua_pushstring(LuaVM, "Y");
+//			lua_gettable(LuaVM, -2);
+//			algo.transform.setY(lua_tonumber(LuaVM, -1));
+//			lua_pop(LuaVM, 1);
+//
+//
+//			lua_pushstring(LuaVM, "Level");
+//			lua_gettable(LuaVM, -2);
+//			algo.level = lua_tonumber(LuaVM, -1);
+//			lua_pop(LuaVM, 1);
+//		}
+//	}
+//	std::cout << "Player: " << algo.name << " con Coordenadas: " << algo.transform.getX() << "," << algo.transform.getY() << " Nivel: " << algo.level << std::endl;
+//
+//	//lua_getglobal(LuaVM, "player");
+//	//auto a = luaL_dofile(LuaVM, "json2lua.lua");
+//	//lua_getglobal(LuaVM, "fruit");
+//}
+//void printDone(const std::string& s) {
+//	std::cout << s << std::endl;
+//}
+//void LuaParser::luaBridgeParsingtest()
+//{
+//	luabridge::getGlobalNamespace(LuaVM);
+//	luabridge::LuaRef pruebaLua = luabridge::getGlobal(LuaVM, "player");
+//
+//	std::string nombre = pruebaLua["Name"].cast<std::string>();
+//
+//	int Id = pruebaLua["Id"].cast<int>();
+//
+//	luabridge::LuaRef Level = pruebaLua["Level"];
+//	std::string Nivel = Level.cast<std::string>();
+//
+//	//std::string transform = Transform.cast<std::string>();
+//	if (!pruebaLua.isNil()) {
+//		luabridge::LuaRef transform = pruebaLua["Transform"];
+//		Vector3 aux = { transform["X"].cast<double>(),transform["Y"].cast<double>(),transform["Z"].cast<double>() };
+//	}
+//
+//
+//	lua_getglobal(LuaVM, "getObjetos");
+//	if (lua_isfunction(LuaVM, -1)) {
+//		//lua_pushnumber(LuaVM, 0);
+//		luabridge::getGlobalNamespace(LuaVM).
+//			addFunction("printDone", printDone);
+//		luabridge::LuaRef getObjetos = luabridge::getGlobal(LuaVM, "getObjetos");
+//
+//		luabridge::LuaRef objeto = getObjetos(0);
+//		std::string ObjetoName = objeto["Name"].cast<std::string>();
+//		int ObjetoId = objeto["Id"].cast<int>();
+//		std::cout << "objeto: " << ObjetoName << " con id: " << ObjetoId << std::endl;
+//	}
+//}

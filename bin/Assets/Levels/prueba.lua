@@ -5,25 +5,19 @@
 --player["Name"] = "Apple"
 --player["Transform"] = "1,1,1"
 --player["Level"] = 2
+ 
 
-player = {Name = "Apple",Id = 1, Level = 2, Transform = {X = 1, Y = 1, Z = 1} }
-audioSource = { Transform = {X = 1, Y = 1, Z = 1}, AudioSource = {Route = "./asdfasdf/asd.mp3"}} 
 
-aS1 = { Name = "NombreDelObjeto", HowMany = 2}
 
-aS = {}
-aS[0] = { Name = "NombreDelObjeto", HowMany = 2}
-aS[1] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
-aS[2] = { Component = "AudioSource", Route = "./asdfasdf/bleh.mp3"}
+go_0 = {}
+go_0[0] = { Name = "0", HowMany = 2}
+go_0[1] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
+go_0[2] = { Component = "AudioSource", Route = "./asdfasdf/bleh.mp3"}
 
-objetos = {} --New array
-objetos[0] = {Name = "Yikes", Id = 0}
-objetos[1] = {Name = "Is this shit working?", Id = 1}
-
-function getObjetos(n)
-    printDone("Metodo accedido locario")
-    return objetos[n]
-end
+go_1 = {}
+go_1[0] = { Name = "1", HowMany = 2}
+go_1[1] = { Component = "Transform", Coord = {X = 3, Y = 3, Z = 3}}
+go_1[2] = { Component = "AudioSource", Route = "./asdfasdf/treh.mp3"}
 
 function getaS(n)
     return aS[n]

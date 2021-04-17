@@ -13,8 +13,8 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 
 	LuaParser* Lua = new LuaParser();
 	//Lua->test();
-	Lua->LuaParsingTest();
-	Lua->luaBridgeParsingtest();
+	//Lua->LuaParsingTest();
+	//Lua->luaBridgeParsingtest();
 	Lua->closeLuaVM();
 	Engine* prueba = Engine::getInstance();
 	prueba->init();
