@@ -4,13 +4,16 @@
 #include "MouseInput.h"
 #include <SDL.h>
 
-ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO), _button(nullptr), _callback(nullptr),_overlayName(),_containerName(),
+ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO), 
+_button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(),_containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
 }
 
-ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial, std::string const& pressMaterial):
-	Component(ComponentId::ButtonComponent, gO), _button(nullptr), _callback(callback), _overlayName(overlayName),_containerName(containerName), _defaultMaterial(defaultMaterial),
+ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, 
+	std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial,
+	std::string const& pressMaterial, void* callbackParam): Component(ComponentId::ButtonComponent, gO), 
+	_button(nullptr), _callback(callback), _callbackParam(callbackParam), _overlayName(overlayName),_containerName(containerName), _defaultMaterial(defaultMaterial),
 	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial), _active(true)
 {
 }
@@ -48,7 +51,7 @@ void ButtonComponent::update()
 				//Change the material for feedback
 				_button->setMaterial(_containerName, _pressMaterial);
 				//Calls the function
-				_callback();
+				_callback(_callbackParam);
 			}
 		}
 		else {

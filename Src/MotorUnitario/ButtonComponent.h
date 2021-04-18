@@ -12,7 +12,7 @@ class ButtonComponent: public Component
 	/// <summary>
 	/// Static function that is called when user clicks on the button
 	/// </summary>
-	using CallBackOnClick = void();
+	using CallBackOnClick = void(void*);
 public:
 	/// <summary>
 	/// Default constructor of the class
@@ -28,7 +28,7 @@ public:
 	/// <param name="passingMaterial">: material name in .material script used to hover state button </param>
 	/// <param name="pressMaterial">: material name in .material script used to press state button  </param>
 	ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, std::string const& containerName,
-		std::string const& defaultMaterial, std::string const& hoverMaterial, std::string const& pressMaterial);
+		std::string const& defaultMaterial, std::string const& hoverMaterial, std::string const& pressMaterial, void* callbackParam = nullptr);
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
@@ -60,6 +60,12 @@ public:
 	inline void setCallBack(CallBackOnClick* c) { _callback = c; }
 
 	/// <summary>
+	/// Sets the callback parameter
+	/// </summary>
+	/// <param name="param">: any type</param>
+	inline void setCallBackParam(void* param) { _callbackParam = param; }
+
+	/// <summary>
 	/// Sets the overlay name
 	/// </summary>
 	/// <param name="overlayName">: name in .overlay script that is used in Overlay Element load</param>
@@ -85,6 +91,7 @@ public:
 private:
 	OverlayElement* _button;
 	CallBackOnClick* _callback;
+	void* _callbackParam;
 	std::string _overlayName;
 	std::string _containerName;
 	std::string _defaultMaterial;

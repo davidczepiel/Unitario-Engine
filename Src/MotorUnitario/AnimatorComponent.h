@@ -11,7 +11,7 @@ class Animator;
 
 class AnimatorComponent: public Component
 {
-using TransitionFunction = bool();
+using TransitionFunction = bool(void*);
 public:
 	struct Transition;
 	struct State;
@@ -22,6 +22,7 @@ public:
 	};
 	struct Transition {
 		TransitionFunction* transition;
+		void* param;
 		State* nextState;
 	};
 
@@ -58,7 +59,7 @@ public:
 	/// <param name="function">: must return a boolean. If it returns true, the transition will be made</param>
 	/// <param name="end">: the next state from origin</param>
 	/// <exception cref="AnimatorException">throws if origin or end States doesn't exist</exception>
-	void addTransition(const std::string& origin, TransitionFunction* function, const std::string& end);
+	void addTransition(const std::string& origin, TransitionFunction* function, const std::string& end, void* functionParam = nullptr);
 
 	/// <summary>
 	/// Stops the animation from moving, but it can still change

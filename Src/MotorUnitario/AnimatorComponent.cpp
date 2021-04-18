@@ -30,7 +30,7 @@ void AnimatorComponent::lateUpdate()
 		return;
 
 	for(const AnimatorComponent::Transition& transition : _actualState->transitions){
-		if(transition.transition()) {
+		if(transition.transition(transition.param)) {
 			_actualState = transition.nextState;
 			_animator->changeAnimation(_actualState->name, _actualState->loop);
 			break;
@@ -69,7 +69,7 @@ void AnimatorComponent::createState(const std::string& name, bool loop)
 	throw AnimatorException(name + " already exists");
 }
 
-void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end)
+void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end, void* functionParam)
 {
 	AnimatorComponent::State* originState = nullptr, *endState = nullptr;
 
@@ -84,7 +84,7 @@ void AnimatorComponent::addTransition(const std::string& origin, TransitionFunct
 	if (originState == nullptr)	throw AnimatorException(origin + " doesn't exists");
 	if (endState == nullptr)	throw AnimatorException(end + " doesn't exists");
 	
-	originState->transitions.push_back({function, endState});
+	originState->transitions.push_back({function, functionParam, endState});
 }
 
 void AnimatorComponent::stopAnimation()
