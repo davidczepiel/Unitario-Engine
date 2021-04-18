@@ -17,6 +17,7 @@ HowManyGameObjects = 2
 go_0 = {}
 go_0[0] = { Name = "Player", HowManyCmps = 1}
 go_0[1] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
+go_0[1] = { Component = "ASD", Coord = {X = 1, Y = 1, Z = 1}}
 
 go_1 = {}
 go_1[0] = { Name = "Boss", HowManyCmps = 2}

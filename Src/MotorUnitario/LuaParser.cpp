@@ -7,7 +7,8 @@
 #include "AudioSourceComponent.h"
 #include "Transform.h"
 #include "Engine.h"
-
+#include "Exceptions.h"
+#include "Logger.h"
 LuaParser::LuaParser()
 {
 #if (defined _DEBUG)
@@ -15,7 +16,8 @@ LuaParser::LuaParser()
 #endif
 	LuaVM = luaL_newstate();
 	luaL_openlibs(LuaVM);
-	loadScene("Assets/Levels/prueba.lua");
+	//TBR
+	loadScene("Assets/Levels/prueba1.lua");
 }
 
 LuaParser::~LuaParser()
@@ -50,12 +52,24 @@ bool LuaParser::loadScene(std::string scene)
 				std::string type = componentData["Component"].cast <std::string>();
 
 				//Attach component to game object
-				attachComponent(go, type, componentData);
+				//TODO
+				try
+				{
+					attachComponent(go, type, componentData);
+				}
+				catch (const LuaComponentNotFoundException& e)
+				{
+					std::cout << e.msg() << std::endl;
+					//Log?
+				}
+
 			}
 			
 		}
+		Logger::getInstance()->log("Archivo de carga de escena de lua correctamente inicializado");
 		return true;
 	}
+	Logger::getInstance()->log("Archivo de carga de escena de lua no encontrado",Logger::Level::FATAL);
 	return false;
 }
 
@@ -100,7 +114,9 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			break; 
 		}
 		case ComponentId::ComponentId::ListenerComponent: { break; }
-		default:break;
+		default:
+			throw LuaComponentNotFoundException(cmp + " is not a valid name component \n");
+			break;
 	}
 	
 }

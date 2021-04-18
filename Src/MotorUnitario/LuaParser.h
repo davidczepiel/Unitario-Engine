@@ -23,9 +23,11 @@ class GameObject;
 class LuaParser
 {
 public:
+	/// <summary>
+	/// Initializes the virutal lua machine and open libraries of Lua
+	/// </summary>
 	LuaParser();
 	~LuaParser();
-	void test();
 
 	/// <summary>
 	/// Request the loading of a scene

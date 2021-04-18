@@ -9,7 +9,7 @@ AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(Co
 {
 }
 
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(9,gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
+AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(ComponentId::AudioSource,gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
 {
 }
 
@@ -27,7 +27,7 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 void AudioSourceComponent::start()
 {
 	_audioSource = new AudioSource();
-	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::ComponentId::Transform));
+	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 }
 
 void AudioSourceComponent::update()

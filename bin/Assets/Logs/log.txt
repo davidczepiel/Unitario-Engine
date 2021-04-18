@@ -1,1 +1,1 @@
-19:34:07 -> INFO: Toma carambola
+12:39:14 -> FATAl: Archivo de carga de escena de lua correctamente inicializado
