@@ -23,9 +23,7 @@ namespace physx {
 	class PxMaterial;
 	class PxScene;
 };
-//#include "PxPhysics.h"
-//#include "PxRigidBody.h"
-//#include "PxRigidDynamic.h"
+
 class RigidBody
 {
 public:
@@ -33,6 +31,8 @@ public:
 	/// creates a dynamic spherical rigidBody
 	/// </summary>
 	/// <param name="radious">The radious of the sphere</param>
+	/// <param name="gameObject">Pointer to the GameObject owning the component, used for collision callbacks</param>
+	/// <param name="collisionCallback">Pointer to the function called on collision</param>
 	/// <param name="isStatic">Set true if a static rigid body needed; false if dynamic rigid body needed</param>
 	/// <param name="position">The object initial position</param>
 	/// <param name="isKinematic">Set true if a kinematic rigid body needed</param>
@@ -44,7 +44,6 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-
 	RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false, const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0),
 		bool isKinematic = false, float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f,
 		float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
@@ -55,6 +54,8 @@ public:
 	/// <param name="width">The width of the box</param>
 	/// <param name="height">The height of the box</param>
 	/// <param name="depth">The depth of the box</param>
+	/// <param name="gameObject">Pointer to the GameObject owning the component, used for collision callbacks</param>
+	/// <param name="collisionCallback">Pointer to the function called on collision</param>
 	/// <param name="isStatic">Set true if a static rigid body needed; false if dynamic rigid body needed</param>
 	/// <param name="position">The object initial position</param>
 	/// <param name="isKinematic">Set true if a kinematic rigid body needed</param>
@@ -66,7 +67,6 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-
 	RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false,
 		const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false,
 		float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f,
@@ -77,6 +77,8 @@ public:
 	/// </summary>
 	/// <param name="radious">The radious of the capsule</param>
 	/// <param name="height">The height of the capsule</param>
+	/// <param name="gameObject">Pointer to the GameObject owning the component, used for collision callbacks</param>
+	/// <param name="collisionCallback">Pointer to the function called on collision</param>
 	/// <param name="isStatic">Set true if a static rigid body needed; false if dynamic rigid body needed</param>
 	/// <param name="position">The object initial position</param>
 	/// <param name="isKinematic">Set true if a kinematic rigid body needed</param>
@@ -116,7 +118,6 @@ public:
 	/// </summary>
 	/// <param name="dest">The point where the rigidBody will be moved</param>
 	/// <returns>The new position of the object and if it's valid</returns>
-
 	bool  moveTo(std::tuple<float, float, float>& dest);
 
 	/// <summary>
@@ -224,11 +225,29 @@ public:
 	/// <returns>A pointer to the GameObject owner of the component owning thre collider</returns>
 	inline GameObject* getGameObject() const { return _gameObject; }
 
+	/// <summary>
+	/// Returns a pointer to the static function called on collision
+	/// </summary>
+	/// <returns>A pointer to the static function called on collision</returns>
 	inline ContactCallback* getColliderCallback() const { return _collisionCallback; }
 
+	/// <summary>
+	/// Returns rigidbody´s position
+	/// </summary>
+	/// <returns>Tuple of three floats (x, y, z)</returns>
 	const std::tuple<float, float, float>& getPosition();
 
+	/// <summary>
+	/// Returns rigidbody´s rotation
+	/// </summary>
+	/// <returns>Tuple of three floats (x, y, z)</returns>
 	const std::tuple<float, float, float>& getRotation();
+
+	/// <summary>
+	/// Returns whether the rigidbody is static or not
+	/// </summary>
+	/// <returns>true if yes, false either</returns>
+	inline bool isStatic() const { return _isStatic; }
 
 private:
 	/// <summary>
@@ -246,13 +265,14 @@ private:
 	/// <param name="mass">The mass of the body</param>
 	/// <param name="linearDamping">The linear damping of the body</param>
 	/// <param name="angularDamping">The angular damping  of the body</param>
-
 	void initParams(const std::tuple<float, float, float>& pos, float mass, bool isKinematic, float linearDamping, float angularDamping);
+	
 	/// <summary>
 	/// gets all materials from the dynamic rigidBody
 	/// </summary>
 	/// <returns></returns>
 	std::list<physx::PxMaterial*>getAllMaterials();
+	
 	/// <summary>
 	/// gets the greater component of one tuple
 	/// </summary>

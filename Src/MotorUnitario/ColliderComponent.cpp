@@ -1,7 +1,8 @@
 #include "ColliderComponent.h"
 #include "MotorFisico/Collider.h"
 #include "GameObject.h"
-//#include "ComponentIDs.h"
+#include "ComponentIDs.h"
+#include "Transform.h"
 
 ColliderComponent::ColliderComponent(int id, GameObject* gameObject) : Component(/*ComponentId::ImageRender*/1, gameObject)
 {
@@ -20,11 +21,22 @@ void ColliderComponent::setTrigger() {
 	_collider->setTrigger();
 }
 
+void ColliderComponent::setPosition(Vector3 pos)
+{
+	_collider->setPosition(VEC3_TO_TUPLE(pos));
+}
+
+void ColliderComponent::setRotation(Vector3 rot)
+{
+	_collider->rotate(VEC3_TO_TUPLE(rot));
+}
+
 /////////////////////////////////////////////
 
 BoxColliderComponent::BoxColliderComponent(GameObject* gameObject) : ColliderComponent(/*ComponentId::ImageRender*/1, gameObject)
 {
-	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered);
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
 }
 
 BoxColliderComponent::~BoxColliderComponent()
@@ -41,7 +53,8 @@ void BoxColliderComponent::setScale(int width, int heigh, int depth)
 
 SphereColliderComponent::SphereColliderComponent(GameObject* gameObject) : ColliderComponent(/*ComponentId::ImageRender*/1, gameObject)
 {
-	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered);
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
 }
 
 SphereColliderComponent::~SphereColliderComponent()
@@ -58,7 +71,8 @@ void SphereColliderComponent::setScale(int radius)
 
 CapsuleColliderComponent::CapsuleColliderComponent(GameObject* gameObject) : ColliderComponent(/*ComponentId::ImageRender*/1, gameObject)
 {
-	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered);
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
 }
 
 CapsuleColliderComponent::~CapsuleColliderComponent()

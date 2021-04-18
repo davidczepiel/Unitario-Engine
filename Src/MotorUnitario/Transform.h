@@ -32,7 +32,7 @@ public:
 	/// Sets a new transform rotation
 	/// </summary>
 	/// <param name="position">New rotation</param>
-	inline void setRotation(const Vector3& rotation) { _rotation = rotation; }
+	void setRotation(const Vector3& rotation);
 
 	/// <summary>
 	/// Returns the current scale of the transform

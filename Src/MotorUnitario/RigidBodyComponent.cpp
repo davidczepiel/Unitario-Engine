@@ -2,7 +2,6 @@
 #include "Transform.h"
 #include "MotorFisico/RigidBody.h"
 #include "GameObject.h"
-#include "Transform.h"
 #include "ComponentIDs.h"
 #include "Logger.h"
 #include "Vector3.h"
@@ -31,6 +30,8 @@ RigidBodyComponent::~RigidBodyComponent()
 
 void RigidBodyComponent::fixedUpdate()
 {
+	if (_rb->isStatic()) return;
+
 	Vector3 position = TUPLE_TO_VEC3(_rb->getPosition());
 	Vector3 rotation = TUPLE_TO_VEC3(_rb->getRotation());
 
@@ -125,7 +126,6 @@ void RigidBodyComponent::addForce(Vector3& force)
 	auto tupleForce = VEC3_TO_TUPLE(force);
 	if (!_rb->addForce(tupleForce))
 		_log->log("trying to move a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::addImpulse(Vector3& impulse)
@@ -133,7 +133,6 @@ void RigidBodyComponent::addImpulse(Vector3& impulse)
 	auto tupleImpulse = VEC3_TO_TUPLE(impulse);
 	if (!_rb->addImpulse(tupleImpulse))
 		_log->log("trying to move a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::addTorque(Vector3& torque)
@@ -141,7 +140,6 @@ void RigidBodyComponent::addTorque(Vector3& torque)
 	auto tupleTorque = VEC3_TO_TUPLE(torque);
 	if (!_rb->addTorque(tupleTorque))
 		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::moveTo(Vector3& dest)
@@ -149,26 +147,22 @@ void RigidBodyComponent::moveTo(Vector3& dest)
 	auto tupleDest = VEC3_TO_TUPLE(dest);
 	if (!_rb->moveTo(tupleDest))
 		_log->log("trying to move a static/not kinematic rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::constrainX(bool constrain, bool linear)
 {
 	if (!_rb->constrainX(constrain, linear))
 		_log->log("trying to constrain a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::constrainY(bool constrain, bool linear)
 {
 	if (!_rb->constrainY(constrain, linear))
 		_log->log("trying to move a constrain rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::constrainZ(bool constrain, bool linear)
 {
 	if (!_rb->constrainZ(constrain, linear))
 		_log->log("trying to move a constrain rigidBody will result in nothig", Logger::Level::WARN);
-
 }

@@ -268,7 +268,6 @@ bool RigidBody::setPosition(const std::tuple<float, float, float>& position)
 
 	}
 	return false;
-
 }
 
 bool RigidBody::rotate(const std::tuple<float, float, float>& position)

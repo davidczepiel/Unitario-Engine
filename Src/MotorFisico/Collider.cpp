@@ -1,21 +1,31 @@
 #include "Collider.h"
 #include "PhysxEngine.h"
-#include <PxRigidDynamic.h>
-#include <PxRigidActor.h>
+
 #include <PxShape.h>
-#include <PxRigidDynamic.h>
-#include <PxRigidStatic.h>
 #include <PxPhysics.h>
 #include <PxPhysicsAPI.h>
-#include <PxRigidActor.h>
+#include "foundation/PxTransform.h"
 
 #define GetPhysx() PhysxEngine::getPxInstance()->getScene()->getPhysics()
 
+void Collider::setPosition(const std::tuple<float, float, float>& position)
+{
+	_pxTrans->p = TUPLE_TO_PHYSXVEC3(position);
+	_mShape->setLocalPose(*_pxTrans);
+}
+
+void Collider::rotate(const std::tuple<float, float, float>& rotation)
+{
+	_pxTrans->q.rotate(TUPLE_TO_PHYSXVEC3(rotation).getNormalized());
+}
+
 Collider::Collider(bool isTrigger, GameObject* gameObject, ContactCallback* coliderCallback, ContactCallback* triggerCallback,
-	float staticFriction, float dynamicFriction, float restitution)
+	float staticFriction, float dynamicFriction, float restitution, const std::tuple<float, float, float>& position)
 	:_isTrigger(isTrigger), _gameObject(gameObject), _contCallback(coliderCallback), _triggerCallback(triggerCallback)
 {
 	physx::PxMaterial* gMaterial = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
+
+	_pxTrans = new physx::PxTransform(TUPLE_TO_PHYSXVEC3(position));
 
 	if (isTrigger) setTrigger();
 	else setCollider();
@@ -40,12 +50,13 @@ void Collider::setTrigger()
 //////////////////////////////////////////////////
 
 BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
-	float staticFriction, float dynamicFriction, float restitution)
-	: Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution)
+	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
+	: Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
 	physx::PxMaterial* mat = GetPhysx().createMaterial(0.5f, 0.5f, 0.5);
 	physx::PxBoxGeometry aux(width / 2, heigh / 2, depth / 2);
 	_mShape = GetPhysx().createShape(aux, *mat);
+
 	_mShape->userData = this;
 }
 
@@ -56,8 +67,8 @@ void BoxCollider::setScale(int width, int heigh, int depth) {
 ///////////////////////////////////////////////
 
 SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObject, ContactCallback* callback, ContactCallback* triggerCallback,
-	float staticFriction, float dynamicFriction, float restitution)
-	:Collider(isTrigger, gameObject, callback, triggerCallback, staticFriction, dynamicFriction, restitution)
+	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
+	:Collider(isTrigger, gameObject, callback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
 	physx::PxSphereGeometry aux(radius);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
@@ -72,8 +83,8 @@ void SphereCollider::setScale(int r) {
 /////////////////////////////////////////////////
 
 CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
-	float staticFriction, float dynamicFriction, float restitution)
-	:Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution)
+	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
+	:Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
 	physx::PxCapsuleGeometry aux(radius, length / 2);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
