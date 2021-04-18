@@ -16,7 +16,7 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	CameraComponent();
-	CameraComponent(std::string const& route, GameObject* gameObject);
+	CameraComponent(std::string const& route, int zOrder, GameObject* gameObject);
 	CameraComponent(GameObject* gameObject);
 
 	/// <summary>

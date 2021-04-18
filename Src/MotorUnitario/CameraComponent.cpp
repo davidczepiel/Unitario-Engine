@@ -8,9 +8,9 @@ CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nul
 {
 }
 
-CameraComponent::CameraComponent(std::string const& route, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
+CameraComponent::CameraComponent(std::string const& route, int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
 {
-	_camera = new Camera(route);
+	_camera = new Camera(route, zOrder);
 }
 
 CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
@@ -33,7 +33,7 @@ void CameraComponent::update()
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
-	//_camera->setPosition(x, y, z);
+	_camera->setPosition(x, y, z);
 }
 
 void CameraComponent::lateUpdate()

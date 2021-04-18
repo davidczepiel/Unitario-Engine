@@ -6,6 +6,8 @@
 #include "GraphicsEngine.h"
 #include "OgreShaderGenerator.h"
 
+int Camera::_id = 1;
+
 Camera::Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum) :_camera(nullptr), _renderWindow(rWin), _node(nullptr),
 _viewport(nullptr)
 {
@@ -21,22 +23,25 @@ _viewport(nullptr)
 
 Camera::Camera() :_camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr)
 {
+	if (_viewport != nullptr) delete _viewport;
 }
 
-Camera::Camera(std::string path) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr)
+Camera::Camera(std::string path, int zOrder) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr)
 {
 	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
 	Ogre::RenderWindow* rWindow = GraphicsEngine::getInstance()->getRenderWindow();
-	_camera = manager->createCamera("Camera");
+	_camera = manager->createCamera("Camera" + _id);
 	_camera->setAutoAspectRatio(true);
-	_node = manager->getRootSceneNode()->createChildSceneNode("CameraNode");
+	_node = manager->getRootSceneNode()->createChildSceneNode("CameraNode" + _id);
 	_node->attachObject(_camera);
 
-	_viewport = GraphicsEngine::getInstance()->getWindowViewPort();
+	_viewport = GraphicsEngine::getInstance()->getRenderWindow()->addViewport(_camera, zOrder);
 	_viewport->setCamera(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(1., 0., 0.));
+	_viewport->setBackgroundColour(Ogre::ColourValue(1., zOrder / 2., 0.));
+	_viewport->setAutoUpdated(true);
 
 	setPlanes();
+	_id++;
 }
 
 Camera::~Camera()

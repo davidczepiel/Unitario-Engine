@@ -26,7 +26,7 @@ public:
 	Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum = 0);
 
 	Camera();
-	Camera(std::string path);
+	Camera(std::string path, int zOrder = 1);
 	~Camera();
 
 	/// <summary>
@@ -152,9 +152,8 @@ public:
 	/// <return> returns the camera viewport <return>
 	Ogre::Viewport* getViewPort();
 
-	
-
 private:
+	static int _id;
 	Ogre::Camera* _camera;
 	Ogre::RenderWindow* _renderWindow;
 	Ogre::Viewport* _viewport;

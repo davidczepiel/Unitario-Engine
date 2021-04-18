@@ -12,7 +12,9 @@
 #include "Transform.h"
 #include "KeyCodes.h"
 #include "GamePadCodes.h"
+#include "ComponentIDs.h"
 #include <iostream>
+#include "Component.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -88,12 +90,21 @@ void Engine::init()
 	//_GOs.push_back(TEST);
 
 	//Test Camara
-	GameObject* TEST = addGameObject();
-	Transform* t = new Transform(TEST);
-	TEST->addComponent(t);
-	CameraComponent* aSource = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", TEST);
-	TEST->addComponent(aSource);
-	_GOs.push_back(TEST);
+	//TEST = addGameObject();
+	//Transform* t = new Transform(TEST);
+	//TEST->addComponent(t);
+	//CameraComponent* aSource = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", 2, TEST);
+	//aSource->setViewportDimensions(0., 0., 0.5, 0.5);
+	//TEST->addComponent(aSource);
+	//_GOs.push_back(TEST);
+
+	GameObject* TEST2 = addGameObject();
+	Transform* t2 = new Transform(TEST2);
+	TEST2->addComponent(t2);
+	CameraComponent* aSource2 = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", 1, TEST2);
+	aSource2->setViewportDimensions(0.5, 0.5, 0.5, 0.5);
+	TEST2->addComponent(aSource2);
+	_GOs.push_back(TEST2);
 }
 
 void Engine::run()
@@ -124,12 +135,41 @@ void Engine::setResourcesPath(std::string const& resourcesPath)
 
 void Engine::testing()
 {
-	if (MouseInput::getInstance()->isMouseButtonDown(MouseButton::LEFT)) {
-		MouseInput::getInstance()->setMouseRelativeMode(true);
-		std::cout << "X= " << MouseInput::getInstance()->getMouseDelta()[0] << "Y= " << MouseInput::getInstance()->getMouseDelta()[1] << "\n";
+	double vel = 5;
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A)) {
+		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Vector3 pos = t->getPosition();
+		pos = (Vector3(pos.getX() - vel, pos.getY(), pos.getZ()));
+		t->setPosition(pos);
 	}
-	if (MouseInput::getInstance()->isMouseButtonDown(MouseButton::RIGHT)) {
-		MouseInput::getInstance()->setMouseRelativeMode(false);
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D)) {
+		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Vector3 pos = t->getPosition();
+		pos = (Vector3(pos.getX() + vel, pos.getY(), pos.getZ()));
+		t->setPosition(pos);
+	}
+
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W)) {
+		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Vector3 pos = t->getPosition();
+		pos = (Vector3(pos.getX(), pos.getY() + vel, pos.getZ()));
+		t->setPosition(pos);
+	}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S)) {
+		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Vector3 pos = t->getPosition();
+		pos = (Vector3(pos.getX(), pos.getY() - vel, pos.getZ()));
+		t->setPosition(pos);
+	}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_P)) {
+		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
+		c->setViewportDimensions(0.1, 0.1, 0.1, 0.1);
+	}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_O)) {
+		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
+		c->setViewportDimensions(0., 0., 0.5, 0.5);
 	}
 }
 

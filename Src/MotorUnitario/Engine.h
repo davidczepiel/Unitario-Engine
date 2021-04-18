@@ -141,6 +141,8 @@ private:
 	InputManager* _inputManager;
 	Time* _time;
 
+	GameObject* TEST;
+
 	bool _run;
 };
 
