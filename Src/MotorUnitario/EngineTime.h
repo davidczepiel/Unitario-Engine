@@ -5,7 +5,7 @@
 
 #include <memory>
 
-class Time
+class EngineTime
 {
 public:
 	struct Date {
@@ -19,14 +19,14 @@ public:
 	};
 
 public:
-	~Time();
+	~EngineTime();
 
 	/// <summary>
 	/// Returns the instance of KeyBoardInput, in case there is no such instance, it creates one and returns that one
 	/// </summary>
-	static Time* getInstance();
-	Time& operator=(const Time&) = delete;
-	Time(Time& other) = delete;
+	static EngineTime* getInstance();
+	EngineTime& operator=(const EngineTime&) = delete;
+	EngineTime(EngineTime& other) = delete;
 
 	/// <summary>
 	/// Time since last frame
@@ -56,14 +56,14 @@ private:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
-	Time();
+	EngineTime();
 
 	/// <summary>
 	/// When called, calculates deltaTime with the time value it obtained last time it was called
 	/// </summary>
 	void update();
 
-	static std::unique_ptr<Time> instance;
+	static std::unique_ptr<EngineTime> instance;
 
 	unsigned int _msTimeLastTick;
 
@@ -79,4 +79,4 @@ private:
 	friend class Engine;
 };
 
-#endif /*Time.h*/
+#endif /*EngineTime.h*/

@@ -152,6 +152,11 @@ public:
 	/// <returns>if it's visible or not</returns>
 	inline const bool getVisible() const { return _light->getVisible(); }
 
+	/// <summary>
+	/// Sets the light position
+	/// </summary>
+	inline void setPosition(float x, float y, float z) { _light->setPosition(x, y, z); }
+
 private:
 	Light* _light;
 };

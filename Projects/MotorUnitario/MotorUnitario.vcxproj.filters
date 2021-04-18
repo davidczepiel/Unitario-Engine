@@ -49,9 +49,6 @@
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -64,16 +61,13 @@
     <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\Time.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorUnitario\ButtonComponent.cpp">
+    <ClCompile Include="..\..\Src\MotorUnitario\EngineTime.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -150,16 +144,13 @@
     <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\Time.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\MotorUnitario\ButtonComponent.h">
+    <ClInclude Include="..\..\Src\MotorUnitario\EngineTime.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

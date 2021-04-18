@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Exceptions.h"
 #include "Logger.h"
-#include "Time.h"
+#include "EngineTime.h"
 #include "ComponentIDs.h"
 
 AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
@@ -37,7 +37,7 @@ void AnimatorComponent::lateUpdate()
 		}
 	}
 
-	_animator->update(Time::getInstance()->deltaTime()); 
+	_animator->update(EngineTime::getInstance()->deltaTime()); 
 }
 
 void AnimatorComponent::setInitialState(const std::string& name)

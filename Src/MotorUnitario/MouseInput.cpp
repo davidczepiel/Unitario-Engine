@@ -1,4 +1,5 @@
 #include "MouseInput.h"
+#include "SDL_events.h"
 
 std::unique_ptr<MouseInput> MouseInput::instance = nullptr;
 

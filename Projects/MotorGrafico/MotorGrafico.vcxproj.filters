@@ -6,11 +6,9 @@
     <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\main.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\RenderObject.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\OverlayElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorGrafico\Animator.h" />
@@ -20,10 +18,8 @@
     <ClInclude Include="..\..\Src\MotorGrafico\ImageRender.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\Light.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\main.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\RenderObject.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\OverlayElement.h" />
   </ItemGroup>
 </Project>
