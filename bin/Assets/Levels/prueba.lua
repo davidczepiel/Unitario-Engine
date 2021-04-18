@@ -12,7 +12,7 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 2
+HowManyGameObjects = 3
 
 go_0 = {}
 go_0[0] = { Name = "Player", HowManyCmps = 1}
@@ -24,7 +24,19 @@ go_1[0] = { Name = "Boss", HowManyCmps = 2}
 go_1[1] = { Component = "Transform", Coord = {X = 3, Y = 3, Z = 3}}
 go_1[2] = { Component = "AudioSource", Route = "./asdfasdf/treh.mp3"}
 
+go_2 = {}
+go_2[0] = { Name = "DarkLight", HowManyCmps = 2}
+go_2[1] = { Component = "Transform", Coord = {X = 3, Y = 3, Z = 3}}
+go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = false,Diffuse = {Red = 1, Green= 1, Blue = 1}, 
+	   		Specular = {Red = 1, Green= 1, Blue = 1},
+			Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1},
+			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 
 -- COMPONENT EXAMPLES
 -- Transform 		-> go_goNumber[componentNumber] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
 -- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route = "./src"}
+-- LightComponent	-> go_goNumber[componentNumber] = { Component = "LightComponent", LightType= "POINT", Visible = false,
+--														Diffuse = {Red = 1, Green= 1, Blue = 1} 
+--														Specular = {Red = 1, Green= 1, Blue = 1}
+--														Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1}
+--														SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}

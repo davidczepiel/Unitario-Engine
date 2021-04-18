@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "AudioSourceComponent.h"
 #include "Transform.h"
+#include "LightComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -17,7 +18,7 @@ LuaParser::LuaParser()
 	LuaVM = luaL_newstate();
 	luaL_openlibs(LuaVM);
 	//TBR
-	loadScene("Assets/Levels/prueba1.lua");
+	loadScene("Assets/Levels/prueba.lua");
 }
 
 LuaParser::~LuaParser()
@@ -101,7 +102,13 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::ImageRenderer: { break; }
 		case ComponentId::ComponentId::RenderObject: { break; }
 		case ComponentId::ComponentId::Animator: { break; }
-		case ComponentId::ComponentId::LightComponent: { break; }
+		case ComponentId::ComponentId::LightComponent: 
+		{ 
+			/*LightComponent* l = new LightComponent(go);
+			l->awake(data);
+			go->addComponent(l);
+			break; */
+		}
 		case ComponentId::ComponentId::ParticleSystem: { break; }
 		case ComponentId::ComponentId::Camera: { break; }
 		case ComponentId::ComponentId::Rigidbody: { break; }
@@ -117,8 +124,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		default:
 			throw LuaComponentNotFoundException(cmp + " is not a valid name component \n");
 			break;
-	}
-	
+	}	
 }
 
 unsigned int LuaParser::getComponentType(std::string cmp)

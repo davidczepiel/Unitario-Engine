@@ -1,1 +1,1 @@
-12:39:14 -> FATAl: Archivo de carga de escena de lua correctamente inicializado
+13:47:54 -> INFO: Archivo de carga de escena de lua correctamente inicializado
