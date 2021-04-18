@@ -43,3 +43,5 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = false,Di
 --														Specular = {Red = 1, Green= 1, Blue = 1}
 --														Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1}
 --														SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
+-- ListenerComponent-> go_goNumber[componentNumber] = { Component = "Listener", ListenerNumber = 0, 
+--														Velocity = {X = 1, Y = 0, Z = 5}, Forward = {X = 3, Y = 2, Z = 1}, Up = {X = 8, Y = 7, Z = 9}}
