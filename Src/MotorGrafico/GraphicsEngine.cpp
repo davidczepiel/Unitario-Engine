@@ -16,12 +16,8 @@
 #include <OgreEntity.h>		//Testing
 #include <OgreSceneNode.h>	//Testing
 #include <OgreViewport.h>	//Testing
-#include <OgreOverlay.h>	//Testing
 #include <OgreOverlayManager.h>	//Testing
-#include <OgreOverlayElement.h> //
 #include <OgreOverlaySystem.h>	//Testing
-#include <OgreOverlayContainer.h>
-#include <OgreFontManager.h>
 
 #include <iostream>	//Testing
 
@@ -80,6 +76,8 @@ void GraphicsEngine::initWindow() {
 	std::string nombre = "Prueba";
 
 	_sdlWindow = SDL_CreateWindow(nombre.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, flags);
+	SDL_GetWindowSize(_sdlWindow, &_width, &_height);
+
 	if (SDL_GetWindowWMInfo(_sdlWindow, &wmInfo) == SDL_FALSE) {
 		throw EGraphicEngine("Error creating window");
 	}

@@ -192,6 +192,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\MotorUnitario\AnimatorComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ButtonComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\CameraComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
@@ -229,6 +230,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorUnitario\AnimatorComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ButtonComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\CameraComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />

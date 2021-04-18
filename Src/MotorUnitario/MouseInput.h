@@ -34,7 +34,7 @@ public:
 	/// <summary>
 	/// </summary>
 	/// <returns>Mouse pos {x, y}</returns>
-	inline const std::array<double, 2>& getMousePos() { return _mousePos; }
+	inline const std::array<int, 2>& getMousePos() { return _mousePos; }
 
 	/// <summary>
 	/// </summary>
@@ -78,7 +78,7 @@ private:
 
 	static std::unique_ptr<MouseInput> instance;
 
-	std::array<double, 2> _mousePos;
+	std::array<int, 2> _mousePos;
 	std::bitset<5> _mouseButtonState;
 	std::bitset<5> _mouseButtonJustDown;
 	std::bitset<5> _mouseButtonJustUp;

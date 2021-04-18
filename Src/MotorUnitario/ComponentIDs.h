@@ -22,6 +22,8 @@ namespace ComponentId {
 		AudioSource,
 		ListenerComponent,
 
+		ButtonComponent,
+
 		//from this point, every id forward is of a component defined by the user
 		__StartPointUser__
 	};

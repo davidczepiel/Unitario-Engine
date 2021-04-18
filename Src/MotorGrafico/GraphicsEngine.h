@@ -83,6 +83,10 @@ public:
 	/// </summary>
 	inline Ogre::SceneManager* getSceneManager() { return _sceneManager; }
 
+	/// <summary>
+	/// Gets the window size
+	/// </summary>
+	inline std::pair<int, int> getWindowSize() { return std::pair<int,int>(_width, _height); }
 
 private:
 
@@ -127,6 +131,10 @@ private:
 	std::string _mSolutionPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
+	// Windows width 
+	int _width;
+	// Windows heigth
+	int _height;
 
 };
 
