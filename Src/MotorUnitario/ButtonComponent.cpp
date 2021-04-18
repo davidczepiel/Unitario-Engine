@@ -4,13 +4,13 @@
 #include "MouseInput.h"
 
 ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO), _button(nullptr), _callback(nullptr),_overlayName(),_containerName(),
-_defaultMaterial(), _hoverMaterial(), _pressMaterial()
+_defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
 }
 
 ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial, std::string const& pressMaterial):
 	Component(ComponentId::ButtonComponent, gO), _button(nullptr), _callback(callback), _overlayName(overlayName),_containerName(containerName), _defaultMaterial(defaultMaterial),
-	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial)
+	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial), _active(true)
 {
 }
 
@@ -32,9 +32,9 @@ void ButtonComponent::update()
 		std::pair<int, int> buttonPos = _button->getPosition(_containerName);
 		std::pair<int, int> buttonSize = _button->getSize(_containerName);
 		std::pair<int, int> mousePos;
+		mousePos.first = mouse->getMousePos()[0];
+		mousePos.second = mouse->getMousePos()[1];
 
-		mousePos.first = mouse->getMousePos()[0];
-		mousePos.first = mouse->getMousePos()[0];
 		SDL_Point mousePosition = { mousePos.first, mousePos.second };
 		SDL_Rect buttonRect = { buttonPos.first, buttonPos.second, buttonSize.first, buttonSize.second };
 
@@ -50,7 +50,9 @@ void ButtonComponent::update()
 				_callback();
 			}
 		}
-		else _button->setMaterial(_containerName, _defaultMaterial);
+		else {
+			_button->setMaterial(_containerName, _defaultMaterial);
+		}
 	}
 }
 
