@@ -5,6 +5,7 @@
 
 #include "GameObject.h"
 #include "AudioSourceComponent.h"
+#include "ListenerComponent.h"
 #include "Transform.h"
 #include "LightComponent.h"
 #include "Engine.h"
@@ -120,7 +121,12 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			go->addComponent(as); 
 			break; 
 		}
-		case ComponentId::ComponentId::ListenerComponent: { break; }
+		case ComponentId::ComponentId::ListenerComponent: {
+			ListenerComponent* li = new ListenerComponent(go);
+			li->awake(data);
+			go->addComponent(li);
+			break;
+		}
 		default:
 			throw LuaComponentNotFoundException(cmp + " is not a valid name component \n");
 			break;
@@ -147,7 +153,7 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 		return ComponentId::ComponentId::Rigidbody;
 	else if (cmp == "AudioSource")
 		return ComponentId::ComponentId::AudioSource;
-	else if (cmp == "ListenerComponent")
+	else if (cmp == "Listener")
 		return ComponentId::ComponentId::ListenerComponent;
 }
 

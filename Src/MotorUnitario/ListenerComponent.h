@@ -21,6 +21,11 @@ public:
 	~ListenerComponent();
 
 	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
+
+	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
 	virtual void start();
