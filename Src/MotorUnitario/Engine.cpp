@@ -181,6 +181,8 @@ void Engine::initFactories()
 	ComponentsFactory::add("Camera", new CameraComponentFactory());
 	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
 	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
+	ComponentsFactory::add("ButtonComponent", new ButtonComponentFactory());
+	ComponentsFactory::add("OverlayComponent", new OverlayComponentFactory());
 
 	// GameObject* go = new GameObject();
 	// Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");

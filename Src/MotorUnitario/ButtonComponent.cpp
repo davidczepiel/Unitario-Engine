@@ -4,7 +4,13 @@
 #include "MouseInput.h"
 #include <SDL.h>
 
-ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO), 
+ButtonComponent::ButtonComponent():Component(ComponentId::ButtonComponent),
+_button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
+_defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
+{
+}
+
+ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO),
 _button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(),_containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {

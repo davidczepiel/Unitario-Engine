@@ -17,6 +17,7 @@ public:
 	/// <summary>
 	/// Default constructor of the class
 	/// </summary>
+	ButtonComponent();
 	ButtonComponent(GameObject* gO);
 	/// <summary>
 	/// Constructor of the class

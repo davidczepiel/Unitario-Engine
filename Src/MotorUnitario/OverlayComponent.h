@@ -15,6 +15,7 @@ public:
 	/// Class constructor with GameObject
 	/// </summary>
 	/// <param name="go"> Game Object </param>
+	OverlayComponent();
 	OverlayComponent(GameObject* go);
 
 	/// <summary>
