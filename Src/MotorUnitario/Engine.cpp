@@ -67,24 +67,32 @@ void Engine::init()
 
 	//Audio
 	_audioEngine->init();
-	_audioEngine->set_3DSettings(100, 100, 100);
+	//_audioEngine->set_3DSettings(100, 100, 100);
 
 	//GameObject que va a reproducir el sonido
+	//GameObject* TEST = addGameObject();
+	//Transform* t = new Transform(TEST);
+	//TEST->addComponent(t);
+	//AudioSourceComponent* aSource = new AudioSourceComponent(TEST, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
+	//aSource->playAudio(0);
+	//TEST->addComponent(aSource);
+	//_GOs.push_back(TEST);
+
+	////GameObject que supone el listener
+	//TEST = addGameObject();
+	//t = new Transform(TEST);
+	//TEST->addComponent(t);
+	//t->setPosition(Vector3(10000, 0, 0));
+	//ListenerComponent* listener = new ListenerComponent(TEST);
+	//TEST->addComponent(listener);
+	//_GOs.push_back(TEST);
+
+	//Test Camara
 	GameObject* TEST = addGameObject();
 	Transform* t = new Transform(TEST);
 	TEST->addComponent(t);
-	AudioSourceComponent* aSource = new AudioSourceComponent(TEST, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
-	aSource->playAudio(0);
+	CameraComponent* aSource = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", TEST);
 	TEST->addComponent(aSource);
-	_GOs.push_back(TEST);
-
-	//GameObject que supone el listener
-	TEST = addGameObject();
-	t = new Transform(TEST);
-	TEST->addComponent(t);
-	t->setPosition(Vector3(10000, 0, 0));
-	ListenerComponent* listener = new ListenerComponent(TEST);
-	TEST->addComponent(listener);
 	_GOs.push_back(TEST);
 }
 

@@ -7,6 +7,7 @@
 
 class GameObject;
 class Camera;
+class Transform;
 
 class CameraComponent : public Component {
 public:
@@ -22,6 +23,19 @@ public:
 	/// Destructor of the class
 	/// </summary>
 	~CameraComponent();
+
+	/// <summary>
+	/// Initializes the component, called once at the start of the execution
+	/// </summary>
+	virtual void start();
+	/// <summary>
+	/// Update the component
+	/// </summary>
+	virtual void update();
+	/// <summary>
+	/// Called each frame after update.
+	/// </summary>
+	virtual void lateUpdate();
 
 	/// <summary>
 /// Redirects the Z axis of the camera so that it points to a specific world position
@@ -140,5 +154,6 @@ public:
 	void setViewportDimensions(float left, float top, float w, float h);
 private:
 	Camera* _camera;
+	Transform* _tr;
 };
 #endif // !CAMERACOMPONENT_H

@@ -11,11 +11,11 @@
 #include "OgreShaderGenerator.h"
 #include "RTSSDefaultTechniqueListener.h"
 
-
 #include "Camera.h"			//Testing
 #include <OgreEntity.h>		//Testing
 #include <OgreSceneNode.h>	//Testing
 #include <OgreViewport.h>
+#include <OgreRenderWindow.h>
 
 #include <iostream>	//Testing
 
@@ -281,10 +281,9 @@ void GraphicsEngine::loadScene()
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
 	light->setDiffuseColour(0.75, 0.75, 0.75);
 
-	Camera* cam = new Camera(_sceneManager, _window);
-	cam->setPosition(400, 120, 0);
-	cam->getViewPort()->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
-	cam->setPlanes();
+	_defaultCamera = _sceneManager->createCamera("DefaultCamera");
+	_viewPort = _window->addViewport(_defaultCamera);
+	_viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 
 	Ogre::SceneNode* nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("pruebaCubo");
 	Ogre::Entity* ent = _sceneManager->createEntity("cube.mesh");

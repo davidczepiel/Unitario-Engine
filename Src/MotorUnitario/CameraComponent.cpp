@@ -1,6 +1,8 @@
 #include "CameraComponent.h"
 #include "MotorGrafico/Camera.h"
 #include "ComponentIDs.h"
+#include "Transform.h"
+#include "GameObject.h"
 
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
@@ -19,6 +21,23 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId
 CameraComponent::~CameraComponent()
 {
 	delete _camera; _camera == nullptr;
+}
+
+void CameraComponent::start()
+{
+	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+}
+
+void CameraComponent::update()
+{
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+	//_camera->setPosition(x, y, z);
+}
+
+void CameraComponent::lateUpdate()
+{
 }
 
 void CameraComponent::lookAt(float x, float y, float z)

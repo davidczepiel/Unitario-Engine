@@ -3,6 +3,8 @@
 #include <OgreCamera.h>
 #include <OgreRenderWindow.h>
 #include <OgreViewport.h>
+#include "GraphicsEngine.h"
+#include "OgreShaderGenerator.h"
 
 Camera::Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum) :_camera(nullptr), _renderWindow(rWin), _node(nullptr),
 _viewport(nullptr)
@@ -23,12 +25,24 @@ Camera::Camera() :_camera(nullptr), _renderWindow(nullptr), _node(nullptr), _vie
 
 Camera::Camera(std::string path) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr)
 {
+	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
+	Ogre::RenderWindow* rWindow = GraphicsEngine::getInstance()->getRenderWindow();
+	_camera = manager->createCamera("Camera");
+	_camera->setAutoAspectRatio(true);
+	_node = manager->getRootSceneNode()->createChildSceneNode("CameraNode");
+	_node->attachObject(_camera);
+
+	_viewport = GraphicsEngine::getInstance()->getWindowViewPort();
+	_viewport->setCamera(_camera);
+	_viewport->setBackgroundColour(Ogre::ColourValue(1., 0., 0.));
+
+	setPlanes();
 }
 
 Camera::~Camera()
 {
-	delete _camera;
-	delete _node;
+	if (_camera != nullptr)delete _camera;
+	if (_node != nullptr)delete _node;
 }
 
 void Camera::lookAt(float x, float y, float z)

@@ -10,6 +10,8 @@ namespace Ogre {
 	class RenderWindow;
 	class SceneManager;
 	class FileSystemLayer;
+	class Viewport;
+	class Camera;
 
 	namespace RTShader {
 		class ShaderGenerator;
@@ -62,7 +64,7 @@ public:
 	void render();
 
 	/// <summary>
-	/// Loads a scene 
+	/// Loads a scene
 	/// </summary>
 	void loadScene();
 
@@ -82,6 +84,15 @@ public:
 	/// </summary>
 	inline Ogre::SceneManager* getSceneManager() { return _sceneManager; }
 
+	/// <summary>
+	/// Gets the Scene Manager
+	/// </summary>
+	inline Ogre::RenderWindow* getRenderWindow() { return _window; }
+
+	/// <summary>
+	/// Gets the Scene Manager
+	/// </summary>
+	inline Ogre::Viewport* getWindowViewPort() { return _viewPort; }
 
 private:
 
@@ -110,6 +121,8 @@ private:
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
 	Ogre::SceneManager* _sceneManager;
+	Ogre::Viewport* _viewPort;
+	Ogre::Camera* _defaultCamera;
 	// File system abstraction layer
 	Ogre::FileSystemLayer* _mFSLayer;
 	// The Shader generator instance.
@@ -125,7 +138,6 @@ private:
 	std::string _mVolumeShaderPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
-
 };
 
 #endif /*GRAPHICSENGINE.h*/
