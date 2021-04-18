@@ -17,7 +17,7 @@ overlay MyOverlays/ANewOverlay
              top 0
              width 0.1
              height 0.1
-             material Practica1/Red
+             material PruebaOverlay
         }
     }
 }

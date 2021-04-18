@@ -22,9 +22,21 @@ material Prueba{
 	technique{
 		pass{
 			lighting off
+			depth_check off
 			texture_unit{
 				texture MomiaMeme.png
-				depth_check
+			}
+		}
+	}
+}
+
+material PruebaOverlay{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			texture_unit{
+				colour_op_ex source1 src_manual src_current 1 0 0
 			}
 		}
 	}
