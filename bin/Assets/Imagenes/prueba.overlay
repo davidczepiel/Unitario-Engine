@@ -1,0 +1,23 @@
+// The name of the overlay comes first
+overlay MyOverlays/ANewOverlay
+{
+    zorder 200
+    overlay_element MyOverlayElements/TestPanel Panel
+    {
+        // Center it horizontally, put it at the top
+        left 0.25
+        top 0
+        width 0.5
+        height 0.1
+        material Prueba
+        // Another panel nested in this one
+        overlay_element MyOverlayElements/AnotherPanel Panel
+        {
+             left 0
+             top 0
+             width 0.1
+             height 0.1
+             material Practica1/Red
+        }
+    }
+}
