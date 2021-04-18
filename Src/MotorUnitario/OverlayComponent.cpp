@@ -3,6 +3,11 @@
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
 
+OverlayComponent::OverlayComponent(GameObject* go) : Component(ComponentId::OverlayComponent, go),
+_overlayElement(nullptr)
+{
+}
+
 OverlayComponent::OverlayComponent(GameObject* go, std::string const& overlayName) : Component(ComponentId::OverlayComponent, go)
 {
 	_overlayElement = new OverlayElement(overlayName);
@@ -11,6 +16,11 @@ OverlayComponent::OverlayComponent(GameObject* go, std::string const& overlayNam
 OverlayComponent::~OverlayComponent()
 {
 	delete _overlayElement;
+}
+
+void OverlayComponent::start()
+{
+	_overlayElement = new OverlayElement(_overlayName);
 }
 
 void OverlayComponent::hideOverlay(bool hide)
