@@ -2,6 +2,7 @@
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
 #include "MouseInput.h"
+#include <SDL.h>
 
 ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO), _button(nullptr), _callback(nullptr),_overlayName(),_containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
