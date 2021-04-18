@@ -15,10 +15,13 @@
 HowManyGameObjects = 2
 
 go_0 = {}
-go_0[0] = { Name = "Player", HowManyCmps = 1}
+go_0[0] = { Name = "Player", HowManyCmps = 3}
 go_0[1] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
-go_0[1] = { Component = "ASD", Coord = {X = 1, Y = 1, Z = 1}}
-
+go_0[2] = { Component = "ASD", Coord = {X = 1, Y = 1, Z = 1}}
+--Fmod vector3 position coge la posicion del transform
+go_0[3] = { Component = "Listener", ListenerNumber = 0, 
+			Velocity = {X = 1, Y = 0, Z = 5}, Forward = {X = 3, Y = 2, Z = 1}, Up = {X = 8, Y = 7, Z = 9}}
+ 
 go_1 = {}
 go_1[0] = { Name = "Boss", HowManyCmps = 2}
 go_1[1] = { Component = "Transform", Coord = {X = 3, Y = 3, Z = 3}}
