@@ -5,15 +5,18 @@
 
 AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route("")
 {
+	_position = new FMOD_VECTOR();
 }
 
 AudioSource::AudioSource(std::string const& route) : _system(nullptr), _channel(nullptr), _sound(), _route(route)
 {
 	createAudio();
+	_position = new FMOD_VECTOR();
 }
 
 AudioSource::~AudioSource()
 {
+	if (_position != nullptr) delete _position;
 }
 
 void AudioSource::createAudio()
@@ -46,7 +49,8 @@ void AudioSource::play(int id)
 
 void AudioSource::update()
 {
-	_channel->set3DAttributes(_position, _velocity);
+	if (_channel != nullptr)
+		_channel->set3DAttributes(_position, _velocity);
 }
 
 void AudioSource::pause()

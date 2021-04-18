@@ -15,6 +15,7 @@ AudioSourceComponent::AudioSourceComponent(GameObject* gameObject) : Component(C
 
 AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
 {
+	_audioSource = new AudioSource(route);
 }
 
 AudioSourceComponent::~AudioSourceComponent()
@@ -24,7 +25,6 @@ AudioSourceComponent::~AudioSourceComponent()
 
 void AudioSourceComponent::start()
 {
-	_audioSource = new AudioSource();
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 }
 
@@ -33,7 +33,7 @@ void AudioSourceComponent::update()
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
-	//_audioSource->setPosition(x, y, z);
+	_audioSource->setPosition(x, y, z);
 }
 
 void AudioSourceComponent::lateUpdate()

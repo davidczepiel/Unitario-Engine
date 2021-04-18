@@ -4,10 +4,10 @@
 #include  <fmod.hpp>
 
 Listener::Listener() : _attributes(), _listenerNumber(0) {
-
+	_attributes = new FMOD_3D_ATTRIBUTES();
 }
 Listener::~Listener() {
-
+	if (_attributes != nullptr) delete _attributes;
 }
 void Listener::update()
 {

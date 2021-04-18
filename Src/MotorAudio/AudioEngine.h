@@ -38,7 +38,7 @@ public:
 	/// <param name="distanceFactor">Relative distance factor to FMOD units. This only affects doppler</param>
 	/// <param name="rolloff">Scaling factor for 3D sound rolloff or attenuation. Setting this value makes the sound drop off faster or slower.
 	/// The higher the value, the faster volume will attenuate, and conversely the lower the value, the slower it will attenuate</param>
-	void set3DSettings(float dopplerScale, float distanceFactor, float rolloff);
+	void set_3DSettings(float dopplerScale, float distanceFactor, float rolloff);
 
 private:
 

@@ -45,6 +45,7 @@ void Engine::tick()
 	fixedUpdate();
 	lateUpdate();
 	_graphicsEngine->render();
+	_audioEngine->update();
 	_time->update();
 	testing();
 }
@@ -52,19 +53,39 @@ void Engine::tick()
 void Engine::init()
 {
 	initFactories();
-	GameObject* TEST = addGameObject();
-	TEST->addComponent(new Transform(TEST));
-	TEST->addComponent(new AudioSourceComponent(TEST, "Assets\Audio\ProtoDarkMaze_Menu.mp3"));
+
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
-	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
 	_audioEngine = AudioEngine::getInstance();
+	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
 	_time = Time::getInstance();
+	//Graphics
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-
 	_graphicsEngine->loadScene(); //WIP
+
+	//Audio
+	_audioEngine->init();
+	_audioEngine->set_3DSettings(100, 100, 100);
+
+	//GameObject que va a reproducir el sonido
+	GameObject* TEST = addGameObject();
+	Transform* t = new Transform(TEST);
+	TEST->addComponent(t);
+	AudioSourceComponent* aSource = new AudioSourceComponent(TEST, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
+	aSource->playAudio(0);
+	TEST->addComponent(aSource);
+	_GOs.push_back(TEST);
+
+	//GameObject que supone el listener
+	TEST = addGameObject();
+	t = new Transform(TEST);
+	TEST->addComponent(t);
+	t->setPosition(Vector3(10000, 0, 0));
+	ListenerComponent* listener = new ListenerComponent(TEST);
+	TEST->addComponent(listener);
+	_GOs.push_back(TEST);
 }
 
 void Engine::run()
