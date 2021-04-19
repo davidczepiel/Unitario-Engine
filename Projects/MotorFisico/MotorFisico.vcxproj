@@ -189,6 +189,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\RigidBody.cpp" />
   </ItemGroup>

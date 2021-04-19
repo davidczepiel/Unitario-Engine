@@ -66,6 +66,8 @@ void Transform::setRotation(const Vector3& rotation)
 	else if (capsColl != nullptr) {
 		capsColl->setPosition(_position);
 	}
+}
+
 Transform::~Transform()
 {
 }

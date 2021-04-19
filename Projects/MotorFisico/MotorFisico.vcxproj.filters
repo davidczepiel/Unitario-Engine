@@ -18,13 +18,10 @@
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\MotorFisico\RigidBody.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\MotorFisico\Callbacks.cpp">
+    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
