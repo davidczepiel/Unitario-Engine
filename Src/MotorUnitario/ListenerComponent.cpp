@@ -4,13 +4,16 @@
 #include "Transform.h"
 #include "ComponentIDs.h"
 
+ListenerComponent::ListenerComponent():Component(ComponentId::ListenerComponent),_tr(nullptr),_listener(nullptr)
+{
+}
 ListenerComponent::ListenerComponent(GameObject* gameObject):Component(ComponentId::ListenerComponent,gameObject), _tr(nullptr), _listener(nullptr)
 {
 }
 
 ListenerComponent::~ListenerComponent()
 {
-	delete _listener;
+	delete _listener; _listener = nullptr;
 }
 
 void ListenerComponent::start()

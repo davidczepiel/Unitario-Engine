@@ -14,6 +14,7 @@ public:
 	/// <summary>
 	/// Default constructor of the class
 	/// </summary>
+	AudioSourceComponent();
 	AudioSourceComponent(GameObject* gameObject);
 	/// <summary>
 	/// Constructor of the class in the case we want to create a unique sound 

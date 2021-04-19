@@ -5,13 +5,17 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 class GameObject;
 class GraphicsEngine;
 class PhysxEngine;
 class InputManager;
 class AudioEngine;
-class Time;
+class ComponentsFactory;
+
+#define ADD(className)ComponentsFactory::add(className,classNameFactory);
+class EngineTime;
 
 class Engine
 {
@@ -48,17 +52,18 @@ public:
 	/// </summary>
 	void stopExecution();
 
+	/// <summary>
+	/// Sets the resources path
+	/// </summary>
+	/// <param name="resourcesPath"> Resources.cfg path</param>
+	void setResourcesPath(std::string const& resourcesPath);
+
 protected:
 
 	/// <summary>
 	/// Includes all the methods related to the GameObjects Update
 	/// </summary>
 	void tick();
-
-	/// <summary>
-	/// Frees everything related to the engines (Audio, Physics, Graphics)
-	/// </summary>
-	void freeEnginesResources();
 
 	/// <summary>
 	/// Calls the Start method of each GameObject in the list
@@ -79,6 +84,11 @@ protected:
 	/// Calls the LateUpdate method of each GameObject in the list
 	/// </summary>
 	void lateUpdate();
+
+	/// <summary>
+	/// Called before the end of execution (free resources and shutdown engines)
+	/// </summary>
+	void shutDown();
 
 	/// <summary>
 	/// Adds a GameObject to the list
@@ -115,13 +125,20 @@ private:
 	/// </summary>
 	void processEvents();
 
+	/// <summary>
+	/// Adds all the components factories of the engine and creates componenets.
+	///This is for testing the factorires
+	/// </summary>
+	void initFactories();
+
 	static Engine* _instance;
 	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
+	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
-	Time* _time;
+	EngineTime* _time;
 
 	bool _run;
 };

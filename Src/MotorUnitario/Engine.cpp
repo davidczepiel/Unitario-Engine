@@ -1,15 +1,16 @@
 #include "Engine.h"
 //WIP
-#include "MotorGrafico/main.h"
 #include "MotorUnitario/GameObject.h"
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
 #include "MotorFisico/PhysxEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
-#include "Time.h"
+#include "ComponentsFactory.h"
+#include "ComponentFactory.h"
+#include "EngineTime.h"
 
-Engine* Engine::_instance = nullptr;
+std::unique_ptr<Engine> Engine::instance = nullptr;
 
 Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
 {
@@ -26,10 +27,10 @@ Engine::~Engine()
 
 Engine* Engine::getInstance()
 {
-	if (_instance == nullptr) {
-		_instance = new Engine();
+	if (instance.get() == nullptr) {
+		instance.reset(new Engine());
 	}
-	return _instance;
+	return instance.get();
 }
 
 void Engine::tick()
@@ -45,23 +46,30 @@ void Engine::tick()
 
 void Engine::init()
 {
-	_physxEngine = PhysxEngine::getPxInstance();
+	initFactories();
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
+	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
 	_audioEngine = AudioEngine::getInstance();
-	_time = Time::getInstance();
+	_time = EngineTime::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
-	_physxEngine->init();
+	_graphicsEngine->setup();
+	_graphicsEngine->loadScene(); //WIP
+
+
 }
 
 void Engine::run()
 {
 	start();
+	
 	while (_run)
 	{
 		tick();
 	}
+
+	shutDown();
 }
 
 void Engine::changeScene(const std::string& scene)
@@ -71,6 +79,11 @@ void Engine::changeScene(const std::string& scene)
 void Engine::stopExecution()
 {
 	_run = false;
+}
+
+void Engine::setResourcesPath(std::string const& resourcesPath)
+{
+	_graphicsEngine->setResourcePath(resourcesPath);
 }
 
 void Engine::start()
@@ -100,6 +113,13 @@ void Engine::lateUpdate()
 		it->lateUpdate();
 	}
 	_audioEngine->update();
+}
+
+void Engine::shutDown()
+{
+	if (_graphicsEngine != nullptr) {
+		_graphicsEngine->shutdown();
+	}
 }
 
 GameObject* Engine::addGameObject()
@@ -148,5 +168,35 @@ GameObject* Engine::findGameObject(const std::string& name)
 	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
 
-void Engine::freeEnginesResources() {
+
+
+void Engine::initFactories()
+{
+	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
+	ComponentsFactory::add("Light", new LightComponentFactory());
+	ComponentsFactory::add("RenderObject", new RenderObjectComponentFactory());
+	ComponentsFactory::add("Listener", new ListenerComponentFactory());
+	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
+	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
+	ComponentsFactory::add("Collider", new ColliderComponentFactory());
+	ComponentsFactory::add("Camera", new CameraComponentFactory());
+	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
+	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
+	ComponentsFactory::add("ButtonComponent", new ButtonComponentFactory());
+	ComponentsFactory::add("OverlayComponent", new OverlayComponentFactory());
+
+	// GameObject* go = new GameObject();
+	// Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
+	// ir->setGameObject(go);
+	// go->addComponent(ir);
+	// go->addComponent(ComponentsFactory::getComponentByName("Light"));
+	// go->addComponent(ComponentsFactory::getComponentByName("RenderObject"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Listener"));
+	// go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
+	// go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Collider"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Camera"));
+	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
+	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
 }
+

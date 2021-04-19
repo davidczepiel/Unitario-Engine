@@ -108,8 +108,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Fmod\Buildx86\</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x86.bat"</Command>
-      <Message>Importación build 2.01.08 x86 de Fmod</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,8 +136,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Fmod\Buildx86\</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x86.bat"</Command>
-      <Message>Importación build 2.01.08 x86 de Fmod</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -156,8 +160,10 @@
       <AdditionalDependencies>fmodL_vc.lib;</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x64.bat"</Command>
-      <Message>Importación build 2.01.08 x64 de Fmod</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -182,8 +188,10 @@
       <AdditionalDependencies>fmod_vc.lib;</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x64.bat"</Command>
-      <Message>Importación build 2.01.08 x64 de Fmod</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -7,4 +7,3 @@ xcopy ..\..\dependencies\PhysX\Buildx86\release\PhysXCooking_32.dll ..\..\bin\ /
 xcopy ..\..\dependencies\PhysX\Buildx86\release\PhysXDevice.dll ..\..\bin\ /s /d /y
 xcopy ..\..\dependencies\PhysX\Buildx86\release\PhysXFoundation_32.dll ..\..\bin\ /s /d /y
 xcopy ..\..\dependencies\PhysX\Buildx86\release\PhysXGpu_32.dll ..\..\bin\ /s /d /y
-exit 0

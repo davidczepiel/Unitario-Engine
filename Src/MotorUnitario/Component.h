@@ -8,9 +8,14 @@ class Component
 {
 public:
 
+	Component(unsigned int id);
 	Component(unsigned int id, GameObject* gameObject);
 	virtual ~Component();
 
+	/// <summary>
+	/// Initializes the component parameters with LUA, called once at the Factories.
+	/// </summary>
+	virtual void preinit() {}
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
@@ -72,6 +77,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	inline bool getEnabled() { return _enabled; }
+
+
 
 protected:
 

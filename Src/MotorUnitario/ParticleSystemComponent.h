@@ -14,6 +14,7 @@ public:
 	/// <summary>
 	/// Default constructor of the class
 	/// </summary>
+	ParticleSystemComponent();
 	ParticleSystemComponent(GameObject* gameObject);
 	/// <summary>
 	/// Constructor of the class

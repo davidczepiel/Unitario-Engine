@@ -3,9 +3,16 @@
 #include "GameObject.h"
 #include "Exceptions.h"
 #include "Logger.h"
-#include "Time.h"
+#include "EngineTime.h"
+#include "ComponentIDs.h"
 
-AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(6, gameObject), 
+AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
+_states(), _actualState(nullptr), _initialState(nullptr), _animator(nullptr)
+{
+
+}
+
+AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(ComponentId::Animator, gameObject),
 	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator(gameObject->getName()))
 {
 
@@ -23,14 +30,14 @@ void AnimatorComponent::lateUpdate()
 		return;
 
 	for(const AnimatorComponent::Transition& transition : _actualState->transitions){
-		if(transition.transition()) {
+		if(transition.transition(transition.param)) {
 			_actualState = transition.nextState;
 			_animator->changeAnimation(_actualState->name, _actualState->loop);
 			break;
 		}
 	}
 
-	_animator->update(Time::getInstance()->deltaTime()); 
+	_animator->update(EngineTime::getInstance()->deltaTime()); 
 }
 
 void AnimatorComponent::setInitialState(const std::string& name)
@@ -62,7 +69,7 @@ void AnimatorComponent::createState(const std::string& name, bool loop)
 	throw AnimatorException(name + " already exists");
 }
 
-void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end)
+void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end, void* functionParam)
 {
 	AnimatorComponent::State* originState = nullptr, *endState = nullptr;
 
@@ -77,7 +84,7 @@ void AnimatorComponent::addTransition(const std::string& origin, TransitionFunct
 	if (originState == nullptr)	throw AnimatorException(origin + " doesn't exists");
 	if (endState == nullptr)	throw AnimatorException(end + " doesn't exists");
 	
-	originState->transitions.push_back({function, endState});
+	originState->transitions.push_back({function, functionParam, endState});
 }
 
 void AnimatorComponent::stopAnimation()

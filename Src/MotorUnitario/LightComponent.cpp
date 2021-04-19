@@ -2,6 +2,10 @@
 #include "ComponentIDs.h"
 #include "GameObject.h"
 
+LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(nullptr)
+{
+}
+
 LightComponent::LightComponent(GameObject* gameObject): Component(ComponentId::LightComponent, gameObject), _light(nullptr)
 {
 	_light = new Light(gameObject->getName());

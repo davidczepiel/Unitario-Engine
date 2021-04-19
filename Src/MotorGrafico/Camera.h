@@ -3,25 +3,108 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "OgreCamera.h"
-#include "OgreSceneManager.h"
-#include "OgreSceneNode.h"
-#include "OgreViewport.h"
-class Transform;
+namespace Ogre {
+	class Camera;
+	class SceneManager;
+	class SceneNode;
+	class Viewport;
+	class RenderWindow;
+	class Quaternion;
+	class Radian;
+	class Degrees;
+}
+//class Transform;
+#include <string>
 class Camera
 {
-
 public:
 	/// <summary>
-	/// Creates a camera 
+	/// Creates a camera
 	/// </summary>
 	/// <param name="scn">The SceneManager</param>
 	/// <param name="cameraNum">An identifier in case the user wants to create multiple cameras</param>
 	Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum = 0);
+
+	Camera();
+	Camera(std::string path);
 	~Camera();
 
 	/// <summary>
-	/// Sets the near clip plane and the far clip plane 
+	/// Redirects the Z axis of the camera so that it points to a specific world position
+	/// </summary>
+	/// <param name="x">The worlds x position that the camera will point at</param>
+	/// <param name="y">The worlds y position that the camera will point at</param>
+	/// <param name="z">The worlds z position that the camera will point at</param>
+	void lookAt(float x, float y, float z);
+
+	/// <summary>
+	/// Rotates the camera node using its X axis
+	/// </summary>
+	/// <param name="degrees">Amounts of degrees to rotate</param>
+	void pitchDegrees(float degrees);
+
+	/// <summary>
+	/// Rotates the camera node using its X axis
+	/// </summary>
+	/// <param name="radians">Amounts of radians to rotate</param>
+	void pitchRadians(float radians);
+
+	/// <summary>
+	/// Rotates the camera node using its Y axis
+	/// </summary>
+	/// <param name="degrees">Amounts of degrees to rotate</param>
+	void yawDegrees(float degrees);
+
+	/// <summary>
+	/// Rotates the camera node using its Y axis
+	/// </summary>
+	/// <param name="amount">Amounts of units to rotate</param>
+	void yawRadians(float amount);
+
+	/// <summary>
+	/// Rotates the camera node using its Z axis
+	/// </summary>
+	/// <param name="degrees">Amounts of degrees to rotate</param>
+	void rollDegrees(float degrees);
+
+	/// <summary>
+	/// Rotates the camera node using its Z axis
+	/// </summary>
+	/// <param name="radians">Amounts of radians to rotate</param>
+	void rollRadians(float radians);
+
+	/// <summary>
+	/// Redirects the Z axis of the camera so that it points to a specific world position
+	/// </summary>
+	/// <param name="x">The worlds x position that the camera will point at</param>
+	/// <param name="y">The worlds y position that the camera will point at</param>
+	/// <param name="z">The worlds z position that the camera will point at</param>
+	void setOrientation(float w, float x, float y, float z);
+
+	/// <summary>
+	/// Adjusts the cameras node so that it is oriented given a Quarternion
+	/// </summary>
+	/// <param name="orientation">Quaternion wich specifies the camera new orientation </param>
+	void setOrientation(Ogre::Quaternion orientation);
+
+	/// <summary>
+	/// Sets the camera position to a specified location
+	/// </summary>
+	/// <param name="x">The camera new x position</param>
+	/// <param name="y">The camera new y position</param>
+	/// <param name="z">The camera new z position </param>
+	void setPosition(float x, float y, float z);
+
+	/// <summary>
+	/// Moves the camera from its position an specified amount of units in each axis
+	/// </summary>
+	/// <param name="x">The camera movement on the x axis</param>
+	/// <param name="y">The camera movement on the y axis</param>
+	/// <param name="z">The camera movement on the z axis</param>
+	void translate(float x, float y, float z);
+
+	/// <summary>
+	/// Sets the near clip plane and the far clip plane
 	/// </summary>
 	/// <param name="near">The near clip plane</param>
 	/// <param name="far">The far clip plane</param>
@@ -62,6 +145,14 @@ public:
 	/// <param name="w">The viewport new width</param>
 	/// <param name="h">The viewport new height</param>
 	void setViewportDimensions(float left, float top, float w, float h);
+
+	/// <summary>
+	/// Returns the viewport of the camera
+	/// </summary>
+	/// <return> returns the camera viewport <return>
+	Ogre::Viewport* getViewPort();
+
+	
 
 private:
 	Ogre::Camera* _camera;
