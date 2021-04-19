@@ -5,59 +5,158 @@
 #include "Component.h"
 
 class GameObject;
-//class Collider;
+class Collider;
+class BoxCollider;
+class SphereCollider;
+class CapsuleCollider;
+class Vector3;
+
+#define VEC3_TO_TUPLE(vec) std::tuple<float, float, float>(vec.getX(), vec.getY(), vec.getZ())
+#define TUPLE_TO_VEC3(tuple) Vector3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
 
 class ColliderComponent : public Component {
 public:
 
-	ColliderComponent();
+	/// <summary>
+	/// Callback for gameobject collision
+	/// </summary>
+	/// <param name="thisGO"></param>
+	/// <param name="otherGO"></param>
+	static void gameObjectsCollision(GameObject* thisGO, GameObject* otherGO);
 
 	/// <summary>
-	/// Contructor of the class
+	/// Callback for trgger collision
 	/// </summary>
-	ColliderComponent(GameObject* gameObject);
+	/// <param name="thisGO"></param>
+	/// <param name="otherGO"></param>
+	static void gameObjectTriggered(GameObject* thisGO, GameObject* otherGO);
 
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
 	~ColliderComponent();
 
-	void method1();
-
-	void method2();
-
-	void method3();
-
-	void method4();
-
-	void method5();
+	/// <summary>
+	/// Sets the collider for collisions
+	/// </summary>
+	void setCollider();
 
 	/// <summary>
-	/// This method sets the parameter x to the collider Property
+	/// Sets the collider as a trigger
 	/// </summary>
-	void setParameter1(float x);
+	void setTrigger();
 
 	/// <summary>
-	/// This method sets the parameters x and y to the collider Properties
+	/// Sets the position of the transform to a specified one
 	/// </summary>
-	void setParameter2(float x, float y);
+	void setPosition(Vector3 pos);
 
 	/// <summary>
-	/// This method sets the parameter x, y and z to the collider Properties
+	/// Sets the rotation of the transform to a specified one
 	/// </summary>
-	void setParameter3(float x, float y, float z);
+	void setRotation(Vector3 rot);
+
+protected:
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	/// <param name="id">Component ID</param>
+	/// <param name="gameObject">GameObject owner of the component</param>
+	ColliderComponent(int id, GameObject* gameObject);
 
 	/// <summary>
-	/// This method return the parameter 1 from the collider
+	/// Contructor of the class
 	/// </summary>
-	float getParameter1();
+	/// <param name="id">Component ID</param>
+	ColliderComponent(int id);
 
-	/// <summary>
-	/// This method return the parameter 2 from the collider
-	/// </summary>
-	float getParameter2();
-
-private:
-	Component* _collider;
+	Collider* _collider;
 };
+
 #endif // !COLLIDERCOMPONENT_H
+//////////////////////////////////////////////////////
+
+class BoxColliderComponent : public ColliderComponent {
+public:
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	/// <param name="gameObject">GameObject owner of the component</param>
+	BoxColliderComponent(GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	BoxColliderComponent();
+
+	/// <summary>
+	/// Destructor of the class
+	/// </summary>
+	virtual ~BoxColliderComponent();
+
+	/// <summary>
+	/// Changes box size
+	/// </summary>
+	/// <param name="x">New width</param>
+	/// <param name="y">New height</param>
+	/// <param name="z">New depth</param>
+	void setScale(int width, int heigh, int depth);
+};
+
+/////////////////////////////////////////////////////////
+
+class SphereColliderComponent : public ColliderComponent {
+public:
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	/// <param name="gameObject">GameObject owner of the component</param>
+	SphereColliderComponent(GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	SphereColliderComponent();
+
+	/// <summary>
+	/// Destructor of the class
+	/// </summary>
+	virtual ~SphereColliderComponent();
+
+	/// <summary>
+	/// Changes sphere radius
+	/// </summary>
+	/// <param name="r">New new radius</param>
+	void setScale(int radius);
+};
+
+////////////////////////////////////////////////////
+
+class CapsuleColliderComponent : public ColliderComponent {
+public:
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	/// <param name="gameObject">GameObject owner of the component</param>
+	CapsuleColliderComponent(GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	CapsuleColliderComponent();
+
+	/// <summary>
+	/// Destructor of the class
+	/// </summary>
+	virtual ~CapsuleColliderComponent();
+
+	/// <summary>
+	/// Changes capsule's dimensions
+	/// </summary>
+	/// <param name="r">New radius</param>
+	/// <param name="l">New length</param>
+	void setScale(int radius, int length);
+};

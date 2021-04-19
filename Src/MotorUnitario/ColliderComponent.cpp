@@ -1,13 +1,15 @@
 #include "ColliderComponent.h"
+#include "MotorFisico/Collider.h"
+#include "GameObject.h"
 #include "ComponentIDs.h"
+#include "Transform.h"
 
-ColliderComponent::ColliderComponent() : Component(ComponentId::Collider),_collider(nullptr)
+ColliderComponent::ColliderComponent(int id, GameObject* gameObject) : Component(id, gameObject), _collider(nullptr)
 {
 }
 
-ColliderComponent::ColliderComponent(GameObject* gameObject) : Component(ComponentId::Collider, gameObject), _collider(nullptr)
+ColliderComponent::ColliderComponent(int id): Component(id, nullptr), _collider(nullptr)
 {
-	//_collider = new Collider();
 }
 
 ColliderComponent::~ColliderComponent()
@@ -15,44 +17,101 @@ ColliderComponent::~ColliderComponent()
 	delete _collider; _collider == nullptr;
 }
 
-void ColliderComponent::method1() {
-	/*_collider->method1();*/
+void ColliderComponent::setCollider() {
+	_collider->setCollider();
 }
 
-void ColliderComponent::method2() {
-	/*_collider->method2();*/
+void ColliderComponent::setTrigger() {
+	_collider->setTrigger();
 }
 
-void ColliderComponent::method3() {
-	/*_collider->method3();*/
+void ColliderComponent::setPosition(Vector3 pos)
+{
+	_collider->setPosition(VEC3_TO_TUPLE(pos));
 }
 
-void ColliderComponent::method4() {
-	/*_collider->method4();*/
+void ColliderComponent::setRotation(Vector3 rot)
+{
+	_collider->rotate(VEC3_TO_TUPLE(rot));
 }
 
-void ColliderComponent::method5() {
-	/*_collider->method5();*/
+/////////////////////////////////////////////
+
+BoxColliderComponent::BoxColliderComponent(GameObject* gameObject) : ColliderComponent(ComponentId::BoxCollider, gameObject)
+{
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
 }
 
-void ColliderComponent::setParameter1(float x) {
-	/*_collider->setParameter1(x);*/
+BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider, nullptr)
+{
+	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
 }
 
-void ColliderComponent::setParameter2(float x, float y) {
-	/*_collider->setParameter2(x,y);*/
+BoxColliderComponent::~BoxColliderComponent()
+{
+	delete _collider; _collider == nullptr;
 }
 
-void ColliderComponent::setParameter3(float x, float y, float z) {
-	/*_collider->setParameter3(x,y,z);*/
+void BoxColliderComponent::setScale(int width, int heigh, int depth)
+{
+	static_cast<BoxCollider*>(_collider)->setScale(width, heigh, depth);
 }
 
-float ColliderComponent::getParameter1() {
-	/*return _collider->getParameter1();*/
-	return 0;
-};
+////////////////////////////////////////////
 
-float ColliderComponent::getParameter2() {
-	/*return _collider->getParameter2();*/
-	return 0;
-};
+SphereColliderComponent::SphereColliderComponent(GameObject* gameObject) : ColliderComponent(ComponentId::SphereCollider, gameObject)
+{
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
+}
+
+SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider, nullptr)
+{
+	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float,float,float>(0.0f,0.0f,0.0f));
+}
+
+SphereColliderComponent::~SphereColliderComponent()
+{
+	delete _collider; _collider == nullptr;
+}
+
+void SphereColliderComponent::setScale(int radius)
+{
+	static_cast<SphereCollider*>(_collider)->setScale(radius);
+}
+
+/////////////////////////////////////////////////////////
+
+CapsuleColliderComponent::CapsuleColliderComponent(GameObject* gameObject) : ColliderComponent(ComponentId::CapsuleCollider, gameObject)
+{
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
+}
+
+CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider, nullptr)
+{
+	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
+}
+
+CapsuleColliderComponent::~CapsuleColliderComponent()
+{
+	delete _collider; _collider == nullptr;
+}
+
+void CapsuleColliderComponent::setScale(int radius, int length)
+{
+	static_cast<CapsuleCollider*>(_collider)->setScale(radius, length);
+}
+
+void ColliderComponent::gameObjectsCollision(GameObject* thisGO, GameObject* otherGO)
+{
+	thisGO->onCollision(otherGO);
+	otherGO->onCollision(thisGO);
+}
+
+void ColliderComponent::gameObjectTriggered(GameObject* thisGO, GameObject* otherGO)
+{
+	thisGO->onTrigger(otherGO);
+	otherGO->onTrigger(thisGO);
+}

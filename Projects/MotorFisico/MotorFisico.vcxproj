@@ -189,11 +189,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp" />
+    <ClCompile Include="..\..\Src\MotorFisico\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorFisico\Callbacks.h" />
+    <ClInclude Include="..\..\Src\MotorFisico\Collider.h" />
     <ClInclude Include="..\..\Src\MotorFisico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorFisico\PhysxEngine.h" />
+    <ClInclude Include="..\..\Src\MotorFisico\RigidBody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

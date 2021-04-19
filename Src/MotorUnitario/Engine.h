@@ -9,6 +9,7 @@
 
 class GameObject;
 class GraphicsEngine;
+class PhysxEngine;
 class InputManager;
 class AudioEngine;
 class ComponentsFactory;
@@ -131,6 +132,7 @@ private:
 	void initFactories();
 
 	static Engine* _instance;
+	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;

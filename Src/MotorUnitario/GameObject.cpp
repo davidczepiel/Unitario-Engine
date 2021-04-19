@@ -59,6 +59,28 @@ void GameObject::lateUpdate()
 			go->lateUpdate();
 }
 
+void GameObject::onCollision(GameObject* other)
+{
+	for (auto& comp : _activeComponents)
+		if (comp.second->getEnabled())
+			comp.second->onCollision(other);
+
+	for (GameObject* go : _children)
+		if (go->getEnabled())
+			go->onCollision(other);
+}
+
+void GameObject::onTrigger(GameObject* other)
+{
+	for (auto& comp : _activeComponents)
+		if (comp.second->getEnabled())
+			comp.second->onTrigger(other);
+
+	for (GameObject* go : _children)
+		if (go->getEnabled())
+			go->onTrigger(other);
+}
+
 void GameObject::addComponent(Component* component)
 {
 	unsigned int id = component->getId();

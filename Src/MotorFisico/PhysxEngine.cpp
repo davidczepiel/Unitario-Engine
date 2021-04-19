@@ -52,7 +52,7 @@ void PhysxEngine::init()
 	physx::PxDefaultErrorCallback gDefaultErrorCallback;
 	physx::PxDefaultAllocator gDefaultAllocatorCallback;
 
-	_mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback,	gDefaultErrorCallback);
+	_mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	if (!_mFoundation)
 		throw EPhysxEngine("PxCreateFoundation failed!");
 	bool recordMemoryAllocations = true;
@@ -60,7 +60,6 @@ void PhysxEngine::init()
 	_mPvd = physx::PxCreatePvd(*_mFoundation);
 	physx::PxPvdTransport* transport = physx::PxDefaultPvdSocketTransportCreate(PVD_HOST, 5425, 10);
 	_mPvd->connect(*transport, physx::PxPvdInstrumentationFlag::eALL);
-
 
 	_mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *_mFoundation,
 		physx::PxTolerancesScale(), recordMemoryAllocations, _mPvd);
@@ -74,10 +73,9 @@ void PhysxEngine::init()
 	physx::PxDefaultCpuDispatcher* gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
-	_scene = _mPhysics->createScene(sceneDesc);	 
+	_scene = _mPhysics->createScene(sceneDesc);
 	if (!_scene)
 		throw EPhysxEngine("PxSceneDesc failed!");
-		
 }
 
 void PhysxEngine::update(float time)

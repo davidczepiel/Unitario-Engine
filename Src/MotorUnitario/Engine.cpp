@@ -3,6 +3,7 @@
 #include "MotorUnitario/GameObject.h"
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
+#include "MotorFisico/PhysxEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
 #include "ComponentsFactory.h"
@@ -177,7 +178,9 @@ void Engine::initFactories()
 	ComponentsFactory::add("Listener", new ListenerComponentFactory());
 	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
 	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
-	ComponentsFactory::add("Collider", new ColliderComponentFactory());
+	ComponentsFactory::add("BoxCollider", new BoxColliderComponentFactory());
+	ComponentsFactory::add("SphereCollider", new SphereColliderComponentFactory());
+	ComponentsFactory::add("CapsuleCollider", new CapsuleColliderComponentFactory());
 	ComponentsFactory::add("Camera", new CameraComponentFactory());
 	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
 	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
