@@ -48,6 +48,12 @@ public:
 	inline GameObject* getGameObject() const { return _gameObject; }
 
 	/// <summary>
+	/// Set the pointer to the GameObject used on callbacks
+	/// </summary>
+	/// <param name="go"></param>
+	inline void setGameObject(GameObject* go) { _gameObject = go; }
+
+	/// <summary>
 	/// Returns a pointer to the function called on collision if the collider is not a trigger
 	/// </summary>
 	/// <returns>A pointer to the function called on collision</returns>
