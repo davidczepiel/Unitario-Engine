@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ComponentIDs.h"
+#include "Logger.h"
 
 ListenerComponent::ListenerComponent() :Component(ComponentId::ListenerComponent), _tr(nullptr), _listener(nullptr)
 {

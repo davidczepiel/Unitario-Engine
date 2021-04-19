@@ -22,7 +22,7 @@ void AudioEngine::init() {
 	FMOD_RESULT result;
 	result = FMOD::System_Create(&_system); // Create the System Objects
 	// 128 channels (max number that we can use)
-	result = _system->init(128, FMOD_INIT_NORMAL, 0); //Fmod Initialization
+	result = _system->init(128, FMOD_INIT_3D_RIGHTHANDED, 0); //Fmod Initialization
 
 	if (result != FMOD_OK) {
 		//TO DO

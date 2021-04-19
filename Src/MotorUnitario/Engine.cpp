@@ -69,42 +69,37 @@ void Engine::init()
 
 	//Audio
 	_audioEngine->init();
-	//_audioEngine->set_3DSettings(100, 100, 100);
+	_audioEngine->set_3DSettings(3, 200, 10);
 
 	//GameObject que va a reproducir el sonido
-	//GameObject* TEST = addGameObject();
-	//Transform* t = new Transform(TEST);
-	//TEST->addComponent(t);
-	//AudioSourceComponent* aSource = new AudioSourceComponent(TEST, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
-	//aSource->playAudio(0);
-	//TEST->addComponent(aSource);
-	//_GOs.push_back(TEST);
+	GameObject* audioGO = addGameObject();
+	Transform* t2 = new Transform(audioGO);
+	t2->setPosition(Vector3(10, 0, 0));
+	audioGO->addComponent(t2);
+	AudioSourceComponent* aSource = new AudioSourceComponent(audioGO, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
+	aSource->setStereo(0, true);
+	aSource->set3DMinMaxDistanceChannel(5, 10);
+	audioGO->addComponent(aSource);
+	_GOs.push_back(audioGO);
+	aSource->playAudio(0);
 
-	////GameObject que supone el listener
-	//TEST = addGameObject();
-	//t = new Transform(TEST);
-	//TEST->addComponent(t);
-	//t->setPosition(Vector3(10000, 0, 0));
-	//ListenerComponent* listener = new ListenerComponent(TEST);
-	//TEST->addComponent(listener);
-	//_GOs.push_back(TEST);
+	//GameObject que supone el listener
+	jugador = addGameObject();
 
-	//Test Camara
-	//TEST = addGameObject();
-	//Transform* t = new Transform(TEST);
-	//TEST->addComponent(t);
-	//CameraComponent* aSource = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", 2, TEST);
-	//aSource->setViewportDimensions(0., 0., 0.5, 0.5);
-	//TEST->addComponent(aSource);
-	//_GOs.push_back(TEST);
+	Transform* t = new Transform(jugador);
+	t->setPosition(Vector3(100, 0, 0));
+	t->setRotation(Vector3(0, 0, 1));
+	jugador->addComponent(t);
 
-	GameObject* TEST2 = addGameObject();
-	Transform* t2 = new Transform(TEST2);
-	TEST2->addComponent(t2);
-	CameraComponent* aSource2 = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", 1, TEST2);
-	aSource2->setViewportDimensions(0.5, 0.5, 0.5, 0.5);
-	TEST2->addComponent(aSource2);
-	_GOs.push_back(TEST2);
+	ListenerComponent* listener = new ListenerComponent(jugador);
+	jugador->addComponent(listener);
+
+	CameraComponent* cam = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", 2, jugador);
+	cam->setViewportDimensions(0., 0., 0.5, 0.5);
+	jugador->addComponent(cam);
+
+	_GOs.push_back(jugador);
+
 }
 
 void Engine::run()
@@ -137,38 +132,38 @@ void Engine::testing()
 {
 	double vel = 5;
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A)) {
-		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
 		Vector3 pos = t->getPosition();
 		pos = (Vector3(pos.getX() - vel, pos.getY(), pos.getZ()));
 		t->setPosition(pos);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D)) {
-		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
 		Vector3 pos = t->getPosition();
 		pos = (Vector3(pos.getX() + vel, pos.getY(), pos.getZ()));
 		t->setPosition(pos);
 	}
 
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W)) {
-		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
 		Vector3 pos = t->getPosition();
 		pos = (Vector3(pos.getX(), pos.getY() + vel, pos.getZ()));
 		t->setPosition(pos);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S)) {
-		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
 		Vector3 pos = t->getPosition();
 		pos = (Vector3(pos.getX(), pos.getY() - vel, pos.getZ()));
 		t->setPosition(pos);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_P)) {
-		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
-		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
+		CameraComponent* c = static_cast<CameraComponent*>(jugador->getComponent(ComponentId::Camera));
 		c->setViewportDimensions(0.1, 0.1, 0.1, 0.1);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_O)) {
-		Transform* t = static_cast<Transform*>(TEST->getComponent(ComponentId::Transform));
-		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
+		CameraComponent* c = static_cast<CameraComponent*>(jugador->getComponent(ComponentId::Camera));
 		c->setViewportDimensions(0., 0., 0.5, 0.5);
 	}
 }
@@ -199,7 +194,6 @@ void Engine::lateUpdate()
 	for (auto& it : _GOs) {
 		it->lateUpdate();
 	}
-	_audioEngine->update();
 }
 
 void Engine::shutDown()

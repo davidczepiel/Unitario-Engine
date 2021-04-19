@@ -26,6 +26,10 @@ AudioSourceComponent::~AudioSourceComponent()
 void AudioSourceComponent::start()
 {
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+	_audioSource->setPosition(x, y, z);
 }
 
 void AudioSourceComponent::update()

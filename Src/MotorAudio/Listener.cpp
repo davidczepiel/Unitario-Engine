@@ -2,6 +2,7 @@
 #include "..\..\Src\MotorAudio\AudioEngine.h"
 
 #include  <fmod.hpp>
+#include <iostream>
 
 Listener::Listener() : _attributes(), _listenerNumber(0) {
 	_attributes = new FMOD_3D_ATTRIBUTES();
@@ -11,6 +12,7 @@ Listener::~Listener() {
 }
 void Listener::update()
 {
+	//std::cout << " x: " << _attributes->position.x << "y: " << _attributes->position.y << "z: " << _attributes->position.z << "\n";
 	AudioEngine::getInstance()->getSystem()->set3DListenerAttributes(_listenerNumber, &_attributes->position, &_attributes->velocity, &_attributes->forward, &_attributes->up);
 }
 
