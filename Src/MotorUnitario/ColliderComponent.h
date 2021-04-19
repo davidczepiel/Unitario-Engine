@@ -60,7 +60,15 @@ protected:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
+	/// <param name="id">Component ID</param>
+	/// <param name="gameObject">GameObject owner of the component</param>
 	ColliderComponent(int id, GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	/// <param name="id">Component ID</param>
+	ColliderComponent(int id);
 
 	Collider* _collider;
 };
@@ -74,7 +82,13 @@ public:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
+	/// <param name="gameObject">GameObject owner of the component</param>
 	BoxColliderComponent(GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	BoxColliderComponent();
 
 	/// <summary>
 	/// Destructor of the class
@@ -98,7 +112,13 @@ public:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
+	/// <param name="gameObject">GameObject owner of the component</param>
 	SphereColliderComponent(GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	SphereColliderComponent();
 
 	/// <summary>
 	/// Destructor of the class
@@ -120,7 +140,13 @@ public:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
+	/// <param name="gameObject">GameObject owner of the component</param>
 	CapsuleColliderComponent(GameObject* gameObject);
+
+	/// <summary>
+	/// Contructor of the class
+	/// </summary>
+	CapsuleColliderComponent();
 
 	/// <summary>
 	/// Destructor of the class

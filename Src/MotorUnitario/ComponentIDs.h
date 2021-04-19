@@ -17,7 +17,9 @@ namespace ComponentId {
 		Camera,
 	
 		Rigidbody,
-		Collider,
+		BoxCollider,
+		SphereCollider,
+		CapsuleCollider,
 	
 		AudioSource,
 		ListenerComponent,

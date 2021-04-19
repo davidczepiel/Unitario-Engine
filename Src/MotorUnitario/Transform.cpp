@@ -25,9 +25,17 @@ void Transform::setPosition(const Vector3& position)
 		rb->setPosition(_position);
 	}
 
-	ColliderComponent* coll = dynamic_cast<ColliderComponent*>(_gameObject->getComponent(ComponentId::Collider));
-	if (coll != nullptr) {
-		coll->setPosition(_position);
+	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
+	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
+	ColliderComponent* capsColl = dynamic_cast<CapsuleColliderComponent*>(_gameObject->getComponent(ComponentId::CapsuleCollider));
+	if (boxColl != nullptr) {
+		boxColl->setPosition(_position);
+	}
+	else if (sphColl != nullptr) {
+		sphColl->setPosition(_position);
+	}
+	else if (capsColl != nullptr) {
+		capsColl->setPosition(_position);
 	}
 }
 
@@ -46,8 +54,16 @@ void Transform::setRotation(const Vector3& rotation)
 		rb->setRotation(_rotation);
 	}
 
-	ColliderComponent* coll = dynamic_cast<ColliderComponent*>(_gameObject->getComponent(ComponentId::Collider));
-	if (coll != nullptr) {
-		coll->setRotation(_rotation);
+	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
+	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
+	ColliderComponent* capsColl = dynamic_cast<CapsuleColliderComponent*>(_gameObject->getComponent(ComponentId::CapsuleCollider));
+	if (boxColl != nullptr) {
+		boxColl->setPosition(_position);
+	}
+	else if (sphColl != nullptr) {
+		sphColl->setPosition(_position);
+	}
+	else if (capsColl != nullptr) {
+		capsColl->setPosition(_position);
 	}
 }
