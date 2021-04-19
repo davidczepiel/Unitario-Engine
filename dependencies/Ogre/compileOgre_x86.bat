@@ -4,6 +4,8 @@ xcopy ..\..\dependencies\Ogre\Build32\bin\release\OgreMain.dll ..\..\bin\ /s /d 
 xcopy ..\..\dependencies\Ogre\Build32\bin\release\zlib.dll ..\..\bin\ /s /d /y
 xcopy ..\..\dependencies\Ogre\Build32\bin\debug\OgreRTShaderSystem_d.dll ..\..\bin\ /s /d /y
 xcopy ..\..\dependencies\Ogre\Build32\bin\release\OgreRTShaderSystem.dll ..\..\bin\ /s /d /y
+xcopy ..\..\dependencies\Ogre\Build32\bin\release\OgreOverlay.dll ..\..\bin\ /s /d /y
+xcopy ..\..\dependencies\Ogre\Build32\bin\debug\OgreOverlay_d.dll ..\..\bin\ /s /d /y
 
 rem copia las dlls explicitas de los plugins a bin\Ogre[Debug/Release]
 xcopy ..\..\dependencies\Ogre\Build32\bin\debug\Codec_STBI_d.dll ..\..\bin\OgreDEBUG\ /s /d /y

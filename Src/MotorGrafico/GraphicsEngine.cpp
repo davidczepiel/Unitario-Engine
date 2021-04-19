@@ -15,7 +15,9 @@
 #include "Camera.h"			//Testing
 #include <OgreEntity.h>		//Testing
 #include <OgreSceneNode.h>	//Testing
-#include <OgreViewport.h>
+#include <OgreViewport.h>	//Testing
+#include <OgreOverlayManager.h>	//Testing
+#include <OgreOverlaySystem.h>	//Testing
 
 #include <iostream>	//Testing
 
@@ -60,6 +62,7 @@ void GraphicsEngine::initRoot()
 
 void GraphicsEngine::initWindow() {
 	_root->restoreConfig();
+	_overlaySystem = new Ogre::OverlaySystem();
 	_root->initialise(false);
 	Ogre::NameValuePairList params;
 	Ogre::ConfigOptionMap configuracion = _root->getRenderSystem()->getConfigOptions();
@@ -73,6 +76,8 @@ void GraphicsEngine::initWindow() {
 	std::string nombre = "Prueba";
 
 	_sdlWindow = SDL_CreateWindow(nombre.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, flags);
+	SDL_GetWindowSize(_sdlWindow, &_width, &_height);
+
 	if (SDL_GetWindowWMInfo(_sdlWindow, &wmInfo) == SDL_FALSE) {
 		throw EGraphicEngine("Error creating window");
 	}
@@ -90,9 +95,9 @@ void GraphicsEngine::initWindow() {
 void GraphicsEngine::setup()
 {
 	_sceneManager = _root->createSceneManager();
+	_sceneManager->addRenderQueueListener(_overlaySystem);
+	_oveMng = Ogre::OverlayManager::getSingletonPtr();
 
-	_locateResources("resources.cfg");
-	//WIP
 	_locateResources(_resourcesPath);
 	_initialiseRTShaderSystem();
 	_loadResources();
@@ -185,22 +190,22 @@ void GraphicsEngine::_locateResources(std::string const& path) {
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
 	}
 
-	_mRTShaderLibPath = arch + "/RTShaderLib";
-	_mVolumeShaderPath = arch + "/ShadowVolume";
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/materials", type, sec);
+	std::string mRTShaderLibPath = arch + "/RTShaderLib";
+	std::string mVolumeShaderPath = arch + "/ShadowVolume";
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
 
 	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/GLSL", type, sec);
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/GLSLES", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSLES", type, sec);
 	}
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
 	}
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath + "/HLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/HLSL", type, sec);
 	}
 }
 
@@ -211,10 +216,6 @@ bool GraphicsEngine::_initialiseRTShaderSystem()
 	{
 		// Grab the shader generator pointer.
 		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-
-		// Add the shader libs resource location.
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mRTShaderLibPath, "FileSystem");
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_mVolumeShaderPath, "FileSystem");
 
 		Ogre::String cachePath = _mFSLayer->getConfigFilePath("/Assets/ShaderCache");
 		// Set shader cache path.
@@ -231,6 +232,7 @@ bool GraphicsEngine::_initialiseRTShaderSystem()
 		//added
 		_mTechniqueListener = new RTSSDefaultTechniqueListener(_mShaderGenerator);
 		Ogre::MaterialManager::getSingleton().addListener(_mTechniqueListener);
+		//Ogre::MaterialManager::getSingleton().
 
 		return true;
 	}

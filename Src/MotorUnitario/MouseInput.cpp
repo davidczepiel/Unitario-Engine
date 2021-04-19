@@ -3,7 +3,7 @@
 
 std::unique_ptr<MouseInput> MouseInput::instance = nullptr;
 
-MouseInput::MouseInput(): _mousePos({0.0, 0.0}), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta()
+MouseInput::MouseInput(): _mousePos({0, 0}), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta()
 {
 }
 
