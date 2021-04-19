@@ -13,5 +13,3 @@ xcopy ..\..\dependencies\Ogre\Build\bin\debug\Codec_STBI_d.dll ..\..\bin\OgreDEB
 xcopy ..\..\dependencies\Ogre\Build\bin\debug\RenderSystem_Direct3d11_d.dll ..\..\bin\OgreDEBUG\ /s /d /y
 xcopy ..\..\dependencies\Ogre\Build\bin\release\Codec_STBI.dll ..\..\bin\OgreRELEASE\ /s /d /y
 xcopy ..\..\dependencies\Ogre\Build\bin\release\RenderSystem_Direct3d11.dll ..\..\bin\OgreRELEASE\ /s /d /y
-
-exit 0
