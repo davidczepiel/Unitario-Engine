@@ -110,7 +110,8 @@
       <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x86.bat"
 call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"
 call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
-call "$(SolutionDir)dependencies\Physx\compilePhysx_x86_DEBUG.bat"</Command>
+call "$(SolutionDir)dependencies\Physx\compilePhysx_x86_DEBUG.bat"
+exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +134,8 @@ call "$(SolutionDir)dependencies\Physx\compilePhysx_x86_DEBUG.bat"</Command>
       <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x86.bat"
 call "$(SolutionDir)dependencies\Ogre\compileOgre_x86.bat"
 call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
-call "$(SolutionDir)dependencies\Physx\compilePhysx_x86.bat"</Command>
+call "$(SolutionDir)dependencies\Physx\compilePhysx_x86.bat"
+exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,7 +154,8 @@ call "$(SolutionDir)dependencies\Physx\compilePhysx_x86.bat"</Command>
       <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x64.bat"
 call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"
 call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"
-call "$(SolutionDir)dependencies\Physx\compilePhysx_x64_DEBUG.bat"</Command>
+call "$(SolutionDir)dependencies\Physx\compilePhysx_x64_DEBUG.bat"
+exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -175,7 +178,8 @@ call "$(SolutionDir)dependencies\Physx\compilePhysx_x64_DEBUG.bat"</Command>
       <Command>call "$(SolutionDir)dependencies\Fmod\compileFmod_x64.bat"
 call "$(SolutionDir)dependencies\Ogre\compileOgre_x64.bat"
 call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"
-call "$(SolutionDir)dependencies\Physx\compilePhysx_x64.bat"</Command>
+call "$(SolutionDir)dependencies\Physx\compilePhysx_x64.bat"
+exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
