@@ -39,11 +39,14 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = false,Di
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 
 go_3 = {}
-go_3[0] = { Name = "SexyAnimations", HowManyCmps = 2}
+go_3[0] = { Name = "SexyAnimations", HowManyCmps = 3}
 go_3[1] = { Component = "Transform", Coord = {X = 1, Y = 2, Z = 3}}
 go_3[2] = { Component = "Animator", HowManyStates = 2,
 			State1 = {Name = "initial", Loop = true},
 			State2 = {Name = "second", Loop = false}}
+go_3[3] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, MaterialName = "SoyFeo", Visible = false, 
+			BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT", BillboardRotationType = "BBR_VERTEX",
+			Scale = {X = 0.3, Y = 0.5, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 180}}
 
 go_4 = {}
 go_4[0] = {Name = "SexyButton", HowManyCmps = 2}
@@ -95,3 +98,11 @@ go_5[2] = {Component = "RenderObject", MeshName="SexyMesh", Material="SexyMateri
 -- RenderObject 	-> go_goNumber[componentNumber] = {Component = "RenderObject", MeshName="SexyMesh", Material="SexyMaterial", 
 --														RotateAngle = 1, Rotate={X=1, Y=1, Z=1}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 --														Visible=false, Shadows=false, RenderingDistance = 1}
+
+-- ImageRender      -> go_goNumber[componentNumber] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, 
+--														MaterialName = "SoyFeo", Visible = false, 
+--														BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
+--														BillboardRotationType = "BBR_VERTEX",
+--														Scale = {X = 0.3, Y = 0.5, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 180}}
+-- Overlay 			-> go_goNumber[componentNumber] = {Component = "OverLay", Hide=true, Name = "SexyOverlay", Container = "SexyContainer", Material= "SexyOverlaymMaterial"}
+

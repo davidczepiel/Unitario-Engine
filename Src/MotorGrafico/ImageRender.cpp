@@ -7,13 +7,13 @@
 ImageRender::ImageRender():_billboardSet(nullptr),_billboardSetNode(nullptr),_parentNode(nullptr)
 {
 	 Ogre::SceneManager* sceneMng = GraphicsEngine::getInstance()->getSceneManager();
-	_parentNode = sceneMng->getRootSceneNode()->createChildSceneNode();
+	//_parentNode = sceneMng->getRootSceneNode()->createChildSceneNode();
 
-	_billboardSet = sceneMng->createBillboardSet(1);
-	_billboardSet->createBillboard(_parentNode->getPosition());
+	//_billboardSet = sceneMng->createBillboardSet(1);
+	//_billboardSet->createBillboard(_parentNode->getPosition());
 
-	_billboardSetNode = _parentNode->createChildSceneNode();
-	_billboardSetNode->attachObject(_billboardSet);
+	//_billboardSetNode = _parentNode->createChildSceneNode();
+	//_billboardSetNode->attachObject(_billboardSet);
 }
 
 ImageRender::~ImageRender()

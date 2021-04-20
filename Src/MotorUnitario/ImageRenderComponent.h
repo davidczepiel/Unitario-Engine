@@ -12,6 +12,10 @@ public:
 	ImageRenderComponent();
 	ImageRenderComponent(GameObject* gameObject);
 	~ImageRenderComponent();
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Sets the dimensions(width and height) of the sprite

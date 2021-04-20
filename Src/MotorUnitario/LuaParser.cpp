@@ -11,6 +11,7 @@
 #include "AnimatorComponent.h"
 #include "ButtonComponent.h"
 #include "CameraComponent.h"
+#include "ImageRenderComponent.h"
 #include "OverlayComponent.h"
 #include "RenderObjectComponent.h"
 #include "Engine.h"
@@ -100,13 +101,12 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 	switch (getComponentType(cmp)) {
 		case ComponentId::ComponentId::Transform :
 		{ 
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
 			Transform* tr = new Transform(go);
 			tr->awake(data);
 			go->addComponent(tr);
 			break; 
 		}
-		case ComponentId::ComponentId::ImageRender: { break; }
 		case ComponentId::ComponentId::RenderObject: 
 		{ 
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
@@ -115,9 +115,15 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			go->addComponent(r);
 			break; 
 		}
+		case ComponentId::ComponentId::ImageRender: {
+			/*ImageRenderComponent* im = new ImageRenderComponent(go);
+			im->awake(data);
+			go->addComponent(im);
+			break; */
+		}
 		case ComponentId::ComponentId::Animator: 
 		{ 
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
 			//AnimatorComponent* a = new AnimatorComponent(go);
 			//a->awake(data);
 			//go->addComponent(a);
@@ -125,7 +131,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		}
 		case ComponentId::ComponentId::LightComponent: 
 		{ 
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
 			//LightComponent* l = new LightComponent(go);
 			//l->awake(data);
 			//go->addComponent(l);
@@ -156,14 +162,14 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			break;
 		}
 		case ComponentId::ComponentId::OverlayComponent: {
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
 			//OverlayComponent* o = new OverlayComponent(go);
 			//o->awake(data);
 			//go->addComponent(o);
 			//break;
 		}
 		case ComponentId::ComponentId::ButtonComponent: {
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
 			//ButtonComponent* b = new ButtonComponent(go);
 			//b->awake(data);
 			//go->addComponent(b);
@@ -179,7 +185,7 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 {
 	if (cmp == "Transform")
 		return ComponentId::ComponentId::Transform;
-	else if (cmp == "ImageRenderer")
+	else if (cmp == "ImageRender")
 		return ComponentId::ComponentId::ImageRender;
 	else if (cmp == "RenderObject")
 		return ComponentId::ComponentId::RenderObject;
