@@ -119,7 +119,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
       </Command>
     </PreBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86;$(SolutionDir)dependencies\Lua\Buildx86</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -151,7 +151,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
       </Command>
     </PreBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86;$(SolutionDir)dependencies\Lua\Buildx86</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -178,7 +178,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
       </Command>
     </PreBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;$(SolutionDir)dependencies\Lua\Buildx64</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -209,7 +209,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
       </Command>
     </PreBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;$(SolutionDir)dependencies\Lua\Buildx64</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
