@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-class Transform;
+class Transformer;
 class Component;
 
 class GameObject {
@@ -40,6 +40,10 @@ public:
 	/// Calls lateUpdate method of every component and then of every children it has
 	/// </summary>
 	void lateUpdate();
+
+	void onCollision(GameObject* other);
+
+	void onTrigger(GameObject* other);
 
 	/// <summary>
 	/// Adds component to the gameObject vector of components

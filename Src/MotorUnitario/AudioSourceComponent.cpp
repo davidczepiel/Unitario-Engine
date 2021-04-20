@@ -5,6 +5,10 @@
 #include "Vector3.h"
 #include "ComponentIDs.h"
 
+AudioSourceComponent::AudioSourceComponent(): Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
+{
+}
+
 AudioSourceComponent::AudioSourceComponent(GameObject* gameObject): Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
 {
 }
@@ -15,7 +19,7 @@ AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string c
 
 AudioSourceComponent::~AudioSourceComponent()
 {
-	delete _audioSource;
+	delete _audioSource; _audioSource = nullptr;
 }
 
 void AudioSourceComponent::awake(luabridge::LuaRef &data)

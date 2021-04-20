@@ -6,12 +6,15 @@
 
 ListenerComponent::ListenerComponent(GameObject* gameObject):Component(ComponentId::ListenerComponent,gameObject), _tr(nullptr), _listener(new Listener())
 {
+	
+}
+ListenerComponent::ListenerComponent():Component(ComponentId::ListenerComponent),_tr(nullptr),_listener(nullptr)
+{
 }
 
 ListenerComponent::~ListenerComponent()
 {
-	delete _listener;
-	delete _tr;
+	delete _listener; _listener = nullptr;
 }
 
 void ListenerComponent::awake(luabridge::LuaRef& data)

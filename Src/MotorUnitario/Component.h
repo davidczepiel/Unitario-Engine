@@ -16,6 +16,7 @@ class Component
 {
 public:
 
+	Component(unsigned int id);
 	Component(unsigned int id, GameObject* gameObject);
 	virtual ~Component();
 
@@ -86,6 +87,8 @@ public:
 	/// <returns></returns>
 	inline bool getEnabled() { return _enabled; }
 
+
+
 protected:
 
 	GameObject* _gameObject;
@@ -96,4 +99,4 @@ private:
 	bool _enabled;
 };
 
-#endif COMPONENT_H
+#endif //!COMPONENT_H

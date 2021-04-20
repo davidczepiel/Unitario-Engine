@@ -9,6 +9,7 @@
 
 namespace Ogre {
 	class Light;
+	class SceneNode;
 };
 
 class Light
@@ -165,6 +166,11 @@ public:
 	const bool getVisible() const;
 
 	/// <summary>
+	/// Sets the position of the light
+	/// </summary>
+	void setPosition(float x, float y, float z);
+
+	/// <summary>
 	/// Static count of lights, used so each Light has a unique name
 	/// </summary>
 	static unsigned int _lightCount;
@@ -172,6 +178,7 @@ public:
 private:
 	const unsigned int _id;
 	Ogre::Light* _light;
+	Ogre::SceneNode* _lightNode;
 };
 
 #endif LIGHT_H

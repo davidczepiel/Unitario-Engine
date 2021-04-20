@@ -7,4 +7,3 @@ xcopy ..\..\dependencies\PhysX\Buildx64\debug\PhysXCooking_64.dll ..\..\bin\ /s 
 xcopy ..\..\dependencies\PhysX\Buildx64\debug\PhysXDevice64.dll ..\..\bin\ /s /d /y
 xcopy ..\..\dependencies\PhysX\Buildx64\debug\PhysXFoundation_64.dll ..\..\bin\ /s /d /y
 xcopy ..\..\dependencies\PhysX\Buildx64\debug\PhysXGpu_64.dll ..\..\bin\ /s /d /y
-exit 0

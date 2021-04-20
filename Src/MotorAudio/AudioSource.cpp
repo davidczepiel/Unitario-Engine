@@ -11,7 +11,7 @@ AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _rou
 	_position->z = 0;
 }
 
-AudioSource::AudioSource(std::string const& route): _system(nullptr), _channel(nullptr), _sound(), _route(route)
+AudioSource::AudioSource(std::string const& route) : _system(nullptr), _channel(nullptr), _sound(), _route(route)
 {
 	_position = new FMOD_VECTOR;
 	_position->x = 0;
@@ -36,7 +36,7 @@ void AudioSource::createAudio()
 
 	if (result != FMOD_OK) {
 		//throw EAudioSource("Error loading sound");
-	}	
+	}
 	_sound.push_back(audio);
 }
 
@@ -46,9 +46,9 @@ void AudioSource::play(int id)
 		_sound[id],		// buffer which sound in the channel
 		0,				// channel group, 0 means ungrouped
 		false,			// plays directly(no pause)
-		&_channel);		// return the assigned channel 
-		
-	if (result != FMOD_OK) 
+		&_channel);		// return the assigned channel
+
+	if (result != FMOD_OK)
 		throw EAudioSource("There are no free channels to play the sound or the sound pointer is nullptr");
 }
 
@@ -58,9 +58,9 @@ void AudioSource::update()
 }
 
 void AudioSource::pause()
-{	
+{
 	if (_channel != nullptr) {
-		bool isPause =  true;
+		bool isPause = true;
 		_channel->getPaused(&isPause);
 		_channel->setPaused(!isPause);
 	}
@@ -78,8 +78,8 @@ void AudioSource::stop()
 void AudioSource::setLoop(int id, int loop)
 {
 	if (loop == 0)
-		_sound[id]->setMode(FMOD_LOOP_OFF);	
-	else if (loop = -1) 
+		_sound[id]->setMode(FMOD_LOOP_OFF);
+	else if (loop = -1)
 		_sound[id]->setMode(FMOD_LOOP_NORMAL);
 	else {
 		_sound[id]->setMode(FMOD_LOOP_NORMAL);
@@ -89,7 +89,7 @@ void AudioSource::setLoop(int id, int loop)
 
 void AudioSource::set3D(int id, bool stereo)
 {
-	if(stereo)
+	if (stereo)
 		_sound[id]->setMode(FMOD_3D);
 	else
 		_sound[id]->setMode(FMOD_2D);
@@ -121,7 +121,7 @@ void AudioSource::set3DMinMaxDistance(float min, float max)
 
 void AudioSource::setPosition(float x, float y, float z)
 {
-	*_position = {x,y,z };
+	*_position = { x,y,z };
 }
 
 void AudioSource::setVelocity(float x, float y, float z)

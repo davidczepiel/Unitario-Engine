@@ -27,26 +27,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -73,26 +73,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)bin\</OutDir>
-    <TargetName>$(ProjectName)_x86_DEBUG</TargetName>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)bin\</OutDir>
-    <TargetName>$(ProjectName)_x86</TargetName>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)bin\</OutDir>
-    <TargetName>$(ProjectName)_x64_DEBUG</TargetName>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)bin\</OutDir>
-    <TargetName>$(ProjectName)_x64</TargetName>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +118,9 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
       <Command>
       </Command>
     </PreBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -147,6 +150,9 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
       <Command>
       </Command>
     </PreBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx86;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -171,6 +177,9 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
       <Command>
       </Command>
     </PreBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -199,21 +208,46 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
       <Command>
       </Command>
     </PreBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MotorAudio\MotorAudio.vcxproj">
+      <Project>{31f3c005-c623-403b-9b3e-f073ee5df54e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MotorFisico\MotorFisico.vcxproj">
+      <Project>{7c1832bd-e26f-40d8-a137-1334d56f05d0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MotorGrafico\MotorGrafico.vcxproj">
+      <Project>{d07093e9-ce54-4ee0-acb3-fab86c657b28}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Src\MotorUnitario\AnimatorComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\AudioSourceComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ButtonComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\CameraComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ColliderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Component.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ComponentFactory.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ComponentsFactory.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Engine.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GameObject.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\GamePadInput.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ImageRenderComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\InputManager.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\KeyboardInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\LightComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ListenerComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Logger.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\LuaParser.cpp" />
-    <ClCompile Include="..\..\Src\MotorUnitario\main.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\OverlayComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\RenderObjectComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\EngineTime.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
@@ -229,14 +263,21 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorUnitario\AnimatorComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\AudioSourceComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ButtonComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\CameraComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ComponentFactory.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ComponentsFactory.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ImageRenderComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />
@@ -245,6 +286,11 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\Logger.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\LuaParser.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\OverlayComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\EngineTime.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>

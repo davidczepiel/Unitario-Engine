@@ -12,6 +12,7 @@ class LightComponent: public Component
 {
 public:
 
+	LightComponent();
 	LightComponent(GameObject* gameObject);
 	~LightComponent();
 
@@ -161,6 +162,9 @@ public:
 	/// </summary>
 	/// <returns>if it's visible or not</returns>
 	inline const Light::LightType convertLightType(std::string type);
+	/// Sets the light position
+	/// </summary>
+	inline void setPosition(float x, float y, float z) { _light->setPosition(x, y, z); }
 
 private:
 	Light* _light;

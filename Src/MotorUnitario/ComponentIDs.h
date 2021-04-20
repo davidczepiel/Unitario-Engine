@@ -10,7 +10,7 @@ It's recommendable to keep an order when introducing a new Component to the enum
 namespace ComponentId {
 	enum ComponentId : unsigned int {
 		Transform = 0,
-		ImageRenderer,
+		ImageRender,
 		RenderObject,
 		Animator,
 		LightComponent,
@@ -18,10 +18,15 @@ namespace ComponentId {
 		Camera,
 	
 		Rigidbody,
-		Collider,
+		BoxCollider,
+		SphereCollider,
+		CapsuleCollider,
 	
 		AudioSource,
 		ListenerComponent,
+
+		OverlayComponent,
+		ButtonComponent,
 
 		//from this point, every id forward is of a component defined by the user
 		__StartPointUser__

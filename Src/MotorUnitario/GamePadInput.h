@@ -7,8 +7,19 @@
 #include <array>
 #include <bitset>
 
-#include "SDL_events.h"
-#include "SDL_joystick.h"
+union SDL_Event;
+struct _SDL_GameController;
+typedef struct _SDL_GameController SDL_GameController;
+
+typedef int32_t;
+typedef int32_t Sint32;
+typedef uint32_t;
+typedef uint32_t Uint32;
+
+typedef Sint32 SDL_JoystickID;
+
+typedef uint16_t;
+typedef uint16_t Uint16;
 
 #include "GamePadCodes.h"
 
