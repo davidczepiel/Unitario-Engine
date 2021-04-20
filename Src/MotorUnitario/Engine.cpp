@@ -9,6 +9,9 @@
 #include "ComponentsFactory.h"
 #include "ComponentFactory.h"
 #include "EngineTime.h"
+//DEscomentar
+#include "RigidBodyComponent.h"
+#include "Transform.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -50,14 +53,14 @@ void Engine::init()
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
-	_audioEngine = AudioEngine::getInstance();
-	_time = EngineTime::getInstance();
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
 	_graphicsEngine->loadScene(); //WIP
-
-
+	_physxEngine = PhysxEngine::getPxInstance();
+	_physxEngine->init();
+	_audioEngine = AudioEngine::getInstance();
+	_time = EngineTime::getInstance();
 }
 
 void Engine::run()

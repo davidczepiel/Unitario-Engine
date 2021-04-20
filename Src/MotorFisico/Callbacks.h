@@ -3,6 +3,9 @@
 
 #include <PxPhysicsAPI.h>
 
+physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes attributes0, physx::PxFilterData filterData0,
+	physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
+	physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize);
 class ContactReportCallback : public physx::PxSimulationEventCallback
 {
 	void onConstraintBreak(physx::PxConstraintInfo* constraints, physx::PxU32 count) { PX_UNUSED(constraints); PX_UNUSED(count); }
@@ -14,4 +17,4 @@ class ContactReportCallback : public physx::PxSimulationEventCallback
 	void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs);
 };
 
-#endif
+#endif __CALLBACKS_H__

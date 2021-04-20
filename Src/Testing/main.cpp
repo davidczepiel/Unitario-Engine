@@ -2,6 +2,9 @@
 #include "MotorUnitario/Exceptions.h"
 #include "MotorUnitario/Logger.h"
 #include "MotorUnitario/LuaParser.h"
+#include "MotorUnitario/Transform.h"
+#include "MotorUnitario/RigidBodyComponent.h"
+#include "MotorUnitario/GameObject.h"
 
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
@@ -16,6 +19,13 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 		Engine* prueba = Engine::getInstance();
 
 		prueba->init();
+		GameObject* go = prueba->addGameObject();
+
+		Transform* tr = new Transform();
+		go->addComponent(tr);
+
+		RigidBodyComponent* rb = new RigidBodyComponent(go, RigidBodyComponent::Type::Box);
+		go->addComponent(rb);
 		prueba->run();
 	}
 	catch (const ExcepcionTAD& e) {

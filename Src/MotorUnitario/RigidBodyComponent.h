@@ -15,15 +15,15 @@ class Vector3;
 class Transform;
 class GameObject;
 
-class RigidBodyComponent :
-	public Component
+class RigidBodyComponent :	public Component
 {
 public:
+	enum Type{ Box, Capsule, Sphere};
 	/// <summary>
 	/// Constructor of the class
 	/// </summary>
 	/// <param name="go">Gameobject this component is attached to</param>
-	RigidBodyComponent(GameObject* go);
+	RigidBodyComponent(GameObject* go, Type type);
 
 	/// <summary>
 	/// Constructor of the class
@@ -166,9 +166,19 @@ public:
 	/// <param name="linear">True to constrain the movement, false to constrain the rotation</param>
 	void constrainZ(bool constrain, bool linear = true);
 
+
+	/// <summary>
+	/// Callback for gameobject collision
+	/// </summary>
+	/// <param name="thisGO"></param>
+	/// <param name="otherGO"></param>
+	static void gameObjectsCollision(GameObject* thisGO, GameObject* otherGO);
+
 private:
 	RigidBody* _rb;
 	Transform* _tr;
 	Logger* _log;
+	Type _type;
+
 };
 #endif //!RIGIDBODYCOMPONENT_H

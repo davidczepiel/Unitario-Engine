@@ -10,6 +10,7 @@ namespace physx {
 	class PxCooking;
 	class PxPvd;
 	class PxScene;
+	class PxMaterial;
 };
 
 
@@ -45,6 +46,7 @@ public:
 	/// </summary>
 	/// <returns>A pointer to the physx scene</returns>
 	inline physx::PxScene* getScene() const { return _scene; }
+	inline physx::PxPhysics* getPhysics() const { return _mPhysics; }
 	
 private:
 
@@ -77,11 +79,17 @@ private:
 	/// Cooking object for extra physx utilities
 	/// </summary>
 	physx::PxCooking* _mCooking;
-
+	/// <summary>
+	/// PxMaterial for friction
+	/// </summary>
+	physx::PxMaterial* _mMaterial;
 	/// <summary>
 	/// Physx scene to simulate
 	/// </summary>
 	physx::PxScene* _scene;
+
+
+
 };
 
 #endif PHYSXENGINE_H
