@@ -100,7 +100,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			go->addComponent(tr);
 			break; 
 		}
-		case ComponentId::ComponentId::ImageRenderer: { break; }
+		case ComponentId::ComponentId::ImageRender: { break; }
 		case ComponentId::ComponentId::RenderObject: { break; }
 		case ComponentId::ComponentId::Animator: { break; }
 		case ComponentId::ComponentId::LightComponent: 
@@ -113,7 +113,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::ParticleSystem: { break; }
 		case ComponentId::ComponentId::Camera: { break; }
 		case ComponentId::ComponentId::Rigidbody: { break; }
-		case ComponentId::ComponentId::Collider: { break; }
+		case ComponentId::ComponentId::BoxCollider: { break; }
 		case ComponentId::ComponentId::AudioSource: 
 		{
 			AudioSourceComponent* as = new AudioSourceComponent(go);
@@ -138,7 +138,7 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 	if (cmp == "Transform")
 		return ComponentId::ComponentId::Transform;
 	else if (cmp == "ImageRenderer")
-		return ComponentId::ComponentId::ImageRenderer;
+		return ComponentId::ComponentId::ImageRender;
 	else if (cmp == "RenderObject")
 		return ComponentId::ComponentId::RenderObject;
 	else if(cmp == "Animator")

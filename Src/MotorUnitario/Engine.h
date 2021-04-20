@@ -58,6 +58,10 @@ public:
 	/// <param name="resourcesPath"> Resources.cfg path</param>
 	void setResourcesPath(std::string const& resourcesPath);
 
+	/// <summary>
+	/// Adds a GameObject to the list
+	/// </summary>
+	GameObject* addGameObject();
 protected:
 
 	/// <summary>
@@ -89,11 +93,6 @@ protected:
 	/// Called before the end of execution (free resources and shutdown engines)
 	/// </summary>
 	void shutDown();
-
-	/// <summary>
-	/// Adds a GameObject to the list
-	/// </summary>
-	GameObject* addGameObject();
 
 	/// <summary>
 	/// Removes the first appeareance of a GameObject
