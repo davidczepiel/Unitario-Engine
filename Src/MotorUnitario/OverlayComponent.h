@@ -26,6 +26,11 @@ public:
 	OverlayComponent(GameObject* go, std::string const& overlayName);
 	~OverlayComponent();
 
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
+
 	void start();
 
 	/// <summary>
