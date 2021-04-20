@@ -56,9 +56,9 @@ void CameraComponent::rollRadians(float radians)
 	_camera->rollRadians(radians);
 }
 
-void CameraComponent::setOrientation(float w, float x, float y, float z)
+void CameraComponent::setOrientation(float x, float y, float z)
 {
-	_camera->setOrientation(w, x, y, z);
+	_camera->setOrientation(x, y, z);
 }
 
 void CameraComponent::setPosition(float x, float y, float z)
@@ -99,4 +99,10 @@ void CameraComponent::setOrthoWindowDimensions(float w, float h)
 void CameraComponent::setViewportDimensions(float left, float top, float w, float h)
 {
 	_camera->setViewportDimensions(left, top, w, h);
+}
+
+const Vector3& CameraComponent::getOrientation()
+{
+	std::tuple<float, float, float> rot = _camera->getOrientation();
+	return Vector3(std::get<0>(rot), std::get<1>(rot), std::get<2>(rot));
 }

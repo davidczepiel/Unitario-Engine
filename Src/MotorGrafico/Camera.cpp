@@ -3,7 +3,7 @@
 #include <OgreCamera.h>
 #include <OgreRenderWindow.h>
 #include <OgreViewport.h>
-
+#include "Euler.h"
 Camera::Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum) :_camera(nullptr), _renderWindow(rWin), _node(nullptr),
 _viewport(nullptr)
 {
@@ -66,9 +66,10 @@ void Camera::rollRadians(float radians)
 	_node->roll(Ogre::Radian(radians));
 }
 
-void Camera::setOrientation(float w, float x, float y, float z)
+void Camera::setOrientation(float x, float y, float z)
 {
-	_node->setOrientation(w, x, y, z);
+	Ogre::Euler rot(x, y, z);
+	_node->setOrientation(rot.toQuaternion());
 }
 
 void Camera::setOrientation(Ogre::Quaternion orientation)
@@ -117,6 +118,16 @@ void Camera::setOrthoWindowDimensions(float w, float h)
 void Camera::setViewportDimensions(float left, float top, float w, float h)
 {
 	_viewport->setDimensions(left, top, w, h);
+}
+
+/// <summary>
+/// gets the rotation in degrees
+/// </summary>
+/// <returns>The rotation in degrees</returns>
+const std::tuple<float, float, float>& Camera::getOrientation() {
+	Ogre::Euler rot;
+	rot.fromQuaternion(_node->getOrientation());
+	return std::tuple<float, float, float>(rot.getPitch().valueDegrees(), rot.getYaw().valueDegrees(), rot.getRoll().valueDegrees());
 }
 
 Ogre::Viewport* Camera::getViewPort()

@@ -91,4 +91,4 @@ private:
 
 };
 
-#endif COMPONENT_H
+#endif //!COMPONENT_H

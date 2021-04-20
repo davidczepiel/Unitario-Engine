@@ -12,9 +12,12 @@ namespace Ogre {
 	class Quaternion;
 	class Radian;
 	class Degrees;
+	class Euler;
 }
 //class Transform;
 #include <string>
+#include <tuple>
+
 class Camera
 {
 public:
@@ -79,7 +82,7 @@ public:
 	/// <param name="x">The worlds x position that the camera will point at</param>
 	/// <param name="y">The worlds y position that the camera will point at</param>
 	/// <param name="z">The worlds z position that the camera will point at</param>
-	void setOrientation(float w, float x, float y, float z);
+	void setOrientation(float x, float y, float z);
 
 	/// <summary>
 	/// Adjusts the cameras node so that it is oriented given a Quarternion
@@ -146,6 +149,7 @@ public:
 	/// <param name="h">The viewport new height</param>
 	void setViewportDimensions(float left, float top, float w, float h);
 
+	const std::tuple<float, float, float>& getOrientation();
 	/// <summary>
 	/// Returns the viewport of the camera
 	/// </summary>
