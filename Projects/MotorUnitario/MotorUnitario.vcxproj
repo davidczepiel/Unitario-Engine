@@ -179,6 +179,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     </PreBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;$(SolutionDir)dependencies\Lua\Buildx64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>liblua.a</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -210,6 +211,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     </PreBuildEvent>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\SDL2\Buildx64;$(SolutionDir)dependencies\Lua\Buildx64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>liblua.a</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
