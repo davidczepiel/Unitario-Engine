@@ -81,10 +81,6 @@ public:
 	/// </summary>
 	GameObject* findGameObject(const std::string& name);
 
-	/// <summary>
-	/// Adds a GameObject to the list
-	/// </summary>
-	GameObject* addGameObject();
 protected:
 
 	/// <summary>
@@ -116,25 +112,6 @@ protected:
 	/// Called before the end of execution (free resources and shutdown engines)
 	/// </summary>
 	void shutDown();
-
-	/// <summary>
-	/// Removes the first appeareance of a GameObject
-	/// <param name="GO">: GameObject to remove</param>
-	/// </summary>
-	void remGameObject(GameObject* GO);
-
-	/// <summary>
-	/// Removes the first appearance of a GameObject based on its name
-	/// <param name="GOname">: name of the GameObject to remove</param>
-	/// </summary>
-	void remGameObjectString(const std::string& GOname);
-
-	/// <summary>
-	/// Searches a GameObject by its name and returns it if found, or null if not
-	///<param name="componentId">: id of component</param>
-	/// <returns>Returns the GameObject if it is found</returns>
-	/// </summary>
-	GameObject* findGameObject(const std::string& name);
 
 private:
 	/// <summary>
