@@ -11,6 +11,7 @@
 #include "AnimatorComponent.h"
 #include "ButtonComponent.h"
 #include "CameraComponent.h"
+#include "ImageRenderComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -104,7 +105,12 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			go->addComponent(tr);
 			break; 
 		}
-		case ComponentId::ComponentId::ImageRender: { break; }
+		case ComponentId::ComponentId::ImageRender: {
+			/*ImageRenderComponent* im = new ImageRenderComponent(go);
+			im->awake(data);
+			go->addComponent(im);
+			break; */
+		}
 		case ComponentId::ComponentId::RenderObject: { break; }
 		case ComponentId::ComponentId::Animator: 
 		{ 
@@ -166,7 +172,7 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 {
 	if (cmp == "Transform")
 		return ComponentId::ComponentId::Transform;
-	else if (cmp == "ImageRenderer")
+	else if (cmp == "ImageRender")
 		return ComponentId::ComponentId::ImageRender;
 	else if (cmp == "RenderObject")
 		return ComponentId::ComponentId::RenderObject;

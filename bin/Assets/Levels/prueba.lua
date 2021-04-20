@@ -39,11 +39,14 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = false,Di
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 
 go_3 = {}
-go_3[0] = { Name = "SexyAnimations", HowManyCmps = 2}
+go_3[0] = { Name = "SexyAnimations", HowManyCmps = 3}
 go_3[1] = { Component = "Transform", Coord = {X = 1, Y = 2, Z = 3}}
 go_3[2] = { Component = "Animator", HowManyStates = 2,
 			State1 = {Name = "initial", Loop = true},
 			State2 = {Name = "second", Loop = false}}
+go_3[3] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, MaterialName = "SoyFeo", Visible = false, 
+			BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT", BillboardRotationType = "BBR_VERTEX",
+			Scale = {X = 0.3, Y = 0.5, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 180}}
 
 go_4 = {}
 go_4[0] = {Name = "SexyButton", HowManyCmps = 2}
@@ -80,3 +83,9 @@ go_4[2] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", 
 --    Projection (F = orthographic, T = perspective)	Plane = {Near = 2, Far = 9999}, Projection = true, Fovy = 6, 
 --								 						Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
 --								 						OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 9, Top = 8, W = 7, H = 6}}
+
+-- ImageRender      -> go_goNumber[componentNumber] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, 
+--														MaterialName = "SoyFeo", Visible = false, 
+--														BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
+--														BillboardRotationType = "BBR_VERTEX",
+--														Scale = {X = 0.3, Y = 0.5, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 180}}
