@@ -2,6 +2,14 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+extern "C"
+{
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
+}
+#include "LuaBridge/LuaBridge.h"
+#include "ComponentIDs.h"
 class GameObject;
 
 class Component
@@ -13,9 +21,10 @@ public:
 	virtual ~Component();
 
 	/// <summary>
-	/// Initializes the component parameters with LUA, called once at the Factories.
+	/// Method to initialize required attributes for the component
 	/// </summary>
-	virtual void preinit() {}
+	virtual void awake(luabridge::LuaRef &data) {}
+
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
@@ -88,7 +97,6 @@ private:
 
 	unsigned int _id;
 	bool _enabled;
-
 };
 
 #endif //!COMPONENT_H

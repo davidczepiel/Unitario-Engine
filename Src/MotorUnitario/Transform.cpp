@@ -39,6 +39,12 @@ void Transform::setPosition(const Vector3& position)
 	}
 }
 
+void Transform::awake(luabridge::LuaRef& data)
+{
+	luabridge::LuaRef lua_coord = data["Coord"];
+	_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+	std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
+}
 void Transform::updateFromPhysics(const Vector3& position, const Vector3& rotation)
 {
 	_position = position;

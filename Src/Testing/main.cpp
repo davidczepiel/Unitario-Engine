@@ -1,9 +1,11 @@
 #include "MotorUnitario/Engine.h"
 #include "MotorUnitario/Exceptions.h"
 #include "MotorUnitario/Logger.h"
+#include "MotorUnitario/LuaParser.h"
 #include "MotorUnitario/Transform.h"
 #include "MotorUnitario/RigidBodyComponent.h"
 #include "MotorUnitario/GameObject.h"
+
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
 #else
@@ -13,7 +15,9 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 
 	try {
+		LuaParser* l = new LuaParser();
 		Engine* prueba = Engine::getInstance();
+
 		prueba->init();
 		GameObject* go = prueba->addGameObject();
 

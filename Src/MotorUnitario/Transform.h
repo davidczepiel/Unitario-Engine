@@ -15,6 +15,11 @@ public:
 	~Transform();
 
 	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
+
+	/// <summary>
 	/// Returns the current position of the transform
 	/// </summary>
 	inline const Vector3& getPosition() const { return _position; }

@@ -3,8 +3,7 @@
 
 #include  <fmod.hpp>
 
-Listener::Listener() : _attributes(), _listenerNumber(0) {
-
+Listener::Listener() : _attributes(new FMOD_3D_ATTRIBUTES()), _listenerNumber(0) {
 }
 Listener::~Listener() {
 
