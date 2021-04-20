@@ -1,7 +1,7 @@
 #include "MotorUnitario/Engine.h"
 #include "MotorUnitario/Exceptions.h"
 #include "MotorUnitario/Logger.h"
-//#include "MotorUnitario/LuaParser.h"
+#include "MotorUnitario/LuaParser.h"
 
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
@@ -12,7 +12,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 
 	try {
-		//LuaParser* l = new LuaParser();
+		LuaParser* l = new LuaParser();
 		Engine* prueba = Engine::getInstance();
 
 		prueba->init();
