@@ -14,6 +14,7 @@
 #include "ImageRenderComponent.h"
 #include "OverlayComponent.h"
 #include "RenderObjectComponent.h"
+#include "ParticleSystemComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -137,7 +138,14 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			//go->addComponent(l);
 			break; 
 		}
-		case ComponentId::ComponentId::ParticleSystem: { break; }
+		case ComponentId::ComponentId::ParticleSystem: 
+		{ 
+			//Cambiar por llamada a Factor�a para coger el new Y BORRAR ESTA L�NEA
+			//ParticleSystemComponent* p = new ParticleSystemComponent(go);
+			//p->awake(data);
+			//go->addComponent(p);
+			break; 
+		}
 		case ComponentId::ComponentId::Camera: { 
 			/*CameraComponent* ca = new CameraComponent(go);
 			ca->awake(data);
