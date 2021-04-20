@@ -16,6 +16,10 @@ class Vector3;
 
 class ColliderComponent : public Component {
 public:
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Callback for gameobject collision

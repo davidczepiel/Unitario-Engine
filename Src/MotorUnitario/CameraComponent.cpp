@@ -2,6 +2,19 @@
 #include "MotorGrafico/Camera.h"
 #include "ComponentIDs.h"
 
+void CameraComponent::awake(luabridge::LuaRef& data)
+{
+	setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
+	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
+	setProjection(data["Projection"].cast<bool>());
+	setFovY(data["Fovy"].cast<float>());
+	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
+		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
+	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
+	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(), 
+		data["Viewport"]["W"].cast<float>(), data["Viewport"]["H"].cast<float>());
+}
+
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
 }

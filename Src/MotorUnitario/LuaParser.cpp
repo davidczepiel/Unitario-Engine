@@ -10,9 +10,11 @@
 #include "LightComponent.h"
 #include "AnimatorComponent.h"
 #include "ButtonComponent.h"
+#include "CameraComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
+
 LuaParser::LuaParser()
 {
 #if (defined _DEBUG)
@@ -121,7 +123,12 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			//break; 
 		}
 		case ComponentId::ComponentId::ParticleSystem: { break; }
-		case ComponentId::ComponentId::Camera: { break; }
+		case ComponentId::ComponentId::Camera: { 
+			/*CameraComponent* ca = new CameraComponent(go);
+			ca->awake(data);
+			go->addComponent(ca);
+			break;*/
+		}
 		case ComponentId::ComponentId::Rigidbody: { break; }
 		case ComponentId::ComponentId::BoxCollider: { break; }
 		case ComponentId::ComponentId::SphereCollider: { break; }

@@ -23,9 +23,12 @@ go_0[3] = { Component = "Listener", ListenerNumber = 0,
 			Velocity = {X = 1, Y = 0, Z = 5}, Forward = {X = 3, Y = 2, Z = 1}, Up = {X = 8, Y = 7, Z = 9}}
  
 go_1 = {}
-go_1[0] = { Name = "Boss", HowManyCmps = 2}
+go_1[0] = { Name = "Boss", HowManyCmps = 3}
 go_1[1] = { Component = "Transform", Coord = {X = 3, Y = 3, Z = 3}}
 go_1[2] = { Component = "AudioSource", Route = "./asdfasdf/treh.mp3"}
+go_1[3] = { Component = "Camera", Orientation = {X = 3, Y = 2, Z = 1}, Plane = {Near = 2, Far = 9999},
+			Projection = true, Fovy = 6, Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
+			OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 9, Top = 8, W = 7, H = 6}}
 
 go_2 = {}
 go_2[0] = { Name = "DarkLight", HowManyCmps = 2}
@@ -52,6 +55,7 @@ go_4[2] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", 
 
 
 -- COMPONENT EXAMPLES
+
 -- Transform 		-> go_goNumber[componentNumber] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
 
 -- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route = "./src"}
@@ -72,3 +76,7 @@ go_4[2] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", 
 
 -- ButtonComponent	-> go_goNumber[componentNumber] = { Component = "ButtonComponent", Active = false, OverLayName="ovName", ContainerName= "SexyContainer", 
 --														DefaultMaterial = "defaultMaterial", HoverMaterial = "hoverMaterial", PressMaterial = "pressMaterial"}
+-- CameraComponent  -> go_goNumber[componentNumber] = { Component = "Camera", Orientation = {X = 3, Y = 2, Z = 1}, 
+--    Projection (F = orthographic, T = perspective)	Plane = {Near = 2, Far = 9999}, Projection = true, Fovy = 6, 
+--								 						Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
+--								 						OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 9, Top = 8, W = 7, H = 6}}
