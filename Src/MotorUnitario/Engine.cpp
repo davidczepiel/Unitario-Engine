@@ -74,7 +74,7 @@ void Engine::init()
 	//GameObject que va a reproducir el sonido
 	GameObject* audioGO = addGameObject();
 	Transform* t2 = new Transform(audioGO);
-	t2->setPosition(Vector3(10, 0, 0));
+	t2->setPosition(Vector3(0, 0, 0));
 	audioGO->addComponent(t2);
 	AudioSourceComponent* aSource = new AudioSourceComponent(audioGO, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
 	aSource->setStereo(0, true);
@@ -87,8 +87,8 @@ void Engine::init()
 	jugador = addGameObject();
 
 	Transform* t = new Transform(jugador);
-	t->setPosition(Vector3(100, 0, 0));
-	t->setRotation(Vector3(0, 0, 1));
+	t->setPosition(Vector3(-10, 0, 0));
+	t->setRotation(Vector3(0, 0, 0));
 	jugador->addComponent(t);
 
 	ListenerComponent* listener = new ListenerComponent(jugador);
@@ -155,6 +155,12 @@ void Engine::testing()
 		Vector3 pos = t->getPosition();
 		pos = (Vector3(pos.getX(), pos.getY() - vel, pos.getZ()));
 		t->setPosition(pos);
+	}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_F)) {
+		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
+		Vector3 rot = t->getRotation();
+		rot = (Vector3(rot.getX(), rot.getY() - vel, rot.getZ()));
+		t->setRotation(rot);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_P)) {
 		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));

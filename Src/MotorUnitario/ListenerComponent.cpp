@@ -5,6 +5,10 @@
 #include "ComponentIDs.h"
 #include "Logger.h"
 
+#include <algorithm>
+
+#define PI 3.14159265
+
 ListenerComponent::ListenerComponent() :Component(ComponentId::ListenerComponent), _tr(nullptr), _listener(nullptr)
 {
 }
@@ -20,6 +24,7 @@ ListenerComponent::~ListenerComponent()
 void ListenerComponent::start()
 {
 	_listener = new Listener();
+	_listener->setUp(0, 1, 0);
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 }
 
@@ -30,11 +35,9 @@ void ListenerComponent::update()
 	float z = static_cast<float>(_tr->getPosition().getZ());
 	_listener->setPosition(x, y, z);
 
-	float xR = static_cast<float>(_tr->getRotation().getX());
-	float yR = static_cast<float>(_tr->getRotation().getY());
-	float zR = static_cast<float>(_tr->getRotation().getZ());
-	_listener->setForward(xR, 0, zR);
-	_listener->setUp(xR, yR, 0);
+	Vector3 forward = _tr->getForward();
+
+	_listener->setForward(forward.getX(), forward.getY(), forward.getZ());
 }
 
 void ListenerComponent::lateUpdate()
