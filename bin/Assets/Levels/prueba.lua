@@ -12,7 +12,7 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 5
+HowManyGameObjects = 6
 
 go_0 = {}
 go_0[0] = { Name = "Player", HowManyCmps = 3}

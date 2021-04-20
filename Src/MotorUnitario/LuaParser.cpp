@@ -110,16 +110,16 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::RenderObject: 
 		{ 
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
-			RenderObjectComponent* r = new RenderObjectComponent(go);
+			/*RenderObjectComponent* r = new RenderObjectComponent(go);
 			r->awake(data);
-			go->addComponent(r);
+			go->addComponent(r);*/
 			break; 
 		}
 		case ComponentId::ComponentId::ImageRender: {
 			/*ImageRenderComponent* im = new ImageRenderComponent(go);
 			im->awake(data);
-			go->addComponent(im);
-			break; */
+			go->addComponent(im);*/
+			break; 
 		}
 		case ComponentId::ComponentId::Animator: 
 		{ 
@@ -127,7 +127,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			//AnimatorComponent* a = new AnimatorComponent(go);
 			//a->awake(data);
 			//go->addComponent(a);
-			//break; 
+			break; 
 		}
 		case ComponentId::ComponentId::LightComponent: 
 		{ 
@@ -135,14 +135,14 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			//LightComponent* l = new LightComponent(go);
 			//l->awake(data);
 			//go->addComponent(l);
-			//break; 
+			break; 
 		}
 		case ComponentId::ComponentId::ParticleSystem: { break; }
 		case ComponentId::ComponentId::Camera: { 
 			/*CameraComponent* ca = new CameraComponent(go);
 			ca->awake(data);
-			go->addComponent(ca);
-			break;*/
+			go->addComponent(ca);*/
+			break;
 		}
 		case ComponentId::ComponentId::Rigidbody: { break; }
 		case ComponentId::ComponentId::BoxCollider: { break; }
@@ -166,7 +166,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			//OverlayComponent* o = new OverlayComponent(go);
 			//o->awake(data);
 			//go->addComponent(o);
-			//break;
+			break;
 		}
 		case ComponentId::ComponentId::ButtonComponent: {
 			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
