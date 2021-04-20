@@ -8,12 +8,14 @@ ButtonComponent::ButtonComponent():Component(ComponentId::ButtonComponent),
 _button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
+	
 }
 
 ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO),
 _button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(),_containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
+	
 }
 
 ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, 
@@ -27,6 +29,19 @@ ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std:
 ButtonComponent::~ButtonComponent()
 {
 	delete _button;
+}
+
+void ButtonComponent::awake(luabridge::LuaRef& data)
+{
+	_overlayName = data["OverLayName"].cast<std::string>();
+	_button = new OverlayElement(_overlayName);
+	_active = data["Active"].cast<bool>();
+	_containerName = data["ContainerName"].cast<std::string>();
+	_defaultMaterial = data["ContainerName"].cast<std::string>();
+	_hoverMaterial = data["HoverMaterial"].cast<std::string>();
+	_pressMaterial = data["PressMaterial"].cast<std::string>();
+
+	std::cout << "ButtonComponent loaded" << std::endl;
 }
 
 void ButtonComponent::start()

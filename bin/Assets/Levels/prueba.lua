@@ -12,7 +12,7 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 4
+HowManyGameObjects = 5
 
 go_0 = {}
 go_0[0] = { Name = "Player", HowManyCmps = 3}
@@ -42,19 +42,33 @@ go_3[2] = { Component = "Animator", HowManyStates = 2,
 			State1 = {Name = "initial", Loop = true},
 			State2 = {Name = "second", Loop = false}}
 
+go_4 = {}
+go_4[0] = {Name = "SexyButton", HowManyCmps = 2}
+go_4[1] = {Component = "Transform", Coord = {X = 1, Y = 2, Z = 3}}
+go_4[2] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", ContainerName= "SexyContainer", 
+			DefaultMaterial = "defaultMaterial", HoverMaterial = "hoverMaterial", PressMaterial = "pressMaterial"}
+
+
 
 
 -- COMPONENT EXAMPLES
 -- Transform 		-> go_goNumber[componentNumber] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
+
 -- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route = "./src"}
+
 -- LightComponent	-> go_goNumber[componentNumber] = { Component = "LightComponent", LightType= "POINT", Visible = false,
 --														Diffuse = {Red = 1, Green= 1, Blue = 1} 
 --														Specular = {Red = 1, Green= 1, Blue = 1}
 --														Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1}
 --														SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
+
 -- ListenerComponent-> go_goNumber[componentNumber] = { Component = "Listener", ListenerNumber = 0, 
 --														Velocity = {X = 1, Y = 0, Z = 5}, Forward = {X = 3, Y = 2, Z = 1}, Up = {X = 8, Y = 7, Z = 9}}
+
 -- AnimatorComponent-> go_goNumber[componentNumber] = { Component = "Animator", HowManyStates = 2,
 --														State1 = {Name = "initial", Loop = true},
 --														State2 = {Name = "second", Loop = false},
 --														StateN = {Name = "anotherOne", Loop = "true"}}
+
+-- ButtonComponent	-> go_goNumber[componentNumber] = { Component = "ButtonComponent", Active = false, OverLayName="ovName", ContainerName= "SexyContainer", 
+--														DefaultMaterial = "defaultMaterial", HoverMaterial = "hoverMaterial", PressMaterial = "pressMaterial"}

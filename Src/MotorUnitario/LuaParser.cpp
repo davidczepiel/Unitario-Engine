@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "LightComponent.h"
 #include "AnimatorComponent.h"
+#include "ButtonComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -123,6 +124,8 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::Camera: { break; }
 		case ComponentId::ComponentId::Rigidbody: { break; }
 		case ComponentId::ComponentId::BoxCollider: { break; }
+		case ComponentId::ComponentId::SphereCollider: { break; }
+		case ComponentId::ComponentId::CapsuleCollider: { break; }
 		case ComponentId::ComponentId::AudioSource: 
 		{
 			AudioSourceComponent* as = new AudioSourceComponent(go);
@@ -134,6 +137,16 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			ListenerComponent* li = new ListenerComponent(go);
 			li->awake(data);
 			go->addComponent(li);
+			break;
+		}
+		case ComponentId::ComponentId::OverlayComponent: {
+			break;
+		}
+		case ComponentId::ComponentId::ButtonComponent: {
+			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//ButtonComponent* b = new ButtonComponent(go);
+			//b->awake(data);
+			//go->addComponent(b);
 			break;
 		}
 		default:
@@ -160,11 +173,40 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 		return ComponentId::ComponentId::Camera;
 	else if (cmp == "Rigidbody")
 		return ComponentId::ComponentId::Rigidbody;
+	else if (cmp == "BoxCollider")
+		return ComponentId::ComponentId::BoxCollider;
+	else if (cmp == "SphereCollider")
+		return ComponentId::ComponentId::SphereCollider;
+	else if (cmp == "CapsuleCollider")
+		return ComponentId::ComponentId::CapsuleCollider;
 	else if (cmp == "AudioSource")
 		return ComponentId::ComponentId::AudioSource;
 	else if (cmp == "Listener")
 		return ComponentId::ComponentId::ListenerComponent;
+	else if (cmp == "OverlayComponent")
+		return ComponentId::ComponentId::OverlayComponent;
+	else if (cmp == "ButtonComponent")
+		return ComponentId::ComponentId::ButtonComponent;
 }
+
+/*		Transform = 0,
+		ImageRender,
+		RenderObject,
+		Animator,
+		LightComponent,
+		ParticleSystem,
+		Camera,
+	
+		Rigidbody,
+		BoxCollider,
+		SphereCollider,
+		CapsuleCollider,
+	
+		AudioSource,
+		ListenerComponent,
+
+		OverlayComponent,
+		ButtonComponent,*/
 
 //void LuaParser::test()
 //{

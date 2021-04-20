@@ -34,6 +34,12 @@ public:
 	/// Destructor of the class
 	/// </summary>
 	~ButtonComponent();
+
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Inicialize Overlay Element
 	/// </summary>
