@@ -6,21 +6,26 @@
 #include "Logger.h"
 #include "Vector3.h"
 
-RigidBodyComponent::RigidBodyComponent(GameObject* go) :Component(3, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
+RigidBodyComponent::RigidBodyComponent(GameObject* go, Type type) : Component(ComponentId::Rigidbody, go), _rb(), _tr(nullptr), _log(nullptr), _type(type)
 {
 	_log = Logger::getInstance();
+	switch (_type)
+	{
+	case Type::Box:		_rb = new RigidBody(10, 10, 10, go, gameObjectsCollision);
+	case Type::Capsule:	_rb = new RigidBody(10, 20, go, gameObjectsCollision);
+	case Type::Sphere:	_rb = new RigidBody(10, go, gameObjectsCollision);
+	default:break;
+	}
 }
 
-RigidBodyComponent::RigidBodyComponent(const std::string& path, GameObject* go) : Component(3, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
+RigidBodyComponent::RigidBodyComponent(const std::string& path, GameObject* go) : Component(ComponentId::Rigidbody, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
-	_log = Logger::getInstance();
-
+	_log = Logger::getInstance(); 
 }
 
-RigidBodyComponent::RigidBodyComponent() : Component(3, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
+RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
 	_log = Logger::getInstance();
-
 }
 
 RigidBodyComponent::~RigidBodyComponent()
@@ -165,4 +170,9 @@ void RigidBodyComponent::constrainZ(bool constrain, bool linear)
 {
 	if (!_rb->constrainZ(constrain, linear))
 		_log->log("trying to move a constrain rigidBody will result in nothig", Logger::Level::WARN);
+}
+void RigidBodyComponent::gameObjectsCollision(GameObject* thisGO, GameObject* otherGO)
+{
+	thisGO->onCollision(otherGO);
+	otherGO->onCollision(thisGO);
 }

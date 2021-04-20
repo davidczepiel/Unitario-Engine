@@ -6,6 +6,7 @@
 #include "PxRigidDynamic.h"
 #include "PxRigidStatic.h"
 #include "PhysxEngine.h"
+#include <iostream>
 
 RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isKinematic, const std::tuple<float, float, float>& position,
 	bool isStatic, float linearDamping, float angularDamping, float staticFriction,
@@ -346,7 +347,7 @@ void RigidBody::setFlags(physx::PxShape* shape)
 
 void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
 {
-	_physx = &PhysxEngine::getPxInstance()->getScene()->getPhysics();
+	_physx = PhysxEngine::getPxInstance()->getPhysics();
 	_scene = PhysxEngine::getPxInstance()->getScene();
 
 	_transform = new physx::PxTransform(TUPLE_TO_PHYSXVEC3(pos));
@@ -361,8 +362,8 @@ void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mas
 		_dynamicBody->setLinearDamping(linearDamping);
 		_dynamicBody->setAngularDamping(angularDamping);
 		_dynamicBody->userData = this;
+		_dynamicBody->setMass(mass);
 	}
-	_dynamicBody->setMass(mass);
 }
 
 std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
