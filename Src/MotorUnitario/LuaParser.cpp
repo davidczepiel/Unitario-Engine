@@ -8,6 +8,7 @@
 #include "ListenerComponent.h"
 #include "Transform.h"
 #include "LightComponent.h"
+#include "AnimatorComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -102,13 +103,21 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		}
 		case ComponentId::ComponentId::ImageRender: { break; }
 		case ComponentId::ComponentId::RenderObject: { break; }
-		case ComponentId::ComponentId::Animator: { break; }
+		case ComponentId::ComponentId::Animator: 
+		{ 
+			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//AnimatorComponent* a = new AnimatorComponent(go);
+			//a->awake(data);
+			//go->addComponent(a);
+			//break; 
+		}
 		case ComponentId::ComponentId::LightComponent: 
 		{ 
-			/*LightComponent* l = new LightComponent(go);
-			l->awake(data);
-			go->addComponent(l);
-			break; */
+			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//LightComponent* l = new LightComponent(go);
+			//l->awake(data);
+			//go->addComponent(l);
+			//break; 
 		}
 		case ComponentId::ComponentId::ParticleSystem: { break; }
 		case ComponentId::ComponentId::Camera: { break; }

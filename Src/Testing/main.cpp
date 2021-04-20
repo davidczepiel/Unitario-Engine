@@ -19,14 +19,14 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 		Engine* prueba = Engine::getInstance();
 
 		prueba->init();
-		GameObject* go = prueba->addGameObject();
+		/*GameObject* go = prueba->addGameObject();
 
 		Transform* tr = new Transform();
 		go->addComponent(tr);
 
 		RigidBodyComponent* rb = new RigidBodyComponent(go, RigidBodyComponent::Type::Box);
 		go->addComponent(rb);
-		prueba->run();
+		prueba->run();*/
 	}
 	catch (const ExcepcionTAD& e) {
 		Logger::getInstance()->log(e.msg(), Logger::Level::FATAL);

@@ -33,6 +33,11 @@ public:
 	AnimatorComponent();
 	AnimatorComponent(GameObject* gameObject);
 	~AnimatorComponent();
+	
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Checks if a transition must be made, and changes the animation to that state
@@ -82,7 +87,6 @@ private:
 	State* _actualState, *_initialState;
 
 	Animator* _animator;
-
 };
 
 #endif ANIMATORCOMPONENT_H

@@ -57,8 +57,8 @@ void Engine::init()
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
 	_graphicsEngine->loadScene(); //WIP
-	_physxEngine = PhysxEngine::getPxInstance();
-	_physxEngine->init();
+	/*_physxEngine = PhysxEngine::getPxInstance();
+	_physxEngine->init();*/
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
 }

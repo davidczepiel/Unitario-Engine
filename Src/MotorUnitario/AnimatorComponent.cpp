@@ -23,6 +23,15 @@ AnimatorComponent::~AnimatorComponent()
 	delete _animator; _animator = nullptr;
 }
 
+void AnimatorComponent::awake(luabridge::LuaRef& data)
+{
+	int x = data["HowManyStates"].cast<int>();
+	/*_initialState =*/ createState(data["State1"]["Name"].cast<std::string>(), data["State1"]["Loop"].cast<bool>());
+	createState(data["State2"]["Name"].cast<std::string>(), data["State2"]["Loop"].cast<bool>());
+	//Añadir for con conversión de nombre de States cuando verifique cómo inicializar esto -> MARCO: LUEGO BORRAR ESTA LÍNEA.
+	std::cout << "Animator component loaded" << std::endl;
+}
+
 void AnimatorComponent::lateUpdate()
 {
 	//If initialState hasn't been set
