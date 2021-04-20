@@ -94,6 +94,8 @@ public:
 	/// </summary>
 	inline Ogre::Viewport* getWindowViewPort() { return _viewPort; }
 
+	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder);
+
 private:
 
 	/// <summary>

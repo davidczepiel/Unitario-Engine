@@ -25,8 +25,7 @@ public:
 	/// <param name="cameraNum">An identifier in case the user wants to create multiple cameras</param>
 	Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum = 0);
 
-	Camera();
-	Camera(std::string path, int zOrder = 1);
+	Camera(int zOrder = 1);
 	~Camera();
 
 	/// <summary>
@@ -147,6 +146,16 @@ public:
 	void setViewportDimensions(float left, float top, float w, float h);
 
 	/// <summary>
+	/// Creates a new viewport if visible is True and removes it if Visible is false
+	/// </summary>
+	/// <param name="visible"> Visibilit of the viewport </param>
+	/// <param name="x">The viewport new x position</param>
+	/// <param name="y">The viewport new y position</param>
+	/// <param name="w">The viewport new width</param>
+	/// <param name="h">The viewport new height</param>
+	void setViewportVisibility(bool visible, float x = 0., float y = 0., float w = 1., float h = 1.);
+
+	/// <summary>
 	/// Returns the viewport of the camera
 	/// </summary>
 	/// <return> returns the camera viewport <return>
@@ -158,6 +167,9 @@ private:
 	Ogre::RenderWindow* _renderWindow;
 	Ogre::Viewport* _viewport;
 	Ogre::SceneNode* _node;
+
+	bool _visible;
+	int _zOrder;
 };
 
 #endif //!CAMERA_H

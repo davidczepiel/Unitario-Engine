@@ -284,6 +284,7 @@ void GraphicsEngine::loadScene()
 	_defaultCamera = _sceneManager->createCamera("DefaultCamera");
 	_viewPort = _window->addViewport(_defaultCamera);
 	_viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+	_viewPort->setDimensions(0., 0., 0., 0.);
 
 	Ogre::SceneNode* nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("pruebaCubo");
 	Ogre::Entity* ent = _sceneManager->createEntity("cube.mesh");
@@ -312,4 +313,11 @@ void GraphicsEngine::setWindowGrab(bool _grab)
 	SDL_SetWindowGrab(_sdlWindow, grab);
 	//SDL_SetRelativeMouseMode(grab);
 	SDL_ShowCursor(true);
+}
+
+Ogre::Viewport* GraphicsEngine::setupViewport(Ogre::Camera* cam, int zOrder)
+{
+	Ogre::Viewport* vp = _window->addViewport(cam, zOrder);
+	vp->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+	return vp;
 }

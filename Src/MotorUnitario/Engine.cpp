@@ -81,7 +81,7 @@ void Engine::init()
 	aSource->set3DMinMaxDistanceChannel(5, 10);
 	audioGO->addComponent(aSource);
 	_GOs.push_back(audioGO);
-	aSource->playAudio(0);
+	//aSource->playAudio(0);
 
 	//GameObject que supone el listener
 	jugador = addGameObject();
@@ -92,14 +92,24 @@ void Engine::init()
 	jugador->addComponent(t);
 
 	ListenerComponent* listener = new ListenerComponent(jugador);
-	jugador->addComponent(listener);
+	//jugador->addComponent(listener);
 
-	CameraComponent* cam = new CameraComponent("Assets/Audio/ProtoDarkMaze_Menu.mp3", 2, jugador);
-	cam->setViewportDimensions(0., 0., 0.5, 0.5);
+	CameraComponent* cam = new CameraComponent(1, jugador);
+	cam->setViewportDimensions(0., 0., 1., 1.);
 	jugador->addComponent(cam);
 
 	_GOs.push_back(jugador);
 
+	TEST = addGameObject();
+
+	Transform* tt = new Transform(TEST);
+	tt->setPosition(Vector3(-10, 0, 0));
+	tt->setRotation(Vector3(0, 0, 0));
+	TEST->addComponent(tt);
+
+	CameraComponent* cam2 = new CameraComponent(2, TEST);
+	cam2->setViewportDimensions(0.5, 0.5, 0.5, 0.5);
+	TEST->addComponent(cam2);
 }
 
 void Engine::run()
@@ -163,14 +173,12 @@ void Engine::testing()
 		t->setRotation(rot);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_P)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		CameraComponent* c = static_cast<CameraComponent*>(jugador->getComponent(ComponentId::Camera));
-		c->setViewportDimensions(0.1, 0.1, 0.1, 0.1);
+		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
+		c->setViewportVisibility(true);
 	}
 	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_O)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		CameraComponent* c = static_cast<CameraComponent*>(jugador->getComponent(ComponentId::Camera));
-		c->setViewportDimensions(0., 0., 0.5, 0.5);
+		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
+		c->setViewportVisibility(false);
 	}
 }
 

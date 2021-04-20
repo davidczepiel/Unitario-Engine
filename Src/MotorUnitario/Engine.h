@@ -142,6 +142,7 @@ private:
 	Time* _time;
 
 	GameObject* jugador;
+	GameObject* TEST;
 
 	bool _run;
 };

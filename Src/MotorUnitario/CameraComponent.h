@@ -16,7 +16,7 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	CameraComponent();
-	CameraComponent(std::string const& route, int zOrder, GameObject* gameObject);
+	CameraComponent(int zOrder, GameObject* gameObject);
 	CameraComponent(GameObject* gameObject);
 
 	/// <summary>
@@ -143,6 +143,16 @@ public:
 	/// <param name="w">The new window width</param>
 	/// <param name="h">The new window height</param>
 	void setOrthoWindowDimensions(float w, float h);
+
+	/// <summary>
+	/// Creates a new viewport if visible is True and removes it if Visible is false
+	/// </summary>
+	/// <param name="visible"> Visibilit of the viewport </param>
+	/// <param name="x">The viewport new x position</param>
+	/// <param name="y">The viewport new y position</param>
+	/// <param name="w">The viewport new width</param>
+	/// <param name="h">The viewport new height</param>
+	void setViewportVisibility(bool visible, float x = 0., float y = 0., float w = 1., float h = 1.);
 
 	/// <summary>
 	/// Sets the viewport dimensions

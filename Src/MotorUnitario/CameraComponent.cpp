@@ -8,9 +8,9 @@ CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nul
 {
 }
 
-CameraComponent::CameraComponent(std::string const& route, int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
+CameraComponent::CameraComponent(int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
 {
-	_camera = new Camera(route, zOrder);
+	_camera = new Camera(zOrder);
 }
 
 CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
@@ -113,6 +113,11 @@ void CameraComponent::setFrustrumDimensions(float left, float right, float top, 
 void CameraComponent::setOrthoWindowDimensions(float w, float h)
 {
 	_camera->setOrthoWindowDimensions(w, h);
+}
+
+void CameraComponent::setViewportVisibility(bool visible, float x, float y, float w, float h)
+{
+	_camera->setViewportVisibility(visible, x, y, w, h);
 }
 
 void CameraComponent::setViewportDimensions(float left, float top, float w, float h)
