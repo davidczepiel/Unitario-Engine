@@ -12,6 +12,7 @@
 #include "ButtonComponent.h"
 #include "CameraComponent.h"
 #include "OverlayComponent.h"
+#include "RenderObjectComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -106,7 +107,14 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			break; 
 		}
 		case ComponentId::ComponentId::ImageRender: { break; }
-		case ComponentId::ComponentId::RenderObject: { break; }
+		case ComponentId::ComponentId::RenderObject: 
+		{ 
+			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			RenderObjectComponent* r = new RenderObjectComponent(go);
+			r->awake(data);
+			go->addComponent(r);
+			break; 
+		}
 		case ComponentId::ComponentId::Animator: 
 		{ 
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
@@ -195,9 +203,9 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 		return ComponentId::ComponentId::AudioSource;
 	else if (cmp == "Listener")
 		return ComponentId::ComponentId::ListenerComponent;
-	else if (cmp == "Overlay")
+	else if (cmp == "OverlayComponent")
 		return ComponentId::ComponentId::OverlayComponent;
-	else if (cmp == "Button")
+	else if (cmp == "ButtonComponent")
 		return ComponentId::ComponentId::ButtonComponent;
 }
 

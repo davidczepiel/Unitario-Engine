@@ -48,9 +48,16 @@ go_3[2] = { Component = "Animator", HowManyStates = 2,
 go_4 = {}
 go_4[0] = {Name = "SexyButton", HowManyCmps = 2}
 go_4[1] = {Component = "Transform", Coord = {X = 1, Y = 2, Z = 3}}
-go_4[2] = {Component = "OverLay", Hide=true, Name = "SexyOverlay", Container = "SexyContainer", Material= "SexyOverlaymMaterial"}
+go_4[2] = {Component = "OverlayComponent", Hide=true, Name = "SexyOverlay", Container = "SexyContainer", Material= "SexyOverlaymMaterial"}
 go_4[3] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", ContainerName= "SexyContainer", 
 			DefaultMaterial = "defaultMaterial", HoverMaterial = "hoverMaterial", PressMaterial = "pressMaterial"}
+
+go_5 = {}
+go_5[0] = {Name = "SexyRenderObject", HowManyCmps = 2}
+go_5[1] = {Component = "Transform", Coord = {X = 1, Y = 2, Z = 3}}
+go_5[2] = {Component = "RenderObject", MeshName="SexyMesh", Material="SexyMaterial", 
+			RotateAngle = 1, Rotate={X=1, Y=1, Z=1}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
+			Visible=false, Shadows=false, RenderingDistance = 1}
 
 
 
@@ -75,7 +82,7 @@ go_4[3] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", 
 --														State2 = {Name = "second", Loop = false},
 --														StateN = {Name = "anotherOne", Loop = "true"}}
 
--- ButtonComponent	-> go_goNumber[componentNumber] = { Component = "Button", Active = false, OverLayName="ovName", ContainerName= "SexyContainer", 
+-- ButtonComponent	-> go_goNumber[componentNumber] = { Component = "ButtonComponent", Active = false, OverLayName="ovName", ContainerName= "SexyContainer", 
 --														DefaultMaterial = "defaultMaterial", HoverMaterial = "hoverMaterial", PressMaterial = "pressMaterial"}
 
 -- CameraComponent  -> go_goNumber[componentNumber] = { Component = "Camera", Orientation = {X = 3, Y = 2, Z = 1}, 
@@ -83,4 +90,8 @@ go_4[3] = {Component = "ButtonComponent", Active = false, OverLayName="ovName", 
 --								 						Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
 --								 						OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 9, Top = 8, W = 7, H = 6}}
 
--- Overlay 			-> go_goNumber[componentNumber] = {Component = "OverLay", Hide=true, Name = "SexyOverlay", Container = "SexyContainer", Material= "SexyOverlaymMaterial"}
+-- Overlay 			-> go_goNumber[componentNumber] = {Component = "OverlayComponent", Hide=true, Name = "SexyOverlay", Container = "SexyContainer", Material= "SexyOverlaymMaterial"}
+
+-- RenderObject 	-> go_goNumber[componentNumber] = {Component = "RenderObject", MeshName="SexyMesh", Material="SexyMaterial", 
+--														RotateAngle = 1, Rotate={X=1, Y=1, Z=1}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
+--														Visible=false, Shadows=false, RenderingDistance = 1}
