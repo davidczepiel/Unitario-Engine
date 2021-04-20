@@ -4,6 +4,10 @@
 #include "ComponentIDs.h"
 #include "Transform.h"
 
+void ColliderComponent::awake(luabridge::LuaRef& data)
+{
+}
+
 ColliderComponent::ColliderComponent(int id, GameObject* gameObject) : Component(id, gameObject), _collider(nullptr)
 {
 }
