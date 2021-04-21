@@ -275,38 +275,6 @@ void GraphicsEngine::render()
 	catch (Ogre::Exception e) { std::cout << e.what() << "\n"; }
 }
 
-void GraphicsEngine::loadScene()
-{
-	Ogre::Light* light = _sceneManager->createLight("coso");
-	light->setType(Ogre::Light::LT_DIRECTIONAL);
-	light->setDiffuseColour(0.75, 0.75, 0.75);
-
-	_defaultCamera = _sceneManager->createCamera("DefaultCamera");
-	_viewPort = _window->addViewport(_defaultCamera);
-	_viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
-	_viewPort->setDimensions(0., 0., 0., 0.);
-
-	Ogre::SceneNode* nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("pruebaCubo");
-	Ogre::Entity* ent = _sceneManager->createEntity("cube.mesh");
-	ent->setMaterialName("Practica1/Yellow");
-	nodo->setPosition(Ogre::Vector3(300, 0, -1000));
-	nodo->attachObject(ent);
-
-	nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("barril");
-	ent = _sceneManager->createEntity("Barrel.mesh");
-	ent->setMaterialName("Practica1/Metal");
-	nodo->scale(Ogre::Vector3(10, 10, 10));
-	nodo->setPosition(Ogre::Vector3(400, 0, -1000));
-	nodo->attachObject(ent);
-
-	nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("cabesa");
-	ent = _sceneManager->createEntity("ogrehead.mesh");
-	ent->setMaterialName("Practica1/Red");
-	nodo->scale(Ogre::Vector3(5, 5, 5));
-	nodo->setPosition(Ogre::Vector3(550, 0, -1000));
-	nodo->attachObject(ent);
-}
-
 void GraphicsEngine::setWindowGrab(bool _grab)
 {
 	SDL_bool grab = SDL_bool(_grab);
@@ -315,9 +283,14 @@ void GraphicsEngine::setWindowGrab(bool _grab)
 	SDL_ShowCursor(true);
 }
 
-Ogre::Viewport* GraphicsEngine::setupViewport(Ogre::Camera* cam, int zOrder)
+Ogre::Viewport* GraphicsEngine::setupViewport(Ogre::Camera* cam, int zOrder, int x, int y, int w, int h)
 {
-	Ogre::Viewport* vp = _window->addViewport(cam, zOrder);
+	Ogre::Viewport* vp = _window->addViewport(cam, zOrder, x, y, w, h);
 	vp->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 	return vp;
+}
+
+void GraphicsEngine::removeViewport(Ogre::Viewport* vp)
+{
+	_window->removeViewport(vp->getZOrder());
 }

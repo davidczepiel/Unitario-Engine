@@ -49,7 +49,6 @@ void Engine::tick()
 	_graphicsEngine->render();
 	_audioEngine->update();
 	_time->update();
-	testing();
 }
 
 void Engine::init()
@@ -65,51 +64,10 @@ void Engine::init()
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-	_graphicsEngine->loadScene(); //WIP
 
 	//Audio
 	_audioEngine->init();
 	_audioEngine->set_3DSettings(3, 200, 10);
-
-	//GameObject que va a reproducir el sonido
-	GameObject* audioGO = addGameObject();
-	Transform* t2 = new Transform(audioGO);
-	t2->setPosition(Vector3(0, 0, 0));
-	audioGO->addComponent(t2);
-	AudioSourceComponent* aSource = new AudioSourceComponent(audioGO, "Assets/Audio/ProtoDarkMaze_Menu.mp3");
-	aSource->setStereo(0, true);
-	aSource->set3DMinMaxDistanceChannel(5, 10);
-	audioGO->addComponent(aSource);
-	_GOs.push_back(audioGO);
-	//aSource->playAudio(0);
-
-	//GameObject que supone el listener
-	jugador = addGameObject();
-
-	Transform* t = new Transform(jugador);
-	t->setPosition(Vector3(-10, 0, 0));
-	t->setRotation(Vector3(0, 0, 0));
-	jugador->addComponent(t);
-
-	ListenerComponent* listener = new ListenerComponent(jugador);
-	//jugador->addComponent(listener);
-
-	CameraComponent* cam = new CameraComponent(1, jugador);
-	cam->setViewportDimensions(0., 0., 1., 1.);
-	jugador->addComponent(cam);
-
-	_GOs.push_back(jugador);
-
-	TEST = addGameObject();
-
-	Transform* tt = new Transform(TEST);
-	tt->setPosition(Vector3(-10, 0, 0));
-	tt->setRotation(Vector3(0, 0, 0));
-	TEST->addComponent(tt);
-
-	CameraComponent* cam2 = new CameraComponent(2, TEST);
-	cam2->setViewportDimensions(0.5, 0.5, 0.5, 0.5);
-	TEST->addComponent(cam2);
 }
 
 void Engine::run()
@@ -136,50 +94,6 @@ void Engine::stopExecution()
 void Engine::setResourcesPath(std::string const& resourcesPath)
 {
 	_graphicsEngine->setResourcePath(resourcesPath);
-}
-
-void Engine::testing()
-{
-	double vel = 5;
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		Vector3 pos = t->getPosition();
-		pos = (Vector3(pos.getX() - vel, pos.getY(), pos.getZ()));
-		t->setPosition(pos);
-	}
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		Vector3 pos = t->getPosition();
-		pos = (Vector3(pos.getX() + vel, pos.getY(), pos.getZ()));
-		t->setPosition(pos);
-	}
-
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		Vector3 pos = t->getPosition();
-		pos = (Vector3(pos.getX(), pos.getY() + vel, pos.getZ()));
-		t->setPosition(pos);
-	}
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		Vector3 pos = t->getPosition();
-		pos = (Vector3(pos.getX(), pos.getY() - vel, pos.getZ()));
-		t->setPosition(pos);
-	}
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_F)) {
-		Transform* t = static_cast<Transform*>(jugador->getComponent(ComponentId::Transform));
-		Vector3 rot = t->getRotation();
-		rot = (Vector3(rot.getX(), rot.getY() - vel, rot.getZ()));
-		t->setRotation(rot);
-	}
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_P)) {
-		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
-		c->setViewportVisibility(true);
-	}
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_O)) {
-		CameraComponent* c = static_cast<CameraComponent*>(TEST->getComponent(ComponentId::Camera));
-		c->setViewportVisibility(false);
-	}
 }
 
 void Engine::start()

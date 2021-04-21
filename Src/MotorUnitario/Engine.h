@@ -57,9 +57,6 @@ public:
 	/// <param name="resourcesPath"> Resources.cfg path</param>
 	void setResourcesPath(std::string const& resourcesPath);
 
-	//This is a method created for testing purposes and should be deleted as the testing is finished
-	void testing();
-
 protected:
 
 	/// <summary>
@@ -140,9 +137,6 @@ private:
 	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
 	Time* _time;
-
-	GameObject* jugador;
-	GameObject* TEST;
 
 	bool _run;
 };

@@ -7,19 +7,7 @@
 
 int Camera::_id = 1;
 
-Camera::Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum) :_camera(nullptr), _renderWindow(rWin), _node(nullptr),
-_viewport(nullptr)
-{
-	_camera = scn->createCamera("camera" + cameraNum);
-	_camera->setAutoAspectRatio(true);
-	_node = scn->getRootSceneNode()->createChildSceneNode(_camera->getName());
-	_node->attachObject(_camera);
-
-	_viewport = rWin->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.98, 0.972, 0.949));
-}
-
-Camera::Camera(int zOrd) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr), _zOrder(zOrd)
+Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr), _zOrder(zOrd)
 {
 	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
 	_camera = manager->createCamera("Camera" + _id);
@@ -27,12 +15,9 @@ Camera::Camera(int zOrd) : _camera(nullptr), _renderWindow(nullptr), _node(nullp
 	_node = manager->getRootSceneNode()->createChildSceneNode("CameraNode" + _id);
 	_node->attachObject(_camera);
 
-	_viewport = GraphicsEngine::getInstance()->setupViewport(_camera, _zOrder);
-	_viewport->setCamera(_camera);
-	_viewport->setClearEveryFrame(true, Ogre::FBT_DEPTH);
+	setViewportVisibility(true, x, y, w, h);
 
 	setPlanes();
-
 	_id++;
 }
 
@@ -133,20 +118,13 @@ void Camera::setViewportDimensions(float left, float top, float w, float h)
 void Camera::setViewportVisibility(bool visible, float x, float y, float w, float h)
 {
 	if (visible) {
-		if (_viewport == nullptr) {
-			_viewport = GraphicsEngine::getInstance()->getRenderWindow()->addViewport(_camera, _zOrder, x, y, w, h);
-			_viewport->setClearEveryFrame(true, Ogre::FBT_DEPTH);
-		}
+		if (_viewport == nullptr)
+			_viewport = GraphicsEngine::getInstance()->setupViewport(_camera, _zOrder, x, y, w, h);
 	}
 	else {
 		if (_viewport != nullptr) {
-			GraphicsEngine::getInstance()->getRenderWindow()->removeViewport(_viewport->getZOrder());
+			GraphicsEngine::getInstance()->removeViewport(_viewport);
 			_viewport = nullptr;
 		}
 	}
-}
-
-Ogre::Viewport* Camera::getViewPort()
-{
-	return _viewport;
 }

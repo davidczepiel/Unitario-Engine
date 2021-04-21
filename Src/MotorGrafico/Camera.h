@@ -23,9 +23,7 @@ public:
 	/// </summary>
 	/// <param name="scn">The SceneManager</param>
 	/// <param name="cameraNum">An identifier in case the user wants to create multiple cameras</param>
-	Camera(Ogre::SceneManager* scn, Ogre::RenderWindow* rWin, int cameraNum = 0);
-
-	Camera(int zOrder = 1);
+	Camera(int zOrder = 1, float x = 0., float y = 0., float w = 1., float h = 1.);
 	~Camera();
 
 	/// <summary>
@@ -154,12 +152,6 @@ public:
 	/// <param name="w">The viewport new width</param>
 	/// <param name="h">The viewport new height</param>
 	void setViewportVisibility(bool visible, float x = 0., float y = 0., float w = 1., float h = 1.);
-
-	/// <summary>
-	/// Returns the viewport of the camera
-	/// </summary>
-	/// <return> returns the camera viewport <return>
-	Ogre::Viewport* getViewPort();
 
 private:
 	static int _id;

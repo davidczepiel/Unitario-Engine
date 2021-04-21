@@ -64,11 +64,6 @@ public:
 	void render();
 
 	/// <summary>
-	/// Loads a scene
-	/// </summary>
-	void loadScene();
-
-	/// <summary>
 	/// Config for the window grab
 	/// </summary>
 	void setWindowGrab(bool _grab);
@@ -85,16 +80,19 @@ public:
 	inline Ogre::SceneManager* getSceneManager() { return _sceneManager; }
 
 	/// <summary>
-	/// Gets the Scene Manager
+	/// Gets the RenderWindow
 	/// </summary>
 	inline Ogre::RenderWindow* getRenderWindow() { return _window; }
 
 	/// <summary>
-	/// Gets the Scene Manager
+	/// Creates a viewport so that the camera passed can be rendered on it in a specific zOrder
 	/// </summary>
-	inline Ogre::Viewport* getWindowViewPort() { return _viewPort; }
+	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder, int x, int y, int w, int h);
 
-	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder);
+	/// <summary>
+	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
+	/// </summary>
+	void removeViewport(Ogre::Viewport* vp);
 
 private:
 
@@ -123,8 +121,7 @@ private:
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
 	Ogre::SceneManager* _sceneManager;
-	Ogre::Viewport* _viewPort;
-	Ogre::Camera* _defaultCamera;
+
 	// File system abstraction layer
 	Ogre::FileSystemLayer* _mFSLayer;
 	// The Shader generator instance.
