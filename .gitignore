@@ -15,7 +15,7 @@ Build/
 Build32/
 Buildx86/
 Buildx64/
-bin/MotorUnitario_x64.exe
-bin/MotorUnitario_x64_DEBUG.exe
-bin/MotorUnitario_x86.exe
-bin/MotorUnitario_x86_DEBUG.exe
+bin/Testing_x64_RELEASE.exe
+bin/Testing_x64_DEBUG.exe
+bin/Testing_x86_RELEASE.exe
+bin/Testing_x86_DEBUG.exe

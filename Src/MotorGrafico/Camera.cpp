@@ -62,9 +62,10 @@ void Camera::rollRadians(float radians)
 	_node->roll(Ogre::Radian(radians));
 }
 
-void Camera::setOrientation(float w, float x, float y, float z)
+void Camera::setOrientation(float x, float y, float z)
 {
-	_node->setOrientation(w, x, y, z);
+	Ogre::Euler rot(x, y, z);
+	_node->setOrientation(rot.toQuaternion());
 }
 
 void Camera::setOrientation(Ogre::Quaternion orientation)

@@ -21,6 +21,12 @@ ParticleSystemComponent::~ParticleSystemComponent()
 	delete _pSystem;
 }
 
+void ParticleSystemComponent::awake(luabridge::LuaRef& data)
+{
+	//_gameObject->getComponent(ComponentId::ComponentId::Transform)->awake(data);
+	_path = data["Path"].cast<std::string>();
+}
+
 void ParticleSystemComponent::start()
 {
 	_pSystem->init();

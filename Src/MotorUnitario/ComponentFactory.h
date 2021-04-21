@@ -13,6 +13,8 @@
 #include "CameraComponent.h"
 #include "AnimatorComponent.h"
 #include "ParticleSystemComponent.h"
+#include "ButtonComponent.h"
+#include "OverlayComponent.h"
 
 /// <summary>
 /// This is a macro that defines a factoryComponent class
@@ -84,12 +86,26 @@ CMP_FACTORY(RigidBodyComponentFactory, RigidBodyComponent);
 
 #endif // !RIGIDBODYCOMPONENTFACTORY_H
 
-#ifndef COLLIDERCOMPONENTFACTORY_H
-#define COLLIDERCOMPONENTFACTORY_H
+#ifndef BOXCOLLIDERCOMPONENTFACTORY_H
+#define BOXCOLLIDERCOMPONENTFACTORY_H
 
-CMP_FACTORY(ColliderComponentFactory, ColliderComponent);
+CMP_FACTORY(BoxColliderComponentFactory, BoxColliderComponent);
 
-#endif // !COLLIDERCOMPONENTFACTORY_H
+#endif // !BOXCOLLIDERCOMPONENTFACTORY_H
+
+#ifndef SPHERECOLLIDERCOMPONENTFACTORY_H
+#define SPHERECOLLIDERCOMPONENTFACTORY_H
+
+CMP_FACTORY(SphereColliderComponentFactory, SphereColliderComponent);
+
+#endif // !SPHERECOLLIDERCOMPONENTFACTORY_H
+
+#ifndef CAPSULECOLLIDERCOMPONENTFACTORY_H
+#define CAPSULECOLLIDERCOMPONENTFACTORY_H
+
+CMP_FACTORY(CapsuleColliderComponentFactory, CapsuleColliderComponent);
+
+#endif // !CAPSULECOLLIDERCOMPONENTFACTORY_H
 
 #ifndef CAMERACOMPONENTFACTORY_H
 #define CAMERACOMPONENTFACTORY_H
@@ -111,3 +127,17 @@ CMP_FACTORY(AnimatorComponentFactory, AnimatorComponent);
 CMP_FACTORY(ParticleSystemComponentFactory, ParticleSystemComponent);
 
 #endif // !PARTICLESYSTEMCOMPONENTFACTORY_H
+
+#ifndef BUTTONCOMPONENTFACTORY_H
+#define BUTTONCOMPONENTFACTORY_H
+
+CMP_FACTORY(ButtonComponentFactory, ButtonComponent);
+
+#endif // !BUTTONCOMPONENTFACTORY_H
+
+#ifndef OVERLAYCOMPONENTFACTORY_H
+#define OVERLAYCOMPONENTFACTORY_H
+
+CMP_FACTORY(OverlayComponentFactory, OverlayComponent);
+
+#endif // !OVERLAYCOMPONENTFACTORY_H

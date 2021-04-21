@@ -1,6 +1,6 @@
 #include "Logger.h"
 
-#include "Time.h"
+#include "EngineTime.h"
 
 std::unique_ptr<Logger> Logger::instance = nullptr;
 
@@ -28,7 +28,7 @@ void Logger::log(const std::string& message, Level logLevel)
 		return;
 
 	// get time
-	Time::Date date = Time::getInstance()->getDate();
+	EngineTime::Date date = EngineTime::getInstance()->getDate();
 
 	if (date.hour < 10) _logFile << "0";
 	_logFile << date.hour << ":";

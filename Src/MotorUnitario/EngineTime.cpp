@@ -1,17 +1,17 @@
-#include "Time.h"
+#include "EngineTime.h"
 
 #include "SDL.h"
 
 #include <ctime>
 
-std::unique_ptr<Time> Time::instance = nullptr;
+std::unique_ptr<EngineTime> EngineTime::instance = nullptr;
 
-Time::Time(): _msTimeLastTick(), _deltaTime(), _maxDeltaTimeRecorded(0.0f), _fps(60)
+EngineTime::EngineTime(): _msTimeLastTick(), _deltaTime(), _maxDeltaTimeRecorded(0.0f), _fps(60)
 {
 	_msTimeLastTick = SDL_GetTicks();
 }
 
-void Time::update()
+void EngineTime::update()
 {
 	Uint32 timeNow = SDL_GetTicks();
 
@@ -27,19 +27,19 @@ void Time::update()
 	_fps = (_fps + static_cast<int>(1.0f / _deltaTime) + 1) / 2;
 }
 
-Time::~Time()
+EngineTime::~EngineTime()
 {
 }
 
-Time* Time::getInstance()
+EngineTime* EngineTime::getInstance()
 {
 	if (instance.get() == nullptr) {
-		instance.reset(new Time());
+		instance.reset(new EngineTime());
 	}
 	return instance.get();
 }
 
-Time::Date Time::getDate() const
+EngineTime::Date EngineTime::getDate() const
 {
 	// get time
 	struct tm newtime;

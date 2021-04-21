@@ -21,14 +21,14 @@ Light::Light(const std::string& gameObjectName): _id(_lightCount++), _light(null
 
 	_light->setType(Ogre::Light::LightTypes::LT_POINT);
 
-	Ogre::SceneNode* lightNode = sm->createSceneNode(gameObjectName + std::string("_lightNode_") + std::to_string(_id));
-	lightNode->attachObject(_light);
+	_lightNode = sm->createSceneNode(gameObjectName + std::string("_lightNode_") + std::to_string(_id));
+	_lightNode->attachObject(_light);
 
 	//Attach the light object to the sceneNode somewhere
 	//Re-launch of our own exception instead of Ogre's exception
 	try {
 		Ogre::SceneNode* parentNode = sm->getSceneNode(gameObjectName);
-		parentNode->addChild(lightNode);
+		parentNode->addChild(_lightNode);
 	} catch(...){
 		throw SceneNodeException(gameObjectName + std::string(" node does not exist"));
 	}
@@ -144,4 +144,8 @@ void Light::setVisible(bool visible)
 const bool Light::getVisible() const 
 { 
 	return _light->getVisible(); 
+}
+
+void Light::setPosition(float x, float y, float z) {
+	_lightNode->setPosition(x, y, z);
 }

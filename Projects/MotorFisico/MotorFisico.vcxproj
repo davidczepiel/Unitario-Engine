@@ -108,7 +108,8 @@
       <AdditionalDependencies>LowLevel_static_32.lib;LowLevelAABB_static_32.lib;LowLevelDynamics_static_32.lib;PhysX_32.lib;PhysXCharacterKinematic_static_32.lib;PhysXCommon_32.lib;PhysXCooking_32.lib;PhysXExtensions_static_32.lib;PhysXFoundation_32.lib;PhysXPvdSDK_static_32.lib;PhysXTask_static_32.lib;PhysXVehicle_static_32.lib;SceneQuery_static_32.lib;SimulationController_static_32.lib;SnippetUtils_static_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x86_DEBUG.bat</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +134,8 @@
       <AdditionalDependencies>LowLevel_static_32.lib;LowLevelAABB_static_32.lib;LowLevelDynamics_static_32.lib;PhysX_32.lib;PhysXCharacterKinematic_static_32.lib;PhysXCommon_32.lib;PhysXCooking_32.lib;PhysXExtensions_static_32.lib;PhysXFoundation_32.lib;PhysXPvdSDK_static_32.lib;PhysXTask_static_32.lib;PhysXVehicle_static_32.lib;SceneQuery_static_32.lib;SimulationController_static_32.lib;SnippetUtils_static_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x86.bat</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -156,7 +158,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\PhysX\Buildx64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x64_DEBUG.bat</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -181,17 +184,22 @@
       <AdditionalDependencies>LowLevel_static_64.lib;LowLevelAABB_static_64.lib;LowLevelDynamics_static_64.lib;PhysX_64.lib;PhysXCharacterKinematic_static_64.lib;PhysXCommon_64.lib;PhysXCooking_64.lib;PhysXExtensions_static_64.lib;PhysXFoundation_64.lib;PhysXPvdSDK_static_64.lib;PhysXTask_static_64.lib;PhysXVehicle_static_64.lib;SceneQuery_static_64.lib;SimulationController_static_64.lib;SnippetRender_static_64.lib;SnippetUtils_static_64.lib</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)dependencies\PhysX\compilePhysx_x64.bat</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\MotorFisico\main.cpp" />
+    <ClCompile Include="..\..\Src\MotorFisico\Callbacks.cpp" />
+    <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp" />
+    <ClCompile Include="..\..\Src\MotorFisico\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\MotorFisico\Callbacks.h" />
+    <ClInclude Include="..\..\Src\MotorFisico\Collider.h" />
     <ClInclude Include="..\..\Src\MotorFisico\Exceptions.h" />
-    <ClInclude Include="..\..\Src\MotorFisico\main.h" />
     <ClInclude Include="..\..\Src\MotorFisico\PhysxEngine.h" />
+    <ClInclude Include="..\..\Src\MotorFisico\RigidBody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

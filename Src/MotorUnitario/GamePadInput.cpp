@@ -1,5 +1,7 @@
 #include "GamePadInput.h"
 #include "Exceptions.h"
+#include "SDL_joystick.h"
+#include "SDL_events.h"
 
 #define MAX_RUMBLE_TIME 1000
 #define DEFAULT_DEADZONE 0.02

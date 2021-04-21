@@ -19,7 +19,7 @@ public:
 	/// </summary>
 	GameObject();
 
-	~GameObject() {}
+	~GameObject();
 
 	/// <summary>
 	/// Calls start method of every component and then of every children it has
@@ -40,6 +40,10 @@ public:
 	/// Calls lateUpdate method of every component and then of every children it has
 	/// </summary>
 	void lateUpdate();
+
+	void onCollision(GameObject* other);
+
+	void onTrigger(GameObject* other);
 
 	/// <summary>
 	/// Adds component to the gameObject vector of components

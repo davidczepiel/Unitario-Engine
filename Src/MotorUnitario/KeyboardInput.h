@@ -5,9 +5,10 @@
 
 #include <bitset>
 #include <memory>
-#include "SDL_events.h"
 
 #include "KeyCodes.h"
+
+union SDL_Event;
 
 class KeyBoardInput
 {
@@ -73,7 +74,7 @@ private:
 
 	std::bitset<256> _keyJustDown;
 	std::bitset<256> _keyJustUp;
-	const Uint8* _keyboardState;
+	const unsigned char* _keyboardState;
 
 	/// <summary>
 	/// Used so only InputManager is able to call 'reset' and 'receiveEvent' methods, 

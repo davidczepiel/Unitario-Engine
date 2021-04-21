@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Exceptions.h"
 #include "Logger.h"
-#include "Time.h"
+#include "EngineTime.h"
 #include "ComponentIDs.h"
 
 AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
@@ -23,6 +23,15 @@ AnimatorComponent::~AnimatorComponent()
 	delete _animator; _animator = nullptr;
 }
 
+void AnimatorComponent::awake(luabridge::LuaRef& data)
+{
+	int x = data["HowManyStates"].cast<int>();
+	/*_initialState =*/ createState(data["State1"]["Name"].cast<std::string>(), data["State1"]["Loop"].cast<bool>());
+	createState(data["State2"]["Name"].cast<std::string>(), data["State2"]["Loop"].cast<bool>());
+	//Añadir for con conversión de nombre de States cuando verifique cómo inicializar esto -> MARCO: LUEGO BORRAR ESTA LÍNEA.
+	std::cout << "Animator component loaded" << std::endl;
+}
+
 void AnimatorComponent::lateUpdate()
 {
 	//If initialState hasn't been set
@@ -30,14 +39,14 @@ void AnimatorComponent::lateUpdate()
 		return;
 
 	for(const AnimatorComponent::Transition& transition : _actualState->transitions){
-		if(transition.transition()) {
+		if(transition.transition(transition.param)) {
 			_actualState = transition.nextState;
 			_animator->changeAnimation(_actualState->name, _actualState->loop);
 			break;
 		}
 	}
 
-	_animator->update(Time::getInstance()->deltaTime()); 
+	_animator->update(EngineTime::getInstance()->deltaTime()); 
 }
 
 void AnimatorComponent::setInitialState(const std::string& name)
@@ -69,7 +78,7 @@ void AnimatorComponent::createState(const std::string& name, bool loop)
 	throw AnimatorException(name + " already exists");
 }
 
-void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end)
+void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end, void* functionParam)
 {
 	AnimatorComponent::State* originState = nullptr, *endState = nullptr;
 
@@ -84,7 +93,7 @@ void AnimatorComponent::addTransition(const std::string& origin, TransitionFunct
 	if (originState == nullptr)	throw AnimatorException(origin + " doesn't exists");
 	if (endState == nullptr)	throw AnimatorException(end + " doesn't exists");
 	
-	originState->transitions.push_back({function, endState});
+	originState->transitions.push_back({function, functionParam, endState});
 }
 
 void AnimatorComponent::stopAnimation()

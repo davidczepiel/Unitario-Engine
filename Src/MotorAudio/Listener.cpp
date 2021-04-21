@@ -4,8 +4,7 @@
 #include <fmod.hpp>
 #include <iostream>
 
-Listener::Listener() : _attributes(), _listenerNumber(0) {
-	_attributes = new FMOD_3D_ATTRIBUTES();
+Listener::Listener() : _attributes(new FMOD_3D_ATTRIBUTES()), _listenerNumber(0) {
 }
 
 Listener::~Listener() {

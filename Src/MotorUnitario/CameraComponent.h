@@ -3,6 +3,7 @@
 #define CAMERACOMPONENT_H
 
 #include "Component.h"
+#include "Vector3.h"
 #include <string>
 
 class GameObject;
@@ -11,6 +12,11 @@ class Transform;
 
 class CameraComponent : public Component {
 public:
+
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Contructor of the class
@@ -87,7 +93,7 @@ public:
 	/// <param name="x">The worlds x position that the camera will point at</param>
 	/// <param name="y">The worlds y position that the camera will point at</param>
 	/// <param name="z">The worlds z position that the camera will point at</param>
-	void setOrientation(float w, float x, float y, float z);
+	void setOrientation(float x, float y, float z);
 
 	/// <summary>
 	/// Adjusts the cameras node so that it is oriented given a Quarternion
@@ -162,6 +168,13 @@ public:
 	/// <param name="w">The viewport new width</param>
 	/// <param name="h">The viewport new height</param>
 	void setViewportDimensions(float left, float top, float w, float h);
+
+	/// <summary>
+	/// gets the camera orientation in degrees
+	/// </summary>
+	/// <returns>The camera orientation</returns>
+	const Vector3& getOrientation();
+	
 private:
 	Camera* _camera;
 	Transform* _tr;

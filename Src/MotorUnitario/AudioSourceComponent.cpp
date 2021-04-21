@@ -23,6 +23,12 @@ AudioSourceComponent::~AudioSourceComponent()
 	delete _audioSource; _audioSource = nullptr;
 }
 
+void AudioSourceComponent::awake(luabridge::LuaRef &data)
+{
+	_route = data["Route"].cast<std::string>();
+	std::cout << "As: " << _route << std::endl;
+}
+
 void AudioSourceComponent::start()
 {
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));

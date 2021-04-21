@@ -4,6 +4,19 @@
 #include "Transform.h"
 #include "GameObject.h"
 
+void CameraComponent::awake(luabridge::LuaRef& data)
+{
+	setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
+	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
+	setProjection(data["Projection"].cast<bool>());
+	setFovY(data["Fovy"].cast<float>());
+	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
+		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
+	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
+	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(), 
+		data["Viewport"]["W"].cast<float>(), data["Viewport"]["H"].cast<float>());
+}
+
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
 }
@@ -75,9 +88,9 @@ void CameraComponent::rollRadians(float radians)
 	_camera->rollRadians(radians);
 }
 
-void CameraComponent::setOrientation(float w, float x, float y, float z)
+void CameraComponent::setOrientation(float x, float y, float z)
 {
-	_camera->setOrientation(w, x, y, z);
+	_camera->setOrientation(x, y, z);
 }
 
 void CameraComponent::setPosition(float x, float y, float z)
@@ -123,4 +136,10 @@ void CameraComponent::setViewportVisibility(bool visible, float x, float y, floa
 void CameraComponent::setViewportDimensions(float left, float top, float w, float h)
 {
 	_camera->setViewportDimensions(left, top, w, h);
+}
+
+const Vector3& CameraComponent::getOrientation()
+{
+	std::tuple<float, float, float> rot = _camera->getOrientation();
+	return Vector3(std::get<0>(rot), std::get<1>(rot), std::get<2>(rot));
 }

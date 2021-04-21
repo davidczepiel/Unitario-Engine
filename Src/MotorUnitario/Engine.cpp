@@ -1,20 +1,17 @@
 #include "Engine.h"
 //WIP
-#include "MotorGrafico/main.h"
 #include "MotorUnitario/GameObject.h"
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
+#include "MotorFisico/PhysxEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
 #include "ComponentsFactory.h"
 #include "ComponentFactory.h"
-#include "Time.h"
+#include "EngineTime.h"
+//DEscomentar
+#include "RigidBodyComponent.h"
 #include "Transform.h"
-#include "KeyCodes.h"
-#include "GamePadCodes.h"
-#include "ComponentIDs.h"
-#include <iostream>
-#include "Component.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -57,17 +54,14 @@ void Engine::init()
 
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
-	_audioEngine = AudioEngine::getInstance();
 	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
-	_time = Time::getInstance();
-	//Graphics
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-
-	//Audio
-	_audioEngine->init();
-	_audioEngine->set_3DSettings(3, 200, 10);
+	/*_physxEngine = PhysxEngine::getPxInstance();
+	_physxEngine->init();*/
+	_audioEngine = AudioEngine::getInstance();
+	_time = EngineTime::getInstance();
 }
 
 void Engine::run()
@@ -185,10 +179,14 @@ void Engine::initFactories()
 	ComponentsFactory::add("Listener", new ListenerComponentFactory());
 	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
 	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
-	ComponentsFactory::add("Collider", new ColliderComponentFactory());
+	ComponentsFactory::add("BoxCollider", new BoxColliderComponentFactory());
+	ComponentsFactory::add("SphereCollider", new SphereColliderComponentFactory());
+	ComponentsFactory::add("CapsuleCollider", new CapsuleColliderComponentFactory());
 	ComponentsFactory::add("Camera", new CameraComponentFactory());
 	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
 	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
+	ComponentsFactory::add("ButtonComponent", new ButtonComponentFactory());
+	ComponentsFactory::add("OverlayComponent", new OverlayComponentFactory());
 
 	// GameObject* go = new GameObject();
 	// Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");

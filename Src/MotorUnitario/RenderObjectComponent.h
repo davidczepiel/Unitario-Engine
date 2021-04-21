@@ -16,8 +16,14 @@ public:
 	/// Constructor of the class
 	/// </summary>
 	///<param name="meshName">: mesh filename </param>
+	RenderObjectComponent(GameObject* gameObject);
 	RenderObjectComponent(GameObject* gameObject, std::string const& meshName);
 	~RenderObjectComponent();
+
+	/// <summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
 	/// <summary>
 	/// Initialize the component
 	/// </summary>

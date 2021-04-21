@@ -17,6 +17,11 @@ public:
 	~LightComponent();
 
 	/// <summary>
+/// Method to initialize required attributes for the component
+/// </summary>
+	virtual void awake(luabridge::LuaRef& data) override;
+
+	/// <summary>
 	/// Changes light type to given type
 	/// </summary>
 	/// <param name="type">: light's type</param>
@@ -151,6 +156,15 @@ public:
 	/// </summary>
 	/// <returns>if it's visible or not</returns>
 	inline const bool getVisible() const { return _light->getVisible(); }
+
+	/// <summary>
+	///	String to light type converter required for lua.
+	/// </summary>
+	/// <returns>if it's visible or not</returns>
+	inline const Light::LightType convertLightType(std::string type);
+	/// Sets the light position
+	/// </summary>
+	inline void setPosition(float x, float y, float z) { _light->setPosition(x, y, z); }
 
 private:
 	Light* _light;

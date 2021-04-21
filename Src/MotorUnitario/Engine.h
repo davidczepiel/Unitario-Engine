@@ -9,12 +9,13 @@
 
 class GameObject;
 class GraphicsEngine;
+class PhysxEngine;
 class InputManager;
 class AudioEngine;
 class ComponentsFactory;
 
 #define ADD(className)ComponentsFactory::add(className,classNameFactory);
-class Time;
+class EngineTime;
 
 class Engine
 {
@@ -56,6 +57,29 @@ public:
 	/// </summary>
 	/// <param name="resourcesPath"> Resources.cfg path</param>
 	void setResourcesPath(std::string const& resourcesPath);
+	/// <summary>
+	/// Adds a GameObject to the list
+	/// </summary>
+	GameObject* addGameObject();
+
+	/// <summary>
+	/// Removes the first appeareance of a GameObject
+	/// <param name="GO">: GameObject to remove</param>
+	/// </summary>
+	void remGameObject(GameObject* GO);
+
+	/// <summary>
+	/// Removes the first appearance of a GameObject based on its name
+	/// <param name="GOname">: name of the GameObject to remove</param>
+	/// </summary>
+	void remGameObjectString(const std::string& GOname);
+
+	/// <summary>
+	/// Searches a GameObject by its name and returns it if found, or null if not
+	///<param name="componentId">: id of component</param>
+	/// <returns>Returns the GameObject if it is found</returns>
+	/// </summary>
+	GameObject* findGameObject(const std::string& name);
 
 protected:
 
@@ -89,30 +113,6 @@ protected:
 	/// </summary>
 	void shutDown();
 
-	/// <summary>
-	/// Adds a GameObject to the list
-	/// </summary>
-	GameObject* addGameObject();
-
-	/// <summary>
-	/// Removes the first appeareance of a GameObject
-	/// <param name="GO">: GameObject to remove</param>
-	/// </summary>
-	void remGameObject(GameObject* GO);
-
-	/// <summary>
-	/// Removes the first appearance of a GameObject based on its name
-	/// <param name="GOname">: name of the GameObject to remove</param>
-	/// </summary>
-	void remGameObjectString(const std::string& GOname);
-
-	/// <summary>
-	/// Searches a GameObject by its name and returns it if found, or null if not
-	///<param name="componentId">: id of component</param>
-	/// <returns>Returns the GameObject if it is found</returns>
-	/// </summary>
-	GameObject* findGameObject(const std::string& name);
-
 private:
 	/// <summary>
 	/// Contructor of the class
@@ -131,12 +131,13 @@ private:
 	void initFactories();
 
 	static Engine* _instance;
+	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
 	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
-	Time* _time;
+	EngineTime* _time;
 
 	bool _run;
 };

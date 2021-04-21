@@ -13,6 +13,8 @@ namespace Ogre {
 	class Viewport;
 	class Camera;
 
+	class OverlaySystem;
+	class OverlayManager;
 	namespace RTShader {
 		class ShaderGenerator;
 	}
@@ -93,6 +95,9 @@ public:
 	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
 	/// </summary>
 	void removeViewport(Ogre::Viewport* vp);
+	/// Gets the window size
+	/// </summary>
+	inline std::pair<int, int> getWindowSize() { return std::pair<int,int>(_width, _height); }
 
 private:
 
@@ -120,6 +125,7 @@ private:
 	static std::unique_ptr<GraphicsEngine> instance;
 	Ogre::Root* _root;
 	Ogre::RenderWindow* _window;
+	// Pointer to scene Manager
 	Ogre::SceneManager* _sceneManager;
 
 	// File system abstraction layer
@@ -128,15 +134,20 @@ private:
 	Ogre::RTShader::ShaderGenerator* _mShaderGenerator;
 	// Ogre Listener for RTSS-Shading Generation
 	RTSSDefaultTechniqueListener* _mTechniqueListener;
+	// Ogre Overlay System (for GUI)
+	Ogre::OverlaySystem* _overlaySystem;
+	// Ogre Overlay Manager
+	Ogre::OverlayManager* _oveMng;
 	SDL_Window* _sdlWindow;
 	// Relative path to solution folder
 	std::string _mSolutionPath;
-	// Path relative to RTShader folder
-	std::string _mRTShaderLibPath;
-	// Path relative to shadowVolume folder
-	std::string _mVolumeShaderPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
+	// Windows width 
+	int _width;
+	// Windows heigth
+	int _height;
+
 };
 
 #endif /*GRAPHICSENGINE.h*/
