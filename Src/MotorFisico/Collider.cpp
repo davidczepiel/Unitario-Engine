@@ -19,6 +19,22 @@ void Collider::rotate(const std::tuple<float, float, float>& rotation)
 	_pxTrans->q.rotate(TUPLE_TO_PHYSXVEC3(rotation).getNormalized());
 }
 
+void Collider::setMaterial(float staticFriction, float dynamicFriction, float restitution)
+{
+	int buffsize = 1;
+	physx::PxMaterial** buffer = new physx::PxMaterial*[buffsize];
+	
+	_mShape->getMaterials(buffer, buffsize);
+
+	buffer[0]->setStaticFriction(staticFriction);
+	buffer[0]->setDynamicFriction(dynamicFriction);
+	buffer[0]->setRestitution(restitution);
+
+	_mShape->setMaterials(buffer, 1);
+
+	delete[] buffer;
+}
+
 Collider::Collider(bool isTrigger, GameObject* gameObject, ContactCallback* coliderCallback, ContactCallback* triggerCallback,
 	float staticFriction, float dynamicFriction, float restitution, const std::tuple<float, float, float>& position)
 	:_isTrigger(isTrigger), _gameObject(gameObject), _contCallback(coliderCallback), _triggerCallback(triggerCallback)

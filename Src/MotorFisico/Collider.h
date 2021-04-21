@@ -77,6 +77,14 @@ public:
 	/// <param name="position">Set of values that determine the position</param>
 	void rotate(const std::tuple<float, float, float>& rotation);
 
+	/// <summary>
+	/// Sets collider's material to given parameters
+	/// </summary>
+	/// <param name="staticFriction">friction coefficient when collider is not moving</param>
+	/// <param name="dynamicFriction">friction coefficient when collider is moving</param>
+	/// <param name="restitution">restitution coefficient</param>
+	void setMaterial(float staticFriction, float dynamicFriction, float restitution);
+
 protected:
 
 	/// <summary>
