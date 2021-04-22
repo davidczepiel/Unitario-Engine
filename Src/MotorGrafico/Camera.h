@@ -146,7 +146,12 @@ public:
 	/// <param name="h">The viewport new height</param>
 	void setViewportDimensions(float left, float top, float w, float h);
 
+	/// <summary>
+	/// gets the rotation in degrees
+	/// </summary>
+	/// <returns>The rotation in degrees</returns>
 	const std::tuple<float, float, float>& getOrientation();
+
 	/// <summary>
 	/// Creates a new viewport if visible is True and removes it if Visible is false
 	/// </summary>
