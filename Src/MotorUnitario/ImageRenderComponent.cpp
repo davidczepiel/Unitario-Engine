@@ -9,25 +9,25 @@ ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp);
 
 void ImageRenderComponent::awake(luabridge::LuaRef& data)
 {
-	imageRender->setDefaultDimensions(data["DefaultDimension"]["W"].cast<float>(), data["DefaultDimension"]["H"].cast<float>());
-	imageRender->setMaterialName(data["MaterialName"].cast<std::string>());
-	imageRender->setVisible(data["Visible"].cast<bool>());
+	_imageRender->setDefaultDimensions(data["DefaultDimension"]["W"].cast<float>(), data["DefaultDimension"]["H"].cast<float>());
+	_imageRender->setMaterialName(data["MaterialName"].cast<std::string>());
+	_imageRender->setVisible(data["Visible"].cast<bool>());
 
-	imageRender->setBillboardOrigin(getBillboardOrigin(data["BillboardOrigin"].cast<std::string>()));
-	imageRender->setBillboardType(getBillboardType(data["BillboardType"].cast<std::string>()));
-	imageRender->setBillboardRotationType(getBillboardRotationType(data["BillboardRotationType"].cast<std::string>()));
+	_imageRender->setBillboardOrigin(getBillboardOrigin(data["BillboardOrigin"].cast<std::string>()));
+	_imageRender->setBillboardType(getBillboardType(data["BillboardType"].cast<std::string>()));
+	_imageRender->setBillboardRotationType(getBillboardRotationType(data["BillboardRotationType"].cast<std::string>()));
 
-	imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
-	imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
+	_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
+	_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
 		data["Rotation"]["Z"].cast<float>(), data["Rotation"]["Angle"].cast<float>());
 }
 
-ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), imageRender(nullptr)
+ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr)
 {
 	_imageRender = new ImageRender();
 }
 
-ImageRenderComponent::ImageRenderComponent(GameObject* gameObject) :Component(ComponentId::ImageRender, gameObject), _imageRender(nullptr),_tr(nullptr)
+ImageRenderComponent::ImageRenderComponent(GameObject* gameObject) : Component(ComponentId::ImageRender, gameObject), _imageRender(nullptr), _tr(nullptr)
 {
 	_imageRender = new ImageRender();
 }
@@ -48,9 +48,7 @@ void ImageRenderComponent::start()
 	_imageRender->setPosition(x, y, z);
 }
 
-
 ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp) {
-	
 	if (cmp == "BBO_TOP_LEFT")
 		return ImageRender::BillboardOrigin::BBO_TOP_LEFT;
 	else if (cmp == "BBO_TOP_CENTER")
@@ -92,4 +90,3 @@ ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp)
 	else if (cmp == "BBR_TEXCOORD")
 		return ImageRender::BillboardRotationType::BBR_TEXCOORD;
 }
-

@@ -2,26 +2,25 @@
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
 #include "MouseInput.h"
+#include "KeyCodes.h"
 #include <SDL.h>
 
-ButtonComponent::ButtonComponent():Component(ComponentId::ButtonComponent),
+ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),
 _button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
-	
 }
 
-ButtonComponent::ButtonComponent(GameObject* gO):Component(ComponentId::ButtonComponent, gO),
-_button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(),_containerName(),
+ButtonComponent::ButtonComponent(GameObject* gO) :Component(ComponentId::ButtonComponent, gO),
+_button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
-	
 }
 
-ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, 
+ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName,
 	std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial,
-	std::string const& pressMaterial, void* callbackParam): Component(ComponentId::ButtonComponent, gO), 
-	_button(nullptr), _callback(callback), _callbackParam(callbackParam), _overlayName(overlayName),_containerName(containerName), _defaultMaterial(defaultMaterial),
+	std::string const& pressMaterial, void* callbackParam) : Component(ComponentId::ButtonComponent, gO),
+	_button(nullptr), _callback(callback), _callbackParam(callbackParam), _overlayName(overlayName), _containerName(containerName), _defaultMaterial(defaultMaterial),
 	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial), _active(true)
 {
 }
@@ -68,7 +67,7 @@ void ButtonComponent::update()
 			//Change the material for feedback
 			_button->setMaterial(_containerName, _hoverMaterial);
 			//If the mouse is also down
-			if (mouse->isMouseButtonDown(MouseInput::MOUSEBUTTON::LEFT)) {
+			if (mouse->isMouseButtonDown(MouseButton::LEFT)) {
 				//Change the material for feedback
 				_button->setMaterial(_containerName, _pressMaterial);
 				//Calls the function
@@ -84,10 +83,8 @@ void ButtonComponent::update()
 void ButtonComponent::hideShowButton(bool show)
 {
 	_active = show;
-	if (show) 
+	if (show)
 		_button->showOverlay();
-	else 
+	else
 		_button->hideOverlay();
 }
-
-

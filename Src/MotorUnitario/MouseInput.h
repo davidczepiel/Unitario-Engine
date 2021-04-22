@@ -26,7 +26,7 @@ public:
 	/// Returns the mouse position
 	/// </summary>
 	/// <returns>Mouse pos {x, y}</returns>
-	inline const std::array<int, 2>& getMousePos() { return _mousePos; }
+	inline const std::array<double, 2>& getMousePos() { return _mousePos; }
 
 	/// <summary>
 	/// Return the delta motion of the mouse
