@@ -5,10 +5,6 @@
 #include "ComponentIDs.h"
 #include "Logger.h"
 
-#include <algorithm>
-
-#define PI 3.14159265
-
 ListenerComponent::ListenerComponent(GameObject* gameObject):Component(ComponentId::ListenerComponent,gameObject), _tr(nullptr), _listener(new Listener())
 {
 	

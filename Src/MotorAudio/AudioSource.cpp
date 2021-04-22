@@ -82,7 +82,7 @@ void AudioSource::setLoop(int id, int loop)
 {
 	if (loop == 0)
 		_sound[id]->setMode(FMOD_LOOP_OFF);
-	else if (loop = -1)
+	else if (loop == -1)
 		_sound[id]->setMode(FMOD_LOOP_NORMAL);
 	else {
 		_sound[id]->setMode(FMOD_LOOP_NORMAL);
