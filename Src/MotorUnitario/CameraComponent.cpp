@@ -13,12 +13,13 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
 		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
 	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
-	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(), 
+	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(),
 		data["Viewport"]["W"].cast<float>(), data["Viewport"]["H"].cast<float>());
 }
 
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
+	_camera = new Camera();
 }
 
 CameraComponent::CameraComponent(int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
