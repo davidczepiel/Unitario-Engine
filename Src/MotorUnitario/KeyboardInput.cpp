@@ -3,7 +3,7 @@
 
 std::unique_ptr<KeyBoardInput> KeyBoardInput::instance = nullptr;
 
-KeyBoardInput::KeyBoardInput(): _keyJustDown(), _keyJustUp(), _keyboardState(SDL_GetKeyboardState(NULL))
+KeyBoardInput::KeyBoardInput() : _keyJustDown(), _keyJustUp(), _keyboardState(SDL_GetKeyboardState(NULL))
 {
 }
 
@@ -29,7 +29,10 @@ void KeyBoardInput::receiveEvent(SDL_Event* event)
 {
 	switch (event->type) {
 	case SDL_KEYDOWN:
-		_keyJustDown[event->key.keysym.scancode] = 1;
+		//Checks if repeat is true, which means this is not the first time this 
+		//Event has been processed. Which means this key has/has not just been pressed
+		if (event->key.repeat==0) 
+			_keyJustDown[event->key.keysym.scancode] = 1;
 		break;
 	case SDL_KEYUP:
 		_keyJustUp[event->key.keysym.scancode] = 1;

@@ -18,10 +18,12 @@ AudioSource::AudioSource(std::string const& route) : _system(nullptr), _channel(
 	_position->y = 0;
 	_position->z = 0;
 	createAudio();
+	_position = new FMOD_VECTOR();
 }
 
 AudioSource::~AudioSource()
 {
+	if (_position != nullptr) delete _position;
 }
 
 void AudioSource::createAudio()
@@ -54,7 +56,8 @@ void AudioSource::play(int id)
 
 void AudioSource::update()
 {
-	_channel->set3DAttributes(_position, _velocity);
+	if (_channel != nullptr)
+		_channel->set3DAttributes(_position, _velocity);
 }
 
 void AudioSource::pause()
@@ -121,7 +124,11 @@ void AudioSource::set3DMinMaxDistance(float min, float max)
 
 void AudioSource::setPosition(float x, float y, float z)
 {
-	*_position = { x,y,z };
+	//WIP, NOT WORKING
+	//*_position = { x,y,z };
+	_position->x = x;
+	_position->y = y;
+	_position->z = z;
 }
 
 void AudioSource::setVelocity(float x, float y, float z)

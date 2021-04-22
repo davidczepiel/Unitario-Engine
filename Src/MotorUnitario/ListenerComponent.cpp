@@ -3,6 +3,11 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ComponentIDs.h"
+#include "Logger.h"
+
+#include <algorithm>
+
+#define PI 3.14159265
 
 ListenerComponent::ListenerComponent(GameObject* gameObject):Component(ComponentId::ListenerComponent,gameObject), _tr(nullptr), _listener(new Listener())
 {
@@ -31,7 +36,7 @@ void ListenerComponent::awake(luabridge::LuaRef& data)
 
 void ListenerComponent::start()
 {
-	//_listener = new Listener();
+	_listener->setUp(0, 1, 0);
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	_listener->setPosition(_tr->getPosition().getX(), _tr->getPosition().getY(), _tr->getPosition().getZ());
 }
@@ -41,13 +46,11 @@ void ListenerComponent::update()
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
-	_listener->setPosition(x,y,z);
+	_listener->setPosition(x, y, z);
 
-	float xR = static_cast<float>(_tr->getRotation().getX());
-	float yR = static_cast<float>(_tr->getRotation().getY());
-	float zR = static_cast<float>(_tr->getRotation().getZ());
-	_listener->setForward(xR,0,zR);
-	_listener->setUp(xR,yR,0);
+	Vector3 forward = _tr->getForward();
+
+	_listener->setForward(forward.getX(), forward.getY(), forward.getZ());
 }
 
 void ListenerComponent::lateUpdate()

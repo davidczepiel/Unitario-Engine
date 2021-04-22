@@ -8,6 +8,7 @@
 
 class GameObject;
 class Camera;
+class Transform;
 
 class CameraComponent : public Component {
 public:
@@ -21,13 +22,26 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	CameraComponent();
-	CameraComponent(std::string const& route, GameObject* gameObject);
+	CameraComponent(int zOrder, GameObject* gameObject);
 	CameraComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
 	~CameraComponent();
+
+	/// <summary>
+	/// Initializes the component, called once at the start of the execution
+	/// </summary>
+	virtual void start();
+	/// <summary>
+	/// Update the component
+	/// </summary>
+	virtual void update();
+	/// <summary>
+	/// Called each frame after update.
+	/// </summary>
+	virtual void lateUpdate();
 
 	/// <summary>
 /// Redirects the Z axis of the camera so that it points to a specific world position
@@ -137,6 +151,16 @@ public:
 	void setOrthoWindowDimensions(float w, float h);
 
 	/// <summary>
+	/// Creates a new viewport if visible is True and removes it if Visible is false
+	/// </summary>
+	/// <param name="visible"> Visibilit of the viewport </param>
+	/// <param name="x">The viewport new x position</param>
+	/// <param name="y">The viewport new y position</param>
+	/// <param name="w">The viewport new width</param>
+	/// <param name="h">The viewport new height</param>
+	void setViewportVisibility(bool visible, float x = 0., float y = 0., float w = 1., float h = 1.);
+
+	/// <summary>
 	/// Sets the viewport dimensions
 	/// </summary>
 	/// <param name="left">The viewport new x position</param>
@@ -153,5 +177,6 @@ public:
 	
 private:
 	Camera* _camera;
+	Transform* _tr;
 };
 #endif // !CAMERACOMPONENT_H

@@ -1,6 +1,8 @@
 #include "CameraComponent.h"
 #include "MotorGrafico/Camera.h"
 #include "ComponentIDs.h"
+#include "Transform.h"
+#include "GameObject.h"
 
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
@@ -11,17 +13,18 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
 		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
 	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
-	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(), 
+	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(),
 		data["Viewport"]["W"].cast<float>(), data["Viewport"]["H"].cast<float>());
 }
 
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
+	_camera = new Camera();
 }
 
-CameraComponent::CameraComponent(std::string const& route, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
+CameraComponent::CameraComponent(int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
 {
-	_camera = new Camera(route);
+	_camera = new Camera(zOrder);
 }
 
 CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
@@ -32,6 +35,23 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId
 CameraComponent::~CameraComponent()
 {
 	delete _camera; _camera == nullptr;
+}
+
+void CameraComponent::start()
+{
+	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+}
+
+void CameraComponent::update()
+{
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+	_camera->setPosition(x, y, z);
+}
+
+void CameraComponent::lateUpdate()
+{
 }
 
 void CameraComponent::lookAt(float x, float y, float z)
@@ -107,6 +127,11 @@ void CameraComponent::setFrustrumDimensions(float left, float right, float top, 
 void CameraComponent::setOrthoWindowDimensions(float w, float h)
 {
 	_camera->setOrthoWindowDimensions(w, h);
+}
+
+void CameraComponent::setViewportVisibility(bool visible, float x, float y, float w, float h)
+{
+	_camera->setViewportVisibility(visible, x, y, w, h);
 }
 
 void CameraComponent::setViewportDimensions(float left, float top, float w, float h)

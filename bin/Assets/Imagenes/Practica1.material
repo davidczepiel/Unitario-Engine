@@ -1,3 +1,15 @@
+material Practica1/Billboard{
+	technique{
+		pass{
+			lighting off
+			texture_unit {
+				texture MomiaMeme.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
 material Practica1/Red{
 	technique{
 		pass{

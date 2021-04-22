@@ -6,6 +6,7 @@
 #include "OgreAnimationState.h"
 #include "OgreEntity.h"
 #include <OgreSceneManager.h>
+#include "OgreQuaternion.h"
 #pragma warning(pop)
 
 Animator::Animator(const std::string& entityNode, int entity) : _entity(nullptr), _animation(nullptr), _animate(true)

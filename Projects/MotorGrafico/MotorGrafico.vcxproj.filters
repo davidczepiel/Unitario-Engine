@@ -1,28 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\Src\MotorGrafico\ImageRender.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\Animator.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\RenderObject.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp" />
-    <ClCompile Include="..\..\Src\MotorGrafico\OverlayElement.cpp" />
+    <ClCompile Include="..\..\Src\MotorGrafico\Animator.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\ImageRender.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\OverlayElement.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\ParticleSystem.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\RenderObject.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\MotorGrafico\Animator.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\Camera.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\Colour.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\Exceptions.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\ImageRender.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\Light.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\RenderObject.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\OverlayElement.h" />
-    <ClInclude Include="..\..\Src\MotorGrafico\Euler.h" />
+    <ClInclude Include="..\..\Src\MotorGrafico\Animator.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\Camera.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\Euler.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\Exceptions.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\Colour.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\ImageRender.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\Light.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\OverlayElement.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\ParticleSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\RenderObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{80e63064-03cd-4beb-aa6c-beca7c2b5373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{99471d0e-12f0-4c99-9d79-b0078c977705}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -10,6 +10,9 @@ namespace Ogre {
 	class RenderWindow;
 	class SceneManager;
 	class FileSystemLayer;
+	class Viewport;
+	class Camera;
+
 	class OverlaySystem;
 	class OverlayManager;
 	namespace RTShader {
@@ -63,11 +66,6 @@ public:
 	void render();
 
 	/// <summary>
-	/// Loads a scene 
-	/// </summary>
-	void loadScene();
-
-	/// <summary>
 	/// Config for the window grab
 	/// </summary>
 	void setWindowGrab(bool _grab);
@@ -84,6 +82,19 @@ public:
 	inline Ogre::SceneManager* getSceneManager() { return _sceneManager; }
 
 	/// <summary>
+	/// Gets the RenderWindow
+	/// </summary>
+	inline Ogre::RenderWindow* getRenderWindow() { return _window; }
+
+	/// <summary>
+	/// Creates a viewport so that the camera passed can be rendered on it in a specific zOrder
+	/// </summary>
+	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder, int x, int y, int w, int h);
+
+	/// <summary>
+	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
+	/// </summary>
+	void removeViewport(Ogre::Viewport* vp);
 	/// Gets the window size
 	/// </summary>
 	inline std::pair<int, int> getWindowSize() { return std::pair<int,int>(_width, _height); }
@@ -116,6 +127,7 @@ private:
 	Ogre::RenderWindow* _window;
 	// Pointer to scene Manager
 	Ogre::SceneManager* _sceneManager;
+
 	// File system abstraction layer
 	Ogre::FileSystemLayer* _mFSLayer;
 	// The Shader generator instance.

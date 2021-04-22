@@ -44,19 +44,20 @@ void Engine::tick()
 	fixedUpdate();
 	lateUpdate();
 	_graphicsEngine->render();
+	_audioEngine->update();
 	_time->update();
 }
 
 void Engine::init()
 {
 	initFactories();
+
 	_inputManager = InputManager::getInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-	_graphicsEngine->loadScene(); //WIP
 	/*_physxEngine = PhysxEngine::getPxInstance();
 	_physxEngine->init();*/
 	_audioEngine = AudioEngine::getInstance();
@@ -66,7 +67,7 @@ void Engine::init()
 void Engine::run()
 {
 	start();
-	
+
 	while (_run)
 	{
 		tick();
@@ -115,7 +116,6 @@ void Engine::lateUpdate()
 	for (auto& it : _GOs) {
 		it->lateUpdate();
 	}
-	_audioEngine->update();
 }
 
 void Engine::shutDown()
@@ -171,8 +171,6 @@ GameObject* Engine::findGameObject(const std::string& name)
 	return (it == _GOs.end()) ? (nullptr) : (*it);
 }
 
-
-
 void Engine::initFactories()
 {
 	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
@@ -204,4 +202,3 @@ void Engine::initFactories()
 	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
 	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
 }
-

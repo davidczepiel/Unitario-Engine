@@ -9,6 +9,9 @@ class GameObject;
 
 class Transform : public Component {
 public:
+	/// <summary>
+	/// 
+	/// </summary>
 	Transform();
 	Transform(GameObject* gameObject);
 	Transform(GameObject* gameObject,const Vector3& position, const Vector3& rotation, const Vector3& scale);
@@ -36,6 +39,8 @@ public:
 	/// Returns the current rotation of the transform
 	/// </summary>
 	inline const Vector3& getRotation() const { return _rotation; }
+
+	Vector3 getForward() const;
 
 	/// <summary>
 	/// Sets a new transform rotation
