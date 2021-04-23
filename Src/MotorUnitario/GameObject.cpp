@@ -105,11 +105,11 @@ void GameObject::addComponent(Component* component)
 	if ((int)id < 0)
 		throw InvalidAccessException("Id of component cant be below zero");
 
-	if (_components[id] != nullptr)
-		throw ComponentException("Component already exists");
-
 	if (id >= _components.size())
 		_components.resize(id + _COMPONENT_INCREASE_SIZE_, nullptr);
+
+	if (_components[id] != nullptr)
+		throw ComponentException("Component already exists");
 
 	_components[id] = component;
 
