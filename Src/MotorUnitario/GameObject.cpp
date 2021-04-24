@@ -1,18 +1,16 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Exceptions.h"
+#include "Transform.h"
 
 #define _COMPONENT_START_SIZE_ 15
 #define _COMPONENT_INCREASE_SIZE_ size_t(5)
 
 GameObject::GameObject() : _children(), _components(_COMPONENT_START_SIZE_, nullptr), _parent(nullptr), _name(), _enable(true), _persist(false)
 {
-	// TODO: Tranform
-	/*Transform* tranform = new Transform();
-	tranform->setId(0);
-	_components[0] = tranform;	
-	_activeComponents.pushback(transform);
-	*/
+	//Transform* tranform = new Transform(this);
+	//_components[0] = tranform;	
+	//_activeComponents.push_back(std::make_pair(ComponentId::ComponentId::Transform, tranform));
 }
 
 GameObject::~GameObject()

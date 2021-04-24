@@ -27,7 +27,7 @@ LuaParser::LuaParser()
 	LuaVM = luaL_newstate();
 	luaL_openlibs(LuaVM);
 	//TBR
-	loadScene("Assets/Levels/prueba.lua");
+	loadScene("Assets/Levels/pruebaPhysx.lua");
 }
 
 LuaParser::~LuaParser()
@@ -56,6 +56,7 @@ bool LuaParser::loadScene(std::string scene)
 			int howMany = gameObjectData_Lua["HowManyCmps"].cast<int>();
 
 			GameObject* go = Engine::getInstance()->addGameObject();
+			go->setName(GO_name);
 
 			for (int x = 1; x <= howMany; x++) {
 				luabridge::LuaRef componentData = gameObject_Lua[x];
@@ -97,7 +98,6 @@ bool LuaParser::checkLua(lua_State * L, int r)
 	else return true;
 }
 
-
 void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaRef &data) {
 	switch (getComponentType(cmp)) {
 		case ComponentId::ComponentId::Transform :
@@ -111,9 +111,9 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::RenderObject: 
 		{ 
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
-			/*RenderObjectComponent* r = new RenderObjectComponent(go);
+			RenderObjectComponent* r = new RenderObjectComponent(go);
 			r->awake(data);
-			go->addComponent(r);*/
+			go->addComponent(r);
 			break; 
 		}
 		case ComponentId::ComponentId::ImageRender: {
@@ -133,9 +133,9 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::LightComponent: 
 		{ 
 			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
-			//LightComponent* l = new LightComponent(go);
-			//l->awake(data);
-			//go->addComponent(l);
+			LightComponent* l = new LightComponent(go);
+			l->awake(data);
+			go->addComponent(l);
 			break; 
 		}
 		case ComponentId::ComponentId::ParticleSystem: 
@@ -147,9 +147,9 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			break; 
 		}
 		case ComponentId::ComponentId::Camera: { 
-			/*CameraComponent* ca = new CameraComponent(go);
+			CameraComponent* ca = new CameraComponent(go);
 			ca->awake(data);
-			go->addComponent(ca);*/
+			go->addComponent(ca);
 			break;
 		}
 		case ComponentId::ComponentId::Rigidbody: { break; }

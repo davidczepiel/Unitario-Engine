@@ -5,11 +5,13 @@
 #include <OgreViewport.h>
 #include "GraphicsEngine.h"
 #include "Euler.h"
+#include "OgreRTShaderSystem.h"
 
 int Camera::_id = 1;
 
 Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr), _zOrder(zOrd)
 {
+	_renderWindow = GraphicsEngine::getInstance()->getRenderWindow();
 	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
 	_camera = manager->createCamera("Camera" + _id);
 	_camera->setAutoAspectRatio(true);
@@ -17,7 +19,6 @@ Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr),
 	_node->attachObject(_camera);
 
 	setViewportVisibility(true, x, y, w, h);
-
 	setPlanes();
 	_id++;
 }

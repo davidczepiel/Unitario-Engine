@@ -25,6 +25,7 @@ class SDL_Window;
 
 class GraphicsEngine {
 public:
+	void loadScene();
 
 	~GraphicsEngine();
 
@@ -98,6 +99,8 @@ public:
 	/// Gets the window size
 	/// </summary>
 	inline std::pair<int, int> getWindowSize() { return std::pair<int,int>(_width, _height); }
+
+	void addNode(const std::string& name, const std::string& parent = "");
 
 private:
 

@@ -12,6 +12,8 @@ extern "C"
 #include "ComponentIDs.h"
 class GameObject;
 
+#define GETCOMPONENT(comp, id) static_cast<comp*>(_gameObject->getComponent(id))
+
 class Component
 {
 public:

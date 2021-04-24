@@ -19,3 +19,4 @@ bin/Testing_x64_RELEASE.exe
 bin/Testing_x64_DEBUG.exe
 bin/Testing_x86_RELEASE.exe
 bin/Testing_x86_DEBUG.exe
+bin/Assets/Logs/log.txt

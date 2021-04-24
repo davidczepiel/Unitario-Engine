@@ -62,6 +62,8 @@ void Engine::init()
 	_physxEngine->init();*/
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
+
+	_graphicsEngine->loadScene();
 }
 
 void Engine::run()

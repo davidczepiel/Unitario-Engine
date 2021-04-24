@@ -8,7 +8,7 @@ LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(
 
 LightComponent::LightComponent(GameObject* gameObject): Component(ComponentId::LightComponent, gameObject), _light(nullptr)
 {
-	_light = new Light(gameObject->getName());
+
 }
 
 LightComponent::~LightComponent()
@@ -18,6 +18,7 @@ LightComponent::~LightComponent()
 
 void LightComponent::awake(luabridge::LuaRef& data)
 {
+	_light = new Light(_gameObject->getName());
 	//_route = data["Route"].cast<std::string>();
 	//std::cout << "As: " << _route << std::endl;
 	//luabridge::LuaRef lua_coord = data["Coord"];

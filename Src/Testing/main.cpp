@@ -5,6 +5,9 @@
 #include "MotorUnitario/Transform.h"
 #include "MotorUnitario/RigidBodyComponent.h"
 #include "MotorUnitario/GameObject.h"
+#include "MotorUnitario/CameraComponent.h"
+#include "MotorUnitario/RenderObjectComponent.h"
+#include "MotorUnitario/LightComponent.h"
 
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
@@ -15,18 +18,10 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 
 	try {
-		LuaParser* l = new LuaParser();
 		Engine* prueba = Engine::getInstance();
-
 		prueba->init();
-		/*GameObject* go = prueba->addGameObject();
-
-		Transform* tr = new Transform();
-		go->addComponent(tr);
-
-		RigidBodyComponent* rb = new RigidBodyComponent(go, RigidBodyComponent::Type::Box);
-		go->addComponent(rb);
-		prueba->run();*/
+		LuaParser l = LuaParser();
+		prueba->run();
 	}
 	catch (const ExcepcionTAD& e) {
 		Logger::getInstance()->log(e.msg(), Logger::Level::FATAL);
