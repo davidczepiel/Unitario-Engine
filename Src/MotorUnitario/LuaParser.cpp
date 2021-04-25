@@ -16,6 +16,7 @@
 #include "RenderObjectComponent.h"
 #include "ParticleSystemComponent.h"
 #include "RigidBodyComponent.h"
+#include "ColliderComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -160,9 +161,27 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			go->addComponent(ca);
 			break; 
 		}
-		case ComponentId::ComponentId::BoxCollider: { break; }
-		case ComponentId::ComponentId::SphereCollider: { break; }
-		case ComponentId::ComponentId::CapsuleCollider: { break; }
+		case ComponentId::ComponentId::BoxCollider: {
+			BoxColliderComponent* boxColl = new BoxColliderComponent();
+			boxColl->setGameObject(go);
+			boxColl->awake(data);
+			go->addComponent(boxColl);
+			break; 
+		}
+		case ComponentId::ComponentId::SphereCollider: {
+			SphereColliderComponent* sphColl = new SphereColliderComponent();
+			sphColl->setGameObject(go);
+			sphColl->awake(data);
+			go->addComponent(sphColl);
+			break; 
+		}
+		case ComponentId::ComponentId::CapsuleCollider: {
+			CapsuleColliderComponent* capsColl = new CapsuleColliderComponent();
+			capsColl->setGameObject(go);
+			capsColl->awake(data);
+			go->addComponent(capsColl);
+			break;
+		}
 		case ComponentId::ComponentId::AudioSource: 
 		{
 			AudioSourceComponent* as = new AudioSourceComponent(go);
