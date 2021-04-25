@@ -31,7 +31,10 @@ public:
 	/// </summary>
 	virtual void awake(luabridge::LuaRef& data) override;
 
-	void start();
+	/// <summary>
+	/// Called before the main loop starts
+	/// </summary>
+	void start() override;
 
 	/// <summary>
 	/// Hides the overlay

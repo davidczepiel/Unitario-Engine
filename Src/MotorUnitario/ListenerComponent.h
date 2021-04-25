@@ -30,15 +30,15 @@ public:
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
-	virtual void start();
+	virtual void start() override;
 	/// <summary>
 	/// Update the position and rotation of the Listener
 	/// </summary>
-	virtual void update();
+	virtual void update() override;
 	/// <summary>
 	/// Called each frame after update.
 	/// </summary>
-	virtual void lateUpdate();
+	virtual void lateUpdate() override;
 
 	void setListenerNumber(int listenNumber);
 

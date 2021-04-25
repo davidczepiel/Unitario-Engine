@@ -42,7 +42,7 @@ public:
 	/// <summary>
 	/// Checks if a transition must be made, and changes the animation to that state
 	/// </summary>
-	void lateUpdate();
+	void lateUpdate() override;
 
 	/// <summary>
 	/// Sets the initial state, searches for such state by name

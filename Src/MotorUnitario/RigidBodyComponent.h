@@ -42,7 +42,7 @@ public:
 	/// <summary>
 	/// Called each pshyical step to update physiscal information
 	/// </summary>
-	virtual void fixedUpdate();
+	virtual void fixedUpdate() override;
 
 	/// <summary>
 	/// Sets the position of the transform to a specified one

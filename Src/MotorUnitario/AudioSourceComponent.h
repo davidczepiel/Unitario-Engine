@@ -34,15 +34,15 @@ public:
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
-	virtual void start();
+	virtual void start() override;
 	/// <summary>
 	/// Update the component
 	/// </summary>
-	virtual void update();
+	virtual void update() override;
 	/// <summary>
 	/// Called each frame after update. 
 	/// </summary>
-	virtual void lateUpdate();
+	virtual void lateUpdate() override;
 	/// <summary>
 	/// Create an audio. You MUST change the route before create it.
 	/// </summary>
