@@ -22,7 +22,12 @@ public:
 	~PhysxEngine();
 
 	/// <summary>
-	/// If the instance is not created creates a new one
+	/// Creates the class instance
+	/// </summary>
+	static void CreateInstance();
+
+	/// <summary>
+	/// Returns the instance
 	/// </summary>
 	/// <returns>Unique instance of physx engine</returns>
 	static PhysxEngine* getPxInstance();
@@ -33,7 +38,7 @@ public:
 	/// <summary>
 	/// Initializes physx engine
 	/// </summary>
-	void init();
+	bool init();
 
 	/// <summary>
 	/// Calls physx simulation step
@@ -87,6 +92,8 @@ private:
 	/// Physx scene to simulate
 	/// </summary>
 	physx::PxScene* _scene;
+
+	bool alreadyInitialized;
 
 };
 

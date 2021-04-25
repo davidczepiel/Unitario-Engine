@@ -25,8 +25,7 @@
 std::unique_ptr<GraphicsEngine> GraphicsEngine::instance = nullptr;
 
 GraphicsEngine::GraphicsEngine() :_root(nullptr), _window(nullptr), _sceneManager(nullptr), _sdlWindow(nullptr),
-_mFSLayer(nullptr), _mShaderGenerator(nullptr)
-//, _mMaterialMgrListener(nullptr)
+_mFSLayer(nullptr), _mShaderGenerator(nullptr), alredyInitialized(false)
 {
 }
 
@@ -36,10 +35,24 @@ GraphicsEngine::~GraphicsEngine()
 
 GraphicsEngine* GraphicsEngine::getInstance()
 {
+	return instance.get();
+}
+
+void GraphicsEngine::CreateInstance()
+{
 	if (instance.get() == nullptr) {
 		instance.reset(new GraphicsEngine());
 	}
-	return instance.get();
+}
+
+bool GraphicsEngine::initializeRenderEngine()
+{
+	if (alredyInitialized) return false;
+	initRoot();
+	initWindow();
+	setup();
+	alredyInitialized = false;
+	return true;
 }
 
 void GraphicsEngine::initRoot()

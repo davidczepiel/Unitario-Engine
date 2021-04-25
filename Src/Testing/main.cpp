@@ -18,8 +18,9 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 
 	try {
+		Engine::CreateInstance();
 		Engine* prueba = Engine::getInstance();
-		prueba->init();
+		prueba->init("Assets/prueba.cfg");
 		LuaParser l = LuaParser();
 		prueba->run();
 	}

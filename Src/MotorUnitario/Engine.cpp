@@ -12,10 +12,11 @@
 //DEscomentar
 #include "RigidBodyComponent.h"
 #include "Transform.h"
+#include "Logger.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
-Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr)
+Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr), alredyInitialized(false)
 {
 }
 
@@ -26,18 +27,21 @@ void Engine::processEvents()
 
 Engine::~Engine()
 {
-	for (GameObject* go : _GOs) {
-		delete go; go = nullptr;
-	}
-	delete _physxEngine;
 }
 
 Engine* Engine::getInstance()
 {
+	return instance.get();
+}
+
+void Engine::CreateInstance()
+{
 	if (instance.get() == nullptr) {
 		instance.reset(new Engine());
 	}
-	return instance.get();
+	else {
+		Logger::getInstance()->log("Trying to create Engine instance and it already exist", Logger::Level::WARN);
+	}
 }
 
 void Engine::tick()
@@ -51,22 +55,34 @@ void Engine::tick()
 	_time->update();
 }
 
-void Engine::init()
+bool Engine::init(std::string const& resourcesPath)
 {
+	if (alredyInitialized) {
+		Logger::getInstance()->log("Engine class is already initialized", Logger::Level::WARN);
+		return false;
+	}
+
 	initFactories();
 
 	_inputManager = InputManager::getInstance();
+	GraphicsEngine::CreateInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
-	setResourcesPath("Assets/prueba.cfg");	// TESTING! This line must be called in game init, before the initialization of Engine
-	_graphicsEngine->initRoot();
-	_graphicsEngine->initWindow();
-	_graphicsEngine->setup();
+	_graphicsEngine->setResourcePath(resourcesPath);
+	if (!_graphicsEngine->initializeRenderEngine()) {
+		Logger::getInstance()->log("Graphics Engine init error", Logger::Level::ERROR);
+		throw "Graphics Engine init error";
+	}
+	PhysxEngine::CreateInstance();
 	_physxEngine = PhysxEngine::getPxInstance();
 	_physxEngine->init();
+	AudioEngine::CreateInstance();
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
 
 	_graphicsEngine->loadScene();
+
+	alredyInitialized = true;
+	return true;
 }
 
 void Engine::run()
@@ -88,11 +104,6 @@ void Engine::changeScene(const std::string& scene)
 void Engine::stopExecution()
 {
 	_run = false;
-}
-
-void Engine::setResourcesPath(std::string const& resourcesPath)
-{
-	_graphicsEngine->setResourcePath(resourcesPath);
 }
 
 void Engine::start()

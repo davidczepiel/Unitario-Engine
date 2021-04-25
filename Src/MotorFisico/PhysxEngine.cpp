@@ -9,7 +9,7 @@
 
 PhysxEngine* PhysxEngine::_instance = nullptr;
 
-PhysxEngine::PhysxEngine() : _mFoundation(nullptr), _mPhysics(nullptr), _mPvd(nullptr), _mCooking(nullptr), _mMaterial(nullptr), _scene(nullptr)
+PhysxEngine::PhysxEngine() : _mFoundation(nullptr), _mPhysics(nullptr), _mPvd(nullptr), _mCooking(nullptr), _mMaterial(nullptr), _scene(nullptr), alreadyInitialized(false)
 {
 }
 
@@ -25,16 +25,22 @@ PhysxEngine::~PhysxEngine()
 	_mFoundation->release();
 }
 
-PhysxEngine* PhysxEngine::getPxInstance()
+void PhysxEngine::CreateInstance()
 {
 	if (_instance == nullptr) {
 		_instance = new PhysxEngine();
 	}
+}
+
+PhysxEngine* PhysxEngine::getPxInstance()
+{
 	return _instance;
 }
 
-void PhysxEngine::init()
+bool PhysxEngine::init()
 {
+	if (alreadyInitialized) return false;
+
 	static physx::PxDefaultAllocator gDefaultAllocatorCallback;
 	static physx::PxDefaultErrorCallback gDefaultErrorCallback;
 	static ContactReportCallback callback;
@@ -69,6 +75,9 @@ void PhysxEngine::init()
 	_scene = _mPhysics->createScene(sceneDesc);
 	if (!_scene)
 		throw EPhysxEngine("PxSceneDesc failed!");
+
+	alreadyInitialized = true;
+	return true;
 }
 
 void PhysxEngine::update(float time)

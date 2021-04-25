@@ -10,15 +10,21 @@ AudioEngine::~AudioEngine()
 		_system->release();
 }
 
-AudioEngine* AudioEngine::getInstance()
+void AudioEngine::CreateInstance()
 {
 	if (_instance == nullptr) {
 		_instance = new AudioEngine();
 	}
+}
+
+AudioEngine* AudioEngine::getInstance()
+{
 	return _instance;
 }
 
-void AudioEngine::init() {
+bool AudioEngine::init() {
+	if (alreadyInitialized) return false;
+
 	FMOD_RESULT result;
 	result = FMOD::System_Create(&_system); // Create the System Objects
 	// 128 channels (max number that we can use)
@@ -26,7 +32,11 @@ void AudioEngine::init() {
 
 	if (result != FMOD_OK) {
 		//TO DO
+		//return false; ->In case something goes wrong...
 	}
+	alreadyInitialized = true;
+
+	return true;
 }
 
 void AudioEngine::update()
@@ -50,5 +60,5 @@ void AudioEngine::set_3DSettings(float dopplerScale, float distanceFactor, float
 	_system->set3DSettings(dopplerScale, distanceFactor, rolloff);
 }
 
-AudioEngine::AudioEngine() : _system(nullptr) {
+AudioEngine::AudioEngine() : _system(nullptr), alreadyInitialized(false) {
 }

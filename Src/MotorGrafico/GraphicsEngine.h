@@ -33,23 +33,19 @@ public:
 	/// Returns the instance of GraphicsEngine, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static GraphicsEngine* getInstance();
+
+	/// <summary>
+	/// Creates the class instance
+	/// </summary>
+	static void CreateInstance();
+
 	GraphicsEngine& operator=(const GraphicsEngine&) = delete;
 	GraphicsEngine(GraphicsEngine& other) = delete;
 
 	/// <summary>
-	/// This method initializes the Ogre Root
+	/// Initializes the root, window and set ups the scene
 	/// </summary>
-	void initRoot();
-
-	/// <summary>
-	/// This method loads the configuration and prepares the Ogre RenderWindow
-	/// </summary>
-	void initWindow();
-
-	/// <summary>
-	/// Sets up the Ogre scene
-	/// </summary>
-	void setup();
+	bool initializeRenderEngine();
 
 	/// <summary>
 	/// Free all resources in this engine
@@ -110,6 +106,21 @@ private:
 	GraphicsEngine();
 
 	/// <summary>
+	/// This method initializes the Ogre Root
+	/// </summary>
+	void initRoot();
+
+	/// <summary>
+	/// This method loads the configuration and prepares the Ogre RenderWindow
+	/// </summary>
+	void initWindow();
+
+	/// <summary>
+	/// Sets up the Ogre scene
+	/// </summary>
+	void setup();
+
+	/// <summary>
 	/// Locate all resources related to the path
 	/// </summary>
 	/// <param name="path"> Relative route to the resources.cfg</param>
@@ -150,6 +161,8 @@ private:
 	int _width;
 	// Windows heigth
 	int _height;
+
+	bool alredyInitialized;
 
 };
 
