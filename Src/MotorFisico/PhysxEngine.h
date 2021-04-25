@@ -47,7 +47,7 @@ public:
 	/// <returns>A pointer to the physx scene</returns>
 	inline physx::PxScene* getScene() const { return _scene; }
 	inline physx::PxPhysics* getPhysics() const { return _mPhysics; }
-	
+
 private:
 
 	/// <summary>

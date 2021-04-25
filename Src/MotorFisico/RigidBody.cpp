@@ -19,7 +19,8 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* col
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
-	if (_isStatic) {
+	if (_isStatic)
+	{
 		_staticBody->attachShape(*e);
 		_scene->addActor(*_staticBody);
 	}
@@ -42,7 +43,8 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
-	if (_isStatic) {
+	if (_isStatic)
+	{
 		_staticBody->attachShape(*e);
 		_scene->addActor(*_staticBody);
 	}
@@ -64,7 +66,8 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, Contac
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
-	if (_isStatic) {
+	if (_isStatic)
+	{
 		_staticBody->attachShape(*e);
 		_scene->addActor(*_staticBody);
 	}
