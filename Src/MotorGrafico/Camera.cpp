@@ -62,6 +62,12 @@ void Camera::rollRadians(float radians)
 	_node->roll(Ogre::Radian(radians));
 }
 
+void Camera::renderOverlays(bool render)
+{
+	if (_viewport != nullptr)
+		_viewport->setOverlaysEnabled(render);
+}
+
 void Camera::setOrientation(float x, float y, float z)
 {
 	Ogre::Euler rot = Ogre::Euler(x, y, z);
@@ -125,8 +131,10 @@ const std::tuple<float, float, float>& Camera::getOrientation() {
 void Camera::setViewportVisibility(bool visible, float x, float y, float w, float h)
 {
 	if (visible) {
-		if (_viewport == nullptr)
+		if (_viewport == nullptr) {
 			_viewport = GraphicsEngine::getInstance()->setupViewport(_camera, _zOrder, x, y, w, h);
+			_camera->setAspectRatio(Ogre::Real(_viewport->getActualWidth()) / Ogre::Real(_viewport->getActualHeight()));
+		}
 	}
 	else {
 		if (_viewport != nullptr) {

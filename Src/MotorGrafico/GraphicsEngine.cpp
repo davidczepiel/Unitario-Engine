@@ -12,13 +12,13 @@
 #include "OgreShaderGenerator.h"
 #include "RTSSDefaultTechniqueListener.h"
 
-#include "Camera.h"			//Testing
-#include <OgreEntity.h>		//Testing
-#include <OgreSceneNode.h>	//Testing
+#include "Camera.h"
+#include <OgreEntity.h>
+#include <OgreSceneNode.h>
 #include <OgreRenderWindow.h>
-#include <OgreViewport.h>	//Testing
-#include <OgreOverlayManager.h>	//Testing
-#include <OgreOverlaySystem.h>	//Testing
+#include <OgreViewport.h>
+#include <OgreOverlayManager.h>
+#include <OgreOverlaySystem.h>
 
 #include <iostream>	//Testing
 
@@ -115,11 +115,24 @@ void GraphicsEngine::setup()
 	_locateResources(_resourcesPath);
 	_initialiseRTShaderSystem();
 	_loadResources();
+
+	//These elements are created so that it is posible to have multiple viewports
+	//that can render on top of each other
+	//This default viewport will be the first one to render something and will be the only one who will
+	//clear the color buffer.
+	//The rest of the viewports will only overwrite the depth buffer so that it is posible to have more than
+	//one been rendered at the same time
+	_defaultCamera = _sceneManager->createCamera("DefaultCamera");
+	_defaultViewport = _window->addViewport(_defaultCamera);
+	_defaultViewport->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+	_defaultViewport->setDimensions(0, 0, 0, 0);
 }
 
 void GraphicsEngine::shutdown()
 {
 	_mShaderGenerator->removeSceneManager(_sceneManager);
+	_sceneManager->destroyCamera(_defaultCamera);
+	_window->removeAllViewports();
 	_root->destroySceneManager(_sceneManager);
 
 	destroyRTShaderSystem();
@@ -299,10 +312,11 @@ void GraphicsEngine::setWindowGrab(bool _grab)
 	SDL_ShowCursor(true);
 }
 
-Ogre::Viewport* GraphicsEngine::setupViewport(Ogre::Camera* cam, int zOrder, int x, int y, int w, int h)
+Ogre::Viewport* GraphicsEngine::setupViewport(Ogre::Camera* cam, int zOrder, float x, float y, float w, float h)
 {
 	Ogre::Viewport* vp = _window->addViewport(cam, zOrder, x, y, w, h);
 	vp->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+	vp->setClearEveryFrame(true, Ogre::FBT_DEPTH);
 	return vp;
 }
 
@@ -312,7 +326,7 @@ void GraphicsEngine::removeViewport(Ogre::Viewport* vp)
 }
 
 void GraphicsEngine::addNode(const std::string& name, const std::string& parent)
-{	
+{
 	if (parent != "" && !_sceneManager->hasSceneNode(parent))
 		throw SceneNodeException("Parent does not exist");
 

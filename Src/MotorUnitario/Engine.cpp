@@ -123,7 +123,7 @@ void Engine::fixedUpdate()
 		for (auto& it : _GOs) {
 			it->fixedUpdate();
 		}
-	}	
+	}
 	_time->fixedTimeUpdate();
 }
 
