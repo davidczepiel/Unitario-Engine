@@ -6,9 +6,10 @@
 
 std::unique_ptr<EngineTime> EngineTime::instance = nullptr;
 
-EngineTime::EngineTime(): _msTimeLastTick(), _deltaTime(), _maxDeltaTimeRecorded(0.0f), _fps(60)
+EngineTime::EngineTime(): _msTimeLastTick(), _deltaTime(), _msTimeLastFixed(), _maxDeltaTimeRecorded(0.0f), _fps(60), _fixedDeltaTime(20)
 {
 	_msTimeLastTick = SDL_GetTicks();
+	_msTimeLastFixed = SDL_GetTicks();
 }
 
 void EngineTime::update()
@@ -25,6 +26,20 @@ void EngineTime::update()
 	//I take the median between last tick fps and now, so it's more stable
 	//Adding 1 so it rounds up (unless both are equal)
 	_fps = (_fps + static_cast<int>(1.0f / _deltaTime) + 1) / 2;
+}
+
+void EngineTime::fixedTimeUpdate()
+{
+	Uint32 timeNow = SDL_GetTicks();
+
+	_msTimeLastFixed = timeNow;
+}
+
+int EngineTime::fixedUpdateRequired()
+{
+	Uint32 timeNow = SDL_GetTicks();
+
+	return (timeNow - _msTimeLastFixed) / _fixedDeltaTime;
 }
 
 EngineTime::~EngineTime()
