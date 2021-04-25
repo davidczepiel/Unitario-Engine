@@ -43,9 +43,8 @@ Engine* Engine::getInstance()
 void Engine::tick()
 {
 	processEvents();
-	update();
-	//WIP
 	fixedUpdate();
+	update();
 	lateUpdate();
 	_graphicsEngine->render();
 	_audioEngine->update();
@@ -105,9 +104,16 @@ void Engine::start()
 
 void Engine::fixedUpdate()
 {
-	for (auto& it : _GOs) {
-		it->fixedUpdate();
-	}
+	int calls = _time->fixedUpdateRequired();
+
+	if (calls == 0) return;
+
+	for (calls; calls > 0; --calls) {
+		for (auto& it : _GOs) {
+			it->fixedUpdate();
+		}
+	}	
+	_time->fixedTimeUpdate();
 }
 
 void Engine::update()

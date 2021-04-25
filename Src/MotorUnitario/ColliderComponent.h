@@ -99,6 +99,8 @@ public:
 	/// </summary>
 	virtual ~BoxColliderComponent();
 
+	void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Changes box size
 	/// </summary>
@@ -129,6 +131,8 @@ public:
 	/// </summary>
 	virtual ~SphereColliderComponent();
 
+	void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Changes sphere radius
 	/// </summary>
@@ -156,6 +160,8 @@ public:
 	/// Destructor of the class
 	/// </summary>
 	virtual ~CapsuleColliderComponent();
+
+	void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Changes capsule's dimensions

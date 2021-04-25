@@ -57,6 +57,25 @@ BoxColliderComponent::~BoxColliderComponent()
 	delete _collider; _collider == nullptr;
 }
 
+void BoxColliderComponent::awake(luabridge::LuaRef& data)
+{
+	int width = data["Width"].cast<int>();
+	int height = data["Height"].cast<int>();
+	int depth = data["Depth"].cast<int>();
+
+	bool isTrigger = data["IsTrigger"].cast<bool>();
+
+	float staticFriction = data["StaticFriction"].cast<float>();
+	float dynamicFriction = data["DynamicFriction"].cast<float>();
+	float restitution = data["Restitution"].cast<float>();
+
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+
+	_collider = new BoxCollider(width, height, depth, isTrigger, _gameObject,
+		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
+}
+
 void BoxColliderComponent::setScale(int width, int heigh, int depth)
 {
 	static_cast<BoxCollider*>(_collider)->setScale(width, heigh, depth);
@@ -80,6 +99,23 @@ SphereColliderComponent::~SphereColliderComponent()
 	delete _collider; _collider == nullptr;
 }
 
+void SphereColliderComponent::awake(luabridge::LuaRef& data)
+{
+	int radius = data["Radius"].cast<int>();
+
+	bool isTrigger = data["IsTrigger"].cast<bool>();
+
+	float staticFriction = data["StaticFriction"].cast<float>();
+	float dynamicFriction = data["DynamicFriction"].cast<float>();
+	float restitution = data["Restitution"].cast<float>();
+
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+
+	_collider = new SphereCollider(radius, isTrigger, _gameObject,
+		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
+}
+
 void SphereColliderComponent::setScale(int radius)
 {
 	static_cast<SphereCollider*>(_collider)->setScale(radius);
@@ -101,6 +137,24 @@ CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(Compone
 CapsuleColliderComponent::~CapsuleColliderComponent()
 {
 	delete _collider; _collider == nullptr;
+}
+
+void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
+{
+	int radius = data["Radius"].cast<int>();
+	int length = data["Length"].cast<int>();
+
+	bool isTrigger = data["IsTrigger"].cast<bool>();
+
+	float staticFriction = data["StaticFriction"].cast<float>();
+	float dynamicFriction = data["DynamicFriction"].cast<float>();
+	float restitution = data["Restitution"].cast<float>();
+
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+
+	_collider = new CapsuleCollider(radius, length, isTrigger, _gameObject,
+		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 
 void CapsuleColliderComponent::setScale(int radius, int length)

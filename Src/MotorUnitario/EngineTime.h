@@ -35,6 +35,12 @@ public:
 	inline float deltaTime() const { return _deltaTime; }
 
 	/// <summary>
+	/// Returns fixed delta time
+	/// </summary>
+	/// <returns></returns>
+	inline float fixedDeltaTime() { return _fixedDeltaTime; }
+
+	/// <summary>
 	/// Maximum deltaTime recorded
 	/// </summary>
 	/// <returns>seconds</returns>
@@ -52,6 +58,12 @@ public:
 	/// <returns></returns>
 	Date getDate() const;
 
+	/// <summary>
+	/// Sets the time between two calls to the phisycs engine
+	/// </summary>
+	/// <param name="newFixedDeltaTime"> The new value of fixed delta time in seconds</param>
+	inline void setFixedDeltaTime(unsigned int newFixedDeltaTime) { _fixedDeltaTime = newFixedDeltaTime * 1000.0f; }
+
 private:
 	/// <summary>
 	/// Contructor of the class
@@ -63,11 +75,23 @@ private:
 	/// </summary>
 	void update();
 
+	/// <summary>
+	/// When called, calculates deltaTime with the time value it obtained last time it was called
+	/// </summary>
+	void fixedTimeUpdate();
+
+	/// <summary>
+	/// Returns the number of calls to the phisycs engine in this frame
+	/// </summary>
+	int fixedUpdateRequired();
+
 	static std::unique_ptr<EngineTime> instance;
 
 	unsigned int _msTimeLastTick;
+	unsigned int _msTimeLastFixed;
 
 	float _deltaTime;
+	unsigned int _fixedDeltaTime;
 	float _maxDeltaTimeRecorded;
 
 	int _fps;
