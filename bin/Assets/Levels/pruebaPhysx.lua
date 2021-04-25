@@ -15,10 +15,10 @@
 HowManyGameObjects = 3
 
 go_0 = {}
-go_0[0] = { Name = "Cubo", HowManyCmps = 2}
+go_0[0] = { Name = "Suelo", HowManyCmps = 2}
 go_0[1] = { Component = "Transform", Coord = {X = 300, Y = 0, Z = -1000}}
 go_0[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="SexyMaterial", 
-			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
+			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=10, Y=1, Z=10}, LookAt ={X=1, Y=1, Z=1},
 			Visible=false, Shadows=false, RenderingDistance = 1}
 
 go_1 = {}
@@ -28,13 +28,22 @@ go_1[2] = { Component = "Camera", Orientation = {X = 0, Y = 0, Z = -1}, Plane = 
 			Projection = true, Fovy = 6, Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
 			OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 9, Top = 8, W = 7, H = 6}}
 
+-- go_2 = {}
+-- go_2[0] = { Name = "DarkLight", HowManyCmps = 2}
+-- go_2[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}}
+-- go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Diffuse = {Red = 1, Green= 1, Blue = 1}, 
+-- 	   		Specular = {Red = 1, Green= 1, Blue = 1},
+-- 			Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1},
+-- 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
+
 go_2 = {}
-go_2[0] = { Name = "DarkLight", HowManyCmps = 2}
-go_2[1] = { Component = "Transform", Coord = {X = 3, Y = 3, Z = 3}}
-go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = false,Diffuse = {Red = 1, Green= 1, Blue = 1}, 
+go_2[0] = { Name = "ObjetoFisico", HowManyCmps = 3}
+go_2[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}}
+go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Diffuse = {Red = 1, Green= 1, Blue = 1}, 
 	   		Specular = {Red = 1, Green= 1, Blue = 1},
 			Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1},
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
+go_2[3] = { Component = "RigidBody", Type="Sphere"}
 
 
 -- COMPONENT EXAMPLES
@@ -78,3 +87,5 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = false,Di
 --														Scale = {X = 0.3, Y = 0.5, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 180}}
 
 -- PartycleSystem 	-> go_goNumber[componentNumber] = { Component = "ParticleSystem", Path="SexyPath"}
+
+-- RigidBody with Spere collider -> go_goNumber[componentNumber] = { Component = "RigidBody", Radius=5 }

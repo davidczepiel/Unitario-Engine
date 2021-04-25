@@ -16,15 +16,13 @@ GameObject::GameObject() : _children(), _components(_COMPONENT_START_SIZE_, null
 GameObject::~GameObject()
 {
 	for (auto c : _activeComponents) {
-		delete c.second;
-		c.second = nullptr;
+		delete c.second; c.second = nullptr;
 	}
 	_activeComponents.clear();
 
 	if (_children.size() != 0) {
 		for (auto g : _children) {
-			delete g;
-			g = nullptr;
+			delete g; g = nullptr;
 		}
 		_children.clear();
 	}

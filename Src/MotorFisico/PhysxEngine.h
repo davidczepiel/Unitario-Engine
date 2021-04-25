@@ -58,7 +58,7 @@ private:
 	/// <summary>
 	/// Singleton of physx engine
 	/// </summary>
-	static std::unique_ptr<PhysxEngine> _instance;
+	static PhysxEngine* _instance;
 
 	/// <summary>
 	/// Physx foundation (to initialize physx)
@@ -87,8 +87,6 @@ private:
 	/// Physx scene to simulate
 	/// </summary>
 	physx::PxScene* _scene;
-
-
 
 };
 

@@ -19,9 +19,15 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* col
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
+	if (_isStatic) {
+		_staticBody->attachShape(*e);
+		_scene->addActor(*_staticBody);
+	}
+	else {
+		_dynamicBody->attachShape(*e);
+		_scene->addActor(*_dynamicBody);
+	}
 	e->release();
-	_dynamicBody->attachShape(*e);
-	_scene->addActor(*_dynamicBody);
 }
 
 RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position,
@@ -36,9 +42,15 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
-	_dynamicBody->attachShape(*e);
+	if (_isStatic) {
+		_staticBody->attachShape(*e);
+		_scene->addActor(*_staticBody);
+	}
+	else {
+		_dynamicBody->attachShape(*e);
+		_scene->addActor(*_dynamicBody);
+	}
 	e->release();
-	_scene->addActor(*_dynamicBody);
 }
 
 RigidBody::RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position, bool isKinematic,
@@ -52,19 +64,20 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, Contac
 	physx::PxShape* e = _physx->createShape(aux, *mat);
 	setFlags(e);
 	mat->release();
-	_dynamicBody->attachShape(*e);
+	if (_isStatic) {
+		_staticBody->attachShape(*e);
+		_scene->addActor(*_staticBody);
+	}
+	else {
+		_dynamicBody->attachShape(*e);
+		_scene->addActor(*_dynamicBody);
+	}
 	e->release();
-	_scene->addActor(*_dynamicBody);
 }
 
 RigidBody::~RigidBody()
 {
-	if (_dynamicBody != nullptr)
-		_dynamicBody->release();
-	if (_staticBody != nullptr)
-		_staticBody->release();
-	delete _transform;
-	_transform = nullptr;
+	delete _transform; _transform = nullptr;
 }
 
 bool RigidBody::setStaticFriction(float f)

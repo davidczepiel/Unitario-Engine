@@ -25,8 +25,6 @@ Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr),
 
 Camera::~Camera()
 {
-	if (_camera != nullptr)delete _camera;
-	if (_node != nullptr)delete _node;
 }
 
 void Camera::lookAt(float x, float y, float z)

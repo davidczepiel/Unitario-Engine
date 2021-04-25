@@ -309,9 +309,9 @@ void GraphicsEngine::addNode(const std::string& name, const std::string& parent)
 
 void GraphicsEngine::loadScene()
 {
-	Ogre::Light* light = _sceneManager->createLight("coso");
+	/*Ogre::Light* light = _sceneManager->createLight("coso");
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
-	light->setDiffuseColour(0.75, 0.75, 0.75);
+	light->setDiffuseColour(0.75, 0.75, 0.75);*/
 
 	//Camera* cam = new Camera();
 	//cam->setPosition(400, 120, 0);

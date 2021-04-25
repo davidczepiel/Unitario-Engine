@@ -6,10 +6,10 @@
 #include "Logger.h"
 #include "Vector3.h"
 
-RigidBodyComponent::RigidBodyComponent(GameObject* go, Type type) : Component(ComponentId::Rigidbody, go), _rb(), _tr(nullptr), _log(nullptr), _type(type)
+RigidBodyComponent::RigidBodyComponent(GameObject* go, Type type) : Component(ComponentId::Rigidbody, go), _rb(), _tr(nullptr), _log(nullptr)
 {
 	_log = Logger::getInstance();
-	switch (_type)
+	switch (type)
 	{
 	case Type::Box:		_rb = new RigidBody(10, 10, 10, go, gameObjectsCollision);
 	case Type::Capsule:	_rb = new RigidBody(10, 20, go, gameObjectsCollision);
@@ -18,7 +18,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* go, Type type) : Component(Co
 	}
 }
 
-RigidBodyComponent::RigidBodyComponent(const std::string& path, GameObject* go) : Component(ComponentId::Rigidbody, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
+RigidBodyComponent::RigidBodyComponent(GameObject* go) : Component(ComponentId::Rigidbody, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
 	_log = Logger::getInstance(); 
 }
@@ -31,6 +31,20 @@ RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nul
 RigidBodyComponent::~RigidBodyComponent()
 {
 	delete _rb; _rb = nullptr;
+}
+
+void RigidBodyComponent::awake(luabridge::LuaRef& data)
+{
+	if (LUAFIELDEXIST(Type)) { //Sphere
+		if (GETLUASTRINGFIELD(Type) == "Sphere") {
+			if (LUAFIELDEXIST(Radius)) _rb = new RigidBody(GETLUAFIELD(Radius, int), _gameObject, gameObjectsCollision);
+			else _rb = new RigidBody(1, _gameObject, gameObjectsCollision);		
+		}
+		else { //Resto de tipos de collider
+
+		}
+	}
+
 }
 
 void RigidBodyComponent::fixedUpdate()

@@ -130,7 +130,6 @@ private:
 	/// </summary>
 	void initFactories();
 
-	static Engine* _instance;
 	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;

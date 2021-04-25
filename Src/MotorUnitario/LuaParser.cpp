@@ -15,6 +15,7 @@
 #include "OverlayComponent.h"
 #include "RenderObjectComponent.h"
 #include "ParticleSystemComponent.h"
+#include "RigidBodyComponent.h"
 #include "Engine.h"
 #include "Exceptions.h"
 #include "Logger.h"
@@ -152,7 +153,13 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			go->addComponent(ca);
 			break;
 		}
-		case ComponentId::ComponentId::Rigidbody: { break; }
+		case ComponentId::ComponentId::Rigidbody: { 
+			RigidBodyComponent* ca = new RigidBodyComponent();
+			ca->setGameObject(go);
+			ca->awake(data);
+			go->addComponent(ca);
+			break; 
+		}
 		case ComponentId::ComponentId::BoxCollider: { break; }
 		case ComponentId::ComponentId::SphereCollider: { break; }
 		case ComponentId::ComponentId::CapsuleCollider: { break; }
@@ -205,7 +212,7 @@ unsigned int LuaParser::getComponentType(std::string cmp)
 		return ComponentId::ComponentId::ParticleSystem;
 	else if (cmp == "Camera")
 		return ComponentId::ComponentId::Camera;
-	else if (cmp == "Rigidbody")
+	else if (cmp == "RigidBody")
 		return ComponentId::ComponentId::Rigidbody;
 	else if (cmp == "BoxCollider")
 		return ComponentId::ComponentId::BoxCollider;

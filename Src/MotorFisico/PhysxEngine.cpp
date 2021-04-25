@@ -3,10 +3,11 @@
 #include "extensions/PxDefaultSimulationFilterShader.h"
 #include "Exceptions.h"
 #include "Callbacks.h"
+#include "pvd/PxPvdTransport.h"
 
 #define PVD_HOST "127.0.0.1"
 
-std::unique_ptr<PhysxEngine>PhysxEngine::_instance = nullptr;
+PhysxEngine* PhysxEngine::_instance = nullptr;
 
 PhysxEngine::PhysxEngine() : _mFoundation(nullptr), _mPhysics(nullptr), _mPvd(nullptr), _mCooking(nullptr), _mMaterial(nullptr), _scene(nullptr)
 {
@@ -14,26 +15,31 @@ PhysxEngine::PhysxEngine() : _mFoundation(nullptr), _mPhysics(nullptr), _mPvd(nu
 
 PhysxEngine::~PhysxEngine()
 {
-	_mPhysics->release();
-	_mFoundation->release();
-	_mPvd->release();
-	_mCooking->release();
 	_scene->release();
+	_mPhysics->release();
+	
+	physx::PxPvdTransport* transport = _mPvd->getTransport();
+	_mPvd->release();
+	transport->release();
+
+	_mFoundation->release();
 }
 
 PhysxEngine* PhysxEngine::getPxInstance()
 {
-	if (_instance.get() == nullptr) {
-		_instance.reset(new PhysxEngine());
+	if (_instance == nullptr) {
+		_instance = new PhysxEngine();
 	}
-	return _instance.get();
+	return _instance;
 }
 
 void PhysxEngine::init()
 {
-	static physx::PxDefaultErrorCallback gDefaultErrorCallback;
 	static physx::PxDefaultAllocator gDefaultAllocatorCallback;
+	static physx::PxDefaultErrorCallback gDefaultErrorCallback;
 	static ContactReportCallback callback;
+
+	static physx::PxDefaultCpuDispatcher* gDispatcher;
 
 	_mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	if (!_mFoundation)
@@ -55,7 +61,7 @@ void PhysxEngine::init()
 
 	physx::PxSceneDesc sceneDesc(_mPhysics->getTolerancesScale());
 	sceneDesc.gravity = physx::PxVec3(0.0f, -9.8f, 0.0f);
-	static physx::PxDefaultCpuDispatcher* gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
+	gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &callback;
