@@ -13,6 +13,9 @@ extern "C"
 class GameObject;
 
 #define GETCOMPONENT(comp, id) static_cast<comp*>(_gameObject->getComponent(id))
+#define GETLUAFIELD(name, type) data[#name].cast<type>()
+#define GETLUASTRINGFIELD(name) data[#name].tostring()
+#define LUAFIELDEXIST(name) !data[#name].isNil()
 
 class Component
 {

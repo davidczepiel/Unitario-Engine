@@ -26,6 +26,10 @@ void Engine::processEvents()
 
 Engine::~Engine()
 {
+	for (GameObject* go : _GOs) {
+		delete go; go = nullptr;
+	}
+	delete _physxEngine;
 }
 
 Engine* Engine::getInstance()
@@ -58,8 +62,8 @@ void Engine::init()
 	_graphicsEngine->initRoot();
 	_graphicsEngine->initWindow();
 	_graphicsEngine->setup();
-	/*_physxEngine = PhysxEngine::getPxInstance();
-	_physxEngine->init();*/
+	_physxEngine = PhysxEngine::getPxInstance();
+	_physxEngine->init();
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
 

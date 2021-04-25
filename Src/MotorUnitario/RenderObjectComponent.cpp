@@ -14,7 +14,6 @@ _transform(nullptr), _meshName("")
 {
 }
 
-//WIP: add ecs.h to make an ID for this Component
 RenderObjectComponent::RenderObjectComponent(GameObject* gameObject, std::string const& meshName) : Component(ComponentId::RenderObject, gameObject), _renderObject(nullptr),
 _transform(nullptr),_meshName(meshName)
 {

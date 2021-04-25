@@ -30,7 +30,7 @@ public:
 	/// </summary>
 	/// <param name="path">Path of configuration file</param>
 	/// <param name="go">Gameobject this component is attached to</param>
-	RigidBodyComponent(const std::string& path, GameObject* go);
+	RigidBodyComponent(GameObject* go);
 
 	/// <summary>
 	/// Constructor of the class
@@ -38,6 +38,8 @@ public:
 	RigidBodyComponent();
 
 	virtual ~RigidBodyComponent();
+
+	void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Called each pshyical step to update physiscal information
@@ -178,7 +180,6 @@ private:
 	RigidBody* _rb;
 	Transform* _tr;
 	Logger* _log;
-	Type _type;
 
 };
 #endif //!RIGIDBODYCOMPONENT_H
