@@ -2,16 +2,29 @@
 #include "ComponentFactory.h"
 #include "Exceptions.h"
 #include "Component.h"
+#include "Logger.h"
 
-void ComponentsFactory::add(const std::string& name, ComponentFactory* factory)
+std::unique_ptr<ComponentsFactory> ComponentsFactory::instance = nullptr;
+
+ComponentsFactory* ComponentsFactory::getInstance()
+{
+	if (instance.get() == nullptr) {
+		instance.reset(new ComponentsFactory());
+	}
+	return instance.get();
+}
+
+int ComponentsFactory::add(const std::string& name, ComponentFactory* factory)
 {
 	_componentTranslator.insert(std::make_pair(name, factory));
+	Logger::getInstance()->log(name + " inserted");
+	return 0;
 }
 
 Component* ComponentsFactory::getComponentByName(const std::string& name)
 {
 	auto it = _componentTranslator.find(name);
 	if (it == _componentTranslator.end())
-		throw ComponentException("The component" + name + "doesn't exist");
+		throw ComponentException("The component " + name + " doesn't exist");
 	return (*it).second->create();
 }

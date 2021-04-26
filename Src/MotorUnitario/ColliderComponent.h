@@ -74,6 +74,9 @@ protected:
 #endif // !COLLIDERCOMPONENT_H
 //////////////////////////////////////////////////////
 
+#ifndef BOXCOLLIDERCOMPONENT_H
+#define BOXCOLLIDERCOMPONENT_H
+
 class BoxColliderComponent : public ColliderComponent {
 public:
 
@@ -99,7 +102,15 @@ public:
 	void setScale(int width, int heigh, int depth);
 };
 
+ADD_COMPONENT(BoxColliderComponent)
+
+#endif
+
 /////////////////////////////////////////////////////////
+
+
+#ifndef SPHERECOLLIDERCOMPONENT_H
+#define SPHERECOLLIDERCOMPONENT_H
 
 class SphereColliderComponent : public ColliderComponent {
 public:
@@ -123,7 +134,14 @@ public:
 	void setScale(int radius);
 };
 
+ADD_COMPONENT(SphereColliderComponent)
+
+#endif
+
 ////////////////////////////////////////////////////
+
+#ifndef CAPSULECOLLIDERCOMPONENT_H
+#define CAPSULECOLLIDERCOMPONENT_H
 
 class CapsuleColliderComponent : public ColliderComponent {
 public:
@@ -147,3 +165,7 @@ public:
 	/// <param name="l">New length</param>
 	void setScale(int radius, int length);
 };
+
+ADD_COMPONENT(CapsuleColliderComponent)
+
+#endif

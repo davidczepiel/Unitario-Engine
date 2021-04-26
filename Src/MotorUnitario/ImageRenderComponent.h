@@ -89,4 +89,7 @@ private:
 	ImageRender* _imageRender;
 	Transform* _tr;
 };
+
+ADD_COMPONENT(ImageRenderComponent)
+
 #endif // !IMAGERENDERCOMPONENT_H

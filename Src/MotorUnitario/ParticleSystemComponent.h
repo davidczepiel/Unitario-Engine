@@ -40,4 +40,6 @@ private:
 	std::string _path;
 };
 
-#endif AUDIOSOURCECOMPONENT_H
+ADD_COMPONENT(ParticleSystemComponent)
+
+#endif //PARTICLESYSTEMCOMPONENT_H

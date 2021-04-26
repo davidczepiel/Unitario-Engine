@@ -14,7 +14,6 @@ class InputManager;
 class AudioEngine;
 class ComponentsFactory;
 
-#define ADD(className)ComponentsFactory::add(className,classNameFactory);
 class EngineTime;
 
 class Engine
@@ -124,12 +123,6 @@ private:
 	/// Process events
 	/// </summary>
 	void processEvents();
-
-	/// <summary>
-	/// Adds all the components factories of the engine and creates componenets.
-	///This is for testing the factorires
-	/// </summary>
-	void initFactories();
 
 	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;

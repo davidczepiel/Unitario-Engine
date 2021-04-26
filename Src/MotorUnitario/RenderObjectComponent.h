@@ -98,4 +98,6 @@ private:
 	std::string _meshName;
 };
 
+ADD_COMPONENT(RenderObjectComponent)
+
 #endif //!RENDEROBJECT_COMPONENT_H

@@ -168,6 +168,8 @@ private:
 	RigidBody* _rb;
 	Transform* _tr;
 	Logger* _log;
-
 };
+
+ADD_COMPONENT(RigidBodyComponent)
+
 #endif //!RIGIDBODYCOMPONENT_H

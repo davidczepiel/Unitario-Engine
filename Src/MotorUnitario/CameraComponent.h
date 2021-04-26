@@ -177,4 +177,7 @@ private:
 	Camera* _camera;
 	Transform* _tr;
 };
+
+ADD_COMPONENT(CameraComponent)
+
 #endif // !CAMERACOMPONENT_H

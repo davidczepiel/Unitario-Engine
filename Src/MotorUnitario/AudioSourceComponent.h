@@ -101,4 +101,6 @@ private:
 	std::string _route;
 };
 
+ADD_COMPONENT(AudioSourceComponent)
+
 #endif AUDIOSOURCECOMPONENT_H

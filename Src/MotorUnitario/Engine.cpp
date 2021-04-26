@@ -1,17 +1,12 @@
 #include "Engine.h"
-//WIP
+
 #include "MotorUnitario/GameObject.h"
 #include <SDL.h>
 #include "MotorGrafico/GraphicsEngine.h"
 #include "MotorFisico/PhysxEngine.h"
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
-#include "ComponentsFactory.h"
-#include "ComponentFactory.h"
 #include "EngineTime.h"
-//DEscomentar
-#include "RigidBodyComponent.h"
-#include "Transform.h"
 #include "Logger.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
@@ -66,8 +61,6 @@ bool Engine::init(std::string const& resourcesPath)
 		Logger::getInstance()->log("Engine class is already initialized", Logger::Level::WARN);
 		return false;
 	}
-
-	initFactories();
 
 	_inputManager = InputManager::getInstance();
 	GraphicsEngine::CreateInstance();
@@ -195,36 +188,4 @@ GameObject* Engine::findGameObject(const std::string& name)
 			it++;
 	}
 	return (it == _GOs.end()) ? (nullptr) : (*it);
-}
-
-void Engine::initFactories()
-{
-	ComponentsFactory::add("ImageRenderer", new ImageRenderComponentFactory());
-	ComponentsFactory::add("Light", new LightComponentFactory());
-	ComponentsFactory::add("RenderObject", new RenderObjectComponentFactory());
-	ComponentsFactory::add("Listener", new ListenerComponentFactory());
-	ComponentsFactory::add("AudioSource", new AudioSourceComponentFactory());
-	ComponentsFactory::add("RigidBody", new RigidBodyComponentFactory());
-	ComponentsFactory::add("BoxCollider", new BoxColliderComponentFactory());
-	ComponentsFactory::add("SphereCollider", new SphereColliderComponentFactory());
-	ComponentsFactory::add("CapsuleCollider", new CapsuleColliderComponentFactory());
-	ComponentsFactory::add("Camera", new CameraComponentFactory());
-	ComponentsFactory::add("Animator", new AnimatorComponentFactory());
-	ComponentsFactory::add("ParticleSystem", new ParticleSystemComponentFactory());
-	ComponentsFactory::add("ButtonComponent", new ButtonComponentFactory());
-	ComponentsFactory::add("OverlayComponent", new OverlayComponentFactory());
-
-	// GameObject* go = new GameObject();
-	// Component* ir = ComponentsFactory::getComponentByName("ImageRenderer");
-	// ir->setGameObject(go);
-	// go->addComponent(ir);
-	// go->addComponent(ComponentsFactory::getComponentByName("Light"));
-	// go->addComponent(ComponentsFactory::getComponentByName("RenderObject"));
-	// go->addComponent(ComponentsFactory::getComponentByName("Listener"));
-	// go->addComponent(ComponentsFactory::getComponentByName("AudioSource"));
-	// go->addComponent(ComponentsFactory::getComponentByName("RigidBody"));
-	// go->addComponent(ComponentsFactory::getComponentByName("Collider"));
-	// go->addComponent(ComponentsFactory::getComponentByName("Camera"));
-	// go->addComponent(ComponentsFactory::getComponentByName("Animator"));
-	// go->addComponent(ComponentsFactory::getComponentByName("ParticleSystem"));
 }
