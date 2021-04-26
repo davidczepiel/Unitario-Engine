@@ -61,12 +61,6 @@ public:
 	void setRotation(Vector3 rot);
 
 protected:
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="id">Component ID</param>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	ColliderComponent(int id, GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class
@@ -83,11 +77,6 @@ protected:
 class BoxColliderComponent : public ColliderComponent {
 public:
 
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	BoxColliderComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class
@@ -118,12 +107,6 @@ public:
 	/// <summary>
 	/// Contructor of the class
 	/// </summary>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	SphereColliderComponent(GameObject* gameObject);
-
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
 	SphereColliderComponent();
 
 	/// <summary>
@@ -144,12 +127,6 @@ public:
 
 class CapsuleColliderComponent : public ColliderComponent {
 public:
-
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	CapsuleColliderComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class

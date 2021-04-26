@@ -6,22 +6,6 @@
 #include "Logger.h"
 #include "Vector3.h"
 
-RigidBodyComponent::RigidBodyComponent(GameObject* go, Type type) : Component(ComponentId::Rigidbody, go), _rb(), _tr(nullptr), _log(nullptr)
-{
-	_log = Logger::getInstance();
-	switch (type)
-	{
-	case Type::Box:		_rb = new RigidBody(10, 10, 10, go, gameObjectsCollision);
-	case Type::Capsule:	_rb = new RigidBody(10, 20, go, gameObjectsCollision);
-	case Type::Sphere:	_rb = new RigidBody(10, go, gameObjectsCollision);
-	default:break;
-	}
-}
-
-RigidBodyComponent::RigidBodyComponent(GameObject* go) : Component(ComponentId::Rigidbody, go), _rb(nullptr), _tr(nullptr), _log(nullptr)
-{
-	_log = Logger::getInstance();
-}
 
 RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {

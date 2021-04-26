@@ -8,16 +8,6 @@ _overlayElement(nullptr)
 {
 }
 
-OverlayComponent::OverlayComponent(GameObject* go) : Component(ComponentId::OverlayComponent, go),
-_overlayElement(nullptr)
-{
-}
-
-OverlayComponent::OverlayComponent(GameObject* go, std::string const& overlayName) : Component(ComponentId::OverlayComponent, go)
-{
-	_overlayElement = new OverlayElement(overlayName);
-}
-
 OverlayComponent::~OverlayComponent()
 {
 	delete _overlayElement;

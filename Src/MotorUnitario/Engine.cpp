@@ -84,8 +84,6 @@ bool Engine::init(std::string const& resourcesPath)
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
 
-	_graphicsEngine->loadScene();
-
 	alredyInitialized = true;
 	return true;
 }

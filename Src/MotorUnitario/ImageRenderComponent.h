@@ -11,7 +11,7 @@ class Transform;
 class ImageRenderComponent : public Component {
 public:
 	ImageRenderComponent();
-	ImageRenderComponent(GameObject* gameObject);
+
 	~ImageRenderComponent();
 	/// <summary>
 	/// Method to initialize required attributes for the component

@@ -15,15 +15,7 @@ public:
 	/// Default constructor of the class
 	/// </summary>
 	ParticleSystemComponent();
-	ParticleSystemComponent(GameObject* gameObject);
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="path">: path of the file</param>
-	ParticleSystemComponent(GameObject* gameObject, std::string const& path);
-	/// <summary>
-	/// Destructor of the class 
-	/// </summary>
+
 	~ParticleSystemComponent();
 
 	/// <summary>

@@ -22,8 +22,6 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	CameraComponent();
-	CameraComponent(int zOrder, GameObject* gameObject);
-	CameraComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Destructor of the class

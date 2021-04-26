@@ -15,12 +15,7 @@ public:
 	/// Default constructor of the class
 	/// </summary>
 	AudioSourceComponent();
-	AudioSourceComponent(GameObject* gameObject);
-	/// <summary>
-	/// Constructor of the class in the case we want to create a unique sound 
-	/// </summary>
-	/// <param name="route">c </param>
-	AudioSourceComponent(GameObject* gameObject, std::string const& route);
+
 	/// <summary>
 	/// Destructor of the class 
 	/// </summary>

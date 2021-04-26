@@ -18,18 +18,7 @@ public:
 	/// Default constructor of the class
 	/// </summary>
 	ButtonComponent();
-	ButtonComponent(GameObject* gO);
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="callback">: function that is called when user clicks on the button</param>
-	/// <param name="overlayName">: name in .overlay script that is used in Overlay Element load</param>
-	/// <param name="containerName">: name in .overlay script to the child of the container </param>
-	/// <param name="defaultMaterial">: material name in .material script used to default state button </param>
-	/// <param name="passingMaterial">: material name in .material script used to hover state button </param>
-	/// <param name="pressMaterial">: material name in .material script used to press state button  </param>
-	ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName, std::string const& containerName,
-		std::string const& defaultMaterial, std::string const& hoverMaterial, std::string const& pressMaterial, void* callbackParam = nullptr);
+
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>

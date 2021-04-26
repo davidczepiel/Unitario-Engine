@@ -8,14 +8,6 @@ ParticleSystemComponent::ParticleSystemComponent() : Component(ComponentId::Part
 {
 }
 
-ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject): Component(ComponentId::ParticleSystem,gameObject), _pSystem(nullptr), _tr(nullptr), _path()
-{
-}
-
-ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject, std::string const& path) : Component(ComponentId::ParticleSystem, gameObject), _pSystem(nullptr), _tr(nullptr), _path(path)
-{
-}
-
 ParticleSystemComponent::~ParticleSystemComponent()
 {
 	delete _pSystem;

@@ -6,11 +6,6 @@ LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(
 {
 }
 
-LightComponent::LightComponent(GameObject* gameObject): Component(ComponentId::LightComponent, gameObject), _light(nullptr)
-{
-
-}
-
 LightComponent::~LightComponent()
 {
 	delete _light; _light = nullptr;

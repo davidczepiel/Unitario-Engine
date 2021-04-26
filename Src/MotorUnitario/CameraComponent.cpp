@@ -31,14 +31,6 @@ CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nul
 {
 }
 
-CameraComponent::CameraComponent(int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
-{
-}
-
-CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
-{
-}
-
 CameraComponent::~CameraComponent()
 {
 	delete _camera; _camera == nullptr;

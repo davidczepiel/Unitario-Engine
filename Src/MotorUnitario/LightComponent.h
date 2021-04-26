@@ -13,7 +13,7 @@ class LightComponent: public Component
 public:
 
 	LightComponent();
-	LightComponent(GameObject* gameObject);
+
 	~LightComponent();
 
 	/// <summary>

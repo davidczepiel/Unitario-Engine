@@ -16,14 +16,7 @@ public:
 	/// </summary>
 	/// <param name="go"> Game Object </param>
 	OverlayComponent();
-	OverlayComponent(GameObject* go);
 
-	/// <summary>
-	/// Class constructor with class params
-	/// </summary>
-	/// <param name="go"> Game Object</param>
-	/// <param name="overlayName"> Overlay name</param>
-	OverlayComponent(GameObject* go, std::string const& overlayName);
 	~OverlayComponent();
 
 	/// <summary>

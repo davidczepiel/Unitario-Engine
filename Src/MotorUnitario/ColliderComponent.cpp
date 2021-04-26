@@ -8,10 +8,6 @@ void ColliderComponent::awake(luabridge::LuaRef& data)
 {
 }
 
-ColliderComponent::ColliderComponent(int id, GameObject* gameObject) : Component(id, gameObject), _collider(nullptr)
-{
-}
-
 ColliderComponent::ColliderComponent(int id): Component(id, nullptr), _collider(nullptr)
 {
 }
@@ -41,13 +37,7 @@ void ColliderComponent::setRotation(Vector3 rot)
 
 /////////////////////////////////////////////
 
-BoxColliderComponent::BoxColliderComponent(GameObject* gameObject) : ColliderComponent(ComponentId::BoxCollider, gameObject)
-{
-	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
-}
-
-BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider, nullptr)
+BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider)
 {
 	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
 }
@@ -90,13 +80,7 @@ void BoxColliderComponent::setScale(int width, int heigh, int depth)
 
 ////////////////////////////////////////////
 
-SphereColliderComponent::SphereColliderComponent(GameObject* gameObject) : ColliderComponent(ComponentId::SphereCollider, gameObject)
-{
-	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
-}
-
-SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider, nullptr)
+SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider)
 {
 	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float,float,float>(0.0f,0.0f,0.0f));
 }
@@ -135,13 +119,8 @@ void SphereColliderComponent::setScale(int radius)
 
 /////////////////////////////////////////////////////////
 
-CapsuleColliderComponent::CapsuleColliderComponent(GameObject* gameObject) : ColliderComponent(ComponentId::CapsuleCollider, gameObject)
-{
-	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, VEC3_TO_TUPLE(t->getPosition()));
-}
 
-CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider, nullptr)
+CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider)
 {
 	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
 }

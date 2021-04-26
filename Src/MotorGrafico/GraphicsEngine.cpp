@@ -334,34 +334,3 @@ void GraphicsEngine::addNode(const std::string& name, const std::string& parent)
 	nodeParent->createChildSceneNode(name);
 }
 
-void GraphicsEngine::loadScene()
-{
-	/*Ogre::Light* light = _sceneManager->createLight("coso");
-	light->setType(Ogre::Light::LT_DIRECTIONAL);
-	light->setDiffuseColour(0.75, 0.75, 0.75);*/
-
-	//Camera* cam = new Camera();
-	//cam->setPosition(400, 120, 0);
-	////cam->getViewPort()->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
-	//cam->setPlanes();
-
-	//Ogre::SceneNode* nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("pruebaCubo");
-	//Ogre::Entity* ent = _sceneManager->createEntity("cube.mesh");
-	//ent->setMaterialName("Practica1/Yellow");
-	//nodo->setPosition(Ogre::Vector3(300, 0, -1000));
-	//nodo->attachObject(ent);
-//
-//	nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("barril");
-//	ent = _sceneManager->createEntity("Barrel.mesh");
-//	ent->setMaterialName("Practica1/Metal");
-//	nodo->scale(Ogre::Vector3(10, 10, 10));
-//	nodo->setPosition(Ogre::Vector3(400, 0, -1000));
-//	nodo->attachObject(ent);
-//
-//	nodo = _sceneManager->getRootSceneNode()->createChildSceneNode("cabesa");
-//	ent = _sceneManager->createEntity("ogrehead.mesh");
-//	ent->setMaterialName("Practica1/Red");
-//	nodo->scale(Ogre::Vector3(5, 5, 5));
-//	nodo->setPosition(Ogre::Vector3(550, 0, -1000));
-//	nodo->attachObject(ent);
-}

@@ -12,12 +12,7 @@ class Transform;
 class RenderObjectComponent : public Component {
 public:
 	RenderObjectComponent();
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	///<param name="meshName">: mesh filename </param>
-	RenderObjectComponent(GameObject* gameObject);
-	RenderObjectComponent(GameObject* gameObject, std::string const& meshName);
+	
 	~RenderObjectComponent();
 
 	/// <summary>

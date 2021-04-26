@@ -6,17 +6,6 @@
 RenderObjectComponent::RenderObjectComponent():Component(ComponentId::RenderObject, nullptr), _renderObject(nullptr),
 _transform(nullptr), _meshName("")
 {
-
-}
-
-RenderObjectComponent::RenderObjectComponent(GameObject* gameObject) :Component(ComponentId::RenderObject, gameObject), _renderObject(nullptr),
-_transform(nullptr), _meshName("")
-{
-}
-
-RenderObjectComponent::RenderObjectComponent(GameObject* gameObject, std::string const& meshName) : Component(ComponentId::RenderObject, gameObject), _renderObject(nullptr),
-_transform(nullptr),_meshName(meshName)
-{
 }
 
 RenderObjectComponent::~RenderObjectComponent()

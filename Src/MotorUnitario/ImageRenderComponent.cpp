@@ -27,11 +27,6 @@ ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRende
 	_imageRender = new ImageRender();
 }
 
-ImageRenderComponent::ImageRenderComponent(GameObject* gameObject) : Component(ComponentId::ImageRender, gameObject), _imageRender(nullptr), _tr(nullptr)
-{
-	_imageRender = new ImageRender();
-}
-
 ImageRenderComponent::~ImageRenderComponent()
 {
 	delete _imageRender; _imageRender == nullptr;

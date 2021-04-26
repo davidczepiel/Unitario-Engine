@@ -25,7 +25,6 @@ class SDL_Window;
 
 class GraphicsEngine {
 public:
-	void loadScene();
 
 	~GraphicsEngine();
 

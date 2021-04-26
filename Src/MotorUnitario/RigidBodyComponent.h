@@ -19,18 +19,6 @@ class RigidBodyComponent :	public Component
 {
 public:
 	enum Type{ Box, Capsule, Sphere};
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="go">Gameobject this component is attached to</param>
-	RigidBodyComponent(GameObject* go, Type type);
-
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="path">Path of configuration file</param>
-	/// <param name="go">Gameobject this component is attached to</param>
-	RigidBodyComponent(GameObject* go);
 
 	/// <summary>
 	/// Constructor of the class
