@@ -124,8 +124,6 @@ void RigidBodyComponent::fixedUpdate()
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	t->updateFromPhysics(position, rotation);
-
-	_log->log(std::to_string(std::get<1>(_rb->getPosition())));
 }
 
 void RigidBodyComponent::setPosition(Vector3 pos)
