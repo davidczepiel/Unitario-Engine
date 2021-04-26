@@ -4,6 +4,8 @@
 #include "Transform.h"
 #include "GameObject.h"
 
+ADD_COMPONENT(CameraComponent)
+
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
 	//setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());

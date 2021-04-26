@@ -96,6 +96,6 @@ private:
 	bool _active;
 };
 
-ADD_COMPONENT(ButtonComponent)
+
 
 #endif BUTTONCOMPONENT_H

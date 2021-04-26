@@ -54,6 +54,6 @@ protected:
 	OverlayElement* _overlayElement;
 };
 
-ADD_COMPONENT(OverlayComponent)
+
 
 #endif OVERLAYCOMPONENT_H

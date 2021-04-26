@@ -64,6 +64,5 @@ private:
 	Vector3 _scale;
 };
 
-ADD_COMPONENT(Transform)
 
 #endif // !TRANSFORM_H

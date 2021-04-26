@@ -20,9 +20,9 @@ class GameObject;
 #define GETLUASTRINGFIELD(name) data[#name].tostring()
 #define LUAFIELDEXIST(name) !data[#name].isNil()
 
-#define ADD_COMPONENT(component) \
-	CMP_FACTORY(component##Factory, component) \
-	static int component##FactoryGlobalVar = ComponentsFactory::getInstance()->add(#component, new component##Factory()); \
+#define ADD_COMPONENT(component)	\
+	CMP_FACTORY(component)			\
+	FactoryAdder component##FactoryGlobalVar(new component##Factory(), #component);	\
 
 class Component
 {

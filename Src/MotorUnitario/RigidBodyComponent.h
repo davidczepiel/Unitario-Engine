@@ -170,6 +170,4 @@ private:
 	Logger* _log;
 };
 
-ADD_COMPONENT(RigidBodyComponent)
-
 #endif //!RIGIDBODYCOMPONENT_H

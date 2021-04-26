@@ -89,7 +89,5 @@ private:
 	Animator* _animator;
 };
 
-ADD_COMPONENT(AnimatorComponent)
-
 #endif ANIMATORCOMPONENT_H
 

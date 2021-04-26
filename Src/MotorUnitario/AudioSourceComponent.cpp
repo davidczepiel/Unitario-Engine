@@ -5,6 +5,8 @@
 #include "Vector3.h"
 #include "ComponentIDs.h"
 
+ADD_COMPONENT(AudioSourceComponent)
+
 AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
 {
 	_audioSource = new AudioSource();

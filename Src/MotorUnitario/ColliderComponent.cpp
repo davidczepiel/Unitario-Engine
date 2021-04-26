@@ -37,6 +37,8 @@ void ColliderComponent::setRotation(Vector3 rot)
 
 /////////////////////////////////////////////
 
+ADD_COMPONENT(BoxColliderComponent)
+
 BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider)
 {
 	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
@@ -80,6 +82,8 @@ void BoxColliderComponent::setScale(int width, int heigh, int depth)
 
 ////////////////////////////////////////////
 
+ADD_COMPONENT(SphereColliderComponent)
+
 SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider)
 {
 	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float,float,float>(0.0f,0.0f,0.0f));
@@ -119,6 +123,7 @@ void SphereColliderComponent::setScale(int radius)
 
 /////////////////////////////////////////////////////////
 
+ADD_COMPONENT(CapsuleColliderComponent)
 
 CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider)
 {

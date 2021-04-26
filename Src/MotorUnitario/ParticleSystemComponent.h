@@ -40,6 +40,5 @@ private:
 	std::string _path;
 };
 
-ADD_COMPONENT(ParticleSystemComponent)
 
 #endif //PARTICLESYSTEMCOMPONENT_H

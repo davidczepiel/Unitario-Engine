@@ -47,6 +47,6 @@ private:
 	Listener* _listener;
 };
 
-ADD_COMPONENT(ListenerComponent)
+
 
 #endif LISTENERCOMPONENT_H

@@ -3,6 +3,8 @@
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
 
+ADD_COMPONENT(OverlayComponent)
+
 OverlayComponent::OverlayComponent() : Component(ComponentId::OverlayComponent),
 _overlayElement(nullptr)
 {

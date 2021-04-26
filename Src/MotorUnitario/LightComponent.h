@@ -170,6 +170,6 @@ private:
 	Light* _light;
 };
 
-ADD_COMPONENT(LightComponent)
+
 
 #endif LIGHT_COMPONENT_H

@@ -14,11 +14,18 @@ ComponentsFactory* ComponentsFactory::getInstance()
 	return instance.get();
 }
 
-int ComponentsFactory::add(const std::string& name, ComponentFactory* factory)
+ComponentsFactory::~ComponentsFactory()
+{
+	for (auto it : _componentTranslator) {
+		delete it.second; 
+	}
+	_componentTranslator.clear();
+}
+
+void ComponentsFactory::add(const std::string& name, ComponentFactory* factory)
 {
 	_componentTranslator.insert(std::make_pair(name, factory));
 	Logger::getInstance()->log(name + " inserted");
-	return 0;
 }
 
 Component* ComponentsFactory::getComponentByName(const std::string& name)

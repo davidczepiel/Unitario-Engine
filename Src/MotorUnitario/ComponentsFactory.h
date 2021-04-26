@@ -17,6 +17,7 @@ public:
 	/// </summary>
 	static ComponentsFactory* getInstance();
 
+	~ComponentsFactory();
 	ComponentsFactory& operator=(const ComponentsFactory&) = delete;
 	ComponentsFactory(ComponentsFactory& other) = delete;
 
@@ -25,7 +26,7 @@ public:
 	/// </summary>
 	/// <param name="name">The name component</param>
 	/// <param name="factory">The equivalent factory</param>
-	int add(const std::string& name, ComponentFactory* factory);
+	void add(const std::string& name, ComponentFactory* factory);
 	
 	/// <summary>
 	/// Gets a component based in the name received

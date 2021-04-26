@@ -102,8 +102,6 @@ public:
 	void setScale(int width, int heigh, int depth);
 };
 
-ADD_COMPONENT(BoxColliderComponent)
-
 #endif
 
 /////////////////////////////////////////////////////////
@@ -134,7 +132,7 @@ public:
 	void setScale(int radius);
 };
 
-ADD_COMPONENT(SphereColliderComponent)
+
 
 #endif
 
@@ -166,6 +164,5 @@ public:
 	void setScale(int radius, int length);
 };
 
-ADD_COMPONENT(CapsuleColliderComponent)
 
 #endif

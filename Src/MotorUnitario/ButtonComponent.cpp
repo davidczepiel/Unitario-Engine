@@ -5,6 +5,8 @@
 #include "KeyCodes.h"
 #include <SDL.h>
 
+ADD_COMPONENT(ButtonComponent)
+
 ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),
 _button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
