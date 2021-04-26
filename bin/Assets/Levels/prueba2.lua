@@ -15,19 +15,19 @@
 HowManyGameObjects = 3
 
 go_0 = {}
-go_0[0] = { Name = "Suelo", HowManyCmps = 2, Persist = false}
-go_0[1] = { Component = "Transform", Coord = {X = 300, Y = 150, Z = -1000}}
+go_0[0] = { Name = "Suelo2", HowManyCmps = 2, Persist = false}
+go_0[1] = { Component = "Transform", Coord = {X = 300, Y = 0, Z = -1000}}
 go_0[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="SexyMaterial", 
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=10, Y=1, Z=10}, LookAt ={X=1, Y=1, Z=1},
 			Visible=false, Shadows=false, RenderingDistance = 1}
 
 go_1 = {}
-go_1[0] = { Name = "Camara", HowManyCmps = 2, Persist = false}
+go_1[0] = { Name = "Camara2", HowManyCmps = 2, Persist = false}
 go_1[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
 go_1[2] = { Component = "Camera", Orientation = {X = 0, Y = 0, Z = -1}, Plane = {Near = 1, Far = 9999},
 			Projection = true, Fovy = 6, Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
 			OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 0, Top = 0, W = 0.5, H = 1},
-			DisplayOverlays= true, zOrder = 1}
+			DisplayOverlays= true, zOrder = 2}
 
 -- go_2 = {}
 -- go_2[0] = { Name = "DarkLight", HowManyCmps = 2}
@@ -38,7 +38,7 @@ go_1[2] = { Component = "Camera", Orientation = {X = 0, Y = 0, Z = -1}, Plane = 
 -- 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 
 go_2 = {}
-go_2[0] = { Name = "ObjetoFisico", HowManyCmps = 3, Persist = false}
+go_2[0] = { Name = "ObjetoFisico2", HowManyCmps = 3, Persist = false}
 go_2[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}}
 go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Diffuse = {Red = 1, Green= 1, Blue = 1}, 
 	   		Specular = {Red = 1, Green= 1, Blue = 1},

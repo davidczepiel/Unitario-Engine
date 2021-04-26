@@ -25,6 +25,8 @@ Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr),
 
 Camera::~Camera()
 {
+	if(_viewport != nullptr)
+		GraphicsEngine::getInstance()->removeViewport(_viewport);
 }
 
 void Camera::lookAt(float x, float y, float z)

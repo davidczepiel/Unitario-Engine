@@ -29,7 +29,7 @@ LuaParser::LuaParser()
 	LuaVM = luaL_newstate();
 	luaL_openlibs(LuaVM);
 	//TBR
-	loadScene("Assets/Levels/pruebaPhysx.lua");
+	//loadScene("Assets/Levels/pruebaPhysx.lua");
 }
 
 LuaParser::~LuaParser()
@@ -56,9 +56,12 @@ bool LuaParser::loadScene(std::string scene)
 			std::string GO_name = gameObjectData_Lua["Name"].cast<std::string>();
 			//HowMany components
 			int howMany = gameObjectData_Lua["HowManyCmps"].cast<int>();
+			//Persist in scene
+			bool persist = gameObjectData_Lua["Persist"].cast<bool>();
 
 			GameObject* go = Engine::getInstance()->addGameObject();
 			go->setName(GO_name);
+			go->setPersist(persist);
 
 			for (int x = 1; x <= howMany; x++) {
 				luabridge::LuaRef componentData = gameObject_Lua[x];
@@ -108,12 +111,14 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			Transform* tr = new Transform(go);
 			tr->awake(data);
 			go->addComponent(tr);
+			tr->setGameObject(go);
 			break; 
 		}
 		case ComponentId::ComponentId::RenderObject: 
 		{ 
 			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
-			RenderObjectComponent* r = new RenderObjectComponent(go);
+			RenderObjectComponent* r = new RenderObjectComponent();
+			r->setGameObject(go);
 			r->awake(data);
 			go->addComponent(r);
 			break; 
@@ -135,7 +140,8 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		case ComponentId::ComponentId::LightComponent: 
 		{ 
 			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
-			LightComponent* l = new LightComponent(go);
+			LightComponent* l = new LightComponent();
+			l->setGameObject(go);
 			l->awake(data);
 			go->addComponent(l);
 			break; 
@@ -149,7 +155,8 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 			break; 
 		}
 		case ComponentId::ComponentId::Camera: { 
-			CameraComponent* ca = new CameraComponent(go);
+			CameraComponent* ca = new CameraComponent();
+			ca->setGameObject(go);
 			ca->awake(data);
 			go->addComponent(ca);
 			break;
@@ -184,13 +191,15 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		}
 		case ComponentId::ComponentId::AudioSource: 
 		{
-			AudioSourceComponent* as = new AudioSourceComponent(go);
+			AudioSourceComponent* as = new AudioSourceComponent();
+			as->setGameObject(go);
 			as->awake(data);
 			go->addComponent(as); 
 			break; 
 		}
 		case ComponentId::ComponentId::ListenerComponent: {
-			ListenerComponent* li = new ListenerComponent(go);
+			ListenerComponent* li = new ListenerComponent();
+			li->setGameObject(go);
 			li->awake(data);
 			go->addComponent(li);
 			break;

@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Exceptions.h"
 #include "Transform.h"
+#include "Engine.h"
 
 #define _COMPONENT_START_SIZE_ 15
 #define _COMPONENT_INCREASE_SIZE_ size_t(5)
@@ -22,7 +23,7 @@ GameObject::~GameObject()
 
 	if (_children.size() != 0) {
 		for (auto g : _children) {
-			delete g; g = nullptr;
+			Engine::getInstance()->remGameObject(g);
 		}
 		_children.clear();
 	}
