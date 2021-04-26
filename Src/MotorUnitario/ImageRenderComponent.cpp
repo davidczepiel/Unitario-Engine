@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "GameObject.h"
 
-ADD_COMPONENT(ImageRenderComponent)
+//ADD_COMPONENT(ImageRenderComponent)
 
 ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
 ImageRender::BillboardType getBillboardType(std::string cmp);

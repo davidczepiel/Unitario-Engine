@@ -4,7 +4,7 @@
 #include "ComponentIDs.h"
 
 
-ADD_COMPONENT(RenderObjectComponent)
+//ADD_COMPONENT(RenderObjectComponent)
 
 RenderObjectComponent::RenderObjectComponent():Component(ComponentId::RenderObject, nullptr), _renderObject(nullptr),
 _transform(nullptr), _meshName("")

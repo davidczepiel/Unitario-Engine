@@ -37,7 +37,7 @@ void ColliderComponent::setRotation(Vector3 rot)
 
 /////////////////////////////////////////////
 
-ADD_COMPONENT(BoxColliderComponent)
+//ADD_COMPONENT(BoxColliderComponent)
 
 BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider)
 {
@@ -82,7 +82,7 @@ void BoxColliderComponent::setScale(int width, int heigh, int depth)
 
 ////////////////////////////////////////////
 
-ADD_COMPONENT(SphereColliderComponent)
+//ADD_COMPONENT(SphereColliderComponent)
 
 SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider)
 {
@@ -123,7 +123,7 @@ void SphereColliderComponent::setScale(int radius)
 
 /////////////////////////////////////////////////////////
 
-ADD_COMPONENT(CapsuleColliderComponent)
+//ADD_COMPONENT(CapsuleColliderComponent)
 
 CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider)
 {

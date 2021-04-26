@@ -8,7 +8,7 @@
 #include <math.h>
 #define PI 3.14159265
 
-ADD_COMPONENT(Transform)
+//ADD_COMPONENT(Transform)
 
 Transform::Transform(): Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
 {
