@@ -19,7 +19,7 @@ LuaParser::LuaParser()
 	LuaVM = luaL_newstate();
 	luaL_openlibs(LuaVM);
 	//TBR
-	loadScene("Assets/Levels/pruebaPhysx.lua");
+	//loadScene("Assets/Levels/pruebaPhysx.lua");
 }
 
 LuaParser::~LuaParser()
@@ -46,9 +46,12 @@ bool LuaParser::loadScene(std::string scene)
 			std::string GO_name = gameObjectData_Lua["Name"].cast<std::string>();
 			//HowMany components
 			int howMany = gameObjectData_Lua["HowManyCmps"].cast<int>();
+			//Persist in scene
+			bool persist = gameObjectData_Lua["Persist"].cast<bool>();
 
 			GameObject* go = Engine::getInstance()->addGameObject();
 			go->setName(GO_name);
+			go->setPersist(persist);
 
 			for (int x = 1; x <= howMany; x++) {
 				luabridge::LuaRef componentData = gameObject_Lua[x];

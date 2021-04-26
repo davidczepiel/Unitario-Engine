@@ -51,19 +51,6 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Kinematic))
 		isKinematic = GETLUAFIELD(Kinematic, bool);
 
-	if (LUAFIELDEXIST(Position))
-	{
-		int x, y, z;
-		x = y = z = 0;
-		if (!data["Position"]["X"].isNil())
-			x = data["Position"]["X"].cast<int>();
-		if (!data["Position"]["Y"].isNil())
-			x = data["Position"]["Y"].cast<int>();
-		if (!data["Position"]["Z"].isNil())
-			x = data["Position"]["Z"].cast<int>();
-		position = Vector3(x, y, z);
-
-	}
 	if (LUAFIELDEXIST(Static))
 		isStatic = GETLUAFIELD(Static, bool);
 	if (LUAFIELDEXIST(Type)) { //Sphere
@@ -72,7 +59,9 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 			float r = 1.0f;
 			if (LUAFIELDEXIST(Radius))
 				r = GETLUAFIELD(Radius, float);
-			_rb = new RigidBody(r, _gameObject, gameObjectsCollision, isStatic, VEC3_TO_TUPLE(position), isKinematic, linearDamping,
+			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+			_rb = new RigidBody(r, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 		else if (t == "Box") { //Box
@@ -83,8 +72,9 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				h = GETLUAFIELD(Height, float);
 			if (LUAFIELDEXIST(Depth))
 				d = GETLUAFIELD(Depth, float);
-
-			_rb = new RigidBody(w, h, d, _gameObject, gameObjectsCollision, isStatic, VEC3_TO_TUPLE(position), isKinematic, linearDamping,
+			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+			_rb = new RigidBody(w, h, d, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 		else if (t == "Capsule") { //Capsule
@@ -93,7 +83,9 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				r = GETLUAFIELD(Radius, float);
 			if (LUAFIELDEXIST(Height))
 				h = GETLUAFIELD(Height, float);
-			_rb = new RigidBody(r, h, _gameObject, gameObjectsCollision, isStatic, VEC3_TO_TUPLE(position), isKinematic, linearDamping,
+			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+			_rb = new RigidBody(r, h, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 	}

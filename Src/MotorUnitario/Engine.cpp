@@ -7,6 +7,7 @@
 #include "InputManager.h"
 #include "MotorAudio/AudioEngine.h"
 #include "EngineTime.h"
+#include "LuaParser.h"
 #include "Logger.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
@@ -22,10 +23,6 @@ void Engine::processEvents()
 
 Engine::~Engine()
 {
-	for (auto go : _GOs) {
-		delete go; go = nullptr;
-	}
-	delete _physxEngine; _physxEngine = nullptr;
 }
 
 Engine* Engine::getInstance()
@@ -77,6 +74,8 @@ bool Engine::init(std::string const& resourcesPath)
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
 
+	_luaParser = new LuaParser();
+
 	alredyInitialized = true;
 	return true;
 }
@@ -95,6 +94,20 @@ void Engine::run()
 
 void Engine::changeScene(const std::string& scene)
 {
+	//Eliminar escena actual
+	for (auto it = _GOs.begin(); it != _GOs.end(); it) {
+		if (!(*it)->getPersist()) {
+			GameObject* pointer = *it;
+			it = _GOs.erase(it);
+			delete pointer;
+			//remGameObject((*it));
+		}
+		else
+			++it;
+	}
+
+	//Cargar escena nueva
+	_luaParser->loadScene(scene);
 }
 
 void Engine::stopExecution()
@@ -139,9 +152,18 @@ void Engine::lateUpdate()
 
 void Engine::shutDown()
 {
+	for (auto go : _GOs) {
+		delete go; go = nullptr;
+	}
+
 	if (_graphicsEngine != nullptr) {
 		_graphicsEngine->shutdown();
 	}
+	if (_physxEngine != nullptr) {
+		delete _physxEngine;
+		_physxEngine = nullptr;
+	}
+	_luaParser->closeLuaVM();
 }
 
 GameObject* Engine::addGameObject()
@@ -155,7 +177,9 @@ void Engine::remGameObject(GameObject* GO)
 	auto it = _GOs.begin();
 	while (it != _GOs.end()) {
 		if ((*it) == GO) {
+			GameObject* pointer = *it;
 			it = _GOs.erase(it);
+			delete pointer;
 			break;
 		}
 		else

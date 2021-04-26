@@ -157,14 +157,14 @@ bool RigidBody::setAngularVelocity(const std::tuple<float, float, float>& vel)
 
 }
 
-const std::tuple<float, float, float>& RigidBody::getAngularVelocity()
+const std::tuple<float, float, float> RigidBody::getAngularVelocity()
 {
 	if (_isStatic)
 		return std::tuple<float, float, float>(0, 0, 0);
 	else return  PHYSXVEC3_TO_TUPLE(_dynamicBody->getAngularVelocity());
 }
 
-const std::tuple<float, float, float>& RigidBody::getLinearVelocity()
+const std::tuple<float, float, float> RigidBody::getLinearVelocity()
 {
 	if (_isStatic)
 		return std::tuple<float, float, float>(0, 0, 0);
@@ -332,18 +332,18 @@ bool RigidBody::setScale(const std::tuple<float, float, float>& scale)
 
 }
 
-
-
-const std::tuple<float, float, float>& RigidBody::getPosition()
+const std::tuple<float, float, float> RigidBody::getPosition()
 {
 	if (_isStatic) {
 		return PHYSXVEC3_TO_TUPLE(_staticBody->getGlobalPose().p);
 	}
-	else
+	else {
 		return PHYSXVEC3_TO_TUPLE(_dynamicBody->getGlobalPose().p);
+	}
+		
 }
 
-const std::tuple<float, float, float>& RigidBody::getRotation()
+const std::tuple<float, float, float> RigidBody::getRotation()
 {
 	float angle = 0;
 	physx::PxVec3 axis;
@@ -353,8 +353,8 @@ const std::tuple<float, float, float>& RigidBody::getRotation()
 
 void RigidBody::setFlags(physx::PxShape* shape)
 {
-	shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
-	shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, false);
+	shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, true);
+	shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, true);
 	shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, false);
 	shape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
 }

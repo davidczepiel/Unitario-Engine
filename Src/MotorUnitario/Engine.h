@@ -15,6 +15,7 @@ class AudioEngine;
 class ComponentsFactory;
 
 class EngineTime;
+class LuaParser;
 
 class Engine
 {
@@ -131,6 +132,7 @@ private:
 	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
 	EngineTime* _time;
+	LuaParser* _luaParser;
 
 	bool _run;
 	bool alredyInitialized;
