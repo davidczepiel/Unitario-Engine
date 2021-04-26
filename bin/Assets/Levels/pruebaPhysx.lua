@@ -20,6 +20,7 @@ go_0[1] = { Component = "Transform", Coord = {X = 300, Y = 150, Z = -1000}}
 go_0[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="SexyMaterial", 
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=10, Y=1, Z=10}, LookAt ={X=1, Y=1, Z=1},
 			Visible=false, Shadows=false, RenderingDistance = 1}
+go_0[3] = { Component = "RigidBody", Type="Sphere"}
 
 go_1 = {}
 go_1[0] = { Name = "Camara", HowManyCmps = 2, Persist = false}

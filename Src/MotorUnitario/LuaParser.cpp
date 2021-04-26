@@ -116,7 +116,7 @@ void LuaParser::attachComponent(GameObject* go, std::string cmp, luabridge::LuaR
 		}
 		case ComponentId::ComponentId::RenderObject: 
 		{ 
-			//Cambiar por llamada a Factoría para coger el new Y BORRAR ESTA LÍNEA
+			//Cambiar por llamada a Factorï¿½a para coger el new Y BORRAR ESTA Lï¿½NEA
 			RenderObjectComponent* r = new RenderObjectComponent();
 			r->setGameObject(go);
 			r->awake(data);
