@@ -27,6 +27,10 @@ void Engine::processEvents()
 
 Engine::~Engine()
 {
+	for (auto go : _GOs) {
+		delete go; go = nullptr;
+	}
+	delete _physxEngine; _physxEngine = nullptr;
 }
 
 Engine* Engine::getInstance()
@@ -52,6 +56,7 @@ void Engine::tick()
 	lateUpdate();
 	_graphicsEngine->render();
 	_audioEngine->update();
+	_physxEngine->update(_time->deltaTime());
 	_time->update();
 }
 

@@ -9,7 +9,9 @@
 
 PhysxEngine* PhysxEngine::_instance = nullptr;
 
-PhysxEngine::PhysxEngine() : _mFoundation(nullptr), _mPhysics(nullptr), _mPvd(nullptr), _mCooking(nullptr), _mMaterial(nullptr), _scene(nullptr), alreadyInitialized(false)
+PhysxEngine::PhysxEngine() : _mFoundation(nullptr), _mPhysics(nullptr), _mPvd(nullptr), /*_mCooking(nullptr),*/ _mMaterial(nullptr),
+	_scene(nullptr), alreadyInitialized(false), _callback(new ContactReportCallback()), _gDefaultAllocatorCallback(new physx::PxDefaultAllocator()),
+	_gDefaultErrorCallback(new physx::PxDefaultErrorCallback()), _gDispatcher(nullptr)
 {
 }
 
@@ -23,6 +25,10 @@ PhysxEngine::~PhysxEngine()
 	transport->release();
 
 	_mFoundation->release();
+
+	delete _callback; _callback = nullptr;
+	delete _gDefaultAllocatorCallback; _gDefaultAllocatorCallback = nullptr;
+	delete _gDefaultErrorCallback; _gDefaultErrorCallback = nullptr;
 }
 
 void PhysxEngine::CreateInstance()
@@ -41,13 +47,7 @@ bool PhysxEngine::init()
 {
 	if (alreadyInitialized) return false;
 
-	static physx::PxDefaultAllocator gDefaultAllocatorCallback;
-	static physx::PxDefaultErrorCallback gDefaultErrorCallback;
-	static ContactReportCallback callback;
-
-	static physx::PxDefaultCpuDispatcher* gDispatcher;
-
-	_mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+	_mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, *_gDefaultAllocatorCallback, *_gDefaultErrorCallback);
 	if (!_mFoundation)
 		throw EPhysxEngine("PxCreateFoundation failed!");
 
@@ -67,10 +67,10 @@ bool PhysxEngine::init()
 
 	physx::PxSceneDesc sceneDesc(_mPhysics->getTolerancesScale());
 	sceneDesc.gravity = physx::PxVec3(0.0f, -9.8f, 0.0f);
-	gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
-	sceneDesc.cpuDispatcher = gDispatcher;
+	_gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
+	sceneDesc.cpuDispatcher = _gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
-	sceneDesc.simulationEventCallback = &callback;
+	sceneDesc.simulationEventCallback = _callback;
 
 	_scene = _mPhysics->createScene(sceneDesc);
 	if (!_scene)

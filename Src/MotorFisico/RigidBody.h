@@ -151,7 +151,7 @@ public:
 	/// Sets the transform rotation to a specified one
 	/// </summary>
 	/// <param name="position">Set of values that determine the position</param>
-	bool rotate(const std::tuple<float, float, float>& position);
+	bool rotate(const std::tuple<float, float, float>& rotation);
 
 	/// <summary>
 	/// Sets the rigidbodys scale to a specified one
@@ -282,7 +282,6 @@ private:
 
 	physx::PxPhysics* _physx;
 	physx::PxScene* _scene;
-	physx::PxTransform* _transform;
 	physx::PxRigidDynamic* _dynamicBody;
 	physx::PxRigidStatic* _staticBody;
 

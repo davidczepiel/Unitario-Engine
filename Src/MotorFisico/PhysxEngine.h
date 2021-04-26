@@ -11,8 +11,12 @@ namespace physx {
 	class PxPvd;
 	class PxScene;
 	class PxMaterial;
+	class PxDefaultAllocator;
+	class PxDefaultErrorCallback;
+	class PxDefaultCpuDispatcher;
 };
 
+class ContactReportCallback;
 
 /// <summary>
 /// Class that implememnts control of physx engine
@@ -83,18 +87,24 @@ private:
 	/// <summary>
 	/// Cooking object for extra physx utilities
 	/// </summary>
-	physx::PxCooking* _mCooking;
+	//physx::PxCooking* _mCooking;
+
 	/// <summary>
 	/// PxMaterial for friction
 	/// </summary>
 	physx::PxMaterial* _mMaterial;
+
 	/// <summary>
 	/// Physx scene to simulate
 	/// </summary>
 	physx::PxScene* _scene;
 
-	bool alreadyInitialized;
+	physx::PxDefaultAllocator* _gDefaultAllocatorCallback;
+	physx::PxDefaultErrorCallback* _gDefaultErrorCallback;
+	ContactReportCallback* _callback;
+	physx::PxDefaultCpuDispatcher* _gDispatcher;
 
+	bool alreadyInitialized;
 };
 
 #endif PHYSXENGINE_H

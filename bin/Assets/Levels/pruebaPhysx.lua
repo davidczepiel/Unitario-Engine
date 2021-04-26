@@ -12,7 +12,7 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 4
+HowManyGameObjects = 3
 
 go_0 = {}
 go_0[0] = { Name = "Suelo", HowManyCmps = 2}
@@ -46,13 +46,13 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Di
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 go_2[3] = { Component = "RigidBody", Type="Sphere"}
 
-go_3 = {}
-go_3[0] = { Name = "Cam", HowManyCmps = 2}
-go_3[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
-go_3[2] = { Component = "Camera", Orientation = {X = 0, Y = 0, Z = -1}, Plane = {Near = 1, Far = 9999},
-			Projection = true, Fovy = 6, Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
-			OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 0.5, Top = 0, W = 0.5, H = 1},
-			DisplayOverlays= true, zOrder = 2}
+-- go_3 = {}
+-- go_3[0] = { Name = "Cam", HowManyCmps = 2}
+-- go_3[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
+-- go_3[2] = { Component = "Camera", Orientation = {X = 0, Y = 0, Z = -1}, Plane = {Near = 1, Far = 9999},
+-- 			Projection = true, Fovy = 6, Frustrum = {Left = 4, Right = 3, Top = 2, Bot = 1}, 
+-- 			OrthoWindow = {W = 8, H = 9}, Viewport = {Left = 0.5, Top = 0, W = 0.5, H = 1},
+-- 			DisplayOverlays= true, zOrder = 2}
 
 
 -- COMPONENT EXAMPLES

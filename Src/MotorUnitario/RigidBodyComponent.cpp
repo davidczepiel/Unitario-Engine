@@ -70,12 +70,12 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	{
 		int x, y, z;
 		x = y = z = 0;
-		if (!data["Position"]["x"].isNil())
-			x = data["Position"]["x"].cast<int>();
-		if (!data["Position"]["y"].isNil())
-			x = data["Position"]["y"].cast<int>();
-		if (!data["Position"]["z"].isNil())
-			x = data["Position"]["z"].cast<int>();
+		if (!data["Position"]["X"].isNil())
+			x = data["Position"]["X"].cast<int>();
+		if (!data["Position"]["Y"].isNil())
+			x = data["Position"]["Y"].cast<int>();
+		if (!data["Position"]["Z"].isNil())
+			x = data["Position"]["Z"].cast<int>();
 		position = Vector3(x, y, z);
 
 	}
@@ -124,6 +124,8 @@ void RigidBodyComponent::fixedUpdate()
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	t->updateFromPhysics(position, rotation);
+
+	_log->log(std::to_string(std::get<1>(_rb->getPosition())));
 }
 
 void RigidBodyComponent::setPosition(Vector3 pos)
