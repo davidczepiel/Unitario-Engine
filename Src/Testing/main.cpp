@@ -1,13 +1,6 @@
 #include "MotorUnitario/Engine.h"
 #include "MotorUnitario/Exceptions.h"
 #include "MotorUnitario/Logger.h"
-#include "MotorUnitario/LuaParser.h"
-#include "MotorUnitario/Transform.h"
-#include "MotorUnitario/RigidBodyComponent.h"
-#include "MotorUnitario/GameObject.h"
-#include "MotorUnitario/CameraComponent.h"
-#include "MotorUnitario/RenderObjectComponent.h"
-#include "MotorUnitario/LightComponent.h"
 
 #if (defined _DEBUG) || !(defined _WIN32)
 int main() {
