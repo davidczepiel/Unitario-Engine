@@ -232,13 +232,13 @@ public:
 	inline ContactCallback* getColliderCallback() const { return _collisionCallback; }
 
 	/// <summary>
-	/// Returns rigidbody´s position
+	/// Returns rigidbodyï¿½s position
 	/// </summary>
 	/// <returns>Tuple of three floats (x, y, z)</returns>
 	const std::tuple<float, float, float> getPosition();
 
 	/// <summary>
-	/// Returns rigidbody´s rotation
+	/// Returns rigidbodyï¿½s rotation
 	/// </summary>
 	/// <returns>Tuple of three floats (x, y, z)</returns>
 	const std::tuple<float, float, float> getRotation();

@@ -3,12 +3,11 @@
 #include "ComponentIDs.h"
 #include "Transform.h"
 #include "GameObject.h"
-
+#include "KeyboardInput.h"
 //ADD_COMPONENT(CameraComponent)
 
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
-	//setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
 	/*setProjection(data["Projection"].cast<bool>());
 	setFovY(data["Fovy"].cast<float>());
 	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
@@ -26,6 +25,7 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	float h = data["Viewport"]["H"].cast<float>();
 	_camera = new Camera(zOrder, x, y, w, h);
 	_camera->renderOverlays(data["DisplayOverlays"].cast<bool>());
+	setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
 	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
 }
 
@@ -45,11 +45,27 @@ void CameraComponent::start()
 
 void CameraComponent::update()
 {
-	float x = static_cast<float>(_tr->getPosition().getX());
-	float y = static_cast<float>(_tr->getPosition().getY());
-	float z = static_cast<float>(_tr->getPosition().getZ());
-	_camera->setPosition(x, y, z);
+	int x, y, z;
+	x = y = z = 0;
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A))
+		x = -1;
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S))
+		y = -1;
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D))
+		x = 1;
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W))
+		y = 1;
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_R))
+		z = 1;
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_F))
+		z = -1;
 
+	/*float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());*/
+	_camera->translate(x, y, z);
+	//_camera->setPosition(x, y, z);
+	
 	//x = static_cast<float>(_tr->getForward().getX());
 	//y = static_cast<float>(_tr->getForward().getY());
 	//z = static_cast<float>(_tr->getForward().getZ());

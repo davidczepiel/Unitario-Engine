@@ -126,6 +126,7 @@ void GraphicsEngine::setup()
 	_defaultViewport = _window->addViewport(_defaultCamera);
 	_defaultViewport->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 	_defaultViewport->setDimensions(0, 0, 0, 0);
+	_defaultViewport->setBackgroundColour(Ogre::ColourValue::Blue);
 }
 
 void GraphicsEngine::shutdown()
