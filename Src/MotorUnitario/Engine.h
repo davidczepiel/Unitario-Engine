@@ -114,6 +114,11 @@ protected:
 	/// </summary>
 	void shutDown();
 
+	/// <summary>
+	/// Called to start default factories
+	/// </summary>
+	void initEngineFactories();
+
 private:
 	/// <summary>
 	/// Contructor of the class

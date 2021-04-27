@@ -5,7 +5,6 @@
 #include "ComponentIDs.h"
 #include "Logger.h"
 
-//ADD_COMPONENT(ListenerComponent)
 
 ListenerComponent::ListenerComponent():Component(ComponentId::ListenerComponent),_tr(nullptr),_listener(nullptr)
 {

@@ -171,6 +171,9 @@
     <ClInclude Include="..\..\Src\MotorUnitario\OverlayComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\MotorUnitario\Factories.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

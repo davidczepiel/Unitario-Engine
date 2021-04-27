@@ -6,8 +6,6 @@
 #include "Logger.h"
 #include "Vector3.h"
 
-//ADD_COMPONENT(RigidBodyComponent)
-
 RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
 	_log = Logger::getInstance();

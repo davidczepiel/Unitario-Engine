@@ -2,7 +2,6 @@
 #include "ComponentFactory.h"
 #include "Exceptions.h"
 #include "Component.h"
-#include "Logger.h"
 
 std::unique_ptr<ComponentsFactory> ComponentsFactory::instance = nullptr;
 
@@ -24,8 +23,8 @@ ComponentsFactory::~ComponentsFactory()
 
 void ComponentsFactory::add(const std::string& name, ComponentFactory* factory)
 {
-	_componentTranslator.insert(std::make_pair(name, factory));
-	Logger::getInstance()->log(name + " inserted");
+	if (!_componentTranslator.insert(std::make_pair(name, factory)).second)
+		delete factory;
 }
 
 Component* ComponentsFactory::getComponentByName(const std::string& name)

@@ -10,8 +10,7 @@
 #include "LuaParser.h"
 #include "Logger.h"
 
-#include "ComponentsFactory.h"
-#include "ComponentFactory.h"
+#include "Factories.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
@@ -77,21 +76,7 @@ bool Engine::init(std::string const& resourcesPath)
 	_audioEngine = AudioEngine::getInstance();
 	_time = EngineTime::getInstance();
 
-	ComponentsFactory::getInstance()->add("Transform", new TransformFactory());
-	ComponentsFactory::getInstance()->add("ImageRenderer", new ImageRenderComponentFactory());
-	ComponentsFactory::getInstance()->add("LightComponent", new LightComponentFactory());
-	ComponentsFactory::getInstance()->add("RenderObject", new RenderObjectComponentFactory());
-	ComponentsFactory::getInstance()->add("Listener", new ListenerComponentFactory());
-	ComponentsFactory::getInstance()->add("AudioSource", new AudioSourceComponentFactory());
-	ComponentsFactory::getInstance()->add("RigidBody", new RigidBodyComponentFactory());
-	ComponentsFactory::getInstance()->add("BoxCollider", new BoxColliderComponentFactory());
-	ComponentsFactory::getInstance()->add("SphereCollider", new SphereColliderComponentFactory());
-	ComponentsFactory::getInstance()->add("CapsuleCollider", new CapsuleColliderComponentFactory());
-	ComponentsFactory::getInstance()->add("Camera", new CameraComponentFactory());
-	ComponentsFactory::getInstance()->add("Animator", new AnimatorComponentFactory());
-	ComponentsFactory::getInstance()->add("ParticleSystem", new ParticleSystemComponentFactory());
-	ComponentsFactory::getInstance()->add("ButtonComponent", new ButtonComponentFactory());
-	ComponentsFactory::getInstance()->add("OverlayComponent", new OverlayComponentFactory());
+	initEngineFactories();
 
 	_luaParser = new LuaParser();
 
@@ -183,6 +168,25 @@ void Engine::shutDown()
 		_physxEngine = nullptr;
 	}
 	_luaParser->closeLuaVM();
+}
+
+void Engine::initEngineFactories()
+{
+	ComponentsFactory::getInstance()->add("Transform", new TransformFactory());
+	ComponentsFactory::getInstance()->add("ImageRenderer", new ImageRenderComponentFactory());
+	ComponentsFactory::getInstance()->add("LightComponent", new LightComponentFactory());
+	ComponentsFactory::getInstance()->add("RenderObject", new RenderObjectComponentFactory());
+	ComponentsFactory::getInstance()->add("Listener", new ListenerComponentFactory());
+	ComponentsFactory::getInstance()->add("AudioSource", new AudioSourceComponentFactory());
+	ComponentsFactory::getInstance()->add("RigidBody", new RigidBodyComponentFactory());
+	ComponentsFactory::getInstance()->add("BoxCollider", new BoxColliderComponentFactory());
+	ComponentsFactory::getInstance()->add("SphereCollider", new SphereColliderComponentFactory());
+	ComponentsFactory::getInstance()->add("CapsuleCollider", new CapsuleColliderComponentFactory());
+	ComponentsFactory::getInstance()->add("Camera", new CameraComponentFactory());
+	ComponentsFactory::getInstance()->add("Animator", new AnimatorComponentFactory());
+	ComponentsFactory::getInstance()->add("ParticleSystem", new ParticleSystemComponentFactory());
+	ComponentsFactory::getInstance()->add("ButtonComponent", new ButtonComponentFactory());
+	ComponentsFactory::getInstance()->add("OverlayComponent", new OverlayComponentFactory());
 }
 
 GameObject* Engine::addGameObject()

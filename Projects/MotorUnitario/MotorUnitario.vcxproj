@@ -276,6 +276,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentIDs.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Engine.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Exceptions.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\Factories.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GameObject.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h" />

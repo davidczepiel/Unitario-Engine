@@ -4,7 +4,7 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "KeyboardInput.h"
-//ADD_COMPONENT(CameraComponent)
+
 
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
