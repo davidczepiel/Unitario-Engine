@@ -22,8 +22,6 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	CameraComponent();
-	CameraComponent(int zOrder, GameObject* gameObject);
-	CameraComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Destructor of the class
@@ -33,15 +31,15 @@ public:
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
-	virtual void start();
+	virtual void start() override;
 	/// <summary>
 	/// Update the component
 	/// </summary>
-	virtual void update();
+	virtual void update() override;
 	/// <summary>
 	/// Called each frame after update.
 	/// </summary>
-	virtual void lateUpdate();
+	virtual void lateUpdate() override;
 
 	/// <summary>
 /// Redirects the Z axis of the camera so that it points to a specific world position
@@ -179,4 +177,6 @@ private:
 	Camera* _camera;
 	Transform* _tr;
 };
+
+
 #endif // !CAMERACOMPONENT_H

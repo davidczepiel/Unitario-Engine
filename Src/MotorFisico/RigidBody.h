@@ -151,7 +151,7 @@ public:
 	/// Sets the transform rotation to a specified one
 	/// </summary>
 	/// <param name="position">Set of values that determine the position</param>
-	bool rotate(const std::tuple<float, float, float>& position);
+	bool rotate(const std::tuple<float, float, float>& rotation);
 
 	/// <summary>
 	/// Sets the rigidbodys scale to a specified one
@@ -205,13 +205,13 @@ public:
 	/// Gets the angular velocity of the body
 	/// </summary>
 	/// <returns>The angular velocity of the body</returns>
-	const std::tuple<float, float, float>& getAngularVelocity();
+	const std::tuple<float, float, float> getAngularVelocity();
 
 	/// <summary>
 	/// Gets the linear velocity of the body
 	/// </summary>
 	/// <returns>The linear velocity of the body</returns>
-	const std::tuple<float, float, float>& getLinearVelocity();
+	const std::tuple<float, float, float> getLinearVelocity();
 
 	/// <summary>
 	/// Gets the mass of the body
@@ -235,13 +235,13 @@ public:
 	/// Returns rigidbody´s position
 	/// </summary>
 	/// <returns>Tuple of three floats (x, y, z)</returns>
-	const std::tuple<float, float, float>& getPosition();
+	const std::tuple<float, float, float> getPosition();
 
 	/// <summary>
 	/// Returns rigidbody´s rotation
 	/// </summary>
 	/// <returns>Tuple of three floats (x, y, z)</returns>
-	const std::tuple<float, float, float>& getRotation();
+	const std::tuple<float, float, float> getRotation();
 
 	/// <summary>
 	/// Returns whether the rigidbody is static or not
@@ -282,7 +282,6 @@ private:
 
 	physx::PxPhysics* _physx;
 	physx::PxScene* _scene;
-	physx::PxTransform* _transform;
 	physx::PxRigidDynamic* _dynamicBody;
 	physx::PxRigidStatic* _staticBody;
 

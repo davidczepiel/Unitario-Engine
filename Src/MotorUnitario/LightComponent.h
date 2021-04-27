@@ -13,7 +13,7 @@ class LightComponent: public Component
 public:
 
 	LightComponent();
-	LightComponent(GameObject* gameObject);
+
 	~LightComponent();
 
 	/// <summary>
@@ -169,5 +169,7 @@ public:
 private:
 	Light* _light;
 };
+
+
 
 #endif LIGHT_COMPONENT_H

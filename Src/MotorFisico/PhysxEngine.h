@@ -11,8 +11,12 @@ namespace physx {
 	class PxPvd;
 	class PxScene;
 	class PxMaterial;
+	class PxDefaultAllocator;
+	class PxDefaultErrorCallback;
+	class PxDefaultCpuDispatcher;
 };
 
+class ContactReportCallback;
 
 /// <summary>
 /// Class that implememnts control of physx engine
@@ -22,7 +26,12 @@ public:
 	~PhysxEngine();
 
 	/// <summary>
-	/// If the instance is not created creates a new one
+	/// Creates the class instance
+	/// </summary>
+	static void CreateInstance();
+
+	/// <summary>
+	/// Returns the instance
 	/// </summary>
 	/// <returns>Unique instance of physx engine</returns>
 	static PhysxEngine* getPxInstance();
@@ -33,7 +42,7 @@ public:
 	/// <summary>
 	/// Initializes physx engine
 	/// </summary>
-	void init();
+	bool init();
 
 	/// <summary>
 	/// Calls physx simulation step
@@ -47,7 +56,7 @@ public:
 	/// <returns>A pointer to the physx scene</returns>
 	inline physx::PxScene* getScene() const { return _scene; }
 	inline physx::PxPhysics* getPhysics() const { return _mPhysics; }
-	
+
 private:
 
 	/// <summary>
@@ -58,7 +67,7 @@ private:
 	/// <summary>
 	/// Singleton of physx engine
 	/// </summary>
-	static std::unique_ptr<PhysxEngine> _instance;
+	static PhysxEngine* _instance;
 
 	/// <summary>
 	/// Physx foundation (to initialize physx)
@@ -78,18 +87,24 @@ private:
 	/// <summary>
 	/// Cooking object for extra physx utilities
 	/// </summary>
-	physx::PxCooking* _mCooking;
+	//physx::PxCooking* _mCooking;
+
 	/// <summary>
 	/// PxMaterial for friction
 	/// </summary>
 	physx::PxMaterial* _mMaterial;
+
 	/// <summary>
 	/// Physx scene to simulate
 	/// </summary>
 	physx::PxScene* _scene;
 
+	physx::PxDefaultAllocator* _gDefaultAllocatorCallback;
+	physx::PxDefaultErrorCallback* _gDefaultErrorCallback;
+	ContactReportCallback* _callback;
+	physx::PxDefaultCpuDispatcher* _gDispatcher;
 
-
+	bool alreadyInitialized;
 };
 
 #endif PHYSXENGINE_H

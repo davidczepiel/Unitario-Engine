@@ -14,26 +14,32 @@ class InputManager;
 class AudioEngine;
 class ComponentsFactory;
 
-#define ADD(className)ComponentsFactory::add(className,classNameFactory);
 class EngineTime;
+class LuaParser;
 
 class Engine
 {
 public:
 	~Engine();
 
-	//WIP
 	/// <summary>
-	/// Returns the instance of Engine, in case there is no such instance, it creates one and returns that one
+	/// Returns the instance of Engine, or nullptr if it doesnt exist yet
 	/// </summary>
 	static Engine* getInstance();
+
+	/// <summary>
+	/// Creates the Engine singleton instance if its not already created
+	/// </summary>
+	static void CreateInstance();
+
 	Engine& operator=(const Engine&) = delete;
 	Engine(Engine& other) = delete;
 
 	/// <summary>
 	/// Initialize everything related to the Graphics, Physics and Audio engines
 	/// </summary>
-	void init();
+	/// <param name = "resourcesPath">: Resources path</param>
+	bool init(std::string const& resourcesPath);
 
 	/// <summary>
 	/// Starts the main loop of the engine
@@ -52,11 +58,6 @@ public:
 	/// </summary>
 	void stopExecution();
 
-	/// <summary>
-	/// Sets the resources path
-	/// </summary>
-	/// <param name="resourcesPath"> Resources.cfg path</param>
-	void setResourcesPath(std::string const& resourcesPath);
 	/// <summary>
 	/// Adds a GameObject to the list
 	/// </summary>
@@ -124,13 +125,6 @@ private:
 	/// </summary>
 	void processEvents();
 
-	/// <summary>
-	/// Adds all the components factories of the engine and creates componenets.
-	///This is for testing the factorires
-	/// </summary>
-	void initFactories();
-
-	static Engine* _instance;
 	PhysxEngine* _physxEngine;
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
@@ -138,8 +132,11 @@ private:
 	static std::unique_ptr<Engine> instance;
 	InputManager* _inputManager;
 	EngineTime* _time;
+	LuaParser* _luaParser;
 
 	bool _run;
+	bool alredyInitialized;
+
 };
 
 #endif /*Engine.h*/

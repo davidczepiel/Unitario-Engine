@@ -16,14 +16,7 @@ public:
 	/// </summary>
 	/// <param name="go"> Game Object </param>
 	OverlayComponent();
-	OverlayComponent(GameObject* go);
 
-	/// <summary>
-	/// Class constructor with class params
-	/// </summary>
-	/// <param name="go"> Game Object</param>
-	/// <param name="overlayName"> Overlay name</param>
-	OverlayComponent(GameObject* go, std::string const& overlayName);
 	~OverlayComponent();
 
 	/// <summary>
@@ -31,7 +24,10 @@ public:
 	/// </summary>
 	virtual void awake(luabridge::LuaRef& data) override;
 
-	void start();
+	/// <summary>
+	/// Called before the main loop starts
+	/// </summary>
+	void start() override;
 
 	/// <summary>
 	/// Hides the overlay
@@ -57,5 +53,7 @@ protected:
 	//Pointer to overlay element
 	OverlayElement* _overlayElement;
 };
+
+
 
 #endif OVERLAYCOMPONENT_H

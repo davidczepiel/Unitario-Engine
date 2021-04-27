@@ -6,16 +6,11 @@
 #include "EngineTime.h"
 #include "ComponentIDs.h"
 
+//ADD_COMPONENT(AnimatorComponent)
+
 AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
 _states(), _actualState(nullptr), _initialState(nullptr), _animator(nullptr)
 {
-
-}
-
-AnimatorComponent::AnimatorComponent(GameObject* gameObject): Component(ComponentId::Animator, gameObject),
-	_states(), _actualState(nullptr), _initialState(nullptr), _animator(new Animator(gameObject->getName()))
-{
-
 }
 
 AnimatorComponent::~AnimatorComponent()

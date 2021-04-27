@@ -15,15 +15,7 @@ public:
 	/// Default constructor of the class
 	/// </summary>
 	ParticleSystemComponent();
-	ParticleSystemComponent(GameObject* gameObject);
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="path">: path of the file</param>
-	ParticleSystemComponent(GameObject* gameObject, std::string const& path);
-	/// <summary>
-	/// Destructor of the class 
-	/// </summary>
+
 	~ParticleSystemComponent();
 
 	/// <summary>
@@ -33,11 +25,11 @@ public:
 	/// <summary>
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
-	virtual void start();
+	virtual void start() override;
 	/// <summary>
 	/// Update the component
 	/// </summary>
-	virtual void update();
+	virtual void update() override;
 
 	void setPath(std::string const& path);
 
@@ -48,4 +40,5 @@ private:
 	std::string _path;
 };
 
-#endif AUDIOSOURCECOMPONENT_H
+
+#endif //PARTICLESYSTEMCOMPONENT_H

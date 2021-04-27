@@ -3,21 +3,16 @@
 #include "ComponentIDs.h"
 #include "RigidBodyComponent.h"
 #include "ColliderComponent.h"
+#include "MotorGrafico/GraphicsEngine.h"
 
 #include <math.h>
 #define PI 3.14159265
 
+//ADD_COMPONENT(Transform)
+
 Transform::Transform(): Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
 {
-}
 
-Transform::Transform(GameObject* gameObject): Component(ComponentId::Transform,gameObject), _position(0,0,0), _rotation(0,0,0),_scale(1,1,1)
-{
-}
-
-Transform::Transform(GameObject* gameObject, const Vector3& position, const Vector3& rotation, const Vector3& scale): Component(ComponentId::Transform, gameObject), 
-_position(position),_rotation(rotation),_scale(scale)
-{
 }
 
 void Transform::setPosition(const Vector3& position)
@@ -44,10 +39,14 @@ void Transform::setPosition(const Vector3& position)
 
 void Transform::awake(luabridge::LuaRef& data)
 {
+	const std::string& parentName = _gameObject->getParent() != nullptr ? _gameObject->getParent()->getName() : "";
+	GraphicsEngine::getInstance()->addNode(_gameObject->getName(), parentName);
+
 	luabridge::LuaRef lua_coord = data["Coord"];
 	_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
 	std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
 }
+
 void Transform::updateFromPhysics(const Vector3& position, const Vector3& rotation)
 {
 	_position = position;

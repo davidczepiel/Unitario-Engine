@@ -3,7 +3,6 @@
 
 Component::Component(unsigned int id):_id(id), _gameObject(nullptr), _enabled(true)
 {
-
 }
 
 Component::Component(unsigned int id, GameObject* gameObject):

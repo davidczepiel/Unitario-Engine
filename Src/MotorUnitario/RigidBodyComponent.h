@@ -19,18 +19,6 @@ class RigidBodyComponent :	public Component
 {
 public:
 	enum Type{ Box, Capsule, Sphere};
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="go">Gameobject this component is attached to</param>
-	RigidBodyComponent(GameObject* go, Type type);
-
-	/// <summary>
-	/// Constructor of the class
-	/// </summary>
-	/// <param name="path">Path of configuration file</param>
-	/// <param name="go">Gameobject this component is attached to</param>
-	RigidBodyComponent(const std::string& path, GameObject* go);
 
 	/// <summary>
 	/// Constructor of the class
@@ -39,10 +27,12 @@ public:
 
 	virtual ~RigidBodyComponent();
 
+	void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Called each pshyical step to update physiscal information
 	/// </summary>
-	virtual void fixedUpdate();
+	virtual void fixedUpdate() override;
 
 	/// <summary>
 	/// Sets the position of the transform to a specified one
@@ -178,7 +168,6 @@ private:
 	RigidBody* _rb;
 	Transform* _tr;
 	Logger* _log;
-	Type _type;
-
 };
+
 #endif //!RIGIDBODYCOMPONENT_H

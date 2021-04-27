@@ -5,17 +5,11 @@
 #include "Vector3.h"
 #include "ComponentIDs.h"
 
+//ADD_COMPONENT(AudioSourceComponent)
+
 AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
 {
-}
-
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject) : Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route()
-{
-}
-
-AudioSourceComponent::AudioSourceComponent(GameObject* gameObject, std::string const& route) : Component(ComponentId::AudioSource, gameObject), _audioSource(nullptr), _tr(nullptr), _route(route)
-{
-	_audioSource = new AudioSource(route);
+	_audioSource = new AudioSource();
 }
 
 AudioSourceComponent::~AudioSourceComponent()
@@ -35,6 +29,7 @@ void AudioSourceComponent::start()
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
+	_audioSource = new AudioSource(_route);
 	_audioSource->setPosition(x, y, z);
 }
 

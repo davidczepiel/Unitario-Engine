@@ -16,9 +16,11 @@ RenderObject::~RenderObject()
 void RenderObject::init()
 {
 	Ogre::SceneManager* sM = GraphicsEngine::getInstance()->getSceneManager();
-	_objectNode = sM->getRootSceneNode()->createChildSceneNode(_objectName);
+	_objectNode = sM->getSceneNode(_objectName);
 	_objectEntity = sM->createEntity(_meshName);
 	_objectNode->attachObject(_objectEntity);
+
+	_objectEntity->setMaterialName("Practica1/Yellow");
 }
 
 void RenderObject::setMaterial(std::string const& materialName)

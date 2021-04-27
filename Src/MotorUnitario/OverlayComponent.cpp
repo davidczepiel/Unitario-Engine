@@ -3,19 +3,11 @@
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
 
+//ADD_COMPONENT(OverlayComponent)
+
 OverlayComponent::OverlayComponent() : Component(ComponentId::OverlayComponent),
 _overlayElement(nullptr)
 {
-}
-
-OverlayComponent::OverlayComponent(GameObject* go) : Component(ComponentId::OverlayComponent, go),
-_overlayElement(nullptr)
-{
-}
-
-OverlayComponent::OverlayComponent(GameObject* go, std::string const& overlayName) : Component(ComponentId::OverlayComponent, go)
-{
-	_overlayElement = new OverlayElement(overlayName);
 }
 
 OverlayComponent::~OverlayComponent()

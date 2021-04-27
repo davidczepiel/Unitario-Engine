@@ -3,6 +3,8 @@
 #include "Transform.h"
 #include "GameObject.h"
 
+//ADD_COMPONENT(ImageRenderComponent)
+
 ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
 ImageRender::BillboardType getBillboardType(std::string cmp);
 ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp);
@@ -23,11 +25,6 @@ void ImageRenderComponent::awake(luabridge::LuaRef& data)
 }
 
 ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr)
-{
-	_imageRender = new ImageRender();
-}
-
-ImageRenderComponent::ImageRenderComponent(GameObject* gameObject) : Component(ComponentId::ImageRender, gameObject), _imageRender(nullptr), _tr(nullptr)
 {
 	_imageRender = new ImageRender();
 }

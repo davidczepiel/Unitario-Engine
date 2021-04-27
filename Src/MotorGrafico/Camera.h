@@ -73,6 +73,8 @@ public:
 	/// <param name="radians">Amounts of radians to rotate</param>
 	void rollRadians(float radians);
 
+	void renderOverlays(bool render);
+
 	/// <summary>
 	/// Redirects the Z axis of the camera so that it points to a specific world position
 	/// </summary>

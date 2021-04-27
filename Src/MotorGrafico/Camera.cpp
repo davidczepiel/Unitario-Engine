@@ -5,11 +5,13 @@
 #include <OgreViewport.h>
 #include "GraphicsEngine.h"
 #include "Euler.h"
+#include "OgreRTShaderSystem.h"
 
 int Camera::_id = 1;
 
 Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr), _zOrder(zOrd)
 {
+	_renderWindow = GraphicsEngine::getInstance()->getRenderWindow();
 	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
 	_camera = manager->createCamera("Camera" + _id);
 	_camera->setAutoAspectRatio(true);
@@ -17,15 +19,14 @@ Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr),
 	_node->attachObject(_camera);
 
 	setViewportVisibility(true, x, y, w, h);
-
 	setPlanes();
 	_id++;
 }
 
 Camera::~Camera()
 {
-	if (_camera != nullptr)delete _camera;
-	if (_node != nullptr)delete _node;
+	if(_viewport != nullptr)
+		GraphicsEngine::getInstance()->removeViewport(_viewport);
 }
 
 void Camera::lookAt(float x, float y, float z)
@@ -61,6 +62,12 @@ void Camera::rollDegrees(float degrees)
 void Camera::rollRadians(float radians)
 {
 	_node->roll(Ogre::Radian(radians));
+}
+
+void Camera::renderOverlays(bool render)
+{
+	if (_viewport != nullptr)
+		_viewport->setOverlaysEnabled(render);
 }
 
 void Camera::setOrientation(float x, float y, float z)
@@ -126,8 +133,10 @@ const std::tuple<float, float, float>& Camera::getOrientation() {
 void Camera::setViewportVisibility(bool visible, float x, float y, float w, float h)
 {
 	if (visible) {
-		if (_viewport == nullptr)
+		if (_viewport == nullptr) {
 			_viewport = GraphicsEngine::getInstance()->setupViewport(_camera, _zOrder, x, y, w, h);
+			_camera->setAspectRatio(Ogre::Real(_viewport->getActualWidth()) / Ogre::Real(_viewport->getActualHeight()));
+		}
 	}
 	else {
 		if (_viewport != nullptr) {

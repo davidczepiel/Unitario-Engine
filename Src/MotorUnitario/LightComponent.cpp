@@ -2,13 +2,10 @@
 #include "ComponentIDs.h"
 #include "GameObject.h"
 
+//ADD_COMPONENT(LightComponent)
+
 LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(nullptr)
 {
-}
-
-LightComponent::LightComponent(GameObject* gameObject): Component(ComponentId::LightComponent, gameObject), _light(nullptr)
-{
-	_light = new Light(gameObject->getName());
 }
 
 LightComponent::~LightComponent()
@@ -18,19 +15,20 @@ LightComponent::~LightComponent()
 
 void LightComponent::awake(luabridge::LuaRef& data)
 {
+	_light = new Light(_gameObject->getName());
 	//_route = data["Route"].cast<std::string>();
 	//std::cout << "As: " << _route << std::endl;
 	//luabridge::LuaRef lua_coord = data["Coord"];
 	//_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
 	//std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
-	_light->setLightType(convertLightType(data["LightType"]));
+	/*_light->setLightType(convertLightType(data["LightType"]));
 	_light->setVisible(data["Visible"].cast<bool>());
 	_light->setDiffuse(data["Diffuse"]["Red"].cast<float>(), data["Diffuse"]["Green"].cast<float>(), data["Diffuse"]["Blue"].cast<float>());
 	_light->setSpecular(data["Specular"]["Red"].cast<float>(), data["Specular"]["Green"].cast<float>(), data["Specular"]["Blue"].cast<float>());
 	_light->setAttenuation(data["Attenuation"]["Range"].cast<float>(), data["Attenuation"]["Constant"].cast<float>(), 
 							data["Attenuation"]["Linear"].cast<float>(), data["Attenuation"]["Quadratic"].cast<float>());
 	_light->setSpotlightRange(data["SpotLightRange"]["InnerAngle"].cast<float>(), data["SpotLightRange"]["OuterAngle"].cast<float>(), 
-							data["SpotLightRange"]["FallOf"].cast<float>());
+							data["SpotLightRange"]["FallOf"].cast<float>());*/
 }
 
 inline const Light::LightType LightComponent::convertLightType(std::string type)

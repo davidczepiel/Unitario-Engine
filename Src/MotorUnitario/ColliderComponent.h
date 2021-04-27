@@ -61,12 +61,6 @@ public:
 	void setRotation(Vector3 rot);
 
 protected:
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="id">Component ID</param>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	ColliderComponent(int id, GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class
@@ -80,14 +74,12 @@ protected:
 #endif // !COLLIDERCOMPONENT_H
 //////////////////////////////////////////////////////
 
+#ifndef BOXCOLLIDERCOMPONENT_H
+#define BOXCOLLIDERCOMPONENT_H
+
 class BoxColliderComponent : public ColliderComponent {
 public:
 
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	BoxColliderComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class
@@ -99,6 +91,8 @@ public:
 	/// </summary>
 	virtual ~BoxColliderComponent();
 
+	void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Changes box size
 	/// </summary>
@@ -108,16 +102,16 @@ public:
 	void setScale(int width, int heigh, int depth);
 };
 
+#endif
+
 /////////////////////////////////////////////////////////
+
+
+#ifndef SPHERECOLLIDERCOMPONENT_H
+#define SPHERECOLLIDERCOMPONENT_H
 
 class SphereColliderComponent : public ColliderComponent {
 public:
-
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	SphereColliderComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class
@@ -129,6 +123,8 @@ public:
 	/// </summary>
 	virtual ~SphereColliderComponent();
 
+	void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Changes sphere radius
 	/// </summary>
@@ -136,16 +132,17 @@ public:
 	void setScale(int radius);
 };
 
+
+
+#endif
+
 ////////////////////////////////////////////////////
+
+#ifndef CAPSULECOLLIDERCOMPONENT_H
+#define CAPSULECOLLIDERCOMPONENT_H
 
 class CapsuleColliderComponent : public ColliderComponent {
 public:
-
-	/// <summary>
-	/// Contructor of the class
-	/// </summary>
-	/// <param name="gameObject">GameObject owner of the component</param>
-	CapsuleColliderComponent(GameObject* gameObject);
 
 	/// <summary>
 	/// Contructor of the class
@@ -157,6 +154,8 @@ public:
 	/// </summary>
 	virtual ~CapsuleColliderComponent();
 
+	void awake(luabridge::LuaRef& data) override;
+
 	/// <summary>
 	/// Changes capsule's dimensions
 	/// </summary>
@@ -164,3 +163,6 @@ public:
 	/// <param name="l">New length</param>
 	void setScale(int radius, int length);
 };
+
+
+#endif

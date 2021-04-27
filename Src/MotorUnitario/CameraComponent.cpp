@@ -4,32 +4,33 @@
 #include "Transform.h"
 #include "GameObject.h"
 
+//ADD_COMPONENT(CameraComponent)
+
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
-	setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
-	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
-	setProjection(data["Projection"].cast<bool>());
+	//setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
+	/*setProjection(data["Projection"].cast<bool>());
 	setFovY(data["Fovy"].cast<float>());
 	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
 		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
 	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
-	setViewportDimensions(data["Viewport"]["Left"].cast<float>(), data["Viewport"]["Top"].cast<float>(),
-		data["Viewport"]["W"].cast<float>(), data["Viewport"]["H"].cast<float>());
+*/
+
+//It is necesary to create the camera in this method and not in the constructor because each camera
+//Has its own viewport and it is necesary to specify its zOrder when creating a new one
+// (Viewports zOrders can not be modified)
+	int zOrder = data["zOrder"].cast<int>();
+	float x = data["Viewport"]["Left"].cast<float>();
+	float y = data["Viewport"]["Top"].cast<float>();
+	float w = data["Viewport"]["W"].cast<float>();
+	float h = data["Viewport"]["H"].cast<float>();
+	_camera = new Camera(zOrder, x, y, w, h);
+	_camera->renderOverlays(data["DisplayOverlays"].cast<bool>());
+	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
 }
 
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
 {
-	_camera = new Camera();
-}
-
-CameraComponent::CameraComponent(int zOrder, GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
-{
-	_camera = new Camera(zOrder);
-}
-
-CameraComponent::CameraComponent(GameObject* gameObject) : Component(ComponentId::Camera, gameObject), _camera(nullptr)
-{
-	_camera = new Camera();
 }
 
 CameraComponent::~CameraComponent()
@@ -48,6 +49,11 @@ void CameraComponent::update()
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
 	_camera->setPosition(x, y, z);
+
+	//x = static_cast<float>(_tr->getForward().getX());
+	//y = static_cast<float>(_tr->getForward().getY());
+	//z = static_cast<float>(_tr->getForward().getZ());
+	//_camera->setOrientation(x, y, z);
 }
 
 void CameraComponent::lateUpdate()

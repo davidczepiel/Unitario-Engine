@@ -10,7 +10,19 @@ extern "C"
 }
 #include "LuaBridge/LuaBridge.h"
 #include "ComponentIDs.h"
+//#include "ComponentsFactory.h"
+//#include "ComponentFactory.h"
+
 class GameObject;
+
+#define GETCOMPONENT(comp, id) static_cast<comp*>(_gameObject->getComponent(id))
+#define GETLUAFIELD(name, type) data[#name].cast<type>()
+#define GETLUASTRINGFIELD(name) data[#name].tostring()
+#define LUAFIELDEXIST(name) !data[#name].isNil()
+
+//#define ADD_COMPONENT(component)	\
+//	CMP_FACTORY(component)			\
+//	FactoryAdder component##FactoryGlobalVar(new component##Factory(), #component);	\
 
 class Component
 {

@@ -32,23 +32,19 @@ public:
 	/// Returns the instance of GraphicsEngine, in case there is no such instance, it creates one and returns that one
 	/// </summary>
 	static GraphicsEngine* getInstance();
+
+	/// <summary>
+	/// Creates the class instance
+	/// </summary>
+	static void CreateInstance();
+
 	GraphicsEngine& operator=(const GraphicsEngine&) = delete;
 	GraphicsEngine(GraphicsEngine& other) = delete;
 
 	/// <summary>
-	/// This method initializes the Ogre Root
+	/// Initializes the root, window and set ups the scene
 	/// </summary>
-	void initRoot();
-
-	/// <summary>
-	/// This method loads the configuration and prepares the Ogre RenderWindow
-	/// </summary>
-	void initWindow();
-
-	/// <summary>
-	/// Sets up the Ogre scene
-	/// </summary>
-	void setup();
+	bool initializeRenderEngine();
 
 	/// <summary>
 	/// Free all resources in this engine
@@ -89,7 +85,7 @@ public:
 	/// <summary>
 	/// Creates a viewport so that the camera passed can be rendered on it in a specific zOrder
 	/// </summary>
-	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder, int x, int y, int w, int h);
+	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder, float x, float y, float w, float h);
 
 	/// <summary>
 	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
@@ -97,7 +93,9 @@ public:
 	void removeViewport(Ogre::Viewport* vp);
 	/// Gets the window size
 	/// </summary>
-	inline std::pair<int, int> getWindowSize() { return std::pair<int,int>(_width, _height); }
+	inline std::pair<int, int> getWindowSize() { return std::pair<int, int>(_width, _height); }
+
+	void addNode(const std::string& name, const std::string& parent = "");
 
 private:
 
@@ -105,6 +103,21 @@ private:
 	/// Contructor of the class
 	/// </summary>
 	GraphicsEngine();
+
+	/// <summary>
+	/// This method initializes the Ogre Root
+	/// </summary>
+	void initRoot();
+
+	/// <summary>
+	/// This method loads the configuration and prepares the Ogre RenderWindow
+	/// </summary>
+	void initWindow();
+
+	/// <summary>
+	/// Sets up the Ogre scene
+	/// </summary>
+	void setup();
 
 	/// <summary>
 	/// Locate all resources related to the path
@@ -128,6 +141,9 @@ private:
 	// Pointer to scene Manager
 	Ogre::SceneManager* _sceneManager;
 
+	Ogre::Viewport* _defaultViewport;
+	Ogre::Camera* _defaultCamera;
+
 	// File system abstraction layer
 	Ogre::FileSystemLayer* _mFSLayer;
 	// The Shader generator instance.
@@ -143,11 +159,12 @@ private:
 	std::string _mSolutionPath;
 	// Resources path relative to user
 	std::string _resourcesPath;
-	// Windows width 
+	// Windows width
 	int _width;
 	// Windows heigth
 	int _height;
 
+	bool alredyInitialized;
 };
 
 #endif /*GRAPHICSENGINE.h*/

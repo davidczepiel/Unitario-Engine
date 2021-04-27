@@ -4,6 +4,7 @@
 #include <OgreSceneManager.h>
 #include "GraphicsEngine.h"
 
+
 ImageRender::ImageRender():_billboardSet(nullptr),_billboardSetNode(nullptr),_parentNode(nullptr)
 {
 	 Ogre::SceneManager* sceneMng = GraphicsEngine::getInstance()->getSceneManager();

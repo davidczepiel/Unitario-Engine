@@ -9,7 +9,11 @@ class AudioEngine {
 public:
 	~AudioEngine();
 
-	//WIP
+	/// <summary>
+	/// Creates the class instance
+	/// </summary>
+	static void CreateInstance();
+
 	/// <summary>
 	/// Returns the instance of AudioEngine, in case there is no such instance, it creates one and returns that one
 	/// </summary>
@@ -19,7 +23,7 @@ public:
 	/// <summary>
 	/// Initialize the system object and prepare FMOD for playback
 	/// </summary>
-	void init();
+	bool init();
 	/// <summary>
 	/// Update the system object
 	/// </summary>
@@ -46,6 +50,8 @@ private:
 	/// Contructor of the class
 	/// </summary>
 	AudioEngine();
+
+	bool alreadyInitialized;
 
 	static AudioEngine* _instance;
 	FMOD::System* _system;

@@ -5,25 +5,22 @@
 #include "KeyCodes.h"
 #include <SDL.h>
 
+//ADD_COMPONENT(ButtonComponent)
+
 ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),
 _button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
 }
 
-ButtonComponent::ButtonComponent(GameObject* gO) :Component(ComponentId::ButtonComponent, gO),
-_button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
-_defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
-{
-}
-
-ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName,
-	std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial,
-	std::string const& pressMaterial, void* callbackParam) : Component(ComponentId::ButtonComponent, gO),
-	_button(nullptr), _callback(callback), _callbackParam(callbackParam), _overlayName(overlayName), _containerName(containerName), _defaultMaterial(defaultMaterial),
-	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial), _active(true)
-{
-}
+//
+//ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName,
+//	std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial,
+//	std::string const& pressMaterial, void* callbackParam) : Component(ComponentId::ButtonComponent, gO),
+//	_button(nullptr), _callback(callback), _callbackParam(callbackParam), _overlayName(overlayName), _containerName(containerName), _defaultMaterial(defaultMaterial),
+//	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial), _active(true)
+//{
+//}
 
 ButtonComponent::~ButtonComponent()
 {
