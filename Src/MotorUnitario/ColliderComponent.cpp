@@ -45,7 +45,6 @@ BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::Bo
 
 BoxColliderComponent::~BoxColliderComponent()
 {
-	delete _collider; _collider == nullptr;
 }
 
 void BoxColliderComponent::awake(luabridge::LuaRef& data)
@@ -88,7 +87,6 @@ SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentI
 
 SphereColliderComponent::~SphereColliderComponent()
 {
-	delete _collider; _collider == nullptr;
 }
 
 void SphereColliderComponent::awake(luabridge::LuaRef& data)
@@ -128,7 +126,6 @@ CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(Compone
 
 CapsuleColliderComponent::~CapsuleColliderComponent()
 {
-	delete _collider; _collider == nullptr;
 }
 
 void CapsuleColliderComponent::awake(luabridge::LuaRef& data)

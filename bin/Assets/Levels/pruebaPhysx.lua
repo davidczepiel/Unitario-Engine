@@ -20,7 +20,7 @@ go_0[1] = { Component = "Transform", Coord = {X = 0, Y = -100, Z = -50}}
 go_0[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Brown", 
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=5, Y=.1, Z=5}, LookAt ={X=1, Y=1, Z=1},
 			Visible=true, Shadows=true, RenderingDistance = 1000}
-go_0[3] = { Component = "RigidBody", Type="Box",Width=100,Height=1,Depth=100,Static=true}
+go_0[3] = { Component = "BoxCollider", Width=100, Height=1, Depth=100, IsTrigger=false}
 
 go_1 = {}
 go_1[0] = { Name = "Camara", HowManyCmps = 2, Persist = false}
@@ -52,7 +52,7 @@ go_3[1]={ Component = "Transform", Coord = {X = 0, Y = 0, Z = -200}}
 go_3[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Yellow", 
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 			Visible=true, Shadows=true, RenderingDistance = 1000}
-go_3[3] = { Component = "RigidBody", Type="Box",mass=9,Width=250,Depth=250,Height=250}
+go_3[3] = { Component = "RigidBody", Type="Box", mass=9, Width=250, Depth=250, Height=250}
 -- go_3 = {}
 -- go_3[0] = { Name = "Cam", HowManyCmps = 2, Persist = false}
 -- go_3[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
