@@ -53,7 +53,7 @@ void ImageRender::setBillboardRotationType(BillboardRotationType type)
 
 void ImageRender::setPosition(float x, float y, float z)
 {
-	_parentNode->translate((Ogre::Real)x, (Ogre::Real)y, (Ogre::Real)z);
+	_parentNode->setPosition((Ogre::Real)x, (Ogre::Real)y, (Ogre::Real)z);
 }
 
 void ImageRender::setScale(float x, float y, float z)
