@@ -38,22 +38,28 @@ Collider::Collider(bool isTrigger, GameObject* gameObject, ContactCallback* coli
 	float staticFriction, float dynamicFriction, float restitution, const std::tuple<float, float, float>& position)
 	:_isTrigger(isTrigger), _gameObject(gameObject), _contCallback(coliderCallback), _triggerCallback(triggerCallback), _mShape(nullptr)
 {
-	physx::PxMaterial* gMaterial = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
-
 	_body = PhysxEngine::getPxInstance()->getPhysics()->createRigidDynamic(physx::PxTransform(TUPLE_TO_PHYSXVEC3(position)));
-	_body->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, false);
-	_body->setLinearDamping(0);
-	_body->setAngularDamping(0);
+	_body->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
+	_body->setLinearDamping(0.99);
+	_body->setAngularDamping(0.99);
+	_body->userData = this;
+	physx::PxRigidBodyExt::updateMassAndInertia(*_body, 1);
 }
 
 void Collider::initParams(bool isTrigger)
 {
-	_body->userData = this;
 
 	if (isTrigger) setTrigger();
 	else setCollider();
 
 	_body->attachShape(*_mShape);
+	PhysxEngine::getPxInstance()->getScene()->addActor(*_body);
+}
+
+Collider::~Collider()
+{
+	_mShape->release(); 
+	_body->release();
 }
 
 void Collider::setCollider()
@@ -66,7 +72,7 @@ void Collider::setCollider()
 
 void Collider::setTrigger()
 {
-	_mShape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, true);
+	_mShape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 	_mShape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, true);
 	_mShape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
 	_mShape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
@@ -81,6 +87,7 @@ BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameOb
 	physx::PxBoxGeometry aux(width / 2.0f, heigh / 2.0f, depth / 2.0f);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
 	_mShape = GetPhysx().createShape(aux, *mat);
+	mat->release();
 	initParams(isTrigger);
 }
 

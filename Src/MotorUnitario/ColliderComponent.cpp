@@ -4,10 +4,6 @@
 #include "ComponentIDs.h"
 #include "Transform.h"
 
-void ColliderComponent::awake(luabridge::LuaRef& data)
-{
-}
-
 ColliderComponent::ColliderComponent(int id): Component(id, nullptr), _collider(nullptr)
 {
 }
@@ -40,12 +36,9 @@ void ColliderComponent::setRotation(Vector3 rot)
 
 BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider)
 {
-	_collider = new BoxCollider(1, 1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
+	
 }
 
-BoxColliderComponent::~BoxColliderComponent()
-{
-}
 
 void BoxColliderComponent::awake(luabridge::LuaRef& data)
 {
@@ -82,12 +75,9 @@ void BoxColliderComponent::setScale(int width, int heigh, int depth)
 
 SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider)
 {
-	_collider = new SphereCollider(1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float,float,float>(0.0f,0.0f,0.0f));
+	
 }
 
-SphereColliderComponent::~SphereColliderComponent()
-{
-}
 
 void SphereColliderComponent::awake(luabridge::LuaRef& data)
 {
@@ -121,11 +111,7 @@ void SphereColliderComponent::setScale(int radius)
 
 CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider)
 {
-	_collider = new CapsuleCollider(1, 1, false, _gameObject, gameObjectsCollision, gameObjectTriggered, std::tuple<float, float, float>(0.0f, 0.0f, 0.0f));
-}
-
-CapsuleColliderComponent::~CapsuleColliderComponent()
-{
+	
 }
 
 void CapsuleColliderComponent::awake(luabridge::LuaRef& data)

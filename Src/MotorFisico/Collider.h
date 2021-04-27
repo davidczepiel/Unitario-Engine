@@ -28,7 +28,7 @@ public:
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
-	virtual ~Collider() {}
+	virtual ~Collider();
 
 	/// <summary>
 	/// Configures the collider component so that it collides with other elements of the world

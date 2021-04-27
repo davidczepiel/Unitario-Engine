@@ -24,8 +24,9 @@ physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes a
 
 void ContactReportCallback::onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count)
 {
-	physx::PxActor* actor1 = pairs->triggerShape->getActor();
-	physx::PxActor* actor2 = pairs->otherShape->getActor();
+	PX_UNUSED(count);
+	physx::PxActor* actor1 = pairs->triggerActor;
+	physx::PxActor* actor2 = pairs->otherActor;
 
 	Collider* b1 = static_cast<Collider*>(actor1->userData);
 	CollisionBody* b2 = static_cast<CollisionBody*>(actor2->userData);

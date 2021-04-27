@@ -28,23 +28,23 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	float bounciness = .5 ;
 	float mass = 1;
 
-	if (LUAFIELDEXIST(mass))
-		mass = GETLUAFIELD(mass, float);
+	if (LUAFIELDEXIST(Mass))
+		mass = GETLUAFIELD(Mass, float);
 
-	if (LUAFIELDEXIST(bounciness))
-		bounciness = GETLUAFIELD(bounciness, float);
+	if (LUAFIELDEXIST(Bounciness))
+		bounciness = GETLUAFIELD(Bounciness, float);
 
-	if (LUAFIELDEXIST(dynamicFriction))
-		dynamicFriction = GETLUAFIELD(dynamicFriction, float);
+	if (LUAFIELDEXIST(DynamicFriction))
+		dynamicFriction = GETLUAFIELD(DynamicFriction, float);
 
-	if (LUAFIELDEXIST(staticFriction))
-		staticFriction = GETLUAFIELD(staticFriction, float);
+	if (LUAFIELDEXIST(StaticFriction))
+		staticFriction = GETLUAFIELD(StaticFriction, float);
 
-	if (LUAFIELDEXIST(angularDamping))
-		angularDamping = GETLUAFIELD(angularDamping, float);
+	if (LUAFIELDEXIST(AngularDamping))
+		angularDamping = GETLUAFIELD(AngularDamping, float);
 
-	if (LUAFIELDEXIST(linearDamping))
-		linearDamping = GETLUAFIELD(linearDamping, float);
+	if (LUAFIELDEXIST(LinearDamping))
+		linearDamping = GETLUAFIELD(LinearDamping, float);
 
 	if (LUAFIELDEXIST(Kinematic))
 		isKinematic = GETLUAFIELD(Kinematic, bool);
