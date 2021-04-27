@@ -5,12 +5,12 @@
 
 #include <list>
 #include <tuple>
+#include "CollisionBody.h"
 
 class GameObject;
 
 #define TUPLE_TO_PHYSXVEC3(tuple) physx::PxVec3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
 #define PHYSXVEC3_TO_TUPLE(vec) std::tuple<float,float,float>(vec.x,vec.y,vec.z)
-using ContactCallback = void(GameObject * thisGO, GameObject * otherGO);
 
 namespace physx {
 	class PxPhysics;
@@ -24,7 +24,7 @@ namespace physx {
 	class PxScene;
 };
 
-class RigidBody
+class RigidBody : public CollisionBody
 {
 public:
 	/// <summary>
@@ -223,13 +223,13 @@ public:
 	/// Get the GameObject owner of the component owning thre collider
 	/// </summary>
 	/// <returns>A pointer to the GameObject owner of the component owning thre collider</returns>
-	inline GameObject* getGameObject() const { return _gameObject; }
+	inline GameObject* getGameObject() const override { return _gameObject; }
 
 	/// <summary>
 	/// Returns a pointer to the static function called on collision
 	/// </summary>
 	/// <returns>A pointer to the static function called on collision</returns>
-	inline ContactCallback* getColliderCallback() const { return _collisionCallback; }
+	inline ContactCallback* getColliderCallback() const override { return _collisionCallback; }
 
 	/// <summary>
 	/// Returns rigidbody�s position

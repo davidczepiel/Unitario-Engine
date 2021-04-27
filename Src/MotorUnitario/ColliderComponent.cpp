@@ -57,7 +57,7 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Depth)) depth = GETLUAFIELD(Depth, int);
 
 	bool isTrigger = false;
-	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(isTrigger, bool);
+	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(IsTrigger, bool);
 
 	float staticFriction = 0.5f;
 	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(staticFriction, float);
