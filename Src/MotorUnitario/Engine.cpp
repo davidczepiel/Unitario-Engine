@@ -14,7 +14,7 @@
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
-Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr), alredyInitialized(false)
+Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr), alredyInitialized(false), scenesPath("")
 {
 }
 
@@ -54,14 +54,18 @@ void Engine::tick()
 	_time->update();
 }
 
-bool Engine::init(std::string const& resourcesPath)
+bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 {
 	if (alredyInitialized) {
 		Logger::getInstance()->log("Engine class is already initialized", Logger::Level::WARN);
 		return false;
 	}
 
+	scenesPath = scenesP + '/';
+
+	//-------------InputManager--------------
 	_inputManager = InputManager::getInstance();
+	//--------------GraphicsEngine---------------------
 	GraphicsEngine::CreateInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	_graphicsEngine->setResourcePath(resourcesPath);
@@ -69,11 +73,14 @@ bool Engine::init(std::string const& resourcesPath)
 		Logger::getInstance()->log("Graphics Engine init error", Logger::Level::ERROR);
 		throw "Graphics Engine init error";
 	}
+	//--------------PhysXEngine--------------------
 	PhysxEngine::CreateInstance();
 	_physxEngine = PhysxEngine::getPxInstance();
 	_physxEngine->init();
+	//---------------AudioEngine--------------------
 	AudioEngine::CreateInstance();
 	_audioEngine = AudioEngine::getInstance();
+
 	_time = EngineTime::getInstance();
 
 	initEngineFactories();
@@ -98,20 +105,19 @@ void Engine::run()
 
 void Engine::changeScene(const std::string& scene)
 {
-	//Eliminar escena actual
+	//Remove current scene
 	for (auto it = _GOs.begin(); it != _GOs.end(); it) {
 		if (!(*it)->getPersist()) {
 			GameObject* pointer = *it;
 			it = _GOs.erase(it);
 			delete pointer;
-			//remGameObject((*it));
 		}
 		else
 			++it;
 	}
 
-	//Cargar escena nueva
-	_luaParser->loadScene(scene);
+	//Load new scene
+	_luaParser->loadScene(scenesPath + scene);
 }
 
 void Engine::stopExecution()
