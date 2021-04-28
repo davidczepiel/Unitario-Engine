@@ -81,6 +81,10 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, Contac
 
 RigidBody::~RigidBody()
 {
+	if (_isStatic)
+		_staticBody->release();
+	else
+		_dynamicBody->release();
 }
 
 bool RigidBody::setStaticFriction(float f)
