@@ -6,8 +6,6 @@
 #include "Logger.h"
 #include "Vector3.h"
 
-//ADD_COMPONENT(RigidBodyComponent)
-
 RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {
 	_log = Logger::getInstance();
@@ -23,30 +21,30 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	bool isStatic = false;
 	Vector3 position = Vector3();
 	bool isKinematic = false;
-	float linearDamping = 0.0f;
-	float angularDamping = 0.0f;
-	float staticFriction = 1.0f;
-	float dynamicFriction = 1.0f;
-	float bounciness = 1.0f;
-	float mass = 1000.0f;
+	float linearDamping = 0.99f;
+	float angularDamping = 0.99f;
+	float staticFriction = .5;
+	float dynamicFriction = .5;
+	float bounciness = .5 ;
+	float mass = 1;
 
-	if (LUAFIELDEXIST(mass))
-		GETLUAFIELD(mass, float);
+	if (LUAFIELDEXIST(Mass))
+		mass = GETLUAFIELD(Mass, float);
 
-	if (LUAFIELDEXIST(bounciness))
-		GETLUAFIELD(bounciness, float);
+	if (LUAFIELDEXIST(Bounciness))
+		bounciness = GETLUAFIELD(Bounciness, float);
 
-	if (LUAFIELDEXIST(dynamicFriction))
-		GETLUAFIELD(dynamicFriction, float);
+	if (LUAFIELDEXIST(DynamicFriction))
+		dynamicFriction = GETLUAFIELD(DynamicFriction, float);
 
-	if (LUAFIELDEXIST(staticFriction))
-		GETLUAFIELD(staticFriction, float);
+	if (LUAFIELDEXIST(StaticFriction))
+		staticFriction = GETLUAFIELD(StaticFriction, float);
 
-	if (LUAFIELDEXIST(angularDamping))
-		GETLUAFIELD(angularDamping, float);
+	if (LUAFIELDEXIST(AngularDamping))
+		angularDamping = GETLUAFIELD(AngularDamping, float);
 
-	if (LUAFIELDEXIST(linearDamping))
-		linearDamping = GETLUAFIELD(linearDamping, float);
+	if (LUAFIELDEXIST(LinearDamping))
+		linearDamping = GETLUAFIELD(LinearDamping, float);
 
 	if (LUAFIELDEXIST(Kinematic))
 		isKinematic = GETLUAFIELD(Kinematic, bool);
@@ -88,6 +86,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 			_rb = new RigidBody(r, h, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
+
 	}
 
 }
@@ -98,8 +97,9 @@ void RigidBodyComponent::fixedUpdate()
 
 	Vector3 position = TUPLE_TO_VEC3(_rb->getPosition());
 	Vector3 rotation = TUPLE_TO_VEC3(_rb->getRotation());
-
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	//std::cout << "RigidBody rot" << rotation.getX() << " " << rotation.getY() << " " << rotation.getZ() << '\n';
+	//std::cout << 
 	t->updateFromPhysics(position, rotation);
 }
 

@@ -10,8 +10,8 @@ extern "C"
 }
 #include "LuaBridge/LuaBridge.h"
 #include "ComponentIDs.h"
-//#include "ComponentsFactory.h"
-//#include "ComponentFactory.h"
+#include "ComponentsFactory.h"
+#include "ComponentFactory.h"
 
 class GameObject;
 
@@ -20,9 +20,11 @@ class GameObject;
 #define GETLUASTRINGFIELD(name) data[#name].tostring()
 #define LUAFIELDEXIST(name) !data[#name].isNil()
 
-//#define ADD_COMPONENT(component)	\
-//	CMP_FACTORY(component)			\
-//	FactoryAdder component##FactoryGlobalVar(new component##Factory(), #component);	\
+//This macro adds the component to the engine factory
+//Only use it in a cpp
+#define ADD_COMPONENT(component)	\
+	CMP_FACTORY(component)			\
+	static FactoryAdder component##FactoryGlobalVar(new component##Factory(), #component);	\
 
 class Component
 {

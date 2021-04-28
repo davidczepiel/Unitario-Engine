@@ -16,10 +16,6 @@ class Vector3;
 
 class ColliderComponent : public Component {
 public:
-	/// <summary>
-	/// Method to initialize required attributes for the component
-	/// </summary>
-	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
 	/// Callback for gameobject collision
@@ -38,7 +34,7 @@ public:
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
-	~ColliderComponent();
+	virtual ~ColliderComponent();
 
 	/// <summary>
 	/// Sets the collider for collisions
@@ -86,11 +82,6 @@ public:
 	/// </summary>
 	BoxColliderComponent();
 
-	/// <summary>
-	/// Destructor of the class
-	/// </summary>
-	virtual ~BoxColliderComponent();
-
 	void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
@@ -118,11 +109,6 @@ public:
 	/// </summary>
 	SphereColliderComponent();
 
-	/// <summary>
-	/// Destructor of the class
-	/// </summary>
-	virtual ~SphereColliderComponent();
-
 	void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
@@ -148,11 +134,6 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	CapsuleColliderComponent();
-
-	/// <summary>
-	/// Destructor of the class
-	/// </summary>
-	virtual ~CapsuleColliderComponent();
 
 	void awake(luabridge::LuaRef& data) override;
 

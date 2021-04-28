@@ -2,7 +2,6 @@
 #include "ComponentIDs.h"
 #include "GameObject.h"
 
-//ADD_COMPONENT(LightComponent)
 
 LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(nullptr)
 {

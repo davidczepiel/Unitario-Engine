@@ -10,12 +10,11 @@
 #include "LuaParser.h"
 #include "Logger.h"
 
-#include "ComponentsFactory.h"
-#include "ComponentFactory.h"
+#include "Factories.h"
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
-Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr), alredyInitialized(false)
+Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr), alredyInitialized(false), scenesPath("")
 {
 }
 
@@ -55,14 +54,18 @@ void Engine::tick()
 	_time->update();
 }
 
-bool Engine::init(std::string const& resourcesPath)
+bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 {
 	if (alredyInitialized) {
 		Logger::getInstance()->log("Engine class is already initialized", Logger::Level::WARN);
 		return false;
 	}
 
+	scenesPath = scenesP + '/';
+
+	//-------------InputManager--------------
 	_inputManager = InputManager::getInstance();
+	//--------------GraphicsEngine---------------------
 	GraphicsEngine::CreateInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
 	_graphicsEngine->setResourcePath(resourcesPath);
@@ -70,28 +73,17 @@ bool Engine::init(std::string const& resourcesPath)
 		Logger::getInstance()->log("Graphics Engine init error", Logger::Level::ERROR);
 		throw "Graphics Engine init error";
 	}
+	//--------------PhysXEngine--------------------
 	PhysxEngine::CreateInstance();
 	_physxEngine = PhysxEngine::getPxInstance();
 	_physxEngine->init();
+	//---------------AudioEngine--------------------
 	AudioEngine::CreateInstance();
 	_audioEngine = AudioEngine::getInstance();
+
 	_time = EngineTime::getInstance();
 
-	ComponentsFactory::getInstance()->add("Transform", new TransformFactory());
-	ComponentsFactory::getInstance()->add("ImageRenderer", new ImageRenderComponentFactory());
-	ComponentsFactory::getInstance()->add("LightComponent", new LightComponentFactory());
-	ComponentsFactory::getInstance()->add("RenderObject", new RenderObjectComponentFactory());
-	ComponentsFactory::getInstance()->add("Listener", new ListenerComponentFactory());
-	ComponentsFactory::getInstance()->add("AudioSource", new AudioSourceComponentFactory());
-	ComponentsFactory::getInstance()->add("RigidBody", new RigidBodyComponentFactory());
-	ComponentsFactory::getInstance()->add("BoxCollider", new BoxColliderComponentFactory());
-	ComponentsFactory::getInstance()->add("SphereCollider", new SphereColliderComponentFactory());
-	ComponentsFactory::getInstance()->add("CapsuleCollider", new CapsuleColliderComponentFactory());
-	ComponentsFactory::getInstance()->add("Camera", new CameraComponentFactory());
-	ComponentsFactory::getInstance()->add("Animator", new AnimatorComponentFactory());
-	ComponentsFactory::getInstance()->add("ParticleSystem", new ParticleSystemComponentFactory());
-	ComponentsFactory::getInstance()->add("ButtonComponent", new ButtonComponentFactory());
-	ComponentsFactory::getInstance()->add("OverlayComponent", new OverlayComponentFactory());
+	initEngineFactories();
 
 	_luaParser = new LuaParser();
 
@@ -113,20 +105,19 @@ void Engine::run()
 
 void Engine::changeScene(const std::string& scene)
 {
-	//Eliminar escena actual
+	//Remove current scene
 	for (auto it = _GOs.begin(); it != _GOs.end(); it) {
 		if (!(*it)->getPersist()) {
 			GameObject* pointer = *it;
 			it = _GOs.erase(it);
 			delete pointer;
-			//remGameObject((*it));
 		}
 		else
 			++it;
 	}
 
-	//Cargar escena nueva
-	_luaParser->loadScene(scene);
+	//Load new scene
+	_luaParser->loadScene(scenesPath + scene);
 }
 
 void Engine::stopExecution()
@@ -183,6 +174,25 @@ void Engine::shutDown()
 		_physxEngine = nullptr;
 	}
 	_luaParser->closeLuaVM();
+}
+
+void Engine::initEngineFactories()
+{
+	ComponentsFactory::getInstance()->add("Transform", new TransformFactory());
+	ComponentsFactory::getInstance()->add("ImageRenderer", new ImageRenderComponentFactory());
+	ComponentsFactory::getInstance()->add("LightComponent", new LightComponentFactory());
+	ComponentsFactory::getInstance()->add("RenderObject", new RenderObjectComponentFactory());
+	ComponentsFactory::getInstance()->add("Listener", new ListenerComponentFactory());
+	ComponentsFactory::getInstance()->add("AudioSource", new AudioSourceComponentFactory());
+	ComponentsFactory::getInstance()->add("RigidBody", new RigidBodyComponentFactory());
+	ComponentsFactory::getInstance()->add("BoxCollider", new BoxColliderComponentFactory());
+	ComponentsFactory::getInstance()->add("SphereCollider", new SphereColliderComponentFactory());
+	ComponentsFactory::getInstance()->add("CapsuleCollider", new CapsuleColliderComponentFactory());
+	ComponentsFactory::getInstance()->add("Camera", new CameraComponentFactory());
+	ComponentsFactory::getInstance()->add("Animator", new AnimatorComponentFactory());
+	ComponentsFactory::getInstance()->add("ParticleSystem", new ParticleSystemComponentFactory());
+	ComponentsFactory::getInstance()->add("ButtonComponent", new ButtonComponentFactory());
+	ComponentsFactory::getInstance()->add("OverlayComponent", new OverlayComponentFactory());
 }
 
 GameObject* Engine::addGameObject()

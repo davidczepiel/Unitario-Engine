@@ -4,6 +4,7 @@
 #define COLLIDER_H
 
 #include <tuple>
+#include "CollisionBody.h"
 
 namespace physx {
 	class PxPhysics;
@@ -17,19 +18,17 @@ namespace physx {
 class Transform;
 class GameObject;
 
-using ContactCallback = void(GameObject* thisGO, GameObject* otherGO);
-
 #define TUPLE_TO_PHYSXVEC3(tuple) physx::PxVec3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
 #define PHYSXVEC3_TO_TUPLE(vec) std::tuple<float,float,float>(vec.x,vec.y,vec.z)
 
-class Collider
+class Collider : public CollisionBody
 {
 public:
 
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
-	virtual ~Collider() { delete _pxTrans; _pxTrans = nullptr; }
+	virtual ~Collider();
 
 	/// <summary>
 	/// Configures the collider component so that it collides with other elements of the world
@@ -45,7 +44,7 @@ public:
 	/// Get the GameObject owner of the component owning thre collider
 	/// </summary>
 	/// <returns>A pointer to the GameObject owner of the component owning thre collider</returns>
-	inline GameObject* getGameObject() const { return _gameObject; }
+	inline GameObject* getGameObject() const override{ return _gameObject; }
 
 	/// <summary>
 	/// Set the pointer to the GameObject used on callbacks
@@ -57,7 +56,7 @@ public:
 	/// Returns a pointer to the function called on collision if the collider is not a trigger
 	/// </summary>
 	/// <returns>A pointer to the function called on collision</returns>
-	inline ContactCallback* getColliderCallback() const { return _contCallback; }
+	inline ContactCallback* getColliderCallback() const override { return _contCallback; }
 
 	/// <summary>
 	/// Returns a pointer to the function called on collision if the collider is a trigger
@@ -97,11 +96,16 @@ protected:
 	Collider(bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		float staticFriction, float dynamicFriction, float restitution, const std::tuple<float, float, float>& position);
 
+	/// <summary>
+	/// Init collider params
+	/// </summary>
+	void initParams(bool isTrigger);
+
 	physx::PxShape* _mShape;
-	physx::PxTransform* _pxTrans;
 	GameObject* _gameObject;
 	ContactCallback* _contCallback;
 	ContactCallback* _triggerCallback;
+	physx::PxRigidDynamic* _body;
 	
 	bool _isTrigger;
 };

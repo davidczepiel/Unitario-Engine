@@ -39,7 +39,7 @@ public:
 	/// Initialize everything related to the Graphics, Physics and Audio engines
 	/// </summary>
 	/// <param name = "resourcesPath">: Resources path</param>
-	bool init(std::string const& resourcesPath);
+	bool init(std::string const& resourcesPath, std::string const& scenesPath);
 
 	/// <summary>
 	/// Starts the main loop of the engine
@@ -114,6 +114,11 @@ protected:
 	/// </summary>
 	void shutDown();
 
+	/// <summary>
+	/// Called to start default factories
+	/// </summary>
+	void initEngineFactories();
+
 private:
 	/// <summary>
 	/// Contructor of the class
@@ -137,6 +142,7 @@ private:
 	bool _run;
 	bool alredyInitialized;
 
+	std::string scenesPath;
 };
 
 #endif /*Engine.h*/

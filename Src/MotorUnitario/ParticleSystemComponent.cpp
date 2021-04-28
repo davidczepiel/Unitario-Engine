@@ -4,7 +4,6 @@
 #include "Transform.h"
 #include "ComponentIDs.h"
 
-//ADD_COMPONENT(ParticleSystemComponent)
 
 ParticleSystemComponent::ParticleSystemComponent() : Component(ComponentId::ParticleSystem), _pSystem(nullptr), _tr(nullptr), _path()
 {

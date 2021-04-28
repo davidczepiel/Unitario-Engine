@@ -6,7 +6,6 @@
 #include "EngineTime.h"
 #include "ComponentIDs.h"
 
-//ADD_COMPONENT(AnimatorComponent)
 
 AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
 _states(), _actualState(nullptr), _initialState(nullptr), _animator(nullptr)

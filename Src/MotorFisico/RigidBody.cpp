@@ -6,14 +6,15 @@
 #include "PxRigidDynamic.h"
 #include "PxRigidStatic.h"
 #include "PhysxEngine.h"
+#include "extensions/PxRigidBodyExt.h"
 #include <iostream>
 
 RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isKinematic, const std::tuple<float, float, float>& position,
 	bool isStatic, float linearDamping, float angularDamping, float staticFriction,
-	float dynamicFriction, float restitution, float mass) :_physx(nullptr), _dynamicBody(nullptr),
+	float dynamicFriction, float restitution, float density) :_physx(nullptr), _dynamicBody(nullptr),
 	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), _gameObject(gameObject), _collisionCallback(collisionCallback)
 {
-	initParams(position, mass, isKinematic, linearDamping, angularDamping);
+	initParams(position, density, isKinematic, linearDamping, angularDamping);
 	physx::PxSphereGeometry aux(radious);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
 	physx::PxShape* e = _physx->createShape(aux, *mat);
@@ -80,6 +81,10 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, Contac
 
 RigidBody::~RigidBody()
 {
+	if (_isStatic)
+		_staticBody->release();
+	else
+		_dynamicBody->release();
 }
 
 bool RigidBody::setStaticFriction(float f)
@@ -375,7 +380,7 @@ void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mas
 		_dynamicBody->setLinearDamping(linearDamping);
 		_dynamicBody->setAngularDamping(angularDamping);
 		_dynamicBody->userData = this;
-		_dynamicBody->setMass(mass);
+		physx::PxRigidBodyExt::updateMassAndInertia(*_dynamicBody, mass);
 	}
 }
 

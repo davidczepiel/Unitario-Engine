@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorFisico\Callbacks.h" />
     <ClInclude Include="..\..\Src\MotorFisico\Collider.h" />
+    <ClInclude Include="..\..\Src\MotorFisico\CollisionBody.h" />
     <ClInclude Include="..\..\Src\MotorFisico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorFisico\PhysxEngine.h" />
     <ClInclude Include="..\..\Src\MotorFisico\RigidBody.h" />

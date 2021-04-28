@@ -1,5 +1,6 @@
 #include "Callbacks.h"
-#include "RigidBody.h"
+#include "CollisionBody.h"
+#include "PxActor.h"
 #include "Collider.h"
 
 physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes attributes0, physx::PxFilterData filterData0,
@@ -23,13 +24,14 @@ physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes a
 
 void ContactReportCallback::onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count)
 {
-	physx::PxShape* shape1 = pairs->triggerShape;
-	physx::PxShape* shape2 = pairs->otherShape;
+	PX_UNUSED(count);
+	physx::PxActor* actor1 = pairs->triggerActor;
+	physx::PxActor* actor2 = pairs->otherActor;
 
-	Collider* coll1 = static_cast<Collider*>(shape1->userData);
-	Collider* coll2 = static_cast<Collider*>(shape2->userData);
+	Collider* b1 = static_cast<Collider*>(actor1->userData);
+	CollisionBody* b2 = static_cast<CollisionBody*>(actor2->userData);
 
-	coll1->getColliderCallback()(coll1->getGameObject(), coll2->getGameObject());
+	b1->getTriggerCallback()(b1->getGameObject(), b2->getGameObject());
 }
 
 void ContactReportCallback::onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs)
@@ -39,19 +41,8 @@ void ContactReportCallback::onContact(const physx::PxContactPairHeader& pairHead
 	physx::PxActor* actor1 = pairHeader.actors[0];
 	physx::PxActor* actor2 = pairHeader.actors[1];
 
-	if (actor1 != nullptr && actor2 != nullptr) {
-		RigidBody* rb1 = static_cast<RigidBody*>(actor1->userData);
-		RigidBody* rb2 = static_cast<RigidBody*>(actor2->userData);
+	CollisionBody* b1 = static_cast<CollisionBody*>(actor1->userData);
+	CollisionBody* b2 = static_cast<CollisionBody*>(actor2->userData);
 
-		rb1->getColliderCallback()(rb1->getGameObject(), rb2->getGameObject());
-	}
-	else {
-		physx::PxShape* shape1 = pairHeader.pairs[0].shapes[0];
-		physx::PxShape* shape2 = pairHeader.pairs[0].shapes[1];
-
-		Collider* coll1 = static_cast<Collider*>(shape1->userData);
-		Collider* coll2 = static_cast<Collider*>(shape2->userData);
-
-		coll1->getColliderCallback()(coll1->getGameObject(), coll2->getGameObject());
-	}
+	b1->getColliderCallback()(b1->getGameObject(), b2->getGameObject());
 }
