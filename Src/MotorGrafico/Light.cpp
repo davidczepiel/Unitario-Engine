@@ -11,7 +11,7 @@
 
 unsigned int Light::_lightCount = 0;
 
-Light::Light(const std::string& gameObjectName): _id(_lightCount++), _light(nullptr)
+Light::Light(const std::string& gameObjectName) : _id(_lightCount++), _light(nullptr)
 {
 	Ogre::SceneManager* sm = GraphicsEngine::getInstance()->getSceneManager();
 
@@ -29,7 +29,8 @@ Light::Light(const std::string& gameObjectName): _id(_lightCount++), _light(null
 	try {
 		Ogre::SceneNode* parentNode = sm->getSceneNode(gameObjectName);
 		parentNode->addChild(_lightNode);
-	} catch(...){
+	}
+	catch (...) {
 		throw SceneNodeException(gameObjectName + std::string(" node does not exist"));
 	}
 }
@@ -82,68 +83,68 @@ const Colour Light::getSpecular() const
 	return Colour(colourOgre.r, colourOgre.g, colourOgre.b, colourOgre.a);
 }
 
-void Light::setAttenuation(float range, float constant, float linear, float quadratic) 
+void Light::setAttenuation(float range, float constant, float linear, float quadratic)
 {
 	_light->setAttenuation(range, constant, linear, quadratic);
 }
 
-const float Light::getAttenuationRange() const 
+const float Light::getAttenuationRange() const
 {
 	return _light->getAttenuationRange();
 }
 
-const float Light::getAttenuationConstant() const 
+const float Light::getAttenuationConstant() const
 {
 	return _light->getAttenuationConstant();
 }
 
-const float Light::getAttenuationLinear() const 
-{ 
+const float Light::getAttenuationLinear() const
+{
 	return _light->getAttenuationLinear();
 }
 
-const float Light::getAttenuationQuadric() const 
-{ 
-	return _light->getAttenuationQuadric(); 
+const float Light::getAttenuationQuadric() const
+{
+	return _light->getAttenuationQuadric();
 }
 
-void Light::setSpotlightRange(float innerAngle, float outerAngle, float fallof){
+void Light::setSpotlightRange(float innerAngle, float outerAngle, float fallof) {
 	_light->setSpotlightRange(Ogre::Radian(innerAngle), Ogre::Radian(outerAngle), fallof);
 }
 
-const float Light::getSpotlightFallOff() const 
-{ 
-	return _light->getSpotlightFalloff(); 
+const float Light::getSpotlightFallOff() const
+{
+	return _light->getSpotlightFalloff();
 }
 
-const float Light::getSpotlightInnerAngle() const 
-{ 
-	return _light->getSpotlightInnerAngle().valueRadians(); 
+const float Light::getSpotlightInnerAngle() const
+{
+	return _light->getSpotlightInnerAngle().valueRadians();
 }
 
-const float Light::getSpotlightOuterAngle() const 
-{ 
-	return _light->getSpotlightOuterAngle().valueRadians(); 
+const float Light::getSpotlightOuterAngle() const
+{
+	return _light->getSpotlightOuterAngle().valueRadians();
 }
 
-void Light::setPowerScale(float power) 
-{ 
-	_light->setPowerScale(power); 
+void Light::setPowerScale(float power)
+{
+	_light->setPowerScale(power);
 }
 
-const float Light::getPowerScale() const 
-{ 
-	return _light->getPowerScale(); 
+const float Light::getPowerScale() const
+{
+	return _light->getPowerScale();
 }
 
-void Light::setVisible(bool visible) 
-{ 
+void Light::setVisible(bool visible)
+{
 	_light->setVisible(visible);
 }
 
-const bool Light::getVisible() const 
-{ 
-	return _light->getVisible(); 
+const bool Light::getVisible() const
+{
+	return _light->getVisible();
 }
 
 void Light::setPosition(float x, float y, float z) {

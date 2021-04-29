@@ -97,6 +97,8 @@ public:
 
 	void addNode(const std::string& name, const std::string& parent = "");
 
+	void removeNode(const std::string& name);
+
 private:
 
 	/// <summary>

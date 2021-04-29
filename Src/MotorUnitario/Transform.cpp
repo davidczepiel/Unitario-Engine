@@ -8,10 +8,8 @@
 #include <math.h>
 #define PI 3.14159265
 
-
-Transform::Transform(): Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
+Transform::Transform() : Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
 {
-
 }
 
 void Transform::setPosition(const Vector3& position)
@@ -77,6 +75,7 @@ void Transform::setRotation(const Vector3& rotation)
 
 Transform::~Transform()
 {
+	GraphicsEngine::getInstance()->removeNode(_gameObject->getName());
 }
 
 Vector3 Transform::getForward() const

@@ -5,7 +5,6 @@
 #include "GameObject.h"
 #include "KeyboardInput.h"
 
-
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
 	/*setProjection(data["Projection"].cast<bool>());
@@ -23,7 +22,7 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	float y = data["Viewport"]["Top"].cast<float>();
 	float w = data["Viewport"]["W"].cast<float>();
 	float h = data["Viewport"]["H"].cast<float>();
-	_camera = new Camera(zOrder, x, y, w, h);
+	_camera = new Camera(_gameObject->getName(), zOrder, x, y, w, h);
 	_camera->renderOverlays(data["DisplayOverlays"].cast<bool>());
 	setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
 	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
@@ -65,7 +64,7 @@ void CameraComponent::update()
 	float z = static_cast<float>(_tr->getPosition().getZ());*/
 	_camera->translate(x, y, z);
 	//_camera->setPosition(x, y, z);
-	
+
 	//x = static_cast<float>(_tr->getForward().getX());
 	//y = static_cast<float>(_tr->getForward().getY());
 	//z = static_cast<float>(_tr->getForward().getZ());

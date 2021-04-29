@@ -3,7 +3,6 @@
 #include "Transform.h"
 #include "GameObject.h"
 
-
 ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
 ImageRender::BillboardType getBillboardType(std::string cmp);
 ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp);
