@@ -5,6 +5,7 @@
 #include "SDL_events.h"
 #include "Engine.h"
 
+
 std::unique_ptr<InputManager> InputManager::instance = nullptr;
 
 InputManager::InputManager() : _keyBoardInput(KeyBoardInput::getInstance()),

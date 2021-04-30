@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
+#include "includeLUA.h"
 
 
 OverlayComponent::OverlayComponent() : Component(ComponentId::OverlayComponent),

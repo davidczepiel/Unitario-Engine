@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Vector3.h"
 #include "ComponentIDs.h"
+#include "includeLUA.h"
 
 
 AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()

@@ -20,7 +20,7 @@ ParticleSystem::~ParticleSystem()
 void ParticleSystem::init()
 {
 	_pSystem = GraphicsEngine::getInstance()->getSceneManager()->createParticleSystem(_name, _path);
-	_node = GraphicsEngine::getInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+	_node = GraphicsEngine::getInstance()->getSceneManager()->getSceneNode(_name);
 	_node->attachObject(_pSystem);
 }
 

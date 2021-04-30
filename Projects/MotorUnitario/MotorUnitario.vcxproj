@@ -281,6 +281,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ImageRenderComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\includeLUA.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />

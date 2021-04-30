@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "Transform.h"
 #include "Engine.h"
+#include "includeLUA.h"
 
 #define _COMPONENT_START_SIZE_ 15
 #define _COMPONENT_INCREASE_SIZE_ size_t(5)

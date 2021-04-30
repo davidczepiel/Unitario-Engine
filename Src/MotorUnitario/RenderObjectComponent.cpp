@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ComponentIDs.h"
-
+#include "includeLUA.h"
 
 RenderObjectComponent::RenderObjectComponent() :Component(ComponentId::RenderObject, nullptr), _renderObject(nullptr),
 _transform(nullptr), _meshName("")

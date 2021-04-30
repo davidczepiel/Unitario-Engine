@@ -5,6 +5,7 @@
 #include "Logger.h"
 #include "EngineTime.h"
 #include "ComponentIDs.h"
+#include "includeLUA.h"
 
 
 AnimatorComponent::AnimatorComponent() : Component(ComponentId::Animator), 
