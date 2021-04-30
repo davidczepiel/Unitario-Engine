@@ -18,15 +18,50 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 //It is necesary to create the camera in this method and not in the constructor because each camera
 //Has its own viewport and it is necesary to specify its zOrder when creating a new one
 // (Viewports zOrders can not be modified)
-	int zOrder = data["zOrder"].cast<int>();
-	float x = data["Viewport"]["Left"].cast<float>();
-	float y = data["Viewport"]["Top"].cast<float>();
-	float w = data["Viewport"]["W"].cast<float>();
-	float h = data["Viewport"]["H"].cast<float>();
-	_camera = new Camera(zOrder, x, y, w, h);
-	_camera->renderOverlays(data["DisplayOverlays"].cast<bool>());
-	setOrientation(data["Orientation"]["X"].cast<float>(), data["Orientation"]["Y"].cast<float>(), data["Orientation"]["Z"].cast<float>());
-	setPlanes(data["Plane"]["Near"].cast<float>(), data["Plane"]["Far"].cast<float>());
+
+	int zOrder = 1;
+	if (LUAFIELDEXIST(zOrder))
+		zOrder = GETLUAFIELD(zOrder, int);
+	float l, t, w, h;
+	l = t = 0, w = h = 1;
+	if (LUAFIELDEXIST(Viewport))
+	{
+		if (!data["Viewport"]["Left"].isNil())
+			l = data["Viewport"]["Left"].cast<float>();
+		if (!data["Viewport"]["Top"].isNil())
+			t = data["Viewport"]["Top"].cast<float>();
+		if (!data["Viewport"]["H"].isNil())
+			h = data["Viewport"]["H"].cast<float>();
+		if (!data["Viewport"]["W"].isNil())
+			w = data["Viewport"]["W"].cast<float>();
+
+	}
+
+	_camera = new Camera(zOrder, l, t, w, h);
+	if (LUAFIELDEXIST(DisplayOverlays))
+		_camera->renderOverlays(GETLUAFIELD(DisplayOverlays, bool));
+	if (LUAFIELDEXIST(Orientation)) {
+		float x, y, z;
+		x = y = z = 0;
+		if (!data["Orientation"]["X"].isNil())
+			x = data["Orientation"]["X"].cast<float>();
+		if (!data["Orientation"]["Y"].isNil())
+			y = data["Orientation"]["Y"].cast<float>();
+		if (!data["Orientation"]["Z"].isNil())
+			z = data["Orientation"]["Z"].cast<float>();
+
+		setOrientation(x, y, z);
+	}
+	if (LUAFIELDEXIST(Plane)) {
+
+		float near, far;
+		near = far = 0;
+		if (!data["Plane"]["Near"].isNil())
+			near = data["Plane"]["Near"].cast<float>();
+		if (!data["Plane"]["Far"].isNil())
+			far = data["Plane"]["Far"].cast<float>();
+		setPlanes(near, far);
+	}
 }
 
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
@@ -65,7 +100,7 @@ void CameraComponent::update()
 	float z = static_cast<float>(_tr->getPosition().getZ());*/
 	_camera->translate(x, y, z);
 	//_camera->setPosition(x, y, z);
-	
+
 	//x = static_cast<float>(_tr->getForward().getX());
 	//y = static_cast<float>(_tr->getForward().getY());
 	//z = static_cast<float>(_tr->getForward().getZ());
