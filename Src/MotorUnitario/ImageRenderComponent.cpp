@@ -20,17 +20,18 @@ void ImageRenderComponent::awake(luabridge::LuaRef& data)
 	_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
 	_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
 		data["Rotation"]["Z"].cast<float>(), data["Rotation"]["Angle"].cast<float>());
+	//_imageRender->setDefaultDimensions(100, 100);
 }
 
 ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr)
 {
 	_imageRender = new ImageRender();
+	//_imageRender->setMaterialName("Practica1/Yellow");
 }
 
 ImageRenderComponent::~ImageRenderComponent()
 {
 	delete _imageRender; _imageRender == nullptr;
-	delete _tr; _tr = nullptr;
 }
 
 void ImageRenderComponent::start()

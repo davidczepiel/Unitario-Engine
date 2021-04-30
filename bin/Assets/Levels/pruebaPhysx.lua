@@ -53,6 +53,15 @@ go_3[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 			Visible=true, Shadows=true, RenderingDistance = 1000}
 go_3[3] = { Component = "RigidBody", Type="Box",Mass=9,Width=20,Depth=20,Height=100}
+
+-- go_3 = {}
+-- go_3[0] = { Name = "ImageR", HowManyCmps = 2, Persist = false}
+-- go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}}
+-- go_3[2] = { Component = "ImageRenderer", DefaultDimension = {W = 1, H = 2}, 
+-- 			MaterialName = "Practica1/Yellow", Visible = true, 
+-- 			BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
+-- 			BillboardRotationType = "BBR_VERTEX",
+-- 			Scale = {X = 1, Y = 1, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 0}}
 -- go_3 = {}
 -- go_3[0] = { Name = "Cam", HowManyCmps = 2, Persist = false}
 -- go_3[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
@@ -96,7 +105,7 @@ go_3[3] = { Component = "RigidBody", Type="Box",Mass=9,Width=20,Depth=20,Height=
 --														RotateAngle = 1, Rotate={X=1, Y=1, Z=1}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 --														Visible=false, Shadows=false, RenderingDistance = 1}
 
--- ImageRender      -> go_goNumber[componentNumber] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, 
+-- ImageRender      -> go_goNumber[componentNumber] = { Component = "ImageRenderer", DefaultDimension = {W = 1, H = 2}, 
 --														MaterialName = "SoyFeo", Visible = false, 
 --														BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
 --														BillboardRotationType = "BBR_VERTEX",

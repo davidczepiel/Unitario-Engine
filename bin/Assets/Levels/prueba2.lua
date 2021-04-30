@@ -12,7 +12,7 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 3
+HowManyGameObjects = 4
 
 go_0 = {}
 go_0[0] = { Name = "Suelo2", HowManyCmps = 2, Persist = false}
@@ -45,6 +45,17 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Di
 			Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1},
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 go_2[3] = { Component = "RigidBody", Type="Sphere"}
+
+go_3 = {}
+go_3[0] = { Name = "ImageRend", HowManyCmps = 2, Persist = false}
+go_3[1] = { Component = "Transform", Coord = {X = 200, Y = 100, Z = -1000}}
+go_3[2] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, 
+-			MaterialName = "SexyMaterial", Visible = false, 
+			BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
+			BillboardRotationType = "BBR_VERTEX",
+			Scale = {X = 1, Y = 1, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 0}}
+			
+
 
 -- go_3 = {}
 -- go_3[0] = { Name = "Cam", HowManyCmps = 2, Persist = false}
