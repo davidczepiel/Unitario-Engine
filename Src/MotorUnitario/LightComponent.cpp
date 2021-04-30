@@ -1,7 +1,7 @@
 #include "LightComponent.h"
 #include "ComponentIDs.h"
 #include "GameObject.h"
-
+#include "includeLUA.h"
 
 LightComponent::LightComponent() :Component(ComponentId::LightComponent),_light(nullptr)
 {

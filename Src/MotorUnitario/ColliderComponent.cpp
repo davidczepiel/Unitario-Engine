@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "ComponentIDs.h"
 #include "Transform.h"
+#include "includeLUA.h"
 
 ColliderComponent::ColliderComponent(int id): Component(id, nullptr), _collider(nullptr)
 {

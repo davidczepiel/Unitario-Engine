@@ -4,6 +4,7 @@
 #include "RigidBodyComponent.h"
 #include "ColliderComponent.h"
 #include "MotorGrafico/GraphicsEngine.h"
+#include "includeLUA.h"
 
 #include <math.h>
 #define PI 3.14159265

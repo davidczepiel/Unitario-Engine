@@ -5,6 +5,7 @@
 #include "ComponentIDs.h"
 #include "Logger.h"
 #include "Vector3.h"
+#include "includeLUA.h"
 
 RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
 {

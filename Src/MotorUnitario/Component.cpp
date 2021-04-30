@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "Exceptions.h"
+#include "includeLUA.h"
 
 Component::Component(unsigned int id):_id(id), _gameObject(nullptr), _enabled(true)
 {

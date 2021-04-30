@@ -2,6 +2,7 @@
 #include "ComponentIDs.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "includeLUA.h"
 
 
 ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
