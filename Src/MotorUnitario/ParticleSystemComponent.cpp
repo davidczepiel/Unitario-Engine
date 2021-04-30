@@ -18,8 +18,13 @@ ParticleSystemComponent::~ParticleSystemComponent()
 void ParticleSystemComponent::awake(luabridge::LuaRef& data)
 {
 	//_gameObject->getComponent(ComponentId::ComponentId::Transform)->awake(data);
-	_path = data["Path"].cast<std::string>();
-	_pSystem = new ParticleSystem(_path, _gameObject->getName());
+
+	if (LUAFIELDEXIST("Path"))
+	{
+		_path = data["Path"].cast<std::string>();
+		_pSystem = new ParticleSystem(_path, _gameObject->getName());
+	}
+
 }
 
 void ParticleSystemComponent::start()

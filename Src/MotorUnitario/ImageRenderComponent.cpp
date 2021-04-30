@@ -9,22 +9,7 @@ ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
 ImageRender::BillboardType getBillboardType(std::string cmp);
 ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp);
 
-void ImageRenderComponent::awake(luabridge::LuaRef& data)
-{
-	_imageRender->setDefaultDimensions(data["DefaultDimension"]["W"].cast<float>(), data["DefaultDimension"]["H"].cast<float>());
-	_imageRender->setMaterialName(data["MaterialName"].cast<std::string>());
-	_imageRender->setVisible(data["Visible"].cast<bool>());
-
-	_imageRender->setBillboardOrigin(getBillboardOrigin(data["BillboardOrigin"].cast<std::string>()));
-	_imageRender->setBillboardType(getBillboardType(data["BillboardType"].cast<std::string>()));
-	_imageRender->setBillboardRotationType(getBillboardRotationType(data["BillboardRotationType"].cast<std::string>()));
-
-	_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
-	_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
-		data["Rotation"]["Z"].cast<float>(), data["Rotation"]["Angle"].cast<float>());
-}
-
-ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr)
+ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr),_tr(nullptr)
 {
 	_imageRender = new ImageRender();
 }
@@ -34,6 +19,34 @@ ImageRenderComponent::~ImageRenderComponent()
 	delete _imageRender; _imageRender == nullptr;
 	delete _tr; _tr = nullptr;
 }
+void ImageRenderComponent::awake(luabridge::LuaRef& data)
+{
+	if (LUAFIELDEXIST("DefaultDimension")) 
+	{
+		int w = data["DefaultDimension"]["W"].cast<float>();
+		int h = data["DefaultDimension"]["H"].cast<float>();
+
+		_imageRender->setDefaultDimensions(w, h); 
+	}
+
+	if (LUAFIELDEXIST("MaterialName"))_imageRender->setMaterialName(data["MaterialName"].cast<std::string>());
+
+	if(LUAFIELDEXIST("Visible"))
+	_imageRender->setVisible(data["Visible"].cast<bool>());
+
+	if (LUAFIELDEXIST("BillboardOrigin"))
+	_imageRender->setBillboardOrigin(getBillboardOrigin(data["BillboardOrigin"].cast<std::string>()));
+	if (LUAFIELDEXIST("BillboardType"))
+	_imageRender->setBillboardType(getBillboardType(data["BillboardType"].cast<std::string>()));
+	if (LUAFIELDEXIST("BillboardRotationType"))
+	_imageRender->setBillboardRotationType(getBillboardRotationType(data["BillboardRotationType"].cast<std::string>()));
+
+	if (LUAFIELDEXIST("Scale"))_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
+
+	if (LUAFIELDEXIST("Rotation"))_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
+		data["Rotation"]["Z"].cast<float>(), data["Rotation"]["Angle"].cast<float>());
+}
+
 
 void ImageRenderComponent::start()
 {
