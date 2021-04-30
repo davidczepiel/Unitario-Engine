@@ -5,6 +5,7 @@
 
 #include <list>
 #include <tuple>
+#include <string>
 #include "CollisionBody.h"
 
 class GameObject;
@@ -44,7 +45,7 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-	RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false, const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0),
+	RigidBody(float radious, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic = false, const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0),
 		bool isKinematic = false, float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f,
 		float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
 
@@ -67,7 +68,7 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-	RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false,
+	RigidBody(float width, float height, float depth, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic = false,
 		const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false,
 		float linearDamping = 0, float angularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f,
 		float restitution = 1.0f, float mass = 1000.0f);
@@ -88,7 +89,7 @@ public:
 	/// Dynamic friction defines the amount of friction applied between surfaces that are moving relative to each-other</param>
 	/// <param name="restitution">The bounciness, between 0 and 1</param>
 	/// <param name="mass">The mass of the sphere</param>
-	RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic = false,
+	RigidBody(float radious, float height, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic = false,
 		const std::tuple<float, float, float>& position = std::tuple<float, float, float>(0, 0, 0), bool isKinematic = false, float linearDamping = 0,
 		float AngularDamping = 0, float staticFriction = 1.0f, float dynamicFriction = 1.0f, float restitution = 1.0f, float mass = 1000.0f);
 

@@ -63,7 +63,7 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
 
-	_collider = new BoxCollider(width, height, depth, isTrigger, _gameObject,
+	_collider = new BoxCollider(width, height, depth, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 
@@ -98,7 +98,7 @@ void SphereColliderComponent::awake(luabridge::LuaRef& data)
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
 
-	_collider = new SphereCollider(radius, isTrigger, _gameObject,
+	_collider = new SphereCollider(radius, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 
@@ -135,7 +135,7 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
 
-	_collider = new CapsuleCollider(radius, length, isTrigger, _gameObject,
+	_collider = new CapsuleCollider(radius, length, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 

@@ -60,7 +60,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				r = GETLUAFIELD(Radius, float);
 			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-			_rb = new RigidBody(r, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
+			_rb = new RigidBody(r, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 		else if (t == "Box") { //Box
@@ -73,7 +73,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				d = GETLUAFIELD(Depth, float);
 			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-			_rb = new RigidBody(w, h, d, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
+			_rb = new RigidBody(w, h, d, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 		else if (t == "Capsule") { //Capsule
@@ -84,7 +84,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				h = GETLUAFIELD(Height, float);
 			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-			_rb = new RigidBody(r, h, _gameObject, gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
+			_rb = new RigidBody(r, h, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 
