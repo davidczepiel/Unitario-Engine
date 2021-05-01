@@ -77,18 +77,23 @@ void Transform::setRotation(const Vector3& rotation)
 		rb->setRotation(_rotation);
 	}
 	//Rotation matrix for Y Axis
-	Vector3 yaw;
-	yaw.setX(cos(_rotation.getX()) * _dir.getX() - sin(_rotation.getZ()) * _dir.getZ());
-	yaw.setY(_dir.getY());
-	yaw.setZ(sin(_rotation.getX()) * _dir.getX() + cos(_rotation.getZ()) * _dir.getZ());
+	/*Vector3 yaw;
+	yaw.setX(cos((int)_rotation.getX()%360) * _dir.getX() - sin((int)_rotation.getZ() % 360) * _dir.getZ());
+	yaw.setY(0);
+	yaw.setZ(sin((int)_rotation.getX() % 360) * _dir.getX() + cos(_rotation.getZ()) * _dir.getZ());
 	//Rotation matrix for X Axis
 	Vector3 pitch;
-	pitch.setX(cos(_rotation.getX()) * _dir.getX() - sin(_rotation.getY()) * _dir.getY());
+	pitch.setX(cos((int)_rotation.getX() % 360) * _dir.getX() - sin(_rotation.getY()) * _dir.getY());
 	pitch.setY(sin(_rotation.getX()) * _dir.getX() + cos(_rotation.getY()) * _dir.getY());
 	pitch.setZ(_dir.getZ());
 	//set the dir
 	_dir = yaw + pitch;
-	_dir.normalize();
+	_dir.normalize();*/
+
+	double yaw = _rotation.getY(), pitch = _rotation.getX();
+	_dir.setX(cos(yaw)*cos(pitch));
+	_dir.setY(sin(yaw)*cos(pitch));
+	_dir.setZ(sin(pitch));
 
 	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
 	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
