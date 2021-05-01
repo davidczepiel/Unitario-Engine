@@ -72,7 +72,7 @@ public:
 	///<param name="x">: X axis point</param>
 	///<param name="y">: Y axis point</param>
 	///<param name="z">: Z axis point</param>
-	void lookAt(float x, float y, float z) { _renderObject->scale(x, y, z); }
+	void lookAt(float x, float y, float z) { _renderObject->lookAt(x, y, z); }
 
 	/// <summary>
 	/// Set the object visibility
