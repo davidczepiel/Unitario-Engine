@@ -66,13 +66,13 @@ void Transform::setRotation(const Vector3& rotation)
 	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
 	ColliderComponent* capsColl = dynamic_cast<CapsuleColliderComponent*>(_gameObject->getComponent(ComponentId::CapsuleCollider));
 	if (boxColl != nullptr) {
-		boxColl->setPosition(_position);
+		boxColl->setRotation(_rotation);
 	}
 	else if (sphColl != nullptr) {
-		sphColl->setPosition(_position);
+		sphColl->setRotation(_rotation);
 	}
 	else if (capsColl != nullptr) {
-		capsColl->setPosition(_position);
+		capsColl->setRotation(_rotation);
 	}
 }
 
