@@ -70,7 +70,7 @@ go_3[2] = { Component = "ImageRenderer", DefaultDimension = {W = 50, H = 50},
 
 -- Transform 		-> go_goNumber[componentNumber] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
 
--- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route = "./src"}
+-- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route ={"./src", "./src2"}}
 
 -- LightComponent	-> go_goNumber[componentNumber] = { Component = "LightComponent", LightType= "POINT", Visible = false,
 --														Diffuse = {Red = 1, Green= 1, Blue = 1} 
