@@ -81,31 +81,15 @@ void CameraComponent::start()
 
 void CameraComponent::update()
 {
-	int x, y, z;
-	x = y = z = 0;
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A))
-		x = -1;
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S))
-		y = -1;
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D))
-		x = 1;
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W))
-		y = 1;
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_R))
-		z = 1;
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_F))
-		z = -1;
-
-	/*float x = static_cast<float>(_tr->getPosition().getX());
+	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
-	float z = static_cast<float>(_tr->getPosition().getZ());*/
-	_camera->translate(x, y, z);
-	//_camera->setPosition(x, y, z);
+	float z = static_cast<float>(_tr->getPosition().getZ());
+	_camera->setPosition(x, y, z);
 
-	//x = static_cast<float>(_tr->getForward().getX());
-	//y = static_cast<float>(_tr->getForward().getY());
-	//z = static_cast<float>(_tr->getForward().getZ());
-	//_camera->setOrientation(x, y, z);
+	x = static_cast<float>(_tr->getForward().getX());
+	y = static_cast<float>(_tr->getForward().getY());
+	z = static_cast<float>(_tr->getForward().getZ());
+	_camera->setOrientation(x, y, z);
 }
 
 void CameraComponent::lateUpdate()
