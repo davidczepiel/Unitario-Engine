@@ -41,6 +41,9 @@ public:
 	/// </summary>
 	inline const Vector3& getRotation() const { return _rotation; }
 
+	/// <summary>
+	/// Returns the direccion where the object is looking at
+	/// </summary>
 	Vector3 getForward() const;
 
 	/// <summary>
@@ -55,10 +58,17 @@ public:
 	inline const Vector3& getScale() const { return _scale; }
 
 	/// <summary>
+	/// Returns the current scale of the transform
+	/// </summary>
+	inline const Vector3& getDir() const { return _dir; }
+
+	/// <summary>
 	/// Sets a new transform scale
 	/// </summary>
 	/// <param name="position">New scale</param>
 	inline void setScale(const Vector3& scale) { _scale = scale; }
+
+
 
 private:
 	Vector3 _position;
