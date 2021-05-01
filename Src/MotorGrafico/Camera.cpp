@@ -16,6 +16,7 @@ Camera::Camera(const std::string& objectName, int zOrd, float x, float y, float 
 	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
 	_camera = manager->createCamera("Camera" + _id);
 	_camera->setAutoAspectRatio(true);
+
 	_node = manager->getSceneNode(objectName);
 	_node->attachObject(_camera);
 

@@ -15,6 +15,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 		Engine* prueba = Engine::getInstance();
 		prueba->init("Assets/prueba.cfg", "Assets/Levels");
 		prueba->changeScene("pruebaPhysx.lua");
+
 		prueba->run();
 	}
 	catch (const ExcepcionTAD & e) {
