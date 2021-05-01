@@ -47,13 +47,13 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Di
 go_2[3] = { Component = "RigidBody", Type="Sphere"}
 
 go_3 = {}
-go_3[0] = { Name = "ImageRend", HowManyCmps = 2, Persist = false}
-go_3[1] = { Component = "Transform", Coord = {X = 200, Y = 100, Z = -1000}}
-go_3[2] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, 
--			MaterialName = "SexyMaterial", Visible = false, 
-			BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
+go_3[0] = { Name = "ImageR", HowManyCmps = 2, Persist = false}
+go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 100, Z = -200}}
+go_3[2] = { Component = "ImageRenderer", DefaultDimension = {W = 50, H = 50}, 
+			MaterialName = "Practica1/Billboard", Visible = true, 
+ 			BillboardOrigin = "BBO_CENTER", BillboardType = "BBT_ORIENTED_COMMON",
 			BillboardRotationType = "BBR_VERTEX",
-			Scale = {X = 1, Y = 1, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 0}}
+ 			Scale = {X = 1, Y = 1, Z = 1}, Rotation = {X = 1, Y = 0, Z = 1, Angle = 180}}
 			
 
 

@@ -7,8 +7,18 @@ ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
 ImageRender::BillboardType getBillboardType(std::string cmp);
 ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp);
 
+ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr),_tr(nullptr)
+{
+}
+
+ImageRenderComponent::~ImageRenderComponent()
+{
+	delete _imageRender; _imageRender == nullptr;
+}
+
 void ImageRenderComponent::awake(luabridge::LuaRef& data)
 {
+	_imageRender = new ImageRender(_gameObject->getName());
 	_imageRender->setDefaultDimensions(data["DefaultDimension"]["W"].cast<float>(), data["DefaultDimension"]["H"].cast<float>());
 	_imageRender->setMaterialName(data["MaterialName"].cast<std::string>());
 	_imageRender->setVisible(data["Visible"].cast<bool>());
@@ -20,23 +30,20 @@ void ImageRenderComponent::awake(luabridge::LuaRef& data)
 	_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
 	_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
 		data["Rotation"]["Z"].cast<float>(), data["Rotation"]["Angle"].cast<float>());
-	//_imageRender->setDefaultDimensions(100, 100);
-}
-
-ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr)
-{
-	_imageRender = new ImageRender();
-	//_imageRender->setMaterialName("Practica1/Yellow");
-}
-
-ImageRenderComponent::~ImageRenderComponent()
-{
-	delete _imageRender; _imageRender == nullptr;
 }
 
 void ImageRenderComponent::start()
 {
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+
+	_imageRender->setPosition(x, y, z);
+}
+
+void ImageRenderComponent::update()
+{
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());

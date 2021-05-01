@@ -24,6 +24,11 @@ public:
 	virtual void start() override;
 
 	/// <summary>
+	/// Updates the position with Transform Component
+	/// </summary>
+	virtual void update() override;
+
+	/// <summary>
 	/// Sets the dimensions(width and height) of the sprite
 	/// </summary>
 	/// <param name="width">New width</param>
