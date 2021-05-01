@@ -171,6 +171,11 @@ public:
 	void setPosition(float x, float y, float z);
 
 	/// <summary>
+	/// Sets the direction of the light
+	/// </summary>
+	void setDirection(float x, float y, float z);
+
+	/// <summary>
 	/// Static count of lights, used so each Light has a unique name
 	/// </summary>
 	static unsigned int _lightCount;

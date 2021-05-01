@@ -39,6 +39,9 @@ void LightComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(SpotLightRange))
 		_light->setSpotlightRange(data["SpotLightRange"]["InnerAngle"].cast<float>(), data["SpotLightRange"]["OuterAngle"].cast<float>(), 
 							data["SpotLightRange"]["FallOf"].cast<float>());
+
+	if (LUAFIELDEXIST(LightDirection))
+		_light->setDirection(data["LightDirection"]["X"].cast<float>(), data["LightDirection"]["Y"].cast<float>(), data["LightDirection"]["Z"].cast<float>());
 }
 
 inline const Light::LightType LightComponent::convertLightType(std::string type)

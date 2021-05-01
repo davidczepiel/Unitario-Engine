@@ -146,3 +146,8 @@ const bool Light::getVisible() const
 void Light::setPosition(float x, float y, float z) {
 	_lightNode->setPosition(x, y, z);
 }
+
+void Light::setDirection(float x, float y, float z)
+{
+	_lightNode->setDirection(Ogre::Vector3(x, y, z));
+}
