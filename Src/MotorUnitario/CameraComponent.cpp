@@ -82,11 +82,6 @@ void CameraComponent::update()
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
 	_camera->setPosition(x, y, z);
-
-	x = static_cast<float>(_tr->getForward().getX());
-	y = static_cast<float>(_tr->getForward().getY());
-	z = static_cast<float>(_tr->getForward().getZ());
-	lookAt(x, y, z);
 }
 
 void CameraComponent::lateUpdate()
