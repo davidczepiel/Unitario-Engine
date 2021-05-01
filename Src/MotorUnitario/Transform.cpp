@@ -76,24 +76,6 @@ void Transform::setRotation(const Vector3& rotation)
 	if (rb != nullptr) {
 		rb->setRotation(_rotation);
 	}
-	//Rotation matrix for Y Axis
-	/*Vector3 yaw;
-	yaw.setX(cos((int)_rotation.getX()%360) * _dir.getX() - sin((int)_rotation.getZ() % 360) * _dir.getZ());
-	yaw.setY(0);
-	yaw.setZ(sin((int)_rotation.getX() % 360) * _dir.getX() + cos(_rotation.getZ()) * _dir.getZ());
-	//Rotation matrix for X Axis
-	Vector3 pitch;
-	pitch.setX(cos((int)_rotation.getX() % 360) * _dir.getX() - sin(_rotation.getY()) * _dir.getY());
-	pitch.setY(sin(_rotation.getX()) * _dir.getX() + cos(_rotation.getY()) * _dir.getY());
-	pitch.setZ(_dir.getZ());
-	//set the dir
-	_dir = yaw + pitch;
-	_dir.normalize();*/
-
-	double yaw = _rotation.getY(), pitch = _rotation.getX();
-	_dir.setX(cos(yaw)*cos(pitch));
-	_dir.setY(sin(yaw)*cos(pitch));
-	_dir.setZ(sin(pitch));
 
 	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
 	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
@@ -107,6 +89,49 @@ void Transform::setRotation(const Vector3& rotation)
 	else if (capsColl != nullptr) {
 		capsColl->setRotation(getForward());
 	}
+}
+
+EulerAngles Transform::ToEulerAngles(Quaternion q)
+{
+	EulerAngles angles;
+
+	// roll (x-axis rotation)
+	double sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
+	double cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
+	angles.roll = std::atan2(sinr_cosp, cosr_cosp);
+
+	// pitch (y-axis rotation)
+	double sinp = 2 * (q.w * q.y - q.z * q.x);
+	if (std::abs(sinp) >= 1)
+		angles.pitch = std::copysign(PI / 2, sinp); // use 90 degrees if out of range
+	else
+		angles.pitch = std::asin(sinp);
+
+	// yaw (z-axis rotation)
+	double siny_cosp = 2 * (q.w * q.z + q.x * q.y);
+	double cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+	angles.yaw = std::atan2(siny_cosp, cosy_cosp);
+
+	return angles;
+}
+
+Quaternion Transform::ToQuaternion(double yaw, double pitch, double roll)
+{
+	// Abbreviations for the various angular functions
+	double cy = cos(yaw * 0.5);
+	double sy = sin(yaw * 0.5);
+	double cp = cos(pitch * 0.5);
+	double sp = sin(pitch * 0.5);
+	double cr = cos(roll * 0.5);
+	double sr = sin(roll * 0.5);
+
+	Quaternion q;
+	q.w = cr * cp * cy + sr * sp * sy;
+	q.x = sr * cp * cy - cr * sp * sy;
+	q.y = cr * sp * cy + sr * cp * sy;
+	q.z = cr * cp * sy - sr * sp * cy;
+
+	return q;
 }
 
 Transform::~Transform()

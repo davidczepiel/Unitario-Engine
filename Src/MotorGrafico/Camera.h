@@ -78,10 +78,10 @@ public:
 	/// <summary>
 	/// Redirects the Z axis of the camera so that it points to a specific world position
 	/// </summary>
-	/// <param name="x">The worlds x position that the camera will point at</param>
-	/// <param name="y">The worlds y position that the camera will point at</param>
-	/// <param name="z">The worlds z position that the camera will point at</param>
-	void setOrientation(float x, float y, float z);
+	/// <param name="yaw">The worlds x position that the camera will point at</param>
+	/// <param name="pitch">The worlds y position that the camera will point at</param>
+	/// <param name="roll">The worlds z position that the camera will point at</param>
+	void setOrientation(float yaw, float pitch, float roll);
 
 	/// <summary>
 	/// Adjusts the cameras node so that it is oriented given a Quarternion

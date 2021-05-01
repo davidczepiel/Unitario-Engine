@@ -4,8 +4,20 @@
 
 #include "Vector3.h"  
 #include "Component.h"
+#include <cmath>
+
+#define PI 3.1416 
 
 class GameObject;
+
+struct Quaternion {
+	double w, x, y, z;
+};
+
+struct EulerAngles {
+	double roll, pitch, yaw;
+};
+
 
 class Transform : public Component {
 public:
@@ -68,7 +80,17 @@ public:
 	/// <param name="position">New scale</param>
 	inline void setScale(const Vector3& scale) { _scale = scale; }
 
+	/// <summary>
+	/// Conversion to Euler by Quaternion
+	/// </summary>
+	/// <param name="position">New scale</param>
+	EulerAngles ToEulerAngles(Quaternion q);
 
+	/// <summary>
+	/// Conversion to Quaternion by Euler angle
+	/// </summary>
+	/// <param name="position">New scale</param>
+	Quaternion ToQuaternion(double yaw, double pitch, double roll); // yaw (Z), pitch (Y), roll (X)
 
 private:
 	Vector3 _position;
