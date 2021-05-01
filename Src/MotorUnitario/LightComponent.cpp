@@ -15,19 +15,30 @@ LightComponent::~LightComponent()
 void LightComponent::awake(luabridge::LuaRef& data)
 {
 	_light = new Light(_gameObject->getName());
-	//_route = data["Route"].cast<std::string>();
-	//std::cout << "As: " << _route << std::endl;
-	//luabridge::LuaRef lua_coord = data["Coord"];
-	//_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
-	//std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
-	/*_light->setLightType(convertLightType(data["LightType"]));
-	_light->setVisible(data["Visible"].cast<bool>());
-	_light->setDiffuse(data["Diffuse"]["Red"].cast<float>(), data["Diffuse"]["Green"].cast<float>(), data["Diffuse"]["Blue"].cast<float>());
-	_light->setSpecular(data["Specular"]["Red"].cast<float>(), data["Specular"]["Green"].cast<float>(), data["Specular"]["Blue"].cast<float>());
-	_light->setAttenuation(data["Attenuation"]["Range"].cast<float>(), data["Attenuation"]["Constant"].cast<float>(), 
+
+	luabridge::LuaRef lua_coord = data["Coord"];
+	if (LUAFIELDEXIST(Position))
+		_light->setPosition(lua_coord["X"].cast<double>(), lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>());
+
+	if (LUAFIELDEXIST(LightType))
+		_light->setLightType(convertLightType(data["LightType"]));
+
+	if (LUAFIELDEXIST(Visible))
+		_light->setVisible(data["Visible"].cast<bool>());
+
+	if (LUAFIELDEXIST(Diffuse))
+		_light->setDiffuse(data["Diffuse"]["Red"].cast<float>(), data["Diffuse"]["Green"].cast<float>(), data["Diffuse"]["Blue"].cast<float>());
+
+	if (LUAFIELDEXIST(Specular))
+		_light->setSpecular(data["Specular"]["Red"].cast<float>(), data["Specular"]["Green"].cast<float>(), data["Specular"]["Blue"].cast<float>());
+
+	if (LUAFIELDEXIST(Attenuation))
+		_light->setAttenuation(data["Attenuation"]["Range"].cast<float>(), data["Attenuation"]["Constant"].cast<float>(), 
 							data["Attenuation"]["Linear"].cast<float>(), data["Attenuation"]["Quadratic"].cast<float>());
-	_light->setSpotlightRange(data["SpotLightRange"]["InnerAngle"].cast<float>(), data["SpotLightRange"]["OuterAngle"].cast<float>(), 
-							data["SpotLightRange"]["FallOf"].cast<float>());*/
+
+	if (LUAFIELDEXIST(SpotLightRange))
+		_light->setSpotlightRange(data["SpotLightRange"]["InnerAngle"].cast<float>(), data["SpotLightRange"]["OuterAngle"].cast<float>(), 
+							data["SpotLightRange"]["FallOf"].cast<float>());
 }
 
 inline const Light::LightType LightComponent::convertLightType(std::string type)
