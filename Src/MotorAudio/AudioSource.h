@@ -16,7 +16,7 @@ public:
 	/// Contructor of the class
 	/// </summary>
 	AudioSource();
-	AudioSource(std::string const& route);
+	AudioSource(std::vector<std::string> const& route);
 	/// <summary>
 	/// Destructor of the class
 	/// </summary>
@@ -68,7 +68,7 @@ public:
 	/// Sets the audio directory route
 	/// </summary>
 	/// <param name="route">FileRoute</param>
-	void setRoute(std::string const& route) { _route = route; }
+	void setRoute(std::vector<std::string> const& route) { _route = route; }
 	/// <summary>
 	/// Sets the anglesand attenuation levels of a 3D cone shape, for simulated occlusion which is based on direction.
 	/// </summary>
@@ -99,7 +99,7 @@ private:
 	FMOD_VECTOR* _velocity;
 	FMOD::System* _system;
 	FMOD::Channel* _channel;
-	std::string _route;
+	std::vector <std::string> _route;
 };
 
 #endif // !AUDIOSOURCE_H

@@ -4,7 +4,7 @@
 
 #include "Component.h"
 #include <string>
-
+#include <vector>
 class AudioSource;
 class Transform;
 
@@ -79,7 +79,7 @@ public:
 	/// Sets the audio directory route  
 	/// </summary>
 	/// <param name="route">FileRoute</param>
-	void setRoute(std::string route) { _route = route; }
+	void setRoute(std::vector<std::string> route) { _route = route; }
 	/// <summary>
 	/// Sets the anglesand attenuation levels of a 3D cone shape, for simulated occlusion which is based on direction.
 	/// </summary>
@@ -97,8 +97,8 @@ public:
 private:
 	AudioSource* _audioSource;
 	Transform* _tr;
-	// Sound route
-	std::string _route;
+	// Sound routes
+	std::vector<std::string> _route;
 };
 
 #endif AUDIOSOURCECOMPONENT_H
