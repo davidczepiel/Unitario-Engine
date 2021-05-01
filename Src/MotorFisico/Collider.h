@@ -4,6 +4,7 @@
 #define COLLIDER_H
 
 #include <tuple>
+#include <string>
 #include "CollisionBody.h"
 
 namespace physx {
@@ -93,7 +94,7 @@ protected:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	Collider(bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	Collider(bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		float staticFriction, float dynamicFriction, float restitution, const std::tuple<float, float, float>& position);
 
 	/// <summary>
@@ -126,7 +127,7 @@ public:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		const std::tuple<float, float, float>& position, float staticFriction = 0.5f, float dynamicFriction = 0.5f, float restitution = 0.5f);
 
 	/// <summary>
@@ -157,7 +158,7 @@ public:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	SphereCollider(int r, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	SphereCollider(int r, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		const std::tuple<float, float, float>& position, float staticFriction = 0.5, float dynamicFriction = 0.5, float restitution = 0.5);
 
 	/// <summary>
@@ -187,7 +188,7 @@ public:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		const std::tuple<float, float, float>& position, float staticFriction = 0.5, float dynamicFriction = 0.5, float restitution = 0.5);
 
 	/// <summary>

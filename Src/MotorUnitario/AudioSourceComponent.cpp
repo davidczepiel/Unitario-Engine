@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Vector3.h"
 #include "ComponentIDs.h"
+#include "includeLUA.h"
 
 
 AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
@@ -18,8 +19,11 @@ AudioSourceComponent::~AudioSourceComponent()
 
 void AudioSourceComponent::awake(luabridge::LuaRef &data)
 {
-	_route = data["Route"].cast<std::string>();
-	std::cout << "As: " << _route << std::endl;
+	if (LUAFIELDEXIST("Route")) 
+	{ 
+		_route = data["Route"].cast<std::string>(); 
+		std::cout << "As: " << _route << std::endl;
+	}
 }
 
 void AudioSourceComponent::start()

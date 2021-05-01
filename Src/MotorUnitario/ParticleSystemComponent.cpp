@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ComponentIDs.h"
+#include "includeLUA.h"
 
 
 ParticleSystemComponent::ParticleSystemComponent() : Component(ComponentId::ParticleSystem), _pSystem(nullptr), _tr(nullptr), _path()
@@ -17,7 +18,13 @@ ParticleSystemComponent::~ParticleSystemComponent()
 void ParticleSystemComponent::awake(luabridge::LuaRef& data)
 {
 	//_gameObject->getComponent(ComponentId::ComponentId::Transform)->awake(data);
-	_path = data["Path"].cast<std::string>();
+
+	if (LUAFIELDEXIST("Path"))
+	{
+		_path = data["Path"].cast<std::string>();
+		_pSystem = new ParticleSystem(_path, _gameObject->getName());
+	}
+
 }
 
 void ParticleSystemComponent::start()

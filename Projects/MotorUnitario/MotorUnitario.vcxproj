@@ -246,6 +246,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClCompile Include="..\..\Src\MotorUnitario\LuaParser.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\OverlayComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\RayCast.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RenderObjectComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp" />
@@ -281,6 +282,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadCodes.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\GamePadInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ImageRenderComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\includeLUA.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\InputManager.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyboardInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\KeyCodes.h" />
@@ -290,6 +292,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\LuaParser.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\OverlayComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\RayCast.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h" />

@@ -4,6 +4,7 @@
 #include "MouseInput.h"
 #include "KeyCodes.h"
 #include <SDL.h>
+#include "includeLUA.h"
 
 
 ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),

@@ -2,18 +2,14 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-extern "C"
-{
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
-}
-#include "LuaBridge/LuaBridge.h"
 #include "ComponentIDs.h"
 #include "ComponentsFactory.h"
 #include "ComponentFactory.h"
 
 class GameObject;
+namespace luabridge {
+	class LuaRef;
+}
 
 #define GETCOMPONENT(comp, id) static_cast<comp*>(_gameObject->getComponent(id))
 #define GETLUAFIELD(name, type) data[#name].cast<type>()

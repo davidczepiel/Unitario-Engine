@@ -9,7 +9,7 @@
 #include "extensions/PxRigidBodyExt.h"
 #include <iostream>
 
-RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* collisionCallback, bool isKinematic, const std::tuple<float, float, float>& position,
+RigidBody::RigidBody(float radious, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isKinematic, const std::tuple<float, float, float>& position,
 	bool isStatic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float density) :_physx(nullptr), _dynamicBody(nullptr),
 	_staticBody(nullptr), _isStatic(isStatic), _scene(nullptr), _gameObject(gameObject), _collisionCallback(collisionCallback)
@@ -32,7 +32,7 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, ContactCallback* col
 	e->release();
 }
 
-RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position,
+RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position,
 	bool isKinematic, float linearDamping, float angularDamping, float staticFriction,
 	float dynamicFriction, float restitution, float mass) :
 	_physx(nullptr), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr),
@@ -56,7 +56,7 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	e->release();
 }
 
-RigidBody::RigidBody(float radious, float height, GameObject* gameObject, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position, bool isKinematic,
+RigidBody::RigidBody(float radious, float height, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position, bool isKinematic,
 	float linearDamping, float angularDamping, float staticFriction, float dynamicFriction, float restitution, float mass) :
 	_physx(nullptr), _dynamicBody(nullptr), _staticBody(nullptr), _isStatic(isStatic), _scene(nullptr),
 	_gameObject(gameObject), _collisionCallback(collisionCallback)
@@ -70,10 +70,12 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, Contac
 	if (_isStatic)
 	{
 		_staticBody->attachShape(*e);
+		_staticBody->setName(gameObjectName.c_str());
 		_scene->addActor(*_staticBody);
 	}
 	else {
 		_dynamicBody->attachShape(*e);
+		_dynamicBody->setName(gameObjectName.c_str());
 		_scene->addActor(*_dynamicBody);
 	}
 	e->release();
@@ -293,8 +295,7 @@ bool RigidBody::setPosition(const std::tuple<float, float, float>& position)
 bool RigidBody::rotate(const std::tuple<float, float, float>& rotation)
 {
 	if (!_isStatic) {
-		/*_transform->q.rotate(TUPLE_TO_PHYSXVEC3(position).getNormalized());
-		_dynamicBody->*/
+		_dynamicBody->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
 		return true;
 	}
 	return false;

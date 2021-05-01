@@ -192,6 +192,7 @@
     <ClCompile Include="..\..\Src\MotorFisico\Callbacks.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\Collider.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\PhysxEngine.cpp" />
+    <ClCompile Include="..\..\Src\MotorFisico\RayCast.cpp" />
     <ClCompile Include="..\..\Src\MotorFisico\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,7 @@
     <ClInclude Include="..\..\Src\MotorFisico\CollisionBody.h" />
     <ClInclude Include="..\..\Src\MotorFisico\Exceptions.h" />
     <ClInclude Include="..\..\Src\MotorFisico\PhysxEngine.h" />
+    <ClInclude Include="..\..\Src\MotorFisico\RayCast.h" />
     <ClInclude Include="..\..\Src\MotorFisico\RigidBody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

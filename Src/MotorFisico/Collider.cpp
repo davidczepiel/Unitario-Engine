@@ -15,7 +15,7 @@ void Collider::setPosition(const std::tuple<float, float, float>& position)
 
 void Collider::rotate(const std::tuple<float, float, float>& rotation)
 {
-	
+	_body->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
 }
 
 void Collider::setMaterial(float staticFriction, float dynamicFriction, float restitution)
@@ -34,7 +34,7 @@ void Collider::setMaterial(float staticFriction, float dynamicFriction, float re
 	delete[] buffer;
 }
 
-Collider::Collider(bool isTrigger, GameObject* gameObject, ContactCallback* coliderCallback, ContactCallback* triggerCallback,
+Collider::Collider(bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* coliderCallback, ContactCallback* triggerCallback,
 	float staticFriction, float dynamicFriction, float restitution, const std::tuple<float, float, float>& position)
 	:_isTrigger(isTrigger), _gameObject(gameObject), _contCallback(coliderCallback), _triggerCallback(triggerCallback), _mShape(nullptr)
 {
@@ -42,6 +42,7 @@ Collider::Collider(bool isTrigger, GameObject* gameObject, ContactCallback* coli
 	_body->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
 	_body->setLinearDamping(0.99);
 	_body->setAngularDamping(0.99);
+	_body->setName(gameObjectName.c_str());
 	_body->userData = this;
 	physx::PxRigidBodyExt::updateMassAndInertia(*_body, 1);
 }
@@ -80,9 +81,9 @@ void Collider::setTrigger()
 
 //////////////////////////////////////////////////
 
-BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
-	: Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
+	: Collider(isTrigger, gameObject, gameObjectName, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
 	physx::PxBoxGeometry aux(width / 2.0f, heigh / 2.0f, depth / 2.0f);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
@@ -97,9 +98,9 @@ void BoxCollider::setScale(int width, int heigh, int depth) {
 
 ///////////////////////////////////////////////
 
-SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObject, ContactCallback* callback, ContactCallback* triggerCallback,
+SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* callback, ContactCallback* triggerCallback,
 	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
-	:Collider(isTrigger, gameObject, callback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
+	:Collider(isTrigger, gameObject, gameObjectName, callback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
 	physx::PxSphereGeometry aux(radius);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
@@ -113,9 +114,9 @@ void SphereCollider::setScale(int r) {
 
 /////////////////////////////////////////////////
 
-CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
-	:Collider(isTrigger, gameObject, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
+	:Collider(isTrigger, gameObject, gameObjectName, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
 	physx::PxCapsuleGeometry aux(radius, length / 2);
 	physx::PxMaterial* mat = GetPhysx().createMaterial(staticFriction, dynamicFriction, restitution);
