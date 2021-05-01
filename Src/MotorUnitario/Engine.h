@@ -119,6 +119,16 @@ protected:
 	/// </summary>
 	void initEngineFactories();
 
+	/// <summary>
+	/// Deletes the gameObjects setted to be deleted
+	/// </summary>
+	void cleanUpGameObjects();
+
+	/// <summary>
+	/// Changes the scene to currentScene
+	/// </summary>
+	void changeScene();
+
 private:
 	/// <summary>
 	/// Contructor of the class
@@ -134,15 +144,20 @@ private:
 	GraphicsEngine* _graphicsEngine;
 	AudioEngine* _audioEngine;
 	std::list<GameObject*> _GOs;
+	std::list<GameObject*> _deleteGOs;
+
 	static std::unique_ptr<Engine> instance;
+
 	InputManager* _inputManager;
 	EngineTime* _time;
 	LuaParser* _luaParser;
 
 	bool _run;
 	bool alredyInitialized;
+	bool _changeScene;
 
 	std::string scenesPath;
+	std::string _currentScene;
 };
 
 #endif /*Engine.h*/

@@ -14,7 +14,10 @@
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
-Engine::Engine() : _run(true), _graphicsEngine(nullptr), _inputManager(nullptr), alredyInitialized(false), scenesPath("")
+Engine::Engine() : _physxEngine(nullptr),  _graphicsEngine(nullptr), _audioEngine(nullptr),
+	_GOs(), _deleteGOs(), 
+	_inputManager(nullptr), _time(nullptr), _luaParser(nullptr),
+	_run(true), alredyInitialized(false), _changeScene(false), scenesPath(""), _currentScene("")
 {
 }
 
@@ -52,6 +55,10 @@ void Engine::tick()
 	_audioEngine->update();
 	_physxEngine->update(_time->deltaTime());
 	_time->update();
+
+	cleanUpGameObjects();
+	if (_changeScene)
+		changeScene();
 }
 
 bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
@@ -105,19 +112,8 @@ void Engine::run()
 
 void Engine::changeScene(const std::string& scene)
 {
-	//Remove current scene
-	for (auto it = _GOs.begin(); it != _GOs.end(); it) {
-		if (!(*it)->getPersist()) {
-			GameObject* pointer = *it;
-			it = _GOs.erase(it);
-			delete pointer;
-		}
-		else
-			++it;
-	}
-
-	//Load new scene
-	_luaParser->loadScene(scenesPath + scene);
+	_currentScene = scene;
+	_changeScene = true;
 }
 
 void Engine::stopExecution()
@@ -195,6 +191,33 @@ void Engine::initEngineFactories()
 	ComponentsFactory::getInstance()->add("OverlayComponent", new OverlayComponentFactory());
 }
 
+void Engine::cleanUpGameObjects()
+{
+	for (GameObject* go : _deleteGOs) {
+		_GOs.remove(go);
+		delete go; go = nullptr;
+	}
+	_deleteGOs.clear();
+}
+
+void Engine::changeScene()
+{
+	_changeScene = false;
+	//Remove current scene
+	for (auto it = _GOs.begin(); it != _GOs.end();) {
+		if (!(*it)->getPersist()) {
+			GameObject* go = *it;
+			it = _GOs.erase(it);
+			delete go;
+		}
+		else
+			++it;
+	}
+
+	//Load new scene
+	_luaParser->loadScene(scenesPath + _currentScene);
+}
+
 GameObject* Engine::addGameObject()
 {
 	_GOs.push_back(new GameObject());
@@ -203,17 +226,7 @@ GameObject* Engine::addGameObject()
 
 void Engine::remGameObject(GameObject* GO)
 {
-	auto it = _GOs.begin();
-	while (it != _GOs.end()) {
-		if ((*it) == GO) {
-			GameObject* pointer = *it;
-			it = _GOs.erase(it);
-			delete pointer;
-			break;
-		}
-		else
-			it++;
-	}
+	_deleteGOs.push_back(GO);
 }
 
 void Engine::remGameObjectString(const std::string& GOname)
