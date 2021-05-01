@@ -19,11 +19,16 @@ AudioSourceComponent::~AudioSourceComponent()
 
 void AudioSourceComponent::awake(luabridge::LuaRef &data)
 {
-	if (LUAFIELDEXIST("Route")) 
-	{ 
-		_route = data["Route"].cast<std::string>(); 
-		std::cout << "As: " << _route << std::endl;
+	//if (LUAFIELDEXIST("Route")) 
+	//{
+		 
+	//en la posicion 0 no hay nada, es "Route" en si
+	for (int i = 1; i <= data["Route"].length(); ++i) {
+		_route.push_back(data["Route"][i].cast<std::string>());
 	}
+	for(int i = 0; i < _route.size(); ++i)
+		std::cout << "As: " << _route[i] << std::endl;
+	//}
 }
 
 void AudioSourceComponent::start()

@@ -3,15 +3,16 @@
 #include "Exceptions.h"
 #include "fmod.hpp"
 
-AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route("")
+AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route()
 {
+	_route.push_back("");
 	_position = new FMOD_VECTOR;
 	_position->x = 0;
 	_position->y = 0;
 	_position->z = 0;
 }
 
-AudioSource::AudioSource(std::string const& route) : _system(nullptr), _channel(nullptr), _sound(), _route(route)
+AudioSource::AudioSource(std::vector<std::string> const& route) : _system(nullptr), _channel(nullptr), _sound(), _route(route)
 {
 	_position = new FMOD_VECTOR;
 	_position->x = 0;
@@ -28,17 +29,21 @@ AudioSource::~AudioSource()
 void AudioSource::createAudio()
 {
 	_system = AudioEngine::getInstance()->getSystem();
-	FMOD::Sound* audio;
-	FMOD_RESULT result = _system->createSound(
-		_route.c_str(),		// Route Path
-		FMOD_DEFAULT,		// Deafult value(no loop, 2D)
-		0,					// Aditional Information
-		&audio);
+	for (int i = 0; i < _route.size(); i++)
+	{
+		FMOD::Sound* audio;
+		FMOD_RESULT result = _system->createSound(
+			_route[i].c_str(),		// Route Path
+			FMOD_DEFAULT,		// Deafult value(no loop, 2D)
+			0,					// Aditional Information
+			&audio);
 
-	if (result != FMOD_OK) {
-		//throw EAudioSource("Error loading sound");
+		if (result != FMOD_OK) {
+			//throw EAudioSource("Error loading sound");
+		}
+		_sound.push_back(audio);
 	}
-	_sound.push_back(audio);
+	int debug = 0;
 }
 
 void AudioSource::play(int id)

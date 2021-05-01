@@ -47,12 +47,23 @@ go_2[2] = { Component = "LightComponent", LightType= "DIRECTIONAL", Visible = tr
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 
 go_3={}
-go_3[0] ={Name ="AverSiPeta" , HowManyCmps=3,Persist=false}
+go_3[0] ={Name ="AverSiPeta" , HowManyCmps=5,Persist=false}
 go_3[1]={ Component = "Transform", Coord = {X = 0, Y = 0, Z = -300}}
 go_3[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Yellow", 
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 			Visible=true, Shadows=true, RenderingDistance = 1000}
 go_3[3] = { Component = "RigidBody", Type="Box",Mass=9,Width=20,Depth=20,Height=100}
+go_3[4] = { Component = "AudioSource", Route = {"./src", "./src2", "./feo"}}
+go_3[5] = { Component = "Listener", ListenerNumber = 0, Velocity = {X = 1, Y = 0, Z = 5}, Forward = {X = 3, Y = 2, Z = 1}, Up = {X = 8, Y = 7, Z = 9}}
+
+-- go_3 = {}
+-- go_3[0] = { Name = "ImageR", HowManyCmps = 2, Persist = false}
+-- go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}}
+-- go_3[2] = { Component = "ImageRenderer", DefaultDimension = {W = 1, H = 2}, 
+-- 			MaterialName = "Practica1/Yellow", Visible = true, 
+-- 			BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
+-- 			BillboardRotationType = "BBR_VERTEX",
+-- 			Scale = {X = 1, Y = 1, Z = 1}, Rotation = {X = 1, Y = 2, Z = 3, Angle = 0}}
 -- go_3 = {}
 -- go_3[0] = { Name = "Cam", HowManyCmps = 2, Persist = false}
 -- go_3[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
@@ -66,7 +77,7 @@ go_3[3] = { Component = "RigidBody", Type="Box",Mass=9,Width=20,Depth=20,Height=
 
 -- Transform 		-> go_goNumber[componentNumber] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
 
--- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route = "./src"}
+-- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route ={"./src", "./src2"}}
 
 -- LightComponent	-> go_goNumber[componentNumber] = { Component = "LightComponent", LightType= "POINT", Visible = false,
 --														Diffuse = {Red = 1, Green= 1, Blue = 1} 
@@ -96,7 +107,7 @@ go_3[3] = { Component = "RigidBody", Type="Box",Mass=9,Width=20,Depth=20,Height=
 --														RotateAngle = 1, Rotate={X=1, Y=1, Z=1}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 --														Visible=false, Shadows=false, RenderingDistance = 1}
 
--- ImageRender      -> go_goNumber[componentNumber] = { Component = "ImageRender", DefaultDimension = {W = 1, H = 2}, 
+-- ImageRender      -> go_goNumber[componentNumber] = { Component = "ImageRenderer", DefaultDimension = {W = 1, H = 2}, 
 --														MaterialName = "SoyFeo", Visible = false, 
 --														BillboardOrigin = "BBO_TOP_LEFT", BillboardType = "BBT_POINT",
 --														BillboardRotationType = "BBR_VERTEX",

@@ -9,10 +9,8 @@
 #include <math.h>
 #define PI 3.14159265
 
-
-Transform::Transform(): Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
+Transform::Transform() : Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
 {
-
 }
 
 void Transform::setPosition(const Vector3& position)
@@ -42,9 +40,21 @@ void Transform::awake(luabridge::LuaRef& data)
 	const std::string& parentName = _gameObject->getParent() != nullptr ? _gameObject->getParent()->getName() : "";
 	GraphicsEngine::getInstance()->addNode(_gameObject->getName(), parentName);
 
+	if (LUAFIELDEXIST(Coord)) {
 	luabridge::LuaRef lua_coord = data["Coord"];
 	_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
 	std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
+	}
+
+	if (LUAFIELDEXIST(Rotation)) {
+	luabridge::LuaRef lua_coord = data["Rotation"];
+	_rotation = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+	}
+
+	if (LUAFIELDEXIST(Scale)) {
+	luabridge::LuaRef lua_coord = data["Scale"];
+	_scale = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+	}
 }
 
 void Transform::updateFromPhysics(const Vector3& position, const Vector3& rotation)
@@ -78,6 +88,7 @@ void Transform::setRotation(const Vector3& rotation)
 
 Transform::~Transform()
 {
+	GraphicsEngine::getInstance()->removeNode(_gameObject->getName());
 }
 
 Vector3 Transform::getForward() const

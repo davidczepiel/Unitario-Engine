@@ -5,7 +5,6 @@
 #include "ComponentIDs.h"
 #include "includeLUA.h"
 
-
 ParticleSystemComponent::ParticleSystemComponent() : Component(ComponentId::ParticleSystem), _pSystem(nullptr), _tr(nullptr), _path()
 {
 }
@@ -24,7 +23,6 @@ void ParticleSystemComponent::awake(luabridge::LuaRef& data)
 		_path = data["Path"].cast<std::string>();
 		_pSystem = new ParticleSystem(_path, _gameObject->getName());
 	}
-
 }
 
 void ParticleSystemComponent::start()

@@ -12,7 +12,7 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 3
+HowManyGameObjects = 4
 
 go_0 = {}
 go_0[0] = { Name = "Suelo2", HowManyCmps = 2, Persist = false}
@@ -46,6 +46,17 @@ go_2[2] = { Component = "LightComponent", LightType= "POINT", Visible = true, Di
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 go_2[3] = { Component = "RigidBody", Type="Sphere"}
 
+go_3 = {}
+go_3[0] = { Name = "ImageR", HowManyCmps = 2, Persist = false}
+go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 100, Z = -200}}
+go_3[2] = { Component = "ImageRenderer", DefaultDimension = {W = 50, H = 50}, 
+			MaterialName = "Practica1/Billboard", Visible = true, 
+ 			BillboardOrigin = "BBO_CENTER", BillboardType = "BBT_ORIENTED_COMMON",
+			BillboardRotationType = "BBR_VERTEX",
+ 			Scale = {X = 1, Y = 1, Z = 1}, Rotation = {X = 1, Y = 0, Z = 1, Angle = 180}}
+			
+
+
 -- go_3 = {}
 -- go_3[0] = { Name = "Cam", HowManyCmps = 2, Persist = false}
 -- go_3[1] = { Component = "Transform", Coord = {X = 400, Y = 80, Z = 0}}
@@ -59,7 +70,7 @@ go_2[3] = { Component = "RigidBody", Type="Sphere"}
 
 -- Transform 		-> go_goNumber[componentNumber] = { Component = "Transform", Coord = {X = 1, Y = 1, Z = 1}}
 
--- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route = "./src"}
+-- AudioSource 		-> go_goNumber[componentNumber] = { Component = "AudioSource", Route ={"./src", "./src2"}}
 
 -- LightComponent	-> go_goNumber[componentNumber] = { Component = "LightComponent", LightType= "POINT", Visible = false,
 --														Diffuse = {Red = 1, Green= 1, Blue = 1} 

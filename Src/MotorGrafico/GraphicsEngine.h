@@ -64,6 +64,7 @@ public:
 	/// <summary>
 	/// Config for the window grab
 	/// </summary>
+	/// <param name="_grab"> bool that determines the window grab mode</param>
 	void setWindowGrab(bool _grab);
 
 	/// <summary>
@@ -85,17 +86,37 @@ public:
 	/// <summary>
 	/// Creates a viewport so that the camera passed can be rendered on it in a specific zOrder
 	/// </summary>
+	/// <param name="cam"> camera of the new viewport </param>
+	/// <param name="zOrder"> zOrder of the virwport </param>
+	/// <param name="x"> position X of the top left corner of the viewport</param>
+	/// <param name="y"> position Y of the top left corner of the viewport</param>
+	/// <param name="w"> width of the viewport</param>
+	/// <param name="h"> heigh of the viewport</param>
 	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder, float x, float y, float w, float h);
 
 	/// <summary>
 	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
 	/// </summary>
+	/// <param name="vp"> Viewport that is going to be removed from the renderWindow </param>
 	void removeViewport(Ogre::Viewport* vp);
+
+	/// </sumary>
 	/// Gets the window size
 	/// </summary>
 	inline std::pair<int, int> getWindowSize() { return std::pair<int, int>(_width, _height); }
 
+	/// <summary>
+	/// If the parent name is not "" tries to find it and creates a child node
+	/// </summary>
+	/// <param name="name"> name of the new node</param>
+	/// <param name="parent"> Name of the father that will contain the new node</param>
 	void addNode(const std::string& name, const std::string& parent = "");
+
+	/// <summary>
+	/// Removes a specific node from the scene and all of his children
+	/// </summary>
+	/// <param name="name"> Searches a Node given a determined name and deletes it and all his children</param>
+	void removeNode(const std::string& name);
 
 private:
 
