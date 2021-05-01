@@ -7,7 +7,7 @@
 #include "Vector3.h"
 #include "includeLUA.h"
 
-RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr)
+RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr), _constrainRotation(false)
 {
 	_log = Logger::getInstance();
 }
@@ -49,6 +49,13 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 
 	if (LUAFIELDEXIST(Kinematic))
 		isKinematic = GETLUAFIELD(Kinematic, bool);
+
+	if (LUAFIELDEXIST(ConstrainAngle) && GETLUAFIELD(ConstrainAngle, bool)) {	
+		constrainX(true, false);
+		constrainY(true, false);
+		constrainZ(true, false);
+		_constrainRotation = true;
+	}
 
 	if (LUAFIELDEXIST(Static))
 		isStatic = GETLUAFIELD(Static, bool);
@@ -99,9 +106,10 @@ void RigidBodyComponent::fixedUpdate()
 	Vector3 position = TUPLE_TO_VEC3(_rb->getPosition());
 	Vector3 rotation = TUPLE_TO_VEC3(_rb->getRotation());
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	//std::cout << "RigidBody rot" << rotation.getX() << " " << rotation.getY() << " " << rotation.getZ() << '\n';
-	//std::cout << 
-	t->updateFromPhysics(position, rotation);
+
+	if(!_constrainRotation)
+		t->updateFromPhysics(position, rotation);
+	else t->updateFromPhysics(position);
 }
 
 void RigidBodyComponent::setPosition(Vector3 pos)

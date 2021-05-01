@@ -35,6 +35,11 @@ void Transform::setPosition(const Vector3& position)
 	}
 }
 
+void Transform::updateFromPhysics(const Vector3& position)
+{
+	_position = position;
+}
+
 void Transform::awake(luabridge::LuaRef& data)
 {
 	const std::string& parentName = _gameObject->getParent() != nullptr ? _gameObject->getParent()->getName() : "";

@@ -168,6 +168,8 @@ private:
 	RigidBody* _rb;
 	Transform* _tr;
 	Logger* _log;
+
+	bool _constrainRotation;
 };
 
 #endif //!RIGIDBODYCOMPONENT_H

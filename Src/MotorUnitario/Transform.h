@@ -32,6 +32,8 @@ public:
 	/// <param name="position">New position</param>
 	void setPosition(const Vector3& position);
 
+	void updateFromPhysics(const Vector3& position);
+
 	void updateFromPhysics(const Vector3& position, const Vector3& rotation);
 
 	/// <summary>
