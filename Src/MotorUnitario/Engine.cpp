@@ -216,6 +216,8 @@ void Engine::changeScene()
 
 	//Load new scene
 	_luaParser->loadScene(scenesPath + _currentScene);
+
+	start();
 }
 
 GameObject* Engine::addGameObject()
