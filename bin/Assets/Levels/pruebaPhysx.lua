@@ -47,13 +47,14 @@ go_2[2] = { Component = "LightComponent", LightType= "DIRECTIONAL", Visible = tr
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}
 
 go_3={}
-go_3[0] ={Name ="AverSiPeta" , HowManyCmps=4,Persist=false}
+go_3[0] ={Name ="AverSiPeta" , HowManyCmps=5,Persist=false}
 go_3[1]={ Component = "Transform", Coord = {X = 0, Y = 0, Z = -300}}
 go_3[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Yellow", 
 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=1, Y=1, Z=1},
 			Visible=true, Shadows=true, RenderingDistance = 1000}
 go_3[3] = { Component = "RigidBody", Type="Box",Mass=9,Width=20,Depth=20,Height=100}
 go_3[4] = { Component = "AudioSource", Route = {"./src", "./src2", "./feo"}}
+go_3[5] = { Component = "Listener", ListenerNumber = 0, Velocity = {X = 1, Y = 0, Z = 5}, Forward = {X = 3, Y = 2, Z = 1}, Up = {X = 8, Y = 7, Z = 9}}
 
 -- go_3 = {}
 -- go_3[0] = { Name = "ImageR", HowManyCmps = 2, Persist = false}
