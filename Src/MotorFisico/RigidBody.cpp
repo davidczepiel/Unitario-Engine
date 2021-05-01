@@ -295,7 +295,7 @@ bool RigidBody::setPosition(const std::tuple<float, float, float>& position)
 bool RigidBody::rotate(const std::tuple<float, float, float>& rotation)
 {
 	if (!_isStatic) {
-		_dynamicBody->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
+		physx::PxVec3 postRot = _dynamicBody->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
 		return true;
 	}
 	return false;

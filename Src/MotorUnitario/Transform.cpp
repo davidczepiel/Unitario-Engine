@@ -9,7 +9,7 @@
 #include <math.h>
 #define PI 3.14159265
 
-Transform::Transform() : Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1)
+Transform::Transform() : Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1), _dir(0, 0, -1)
 {
 }
 
@@ -96,11 +96,19 @@ Transform::~Transform()
 	GraphicsEngine::getInstance()->removeNode(_gameObject->getName());
 }
 
-Vector3 Transform::getForward() const
+Vector3 Transform::getForward()
 {
-	double X = sin(_rotation.getY() * PI / 180.0) * cos(_rotation.getX() * PI / 180.0);
-	double Y = sin(-_rotation.getX() * PI / 180.0);
-	double Z = cos(_rotation.getX() * PI / 180.0) * cos(_rotation.getY() * PI / 180.0);
+	Vector3 yaw;
+	yaw.setX(cos(_rotation.getX()) - sin(_rotation.getZ()));
+	yaw.setY(_dir.getY());
+	yaw.setZ(sin(_rotation.getX()) + cos(_rotation.getZ()));
 
-	return Vector3(X, Y, -Z);
+	Vector3 pitch;
+	pitch.setX(cos(cos(_rotation.getX()) - sin(_rotation.getY())));
+	pitch.setY(sin(_rotation.getX()) + cos(_rotation.getY()));
+	pitch.setZ(_dir.getZ());
+	
+	_dir = yaw + pitch;
+
+	return _dir;
 }

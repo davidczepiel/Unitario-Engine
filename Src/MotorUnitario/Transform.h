@@ -41,7 +41,7 @@ public:
 	/// </summary>
 	inline const Vector3& getRotation() const { return _rotation; }
 
-	Vector3 getForward() const;
+	Vector3 getForward();
 
 	/// <summary>
 	/// Sets a new transform rotation
@@ -64,6 +64,7 @@ private:
 	Vector3 _position;
 	Vector3 _rotation;
 	Vector3 _scale;
+	Vector3 _dir;
 };
 
 
