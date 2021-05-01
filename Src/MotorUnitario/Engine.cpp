@@ -100,8 +100,6 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 
 void Engine::run()
 {
-	start();
-
 	while (_run)
 	{
 		tick();
