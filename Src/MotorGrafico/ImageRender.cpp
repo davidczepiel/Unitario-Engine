@@ -5,17 +5,8 @@
 #include "GraphicsEngine.h"
 
 
-ImageRender::ImageRender(const std::string& name):_billboardSet(nullptr),_billboardSetNode(nullptr)/*,_parentNode(nullptr)*/
-{
-	 /*Ogre::SceneManager* sceneMng = GraphicsEngine::getInstance()->getSceneManager();
-	 _parentNode = sceneMng->getRootSceneNode()->createChildSceneNode();
-
-	 _billboardSet = sceneMng->createBillboardSet(1);
-	 _billboardSet->createBillboard(_parentNode->getPosition());
-
-	 _billboardSetNode = _parentNode->createChildSceneNode();
-	 _billboardSetNode->attachObject(_billboardSet);*/
-
+ImageRender::ImageRender(const std::string& name):_billboardSet(nullptr),_billboardSetNode(nullptr)
+{	
 	 Ogre::SceneManager* sM = GraphicsEngine::getInstance()->getSceneManager();
 	_billboardSetNode = sM->getSceneNode(name);
 	_billboardSet = sM->createBillboardSet(1);
@@ -59,7 +50,6 @@ void ImageRender::setBillboardRotationType(BillboardRotationType type)
 
 void ImageRender::setPosition(float x, float y, float z)
 {
-	//_parentNode->setPosition((Ogre::Real)x, (Ogre::Real)y, (Ogre::Real)z);
 	_billboardSetNode->setPosition((Ogre::Real)x, (Ogre::Real)y, (Ogre::Real)z);
 }
 
