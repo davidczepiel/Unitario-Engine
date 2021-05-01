@@ -15,7 +15,7 @@ void Collider::setPosition(const std::tuple<float, float, float>& position)
 
 void Collider::rotate(const std::tuple<float, float, float>& rotation)
 {
-	
+	_body->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
 }
 
 void Collider::setMaterial(float staticFriction, float dynamicFriction, float restitution)
