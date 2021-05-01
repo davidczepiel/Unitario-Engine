@@ -186,7 +186,7 @@ float RigidBody::getMass()
 }
 bool RigidBody::addForce(std::tuple<float, float, float>& force)
 {
-	if (_isStatic) {
+	if (!_isStatic) {
 
 		_dynamicBody->addForce(TUPLE_TO_PHYSXVEC3(force));
 		return true;
