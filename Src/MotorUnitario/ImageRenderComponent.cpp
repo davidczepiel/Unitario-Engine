@@ -4,23 +4,21 @@
 #include "GameObject.h"
 #include "includeLUA.h"
 
-
 ImageRender::BillboardOrigin getBillboardOrigin(std::string cmp);
 ImageRender::BillboardType getBillboardType(std::string cmp);
 ImageRender::BillboardRotationType getBillboardRotationType(std::string cmp);
 
 ImageRenderComponent::ImageRenderComponent() : Component(ComponentId::ImageRender), _imageRender(nullptr),_tr(nullptr)
 {
-	_imageRender = new ImageRender();
 }
 
 ImageRenderComponent::~ImageRenderComponent()
 {
 	delete _imageRender; _imageRender == nullptr;
-	delete _tr; _tr = nullptr;
 }
 void ImageRenderComponent::awake(luabridge::LuaRef& data)
 {
+	_imageRender = new ImageRender(_gameObject->getName());
 	if (LUAFIELDEXIST("DefaultDimension")) 
 	{
 		int w = data["DefaultDimension"]["W"].cast<float>();
@@ -43,14 +41,22 @@ void ImageRenderComponent::awake(luabridge::LuaRef& data)
 
 	if (LUAFIELDEXIST("Scale"))_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
 
-	if (LUAFIELDEXIST("Rotation"))_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
+		if (LUAFIELDEXIST("Rotation"))_imageRender->setRotation(data["Rotation"]["X"].cast<float>(), data["Rotation"]["Y"].cast<float>(),
 		data["Rotation"]["Z"].cast<float>(), data["Rotation"]["Angle"].cast<float>());
 }
-
 
 void ImageRenderComponent::start()
 {
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+
+	_imageRender->setPosition(x, y, z);
+}
+
+void ImageRenderComponent::update()
+{
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());

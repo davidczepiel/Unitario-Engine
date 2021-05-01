@@ -26,7 +26,7 @@ public:
 	/// </summary>
 	/// <param name="scn">The SceneManager</param>
 	/// <param name="cameraNum">An identifier in case the user wants to create multiple cameras</param>
-	Camera(int zOrder = 1, float x = 0., float y = 0., float w = 1., float h = 1.);
+	Camera(const std::string& objectName, int zOrder = 1, float x = 0., float y = 0., float w = 1., float h = 1.);
 	~Camera();
 
 	/// <summary>

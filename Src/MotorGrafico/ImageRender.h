@@ -44,7 +44,7 @@ public:
 		BBR_TEXCOORD=1
 	};
 
-	ImageRender();
+	ImageRender(const std::string& name);
 	~ImageRender();
 
 	/// <summary>
@@ -111,7 +111,7 @@ public:
 
 private:
 
-	Ogre::SceneNode* _parentNode;
+	/*Ogre::SceneNode* _parentNode;*/
 	Ogre::SceneNode* _billboardSetNode;
 	Ogre::BillboardSet* _billboardSet;	
 };

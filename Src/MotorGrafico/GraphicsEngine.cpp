@@ -335,3 +335,9 @@ void GraphicsEngine::addNode(const std::string& name, const std::string& parent)
 	nodeParent->createChildSceneNode(name);
 }
 
+void GraphicsEngine::removeNode(const std::string& name)
+{
+	Ogre::SceneNode* node = _sceneManager->getSceneNode(name, false);
+	if (node != nullptr)
+		node->getParentSceneNode()->removeAndDestroyChild(name);
+}

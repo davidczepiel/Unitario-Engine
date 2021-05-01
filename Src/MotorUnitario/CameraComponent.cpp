@@ -6,7 +6,6 @@
 #include "KeyboardInput.h"
 #include "includeLUA.h"
 
-
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
 	/*setProjection(data["Projection"].cast<bool>());
@@ -35,10 +34,9 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 			h = data["Viewport"]["H"].cast<float>();
 		if (!data["Viewport"]["W"].isNil())
 			w = data["Viewport"]["W"].cast<float>();
-
 	}
 
-	_camera = new Camera(zOrder, l, t, w, h);
+	_camera = new Camera(_gameObject->getName(), zOrder, l, t, w, h);
 	if (LUAFIELDEXIST(DisplayOverlays))
 		_camera->renderOverlays(GETLUAFIELD(DisplayOverlays, bool));
 	if (LUAFIELDEXIST(Orientation)) {
@@ -54,7 +52,6 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 		setOrientation(x, y, z);
 	}
 	if (LUAFIELDEXIST(Plane)) {
-
 		float near, far;
 		near = far = 0;
 		if (!data["Plane"]["Near"].isNil())

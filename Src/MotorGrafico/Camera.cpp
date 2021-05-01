@@ -10,15 +10,14 @@
 
 int Camera::_id = 1;
 
-Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr), _zOrder(zOrd)
+Camera::Camera(const std::string& objectName, int zOrd, float x, float y, float w, float h) : _camera(nullptr), _renderWindow(nullptr), _node(nullptr), _viewport(nullptr), _zOrder(zOrd)
 {
 	_renderWindow = GraphicsEngine::getInstance()->getRenderWindow();
 	Ogre::SceneManager* manager = GraphicsEngine::getInstance()->getSceneManager();
 	_camera = manager->createCamera("Camera" + _id);
 	_camera->setAutoAspectRatio(true);
-	_node = manager->getRootSceneNode()->createChildSceneNode("CameraNode" + _id);
+	_node = manager->getSceneNode(objectName);
 	_node->attachObject(_camera);
-
 
 	setViewportVisibility(true, x, y, w, h);
 	setPlanes();
@@ -27,7 +26,7 @@ Camera::Camera(int zOrd, float x, float y, float w, float h) : _camera(nullptr),
 
 Camera::~Camera()
 {
-	if(_viewport != nullptr)
+	if (_viewport != nullptr)
 		GraphicsEngine::getInstance()->removeViewport(_viewport);
 }
 
@@ -74,7 +73,7 @@ void Camera::renderOverlays(bool render)
 
 void Camera::setOrientation(float x, float y, float z)
 {
-	_node->lookAt(Ogre::Vector3(x, y, z),Ogre::Node::TS_PARENT);
+	_node->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_PARENT);
 }
 
 void Camera::setOrientation(Ogre::Quaternion orientation)

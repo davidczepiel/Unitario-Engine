@@ -17,7 +17,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 		prueba->changeScene("pruebaPhysx.lua");
 		prueba->run();
 	}
-	catch (const ExcepcionTAD& e) {
+	catch (const ExcepcionTAD & e) {
 		Logger::getInstance()->log(e.msg(), Logger::Level::FATAL);
 	}
 
