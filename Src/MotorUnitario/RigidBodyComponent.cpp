@@ -50,13 +50,6 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Kinematic))
 		isKinematic = GETLUAFIELD(Kinematic, bool);
 
-	if (LUAFIELDEXIST(ConstrainAngle) && GETLUAFIELD(ConstrainAngle, bool)) {	
-		constrainX(true, false);
-		constrainY(true, false);
-		constrainZ(true, false);
-		_constrainRotation = true;
-	}
-
 	if (LUAFIELDEXIST(Static))
 		isStatic = GETLUAFIELD(Static, bool);
 	if (LUAFIELDEXIST(Type)) { //Sphere
@@ -95,6 +88,13 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 
+	}
+
+	if (LUAFIELDEXIST(ConstrainAngle) && GETLUAFIELD(ConstrainAngle, bool)) {
+		constrainX(true, false);
+		constrainY(true, false);
+		constrainZ(true, false);
+		_constrainRotation = true;
 	}
 
 }
