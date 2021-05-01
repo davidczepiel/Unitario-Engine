@@ -42,27 +42,6 @@ void RenderObjectComponent::awake(luabridge::LuaRef& data)
 		if (!data["Rotate"]["Z"].isNil()) z = data["Rotate"]["Z"].cast<float>();
 		rotate(GETLUAFIELD(RotateAngle, float), x, y, z);
 	}
-
-	if (LUAFIELDEXIST(Scale))
-	{
-		float x, y, z;
-		x = y = z = 0;
-		if (!data["Scale"]["X"].isNil()) x = data["Scale"]["X"].cast<float>();
-		if (!data["Scale"]["Y"].isNil()) y = data["Scale"]["Y"].cast<float>();
-		if (!data["Scale"]["Z"].isNil()) z = data["Scale"]["Z"].cast<float>();
-		setScale(x, y, z);
-	}
-
-	if (LUAFIELDEXIST(LookAt))
-	{
-		float x, y, z;
-		x = y = z = 0;
-		if (!data["LookAt"]["X"].isNil()) x = data["LookAt"]["X"].cast<float>();
-		if (!data["LookAt"]["Y"].isNil()) y = data["LookAt"]["Y"].cast<float>();
-		if (!data["LookAt"]["Z"].isNil()) z = data["LookAt"]["Z"].cast<float>();
-		lookAt(x, y, z);
-	}
-
 }
 
 void RenderObjectComponent::start()
