@@ -65,11 +65,11 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	{
 		pitchDegrees(GETLUAFIELD(Pitch, float));
 	}
-	if (LUAFIELDEXIST(Pitch))
+	if (LUAFIELDEXIST(Yaw))
 	{
 		yawDegrees(GETLUAFIELD(Yaw, float));
 	}
-	if (LUAFIELDEXIST(Pitch))
+	if (LUAFIELDEXIST(Roll))
 	{
 		rollDegrees(GETLUAFIELD(Roll, float));
 	}
