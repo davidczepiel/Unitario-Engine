@@ -18,17 +18,13 @@ Light::Light(const std::string& gameObjectName) : _id(_lightCount++), _light(nul
 	//sceneManager debera ser un SceneManager de Ogre statico por todo el motor grafico
 
 	_light = sm->createLight(gameObjectName + std::string("_lightObject_") + std::to_string(_id));
-
 	_light->setType(Ogre::Light::LightTypes::LT_POINT);
-
-	_lightNode = sm->createSceneNode(gameObjectName + std::string("_lightNode_") + std::to_string(_id));
-	_lightNode->attachObject(_light);
 
 	//Attach the light object to the sceneNode somewhere
 	//Re-launch of our own exception instead of Ogre's exception
 	try {
-		Ogre::SceneNode* parentNode = sm->getSceneNode(gameObjectName);
-		parentNode->addChild(_lightNode);
+		_lightNode = sm->getSceneNode(gameObjectName);
+		_lightNode->attachObject(_light);
 	}
 	catch (...) {
 		throw SceneNodeException(gameObjectName + std::string(" node does not exist"));
