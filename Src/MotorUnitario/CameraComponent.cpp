@@ -60,6 +60,19 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 			far = data["Plane"]["Far"].cast<float>();
 		setPlanes(near, far);
 	}
+
+	if (LUAFIELDEXIST(Pitch))
+	{
+		pitchDegrees(GETLUAFIELD(Pitch, float));
+	}
+	if (LUAFIELDEXIST(Pitch))
+	{
+		yawDegrees(GETLUAFIELD(Yaw, float));
+	}
+	if (LUAFIELDEXIST(Pitch))
+	{
+		rollDegrees(GETLUAFIELD(Roll, float));
+	}
 }
 
 CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
