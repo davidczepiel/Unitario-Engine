@@ -90,9 +90,22 @@ void Camera::renderOverlays(bool render)
 		_viewport->setOverlaysEnabled(render);
 }
 
-void Camera::setOrientation(float x, float y, float z)
+void Camera::setOrientation(float yaw, float pitch, float roll)
 {
-	_node->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_PARENT);
+	//_node->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_PARENT);
+	double cy = cos(yaw * 0.5);
+	double sy = sin(yaw * 0.5);
+	double cp = cos(pitch * 0.5);
+	double sp = sin(pitch * 0.5);
+	double cr = cos(roll * 0.5);
+	double sr = sin(roll * 0.5);
+
+	Ogre::Quaternion q;
+	q.w = cr * cp * cy + sr * sp * sy;
+	q.x = sr * cp * cy - cr * sp * sy;
+	q.y = cr * sp * cy + sr * cp * sy;
+	q.z = cr * cp * sy - sr * sp * cy;
+	_node->setOrientation(q);
 }
 
 void Camera::setOrientation(Ogre::Quaternion orientation)
