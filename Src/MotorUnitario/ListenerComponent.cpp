@@ -6,8 +6,9 @@
 #include "Logger.h"
 #include "includeLUA.h"
 
-ListenerComponent::ListenerComponent() :Component(ComponentId::ListenerComponent), _tr(nullptr), _listener(nullptr)
+ListenerComponent::ListenerComponent() :Component(ComponentId::ListenerComponent), _tr(nullptr), _listener(new Listener())
 {
+
 }
 
 ListenerComponent::~ListenerComponent()
