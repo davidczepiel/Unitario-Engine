@@ -93,34 +93,34 @@ void CameraComponent::lookAt(float x, float y, float z)
 	_camera->lookAt(x, y, z);
 }
 
-void CameraComponent::pitchDegrees(float degrees)
+void CameraComponent::pitchDegrees(float degrees, bool world)
 {
-	_camera->pitchDegrees(degrees);
+	_camera->pitchDegrees(degrees, world);	
 }
 
-void CameraComponent::pitchRadians(float radians)
+void CameraComponent::pitchRadians(float radians, bool world)
 {
-	_camera->pitchRadians(radians);
+	_camera->pitchRadians(radians, world);
 }
 
-void CameraComponent::yawDegrees(float degrees)
+void CameraComponent::yawDegrees(float degrees, bool world)
 {
-	_camera->yawDegrees(degrees);
+	_camera->yawDegrees(degrees, world);
 }
 
-void CameraComponent::yawRadians(float radians)
+void CameraComponent::yawRadians(float radians, bool world)
 {
-	_camera->yawRadians(radians);
+	_camera->yawRadians(radians, world);
 }
 
-void CameraComponent::rollDegrees(float degrees)
+void CameraComponent::rollDegrees(float degrees, bool world)
 {
-	_camera->rollDegrees(degrees);
+	_camera->rollDegrees(degrees, world);
 }
 
-void CameraComponent::rollRadians(float radians)
+void CameraComponent::rollRadians(float radians, bool world)
 {
-	_camera->rollRadians(radians);
+	_camera->rollRadians(radians, world);
 }
 
 void CameraComponent::setOrientation(float x, float y, float z)

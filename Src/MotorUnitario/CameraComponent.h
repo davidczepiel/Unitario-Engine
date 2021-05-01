@@ -42,48 +42,48 @@ public:
 	virtual void lateUpdate() override;
 
 	/// <summary>
-/// Redirects the Z axis of the camera so that it points to a specific world position
-/// </summary>
-/// <param name="x">The worlds x position that the camera will point at</param>
-/// <param name="y">The worlds y position that the camera will point at</param>
-/// <param name="z">The worlds z position that the camera will point at</param>
+	/// Redirects the Z axis of the camera so that it points to a specific world position
+	/// </summary>
+	/// <param name="x">The worlds x position that the camera will point at</param>
+	/// <param name="y">The worlds y position that the camera will point at</param>
+	/// <param name="z">The worlds z position that the camera will point at</param>
 	void lookAt(float x, float y, float z);
 
 	/// <summary>
 	/// Rotates the camera node using its X axis
 	/// </summary>
 	/// <param name="degrees">Amounts of degrees to rotate</param>
-	void pitchDegrees(float degrees);
+	void pitchDegrees(float degrees, bool world = false);
 
 	/// <summary>
 	/// Rotates the camera node using its X axis
 	/// </summary>
 	/// <param name="radians">Amounts of radians to rotate</param>
-	void pitchRadians(float radians);
+	void pitchRadians(float radians, bool world = false);
 
 	/// <summary>
 	/// Rotates the camera node using its Y axis
 	/// </summary>
 	/// <param name="degrees">Amounts of degrees to rotate</param>
-	void yawDegrees(float degrees);
+	void yawDegrees(float degrees, bool world = false);
 
 	/// <summary>
 	/// Rotates the camera node using its Y axis
 	/// </summary>
 	/// <param name="amount">Amounts of units to rotate</param>
-	void yawRadians(float amount);
+	void yawRadians(float amount, bool world = false);
 
 	/// <summary>
 	/// Rotates the camera node using its Z axis
 	/// </summary>
 	/// <param name="degrees">Amounts of degrees to rotate</param>
-	void rollDegrees(float degrees);
+	void rollDegrees(float degrees, bool world = false);
 
 	/// <summary>
 	/// Rotates the camera node using its Z axis
 	/// </summary>
 	/// <param name="radians">Amounts of radians to rotate</param>
-	void rollRadians(float radians);
+	void rollRadians(float radians, bool world = false);
 
 	/// <summary>
 	/// Redirects the Z axis of the camera so that it points to a specific world position

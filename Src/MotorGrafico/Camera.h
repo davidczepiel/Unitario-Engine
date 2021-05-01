@@ -41,37 +41,37 @@ public:
 	/// Rotates the camera node using its X axis
 	/// </summary>
 	/// <param name="degrees">Amounts of degrees to rotate</param>
-	void pitchDegrees(float degrees);
+	void pitchDegrees(float degrees, bool world);
 
 	/// <summary>
 	/// Rotates the camera node using its X axis
 	/// </summary>
 	/// <param name="radians">Amounts of radians to rotate</param>
-	void pitchRadians(float radians);
+	void pitchRadians(float radians, bool world);
 
 	/// <summary>
 	/// Rotates the camera node using its Y axis
 	/// </summary>
 	/// <param name="degrees">Amounts of degrees to rotate</param>
-	void yawDegrees(float degrees);
+	void yawDegrees(float degrees, bool world);
 
 	/// <summary>
 	/// Rotates the camera node using its Y axis
 	/// </summary>
 	/// <param name="amount">Amounts of units to rotate</param>
-	void yawRadians(float amount);
+	void yawRadians(float amount, bool world);
 
 	/// <summary>
 	/// Rotates the camera node using its Z axis
 	/// </summary>
 	/// <param name="degrees">Amounts of degrees to rotate</param>
-	void rollDegrees(float degrees);
+	void rollDegrees(float degrees, bool world);
 
 	/// <summary>
 	/// Rotates the camera node using its Z axis
 	/// </summary>
 	/// <param name="radians">Amounts of radians to rotate</param>
-	void rollRadians(float radians);
+	void rollRadians(float radians, bool world);
 
 	void renderOverlays(bool render);
 

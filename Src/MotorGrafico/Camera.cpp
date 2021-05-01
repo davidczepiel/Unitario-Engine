@@ -36,34 +36,52 @@ void Camera::lookAt(float x, float y, float z)
 	_node->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_WORLD);
 }
 
-void Camera::pitchDegrees(float degrees)
+void Camera::pitchDegrees(float degrees, bool world)
 {
-	_node->pitch(Ogre::Radian(Ogre::Degree(degrees)));
+	if(world)
+		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)), Ogre::Node::TS_WORLD);
+	else
+		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)));
 }
 
-void Camera::pitchRadians(float radians)
+void Camera::pitchRadians(float radians, bool world)
 {
-	_node->pitch(Ogre::Radian(radians));
+	if (world)
+		_node->pitch(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+	else
+		_node->pitch(Ogre::Radian(Ogre::Degree(radians)));
 }
 
-void Camera::yawDegrees(float degrees)
+void Camera::yawDegrees(float degrees, bool world)
 {
-	_node->yaw(Ogre::Radian(Ogre::Degree(degrees)));
+	if (world)
+		_node->yaw(Ogre::Radian(Ogre::Degree(degrees)), Ogre::Node::TS_WORLD);
+	else
+		_node->yaw(Ogre::Radian(Ogre::Degree(degrees)));
 }
 
-void Camera::yawRadians(float radians)
+void Camera::yawRadians(float radians, bool world)
 {
-	_node->yaw(Ogre::Radian(radians));
+	if (world)
+		_node->yaw(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+	else
+		_node->yaw(Ogre::Radian(Ogre::Degree(radians)));
 }
 
-void Camera::rollDegrees(float degrees)
+void Camera::rollDegrees(float degrees, bool world)
 {
-	_node->roll(Ogre::Radian(Ogre::Degree(degrees)));
+	if (world)
+		_node->roll(Ogre::Radian(Ogre::Degree(degrees)), Ogre::Node::TS_WORLD);
+	else
+		_node->roll(Ogre::Radian(Ogre::Degree(degrees)));
 }
 
-void Camera::rollRadians(float radians)
+void Camera::rollRadians(float radians, bool world)
 {
-	_node->roll(Ogre::Radian(radians));
+	if (world)
+		_node->roll(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+	else
+		_node->roll(Ogre::Radian(Ogre::Degree(radians)));
 }
 
 void Camera::renderOverlays(bool render)
