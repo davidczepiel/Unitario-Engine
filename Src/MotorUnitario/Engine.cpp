@@ -130,6 +130,8 @@ void Engine::fixedUpdate()
 {
 	int calls = _time->fixedUpdateRequired();
 
+	std::cout << calls << '\n';
+
 	if (calls == 0) return;
 
 	for (calls; calls > 0; --calls) {
