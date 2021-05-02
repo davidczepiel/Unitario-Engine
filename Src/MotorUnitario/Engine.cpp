@@ -53,7 +53,6 @@ void Engine::tick()
 	lateUpdate();
 	_graphicsEngine->render();
 	_audioEngine->update();
-	_physxEngine->update(_time->deltaTime());
 	_time->update();
 
 	cleanUpGameObjects();
@@ -138,6 +137,7 @@ void Engine::fixedUpdate()
 			it->fixedUpdate();
 		}
 	}
+	_physxEngine->update(_time->deltaTime());
 	_time->fixedTimeUpdate();
 }
 
