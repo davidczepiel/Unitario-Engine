@@ -51,6 +51,11 @@ public:
 	virtual void fixedUpdate() {}
 
 	/// <summary>
+	/// Called after every simulation of physic engine (only set transform)
+	/// </summary>
+	virtual void postFixedUpdate() {}
+
+	/// <summary>
 	/// Called each frame after update
 	/// </summary>
 	virtual void lateUpdate() {}

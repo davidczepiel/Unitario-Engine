@@ -100,6 +100,10 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 }
 
 void RigidBodyComponent::fixedUpdate()
+{	
+}
+
+void RigidBodyComponent::postFixedUpdate()
 {
 	if (_rb->isStatic()) return;
 
@@ -107,7 +111,7 @@ void RigidBodyComponent::fixedUpdate()
 	Vector3 rotation = TUPLE_TO_VEC3(_rb->getRotation());
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 
-	if(!_constrainRotation)
+	if (!_constrainRotation)
 		t->updateFromPhysics(position, rotation);
 	else t->updateFromPhysics(position);
 }

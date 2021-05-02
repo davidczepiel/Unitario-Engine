@@ -37,6 +37,11 @@ public:
 	void fixedUpdate();
 
 	/// <summary>
+	/// Called after complete the physic simulation (only to set Trabsform)
+	/// </summary>
+	void postFixedUpdate();
+
+	/// <summary>
 	/// Calls lateUpdate method of every component and then of every children it has
 	/// </summary>
 	void lateUpdate();

@@ -35,6 +35,11 @@ public:
 	virtual void fixedUpdate() override;
 
 	/// <summary>
+	/// Called after every physic simulation (only sets the Transform)
+	/// </summary>
+	virtual void postFixedUpdate() override;
+
+	/// <summary>
 	/// Sets the position of the transform to a specified one
 	/// </summary>
 	void setPosition(Vector3 pos);

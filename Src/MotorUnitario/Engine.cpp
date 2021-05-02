@@ -137,7 +137,13 @@ void Engine::fixedUpdate()
 			it->fixedUpdate();
 		}
 	}
+	
 	_physxEngine->update(_time->deltaTime());
+
+	for (auto& it : _GOs) {
+		it->postFixedUpdate();
+	}
+
 	_time->fixedTimeUpdate();
 }
 
