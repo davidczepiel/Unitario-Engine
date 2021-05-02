@@ -67,7 +67,7 @@ void GameObject::postFixedUpdate()
 {
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
-			comp.second->fixedUpdate();
+			comp.second->postFixedUpdate();
 
 	for (GameObject* go : _children)
 		if (go->getEnabled())

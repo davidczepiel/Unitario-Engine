@@ -114,6 +114,8 @@ void RigidBodyComponent::postFixedUpdate()
 	if (!_constrainRotation)
 		t->updateFromPhysics(position, rotation);
 	else t->updateFromPhysics(position);
+
+	
 }
 
 void RigidBodyComponent::setPosition(Vector3 pos)
