@@ -42,6 +42,13 @@ public:
 	virtual void lateUpdate() override;
 
 	/// <summary>
+	/// Rotate the camera "angle" angles in the given axis
+	/// </summary>
+	/// <param name="x"> value for x axis</param>
+	/// <param name="y" >value for x axis</param>
+	/// <param name="z"> value for z axis</param>
+	void rotate(float angle, int xAxis, int yAxis, int zAxis);
+	/// <summary>
 	/// Redirects the Z axis of the camera so that it points to a specific world position
 	/// </summary>
 	/// <param name="x">The worlds x position that the camera will point at</param>

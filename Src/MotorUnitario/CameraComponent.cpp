@@ -101,6 +101,11 @@ void CameraComponent::lateUpdate()
 {
 }
 
+void CameraComponent::rotate(float angle, int xAxis, int yAxis, int zAxis)
+{
+	_camera->rotate(angle, xAxis, yAxis, zAxis);
+}
+
 void CameraComponent::lookAt(float x, float y, float z)
 {
 	_camera->lookAt(x, y, z);

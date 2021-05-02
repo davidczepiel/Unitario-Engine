@@ -29,6 +29,14 @@ public:
 	Camera(const std::string& objectName, int zOrder = 1, float x = 0., float y = 0., float w = 1., float h = 1.);
 	~Camera();
 
+
+	/// <summary>
+	/// Rotate the camera "angle" angles in the given axis
+	/// </summary>
+	/// <param name="x"> value for x axis</param>
+	/// <param name="y" >value for x axis</param>
+	/// <param name="z"> value for z axis</param>
+	void rotate(float angle, int xAxis, int yAxis, int zAxis);
 	/// <summary>
 	/// Redirects the Z axis of the camera so that it points to a specific world position
 	/// </summary>
@@ -163,6 +171,8 @@ public:
 	/// <param name="w">The viewport new width</param>
 	/// <param name="h">The viewport new height</param>
 	void setViewportVisibility(bool visible, float x = 0., float y = 0., float w = 1., float h = 1.);
+
+
 
 private:
 	static int _id;

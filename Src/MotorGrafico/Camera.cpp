@@ -31,6 +31,11 @@ Camera::~Camera()
 		GraphicsEngine::getInstance()->removeViewport(_viewport);
 }
 
+void Camera::rotate(float angle, int xAxis, int yAxis, int zAxis)
+{
+	_node->rotate(Ogre::Vector3(xAxis, yAxis, zAxis), Ogre::Radian(angle));
+}
+
 void Camera::lookAt(float x, float y, float z)
 {
 	_node->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_WORLD);
@@ -177,3 +182,5 @@ void Camera::setViewportVisibility(bool visible, float x, float y, float w, floa
 		}
 	}
 }
+
+
