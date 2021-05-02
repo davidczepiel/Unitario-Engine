@@ -38,11 +38,12 @@ public:
 	/// <summary>
 	/// Pause the entire channel
 	/// </summary>
-	void pause();
+	void pause(int id);
 	/// <summary>
 	/// Stop the entire channel
 	/// </summary>
-	void stop();
+	/// <param name="id">Id audio</param>
+	void stop(int id);
 
 	/// <summary>
 	/// Sets the audio loop
@@ -59,11 +60,13 @@ public:
 	/// <summary>
 	/// Gets the audio directory route
 	/// </summary>
-	float getVolumeAudio() const;
+	/// <param name="id">Id audio</param>
+	float getVolumeAudio(int id) const;
 	/// <summary>
 	/// Sets the audio volume
 	/// </summary>
-	void setVolumeAudio(float v);
+	/// <param name="id">Id audio</param>
+	void setVolumeAudio(float v, int id);
 	/// <summary>
 	/// Sets the audio directory route
 	/// </summary>
@@ -75,13 +78,15 @@ public:
 	/// <param name="insideAngle">This is the angle spread within which the sound is unattenuated.</param>
 	/// <param name="outsideAngle">This is the angle spread outside of which the sound is attenuated to its outsidevolume.</param>
 	/// <param name="outsideVolume">Cone outside volume</param>
-	void set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume);
+	/// <param name="id">Id audio</param>
+	void set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume, int id);
 	/// <summary>
 	/// Sets the minimum and maximum audible distance for a 3D sound
 	/// </summary>
 	/// <param name="min">minimum distance</param>
 	/// <param name="max">maximum distance</param>
-	void set3DMinMaxDistance(float min, float max);
+	/// <param name="id">maximum distance</param>
+	void set3DMinMaxDistance(float min, float max, int id);
 	/// <summary>
 	/// Sets the current position of the entity.
 	/// </summary>
@@ -93,12 +98,12 @@ public:
 
 private:
 	std::vector<FMOD::Sound*> _sound;
+	std::vector<FMOD::Channel*> _channel;
 	//Entity position
 	FMOD_VECTOR* _position;
 	//Entity velocity
 	FMOD_VECTOR* _velocity;
 	FMOD::System* _system;
-	FMOD::Channel* _channel;
 	std::vector <std::string> _route;
 };
 

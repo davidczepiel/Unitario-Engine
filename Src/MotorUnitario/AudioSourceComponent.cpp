@@ -64,14 +64,14 @@ void AudioSourceComponent::playAudio(int id)
 	_audioSource->play(id);
 }
 
-void AudioSourceComponent::pauseChannel()
+void AudioSourceComponent::pauseChannel(int id)
 {
-	_audioSource->pause();
+	_audioSource->pause(id);
 }
 
-void AudioSourceComponent::stopChannel()
+void AudioSourceComponent::stopChannel(int id)
 {
-	_audioSource->stop();
+	_audioSource->stop(id);
 }
 
 void AudioSourceComponent::setAudioLoop(int id, int loop)
@@ -84,22 +84,22 @@ void AudioSourceComponent::setStereo(int id, bool stereo)
 	_audioSource->set3D(id, stereo);
 }
 
-float AudioSourceComponent::getVolumeChannel() const
+float AudioSourceComponent::getVolumeChannel(int id) const
 {
-	return _audioSource->getVolumeAudio();
+	return _audioSource->getVolumeAudio(id);
 }
 
-void AudioSourceComponent::setVolumeChannel(float v)
+void AudioSourceComponent::setVolumeChannel(float v, int id)
 {
-	_audioSource->setVolumeAudio(v);
+	_audioSource->setVolumeAudio(v, id);
 }
 
-void AudioSourceComponent::set3DConeSetting(float insideAngle, float outsideAngle, float outsideVolume)
+void AudioSourceComponent::set3DConeSetting(float insideAngle, float outsideAngle, float outsideVolume, int id)
 {
-	_audioSource->set3DConeSettings(insideAngle, outsideAngle, outsideVolume);
+	_audioSource->set3DConeSettings(insideAngle, outsideAngle, outsideVolume, id);
 }
 
-void AudioSourceComponent::set3DMinMaxDistanceChannel(float min, float max)
+void AudioSourceComponent::set3DMinMaxDistanceChannel(float min, float max, int id)
 {
-	_audioSource->set3DMinMaxDistance(min, max);
+	_audioSource->set3DMinMaxDistance(min, max, id);
 }

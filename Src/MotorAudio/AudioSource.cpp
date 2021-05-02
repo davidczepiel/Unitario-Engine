@@ -3,7 +3,7 @@
 #include "Exceptions.h"
 #include "fmod.hpp"
 
-AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _route()
+AudioSource::AudioSource() : _system(nullptr), _channel(), _sound(), _route()
 {
 	_route.push_back("");
 	_position = new FMOD_VECTOR;
@@ -12,7 +12,7 @@ AudioSource::AudioSource() : _system(nullptr), _channel(nullptr), _sound(), _rou
 	_position->z = 0;
 }
 
-AudioSource::AudioSource(std::vector<std::string> const& route) : _system(nullptr), _channel(nullptr), _sound(), _route(route)
+AudioSource::AudioSource(std::vector<std::string> const& route) : _system(nullptr), _channel(8,nullptr), _sound(), _route(route)
 {
 	_position = new FMOD_VECTOR;
 	_position->x = 0;
@@ -52,33 +52,35 @@ void AudioSource::play(int id)
 		_sound[id],		// buffer which sound in the channel
 		0,				// channel group, 0 means ungrouped
 		false,			// plays directly(no pause)
-		&_channel);		// return the assigned channel
+		&_channel[id]);	// return the assigned channel
 
 	if (result != FMOD_OK)
 		throw EAudioSource("There are no free channels to play the sound or the sound pointer is nullptr");
 }
 
 void AudioSource::update()
-{
-	if (_channel != nullptr)
-		_channel->set3DAttributes(_position, _velocity);
-}
-
-void AudioSource::pause()
-{
-	if (_channel != nullptr) {
-		bool isPause = true;
-		_channel->getPaused(&isPause);
-		_channel->setPaused(!isPause);
+{	
+	for (int i = 0; i < _channel.size(); ++i) {
+		if (_channel[i] != nullptr)
+			_channel[i]->set3DAttributes(_position, _velocity);
 	}
 }
 
-void AudioSource::stop()
+void AudioSource::pause(int id)
 {
-	if (_channel != nullptr) {
+	if (_channel[id] != nullptr) {
+		bool isPause = true;
+		_channel[id]->getPaused(&isPause);
+		_channel[id]->setPaused(!isPause);
+	}
+}
+
+void AudioSource::stop(int id)
+{
+	if (_channel[id] != nullptr) {
 		bool isPlaying = true;
-		_channel->isPlaying(&isPlaying);
-		if (isPlaying) _channel->stop();
+		_channel[id]->isPlaying(&isPlaying);
+		if (isPlaying) _channel[id]->stop();
 	}
 }
 
@@ -102,28 +104,28 @@ void AudioSource::set3D(int id, bool stereo)
 		_sound[id]->setMode(FMOD_2D);
 }
 
-float AudioSource::getVolumeAudio() const
+float AudioSource::getVolumeAudio(int id) const
 {
 	float volume = 0.0f;
-	if (_channel != nullptr) {
-		_channel->getVolume(&volume);
+	if (_channel[id] != nullptr) {
+		_channel[id]->getVolume(&volume);
 	}
 	return volume;
 }
 
-void AudioSource::setVolumeAudio(float v)
+void AudioSource::setVolumeAudio(float v, int id)
 {
-	_channel->setVolume(v);
+	_channel[id]->setVolume(v);
 }
 
-void AudioSource::set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume)
+void AudioSource::set3DConeSettings(float insideAngle, float outsideAngle, float outsideVolume, int id)
 {
-	_channel->set3DConeSettings(insideAngle, outsideAngle, outsideVolume);
+	_channel[id]->set3DConeSettings(insideAngle, outsideAngle, outsideVolume);
 }
 
-void AudioSource::set3DMinMaxDistance(float min, float max)
+void AudioSource::set3DMinMaxDistance(float min, float max, int id)
 {
-	_channel->set3DMinMaxDistance(min, max);
+	_channel[id]->set3DMinMaxDistance(min, max);
 }
 
 void AudioSource::setPosition(float x, float y, float z)

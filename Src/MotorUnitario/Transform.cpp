@@ -141,5 +141,9 @@ Transform::~Transform()
 
 Vector3 Transform::getForward() const
 {
-	return _dir;
+	Vector3 dir;
+	dir.setX(cos(_rotation.getY()*cos(_rotation.getX())));
+	dir.setY(sin(_rotation.getY()*cos(_rotation.getX())));
+	dir.setZ(sin(_rotation.getY()));
+	return dir;
 }

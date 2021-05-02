@@ -50,11 +50,13 @@ public:
 	/// <summary>
 	/// Pause the entire channel
 	/// </summary>
-	void pauseChannel();
+	/// <param name="id">Id audio</param>
+	void pauseChannel(int id);
 	/// <summary>
 	/// Stop the entire channel
 	/// </summary>
-	void stopChannel();
+	/// <param name="id">Id audio</param>
+	void stopChannel(int id);
 	/// <summary>
 	/// Sets the audio loop 
 	/// </summary>
@@ -70,11 +72,13 @@ public:
 	/// <summary>
 	/// Sets the audio directory route  
 	/// </summary>
-	float getVolumeChannel() const;
+	/// <param name="id">Id audio</param>
+	float getVolumeChannel(int id) const;
 	/// <summary>
 	/// Sets the audio volume  
 	/// </summary>
-	void setVolumeChannel(float v);
+	/// <param name="id">Id audio</param>
+	void setVolumeChannel(float v, int id);
 	/// <summary>
 	/// Sets the audio directory route  
 	/// </summary>
@@ -86,13 +90,15 @@ public:
 	/// <param name="insideAngle">This is the angle spread within which the sound is unattenuated.</param>
 	/// <param name="outsideAngle">This is the angle spread outside of which the sound is attenuated to its outsidevolume.</param>
 	/// <param name="outsideVolume">Cone outside volume</param>
-	void set3DConeSetting(float insideAngle, float outsideAngle, float outsideVolume);
+	/// <param name="id">Id audio</param>
+	void set3DConeSetting(float insideAngle, float outsideAngle, float outsideVolume, int id);
 	/// <summary>
 	/// Sets the minimum and maximum audible distance for a 3D sound
 	/// </summary>
 	/// <param name="min">minimum distance</param>
 	/// <param name="max">maximum distance</param>
-	void set3DMinMaxDistanceChannel(float min, float max);
+	/// <param name="id">Id audio</param>
+	void set3DMinMaxDistanceChannel(float min, float max, int id);
 
 private:
 	AudioSource* _audioSource;
