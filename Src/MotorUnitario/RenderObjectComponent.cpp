@@ -61,9 +61,8 @@ void RenderObjectComponent::update()
 	_renderObject->setPosition(x, y, z);
 
 	Vector3 dir = _transform->getRotation();
-	_renderObject->rotate(dir.getX(), 1, 0, 0);
-	_renderObject->rotate(dir.getY(), 0, 1, 0);
-	_renderObject->rotate(dir.getZ(), 0, 0, 1);
+	Quaternion q = _transform->ToQuaternion(dir.getX(), dir.getY(), dir.getZ());
+	_renderObject->setRotation(q.x, q.y, q.z, q.w);
 	
 	Vector3 scale = _transform->getScale();
 	_renderObject->setScale(scale.getX(), scale.getY(), scale.getZ());

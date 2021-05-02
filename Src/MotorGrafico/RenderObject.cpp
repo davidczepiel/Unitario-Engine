@@ -31,6 +31,11 @@ void RenderObject::setPosition(float x, float y, float z)
 	_objectNode->setPosition(Ogre::Vector3(x, y, z));
 }
 
+void RenderObject::setRotation(float x, float y, float z, float w)
+{
+	_objectNode->setOrientation(w, x, y, z);
+}
+
 void RenderObject::rotate(float angle, float x, float y, float z)
 {
 	_objectNode->rotate(Ogre::Vector3(x, y, z), (Ogre::Radian)angle);
