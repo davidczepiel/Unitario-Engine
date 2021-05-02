@@ -131,6 +131,7 @@ void Engine::fixedUpdate()
 	int calls = _time->fixedUpdateRequired();
 
 	if (calls == 0) return;
+	else if (calls > 2) calls = 2;
 
 	for (calls; calls > 0; --calls) {
 		for (auto& it : _GOs) {
