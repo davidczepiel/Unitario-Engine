@@ -60,9 +60,11 @@ void RenderObjectComponent::update()
 	float z = static_cast<float>(_transform->getPosition().getZ());
 	_renderObject->setPosition(x, y, z);
 
-	Vector3 dir = _transform->getForward();
-	_renderObject->lookAt(dir.getX(), dir.getY(), dir.getZ());
-
+	Vector3 dir = _transform->getRotation();
+	_renderObject->rotate(dir.getX(), 1, 0, 0);
+	_renderObject->rotate(dir.getY(), 0, 1, 0);
+	_renderObject->rotate(dir.getZ(), 0, 0, 1);
+	
 	Vector3 scale = _transform->getScale();
 	_renderObject->setScale(scale.getX(), scale.getY(), scale.getZ());
 }
