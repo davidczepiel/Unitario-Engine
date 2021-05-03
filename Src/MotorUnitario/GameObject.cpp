@@ -149,7 +149,7 @@ Component* GameObject::getComponent(unsigned int componentId) const
 	return _components[componentId];
 }
 
-inline void GameObject::setEnabled(bool enable)
+void GameObject::setEnabled(bool enable)
 {
 	_enable = enable;
 	for (auto& comp : _activeComponents)
