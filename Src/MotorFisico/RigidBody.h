@@ -95,6 +95,10 @@ public:
 
 	~RigidBody();
 
+	void enable();
+
+	void disable();
+
 	/// <summary>
 	/// Adds a force if it's a dynamic rigid body
 	/// </summary>

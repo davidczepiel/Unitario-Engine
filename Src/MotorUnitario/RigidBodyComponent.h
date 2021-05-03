@@ -28,7 +28,6 @@ public:
 	virtual ~RigidBodyComponent();
 
 	void awake(luabridge::LuaRef& data) override;
-
 	/// <summary>
 	/// Called each pshyical step to update physiscal information
 	/// </summary>
@@ -178,6 +177,11 @@ public:
 	static void gameObjectsCollision(GameObject* thisGO, GameObject* otherGO);
 
 private:
+
+	void onEnable() override;
+
+	void onDisable() override;
+
 	RigidBody* _rb;
 	Transform* _tr;
 	Logger* _log;

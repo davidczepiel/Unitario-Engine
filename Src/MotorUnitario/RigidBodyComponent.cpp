@@ -99,6 +99,16 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 
 }
 
+void RigidBodyComponent::onEnable()
+{
+	_rb->enable();
+}
+
+void RigidBodyComponent::onDisable()
+{
+	_rb->disable();
+}
+
 void RigidBodyComponent::fixedUpdate()
 {	
 }
@@ -113,9 +123,7 @@ void RigidBodyComponent::postFixedUpdate()
 
 	if (!_constrainRotation)
 		t->updateFromPhysics(position, rotation);
-	else t->updateFromPhysics(position);
-
-	
+	else t->updateFromPhysics(position);	
 }
 
 void RigidBodyComponent::setPosition(Vector3 pos)

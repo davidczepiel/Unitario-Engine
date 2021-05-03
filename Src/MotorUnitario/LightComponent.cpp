@@ -44,7 +44,7 @@ void LightComponent::awake(luabridge::LuaRef& data)
 		_light->setDirection(data["LightDirection"]["X"].cast<float>(), data["LightDirection"]["Y"].cast<float>(), data["LightDirection"]["Z"].cast<float>());
 }
 
-inline const Light::LightType LightComponent::convertLightType(std::string type)
+const Light::LightType LightComponent::convertLightType(std::string type)
 {
 	if (type == "POINT") return Light::LightType::POINT;
 	else if (type == "DIRECTIONAL") return Light::LightType::DIRECTIONAL;
