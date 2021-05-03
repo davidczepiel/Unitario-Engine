@@ -36,6 +36,7 @@ bool AudioEngine::init() {
 	}
 	alreadyInitialized = true;
 
+	set_3DSettings(5, 10, 4);
 	return true;
 }
 
