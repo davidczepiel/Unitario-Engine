@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "ComponentIDs.h"
 #include "includeLUA.h"
+#include "MotorGrafico/RenderObject.h"
 
 RenderObjectComponent::RenderObjectComponent() :Component(ComponentId::RenderObject, nullptr), _renderObject(nullptr),
 _transform(nullptr), _meshName("")
@@ -66,6 +67,51 @@ void RenderObjectComponent::update()
 
 	Vector3 scale = _transform->getScale();
 	_renderObject->setScale(scale.getX(), scale.getY(), scale.getZ());
+}
+
+void RenderObjectComponent::setMaterial(std::string const& materialName)
+{
+	_renderObject->setMaterial(materialName);
+}
+
+void RenderObjectComponent::setPosition(float x, float y, float z)
+{
+	_renderObject->setPosition(x, y, z);
+}
+
+void RenderObjectComponent::rotate(float angle, float x, float y, float z)
+{
+	_renderObject->rotate(angle, x, y, z);
+}
+
+void RenderObjectComponent::setScale(float x, float y, float z)
+{
+	_renderObject->setScale(x, y, z);
+}
+
+void RenderObjectComponent::scale(float x, float y, float z)
+{
+	_renderObject->scale(x, y, z);
+}
+
+void RenderObjectComponent::lookAt(float x, float y, float z)
+{
+	_renderObject->lookAt(x, y, z);
+}
+
+void RenderObjectComponent::setVisible(bool visible)
+{
+	_renderObject->setVisible(visible);
+}
+
+void RenderObjectComponent::setCastShadows(bool castShadows)
+{
+	_renderObject->setCastShadows(castShadows);
+}
+
+void RenderObjectComponent::setRenderingDistance(float distance)
+{
+	_renderObject->setRenderingDistance(distance);
 }
 
 void RenderObjectComponent::onEnable()
