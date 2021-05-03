@@ -21,9 +21,7 @@ struct EulerAngles {
 
 class Transform : public Component {
 public:
-	/// <summary>
-	/// 
-	/// </summary>
+
 	Transform();
 
 	~Transform();
@@ -44,8 +42,17 @@ public:
 	/// <param name="position">New position</param>
 	void setPosition(const Vector3& position);
 
+	/// <summary>
+	/// Called to update transform's position when object has a rigidbody
+	/// </summary>
+	/// <param name="position">physx's rigidbody position</param>
 	void updateFromPhysics(const Vector3& position);
 
+	/// <summary>
+	/// Called to update transform's position and rotation when object has a rigidbody
+	/// </summary>
+	/// <param name="position">Physx's rigidbody position</param>
+	/// <param name="rotation">Physx's rigidbody rotation</param>
 	void updateFromPhysics(const Vector3& position, const Vector3& rotation);
 
 	/// <summary>
