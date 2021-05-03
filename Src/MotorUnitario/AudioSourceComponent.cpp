@@ -28,6 +28,7 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 		for(int i = 0; i < _route.size(); ++i)
 			std::cout << "As: " << _route[i] << std::endl;
 	}
+	_audioSource = new AudioSource(_route);
 	if (LUAFIELDEXIST(Stereo)) {
 		bool stereo = GETLUAFIELD(Stereo, bool);
 		for (int i = 0; i < _route.size(); ++i)
@@ -56,7 +57,6 @@ void AudioSourceComponent::start()
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
-	_audioSource = new AudioSource(_route);
 	_audioSource->setPosition(x, y, z);
 }
 
