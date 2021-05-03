@@ -86,6 +86,7 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 	//---------------AudioEngine--------------------
 	AudioEngine::CreateInstance();
 	_audioEngine = AudioEngine::getInstance();
+	_audioEngine->init();
 
 	_time = EngineTime::getInstance();
 
