@@ -301,119 +301,130 @@ bool RigidBody::rotate(const std::tuple<float, float, float>& rotation)
 	return false;
 }
 
-bool RigidBody::setScale(const std::tuple<float, float, float>& scale)
+bool RigidBody::setRotation(float angle, const std::tuple<float, float, float>& axis) 
 {
 	if (!_isStatic) {
+		{
+			_dynamicBody->setGlobalPose(physx::PxTransform(_dynamicBody->getGlobalPose().p, physx::PxQuat(angle, TUPLE_TO_PHYSXVEC3(axis))));
+			return true;
+		}
+		return false;
+	}
+}
+
+	bool RigidBody::setScale(const std::tuple<float, float, float>&scale)
+	{
+		if (!_isStatic) {
+			int nbShapes = _dynamicBody->getNbShapes();
+			physx::PxShape** shapes = new physx::PxShape * [nbShapes];
+			_dynamicBody->getShapes(shapes, nbShapes);
+			for (int i = 0; i < nbShapes; i++) {
+				if (shapes[i]->getGeometryType() == physx::PxGeometryType::eBOX) {
+					physx::PxVec3 boxScale = shapes[i]->getGeometry().box().halfExtents;
+					physx::PxVec3 newScale = TUPLE_TO_PHYSXVEC3(scale);
+					boxScale.x *= newScale.x;
+					boxScale.y *= newScale.y;
+					boxScale.z *= newScale.z;
+
+					shapes[i]->setGeometry(physx::PxBoxGeometry(boxScale));
+				}
+				else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eSPHERE) {
+
+					float sphereScale = shapes[i]->getGeometry().sphere().radius;
+					shapes[i]->setGeometry(physx::PxSphereGeometry(getGreater(scale) * sphereScale));
+				}
+				else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eCAPSULE)
+				{
+					float capsuleRadious = shapes[i]->getGeometry().capsule().radius;
+					float capsuleHalfHeight = shapes[i]->getGeometry().capsule().halfHeight;
+					float greater = getGreater(scale);
+					shapes[i]->setGeometry(physx::PxCapsuleGeometry(capsuleRadious * greater, capsuleHalfHeight * greater));
+
+				}
+
+			}
+			return true;
+		}
+		return false;
+
+	}
+
+	const std::tuple<float, float, float> RigidBody::getPosition()
+	{
+		if (_isStatic) {
+			return PHYSXVEC3_TO_TUPLE(_staticBody->getGlobalPose().p);
+		}
+		else {
+			return PHYSXVEC3_TO_TUPLE(_dynamicBody->getGlobalPose().p);
+		}
+
+	}
+
+	const std::tuple<float, float, float> RigidBody::getRotation()
+	{
+		float angle = 0;
+		physx::PxVec3 axis;
+		_dynamicBody->getGlobalPose().q.toRadiansAndUnitAxis(angle, axis);
+		return PHYSXVEC3_TO_TUPLE(axis);
+	}
+
+	void RigidBody::setFlags(physx::PxShape * shape)
+	{
+		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, true);
+		shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, true);
+		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, false);
+		shape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
+	}
+
+	void RigidBody::initParams(const std::tuple<float, float, float>&pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
+	{
+		_physx = PhysxEngine::getPxInstance()->getPhysics();
+		_scene = PhysxEngine::getPxInstance()->getScene();
+
+		if (_isStatic) {
+			_staticBody = _physx->createRigidStatic(physx::PxTransform(TUPLE_TO_PHYSXVEC3(pos)));
+			_staticBody->userData = this;
+		}
+		else
+		{
+			_dynamicBody = _physx->createRigidDynamic(physx::PxTransform(TUPLE_TO_PHYSXVEC3(pos)));
+			_dynamicBody->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, isKinematic);
+			_dynamicBody->setLinearDamping(linearDamping);
+			_dynamicBody->setAngularDamping(angularDamping);
+			_dynamicBody->userData = this;
+			physx::PxRigidBodyExt::updateMassAndInertia(*_dynamicBody, mass);
+		}
+	}
+
+	std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
+	{
+		std::list<physx::PxMaterial*> list = std::list<physx::PxMaterial*>();
 		int nbShapes = _dynamicBody->getNbShapes();
 		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
 		_dynamicBody->getShapes(shapes, nbShapes);
-		for (int i = 0; i < nbShapes; i++) {
-			if (shapes[i]->getGeometryType() == physx::PxGeometryType::eBOX) {
-				physx::PxVec3 boxScale = shapes[i]->getGeometry().box().halfExtents;
-				physx::PxVec3 newScale = TUPLE_TO_PHYSXVEC3(scale);
-				boxScale.x *= newScale.x;
-				boxScale.y *= newScale.y;
-				boxScale.z *= newScale.z;
-
-				shapes[i]->setGeometry(physx::PxBoxGeometry(boxScale));
-			}
-			else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eSPHERE) {
-
-				float sphereScale = shapes[i]->getGeometry().sphere().radius;
-				shapes[i]->setGeometry(physx::PxSphereGeometry(getGreater(scale) * sphereScale));
-			}
-			else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eCAPSULE)
-			{
-				float capsuleRadious = shapes[i]->getGeometry().capsule().radius;
-				float capsuleHalfHeight = shapes[i]->getGeometry().capsule().halfHeight;
-				float greater = getGreater(scale);
-				shapes[i]->setGeometry(physx::PxCapsuleGeometry(capsuleRadious * greater, capsuleHalfHeight * greater));
-
-			}
-
-		}
-		return true;
-	}
-	return false;
-
-}
-
-const std::tuple<float, float, float> RigidBody::getPosition()
-{
-	if (_isStatic) {
-		return PHYSXVEC3_TO_TUPLE(_staticBody->getGlobalPose().p);
-	}
-	else {
-		return PHYSXVEC3_TO_TUPLE(_dynamicBody->getGlobalPose().p);
-	}
-		
-}
-
-const std::tuple<float, float, float> RigidBody::getRotation()
-{
-	float angle = 0;
-	physx::PxVec3 axis;
-	_dynamicBody->getGlobalPose().q.toRadiansAndUnitAxis(angle, axis);
-	return PHYSXVEC3_TO_TUPLE(axis);
-}
-
-void RigidBody::setFlags(physx::PxShape* shape)
-{
-	shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, true);
-	shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, true);
-	shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, false);
-	shape->setFlag(physx::PxShapeFlag::eVISUALIZATION, false);
-}
-
-void RigidBody::initParams(const std::tuple<float, float, float>& pos, float mass, bool isKinematic, float linearDamping, float angularDamping)
-{
-	_physx = PhysxEngine::getPxInstance()->getPhysics();
-	_scene = PhysxEngine::getPxInstance()->getScene();
-
-	if (_isStatic) {
-		_staticBody = _physx->createRigidStatic(physx::PxTransform(TUPLE_TO_PHYSXVEC3(pos)));
-		_staticBody->userData = this;
-	}
-	else
-	{
-		_dynamicBody = _physx->createRigidDynamic(physx::PxTransform(TUPLE_TO_PHYSXVEC3(pos)));
-		_dynamicBody->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, isKinematic);
-		_dynamicBody->setLinearDamping(linearDamping);
-		_dynamicBody->setAngularDamping(angularDamping);
-		_dynamicBody->userData = this;
-		physx::PxRigidBodyExt::updateMassAndInertia(*_dynamicBody, mass);
-	}
-}
-
-std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
-{
-	std::list<physx::PxMaterial*> list = std::list<physx::PxMaterial*>();
-	int nbShapes = _dynamicBody->getNbShapes();
-	physx::PxShape** shapes = new physx::PxShape * [nbShapes];
-	_dynamicBody->getShapes(shapes, nbShapes);
-	for (int i = 0; i < nbShapes; i++)
-	{
-		int nbMaterials = shapes[i]->getNbMaterials();
-		physx::PxMaterial** auxMaterials = new physx::PxMaterial * [nbMaterials];
-		shapes[i]->getMaterials(auxMaterials, nbMaterials);
-		for (int j = 0; j < nbMaterials; j++)
+		for (int i = 0; i < nbShapes; i++)
 		{
-			list.push_back(auxMaterials[i]);
+			int nbMaterials = shapes[i]->getNbMaterials();
+			physx::PxMaterial** auxMaterials = new physx::PxMaterial * [nbMaterials];
+			shapes[i]->getMaterials(auxMaterials, nbMaterials);
+			for (int j = 0; j < nbMaterials; j++)
+			{
+				list.push_back(auxMaterials[i]);
+			}
+			delete[] auxMaterials;
 		}
-		delete[] auxMaterials;
+
+		delete[] shapes;
+		return list;
 	}
 
-	delete[] shapes;
-	return list;
-}
-
-float RigidBody::getGreater(std::tuple<float, float, float> tuple)
-{
-	float greater;
-	if (std::get<0>(tuple) > std::get<1>(tuple))
-		greater = std::get<0>(tuple);
-	else greater = std::get<1>(tuple);
-	if (greater < std::get<2>(tuple))
-		greater = std::get<2>(tuple);
-	return greater;
-}
+	float RigidBody::getGreater(std::tuple<float, float, float> tuple)
+	{
+		float greater;
+		if (std::get<0>(tuple) > std::get<1>(tuple))
+			greater = std::get<0>(tuple);
+		else greater = std::get<1>(tuple);
+		if (greater < std::get<2>(tuple))
+			greater = std::get<2>(tuple);
+		return greater;
+	}

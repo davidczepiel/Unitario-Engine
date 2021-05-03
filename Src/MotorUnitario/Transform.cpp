@@ -46,19 +46,19 @@ void Transform::awake(luabridge::LuaRef& data)
 	GraphicsEngine::getInstance()->addNode(_gameObject->getName(), parentName);
 
 	if (LUAFIELDEXIST(Coord)) {
-	luabridge::LuaRef lua_coord = data["Coord"];
-	_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
-	std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
+		luabridge::LuaRef lua_coord = data["Coord"];
+		_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+		std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
 	}
 
 	if (LUAFIELDEXIST(Rotation)) {
-	luabridge::LuaRef lua_coord = data["Rotation"];
-	_rotation = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+		luabridge::LuaRef lua_coord = data["Rotation"];
+		_rotation = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
 	}
 
 	if (LUAFIELDEXIST(Scale)) {
-	luabridge::LuaRef lua_coord = data["Scale"];
-	_scale = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+		luabridge::LuaRef lua_coord = data["Scale"];
+		_scale = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
 	}
 }
 
@@ -74,7 +74,7 @@ void Transform::setRotation(const Vector3& rotation)
 
 	RigidBodyComponent* rb = dynamic_cast<RigidBodyComponent*>(_gameObject->getComponent(ComponentId::Rigidbody));
 	if (rb != nullptr) {
-		rb->setRotation(_rotation);
+		rb->rotate(getForward());
 	}
 
 	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));

@@ -26,7 +26,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	float angularDamping = 0.99f;
 	float staticFriction = .5;
 	float dynamicFriction = .5;
-	float bounciness = .5 ;
+	float bounciness = .5;
 	float mass = 1;
 
 	if (LUAFIELDEXIST(Mass))
@@ -123,9 +123,16 @@ void RigidBodyComponent::setPosition(Vector3 pos)
 	_rb->setPosition(VEC3_TO_TUPLE(pos));
 }
 
-void RigidBodyComponent::setRotation(Vector3 rot)
+void RigidBodyComponent::rotate(Vector3 rot)
 {
 	if (!_rb->rotate(VEC3_TO_TUPLE(rot)))
+		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
+
+}
+
+void RigidBodyComponent::setRotation(float angle, Vector3 axis)
+{
+	if (!_rb->setRotation(angle, VEC3_TO_TUPLE(axis)))
 		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
 
 }

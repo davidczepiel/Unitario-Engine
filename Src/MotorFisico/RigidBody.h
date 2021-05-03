@@ -149,10 +149,18 @@ public:
 	bool setPosition(const std::tuple<float, float, float>& position);
 
 	/// <summary>
+	/// rotate the object by a vector
+	/// </summary>
+	/// <param name="position">Set of values that determine the rotation</param>
+	bool rotate(const std::tuple<float, float, float>& rotation);
+
+	/// <summary>
 	/// Sets the transform rotation to a specified one
 	/// </summary>
-	/// <param name="position">Set of values that determine the position</param>
-	bool rotate(const std::tuple<float, float, float>& rotation);
+	/// <param name="angle">angle in degrees to rotate</param>
+	/// <param name="axis">axis to rotate</param>
+	/// <returns></returns>
+	bool setRotation(float angle, const std::tuple<float, float, float>& axis);
 
 	/// <summary>
 	/// Sets the rigidbodys scale to a specified one

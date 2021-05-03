@@ -45,9 +45,17 @@ public:
 	void setPosition(Vector3 pos);
 
 	/// <summary>
+	/// Rotates the rigidbody
+	/// <param name="rot">the vector to rotate by</param>
+	/// </summary>
+	void rotate(Vector3 rot);
+
+	/// <summary>
 	/// Sets the rotation of the transform to a specified one
 	/// </summary>
-	void setRotation(Vector3 pos);
+	/// <param name="angle">the angle in radians to rotate</param>
+	/// <param name="axis">the axis to rotate</param>
+	void setRotation(float angle, Vector3 axis);
 
 	/// <summary>
 	/// Sets the scale of the transform to a specified one
