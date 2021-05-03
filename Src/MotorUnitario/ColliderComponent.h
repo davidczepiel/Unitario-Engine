@@ -64,6 +64,10 @@ protected:
 	/// <param name="id">Component ID</param>
 	ColliderComponent(int id);
 
+	void onEnable() override;
+
+	void onDisable() override;
+
 	Collider* _collider;
 };
 

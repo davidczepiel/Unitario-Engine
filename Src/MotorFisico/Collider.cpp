@@ -8,6 +8,18 @@
 
 #define GetPhysx() PhysxEngine::getPxInstance()->getScene()->getPhysics()
 
+
+void Collider::enable()
+{
+	_body->setActorFlag(physx::PxActorFlag::Enum::eDISABLE_SIMULATION, false);
+}
+
+
+void Collider::disable()
+{
+	_body->setActorFlag(physx::PxActorFlag::Enum::eDISABLE_SIMULATION, true);
+}
+
 void Collider::setPosition(const std::tuple<float, float, float>& position)
 {
 	_body->setGlobalPose(physx::PxTransform(TUPLE_TO_PHYSXVEC3(position)));

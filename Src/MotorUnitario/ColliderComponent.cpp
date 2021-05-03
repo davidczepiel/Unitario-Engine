@@ -9,6 +9,16 @@ ColliderComponent::ColliderComponent(int id): Component(id, nullptr), _collider(
 {
 }
 
+void ColliderComponent::onEnable()
+{
+	_collider->enable();
+}
+
+void ColliderComponent::onDisable()
+{
+	_collider->disable();
+}
+
 ColliderComponent::~ColliderComponent()
 {
 	delete _collider; _collider == nullptr;

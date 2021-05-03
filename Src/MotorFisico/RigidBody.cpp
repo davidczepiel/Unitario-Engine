@@ -89,6 +89,22 @@ RigidBody::~RigidBody()
 		_dynamicBody->release();
 }
 
+void RigidBody::enable()
+{
+	if (_isStatic)
+		_staticBody->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, false);
+	else
+		_dynamicBody->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, false);
+}
+
+void RigidBody::disable()
+{
+	if (_isStatic)
+		_staticBody->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, true);
+	else
+		_dynamicBody->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, true);
+}
+
 bool RigidBody::setStaticFriction(float f)
 {
 	if (!_isStatic) {

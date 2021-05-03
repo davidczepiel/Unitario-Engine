@@ -161,7 +161,7 @@ public:
 	///	String to light type converter required for lua.
 	/// </summary>
 	/// <returns>if it's visible or not</returns>
-	inline const Light::LightType convertLightType(std::string type);
+	const Light::LightType convertLightType(std::string type);
 	/// Sets the light position
 	/// </summary>
 	inline void setPosition(float x, float y, float z) { _light->setPosition(x, y, z); }

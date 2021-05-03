@@ -31,6 +31,10 @@ public:
 	/// </summary>
 	virtual ~Collider();
 
+	void enable();
+
+	void disable();
+
 	/// <summary>
 	/// Configures the collider component so that it collides with other elements of the world
 	/// </summary>
