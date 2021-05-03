@@ -8,7 +8,7 @@
 class Transform;
 class GameObject;
 
-class LightComponent: public Component
+class LightComponent : public Component
 {
 public:
 
@@ -81,7 +81,7 @@ public:
 	/// <param name="linear">: The linear factor in the attenuation formula: 1 means attenuate evenly over the distance.</param>
 	/// <param name="quadratic">: The quadratic factor in the attenuation formula: adds a curvature to the attenuation formula.</param>
 	inline void setAttenuation(float range, float constant, float linear, float quadratic) { _light->setAttenuation(range, constant, linear, quadratic); }
-	
+
 	/// <summary>
 	/// Returns light's attenuation range
 	/// </summary>
@@ -111,7 +111,7 @@ public:
 	/// </summary>
 	/// <param name="innerAngle">: Angle covered by the bright inner cone.</param>
 	/// <param name="outerAngle">: Angle covered by the outer cone.</param>
-	/// <param name="fallof">:  The rate of falloff between the inner and outer cones. 1.0 means a linear falloff, 
+	/// <param name="fallof">:  The rate of falloff between the inner and outer cones. 1.0 means a linear falloff,
 	///							less means slower falloff, higher means faster falloff.</param>
 	inline void setSpotlightRange(float innerAngle, float outerAngle, float falloff) { _light->setSpotlightRange(innerAngle, outerAngle, falloff); }
 
@@ -126,7 +126,7 @@ public:
 	/// </summary>
 	/// <returns>splotlight inner angle</returns>
 	inline const float getSpotlightInnerAngle() const { return _light->getSpotlightInnerAngle(); }
-	
+
 	/// <summary>
 	/// Only usefull if light's type is set to spotLight
 	/// </summary>
@@ -144,7 +144,7 @@ public:
 	/// </summary>
 	/// <returns>intensity of this light</returns>
 	inline const float getPowerScale() const { _light->getPowerScale(); }
-	
+
 	/// <summary>
 	/// Changes light visibility
 	/// </summary>
@@ -167,9 +167,18 @@ public:
 	inline void setPosition(float x, float y, float z) { _light->setPosition(x, y, z); }
 
 private:
+
+	/// <summary>
+	/// Redefined by child classes called when component is enabled
+	/// </summary>
+	void onEnable() override;
+
+	/// <summary>
+	/// Redefined by child classes called when component is disabled
+	/// </summary>
+	void onDisable() override;
+
 	Light* _light;
 };
-
-
 
 #endif LIGHT_COMPONENT_H

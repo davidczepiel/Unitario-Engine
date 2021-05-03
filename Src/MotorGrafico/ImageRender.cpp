@@ -4,10 +4,9 @@
 #include <OgreSceneManager.h>
 #include "GraphicsEngine.h"
 
-
-ImageRender::ImageRender(const std::string& name):_billboardSet(nullptr),_billboardSetNode(nullptr)
-{	
-	 Ogre::SceneManager* sM = GraphicsEngine::getInstance()->getSceneManager();
+ImageRender::ImageRender(const std::string& name) :_billboardSet(nullptr), _billboardSetNode(nullptr)
+{
+	Ogre::SceneManager* sM = GraphicsEngine::getInstance()->getSceneManager();
 	_billboardSetNode = sM->getSceneNode(name);
 	_billboardSet = sM->createBillboardSet(1);
 	_billboardSet->createBillboard(_billboardSetNode->getPosition());
@@ -20,7 +19,7 @@ ImageRender::~ImageRender()
 
 void ImageRender::setDefaultDimensions(float width, float height)
 {
-	_billboardSet->setDefaultDimensions(width, height); 
+	_billboardSet->setDefaultDimensions(width, height);
 }
 
 void ImageRender::setMaterialName(const std::string& name)
@@ -30,7 +29,7 @@ void ImageRender::setMaterialName(const std::string& name)
 
 void ImageRender::setVisible(bool visible)
 {
-	_billboardSetNode->setVisible(visible);
+	_billboardSet->setVisible(visible);
 }
 
 void ImageRender::setBillboardOrigin(BillboardOrigin type)

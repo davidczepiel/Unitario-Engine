@@ -33,10 +33,10 @@ void RenderObjectComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(RenderingDistance))
 		setRenderingDistance(GETLUAFIELD(RenderingDistance, float));
 
-	if (LUAFIELDEXIST(RotateAngle) && LUAFIELDEXIST(Rotate)) 
+	if (LUAFIELDEXIST(RotateAngle) && LUAFIELDEXIST(Rotate))
 	{
 		float x, y, z;
-		x = y = z=0;
+		x = y = z = 0;
 		if (!data["Rotate"]["X"].isNil()) x = data["Rotate"]["X"].cast<float>();
 		if (!data["Rotate"]["Y"].isNil()) y = data["Rotate"]["Y"].cast<float>();
 		if (!data["Rotate"]["Z"].isNil()) z = data["Rotate"]["Z"].cast<float>();
@@ -63,7 +63,17 @@ void RenderObjectComponent::update()
 	Vector3 dir = _transform->getRotation();
 	Quaternion q = _transform->ToQuaternion(dir.getX(), dir.getY(), dir.getZ());
 	_renderObject->setRotation(q.x, q.y, q.z, q.w);
-	
+
 	Vector3 scale = _transform->getScale();
 	_renderObject->setScale(scale.getX(), scale.getY(), scale.getZ());
+}
+
+void RenderObjectComponent::onEnable()
+{
+	_renderObject->setVisible(true);
+}
+
+void RenderObjectComponent::onDisable()
+{
+	_renderObject->setVisible(false);
 }

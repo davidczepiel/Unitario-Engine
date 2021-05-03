@@ -12,7 +12,7 @@ class Transform;
 class RenderObjectComponent : public Component {
 public:
 	RenderObjectComponent();
-	
+
 	~RenderObjectComponent();
 
 	/// <summary>
@@ -81,7 +81,7 @@ public:
 	inline void setVisible(bool visible) { _renderObject->setVisible(visible); }
 
 	/// <summary>
-	/// Sets wheter or not this object will cast shadows 
+	/// Sets wheter or not this object will cast shadows
 	/// </summary>
 	///<param name="castShadows">: cast shadows</param>
 	inline void setCastShadows(bool castShadows) { _renderObject->setCastShadows(castShadows); }
@@ -93,10 +93,19 @@ public:
 	inline void setRenderingDistance(float distance) { _renderObject->setRenderingDistance(distance); }
 protected:
 private:
+	/// <summary>
+	/// Redefined by child classes called when component is enabled
+	/// </summary>
+	void onEnable() override;
+
+	/// <summary>
+	/// Redefined by child classes called when component is disabled
+	/// </summary>
+	void onDisable() override;
+
 	RenderObject* _renderObject;
 	Transform* _transform;
 	std::string _meshName;
 };
-
 
 #endif //!RENDEROBJECT_COMPONENT_H

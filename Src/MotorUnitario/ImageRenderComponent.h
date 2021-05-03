@@ -88,9 +88,18 @@ public:
 	/// <param name="y">y axis</param>
 	/// <param name="z">z axis</param>
 	/// <param name="angle">Angle to rotate</param>
-	inline void setRotation(float x, float y, float z, float angle){_imageRender->setRotation(x, y, z, angle);}
+	inline void setRotation(float x, float y, float z, float angle) { _imageRender->setRotation(x, y, z, angle); }
 
 private:
+	/// <summary>
+	/// Redefined by child classes called when component is enabled
+	/// </summary>
+	void onEnable() override;
+
+	/// <summary>
+	/// Redefined by child classes called when component is disabled
+	/// </summary>
+	void onDisable() override;
 	ImageRender* _imageRender;
 	Transform* _tr;
 };

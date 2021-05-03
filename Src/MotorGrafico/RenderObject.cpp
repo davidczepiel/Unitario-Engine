@@ -58,7 +58,7 @@ void RenderObject::lookAt(float x, float y, float z)
 
 void RenderObject::setVisible(bool visible)
 {
-	_objectNode->setVisible(visible);
+	_objectEntity->setVisible(visible);
 }
 
 void RenderObject::setCastShadows(bool castShadows)

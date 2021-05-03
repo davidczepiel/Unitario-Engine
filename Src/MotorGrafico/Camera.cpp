@@ -43,7 +43,7 @@ void Camera::lookAt(float x, float y, float z)
 
 void Camera::pitchDegrees(float degrees, bool world)
 {
-	if(world)
+	if (world)
 		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)), Ogre::Node::TS_WORLD);
 	else
 		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)));
@@ -182,5 +182,3 @@ void Camera::setViewportVisibility(bool visible, float x, float y, float w, floa
 		}
 	}
 }
-
-
