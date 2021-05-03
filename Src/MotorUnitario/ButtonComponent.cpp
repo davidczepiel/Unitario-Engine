@@ -85,3 +85,13 @@ void ButtonComponent::hideShowButton(bool show)
 	else
 		_button->hideOverlay();
 }
+
+void ButtonComponent::onEnable()
+{
+	hideShowButton(true);
+}
+
+void ButtonComponent::onDisable()
+{
+	hideShowButton(false);
+}

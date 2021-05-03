@@ -181,6 +181,9 @@ public:
 	const Vector3& getOrientation();
 	
 private:
+	void onEnable() override;
+	void onDisable() override;
+
 	Camera* _camera;
 	Transform* _tr;
 };

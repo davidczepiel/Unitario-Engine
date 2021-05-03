@@ -78,6 +78,7 @@ public:
 	/// </summary>
 	/// <param name="hoverMaterial">: material name in .material script used to hover state button </param>
 	inline void setHoverName(std::string const& hoverMaterial) { _hoverMaterial = hoverMaterial; }
+
 	/// <summary>
 	/// Sets the press name material
 	/// </summary>
@@ -85,6 +86,9 @@ public:
 	inline void setPressName(std::string const& pressMaterial) { _pressMaterial = pressMaterial; }
 
 private:
+	void onEnable() override;
+	void onDisable() override;
+
 	OverlayElement* _button;
 	CallBackOnClick* _callback;
 	void* _callbackParam;

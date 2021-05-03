@@ -196,3 +196,13 @@ const Vector3& CameraComponent::getOrientation()
 	std::tuple<float, float, float> rot = _camera->getOrientation();
 	return Vector3(std::get<0>(rot), std::get<1>(rot), std::get<2>(rot));
 }
+
+void CameraComponent::onEnable()
+{
+	_camera->setViewportVisibility(true);
+}
+
+void CameraComponent::onDisable()
+{
+	_camera->setViewportVisibility(false);
+}
