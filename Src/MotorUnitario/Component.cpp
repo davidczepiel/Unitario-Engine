@@ -20,3 +20,11 @@ void Component::setGameObject(GameObject * gameObject)
 	}
 	_gameObject = gameObject;
 }
+
+void Component::setEnabled(bool newState)
+{
+	_enabled = newState;
+
+	if (_enabled) onEnable();
+	else onDisable();
+}

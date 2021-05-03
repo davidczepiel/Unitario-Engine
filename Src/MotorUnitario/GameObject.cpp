@@ -149,6 +149,18 @@ Component* GameObject::getComponent(unsigned int componentId) const
 	return _components[componentId];
 }
 
+inline void GameObject::setEnabled(bool enable)
+{
+	_enable = enable;
+	for (auto& comp : _activeComponents)
+		if (comp.second->getEnabled() != _enable)
+			comp.second->setEnabled(_enable);
+
+	for (GameObject* go : _children)
+		if (go->getEnabled() != _enable)
+			go->setEnabled(_enable);
+}
+
 void GameObject::insertInOrder(unsigned int componentId, Component* component)
 {
 	auto begin = _activeComponents.begin();

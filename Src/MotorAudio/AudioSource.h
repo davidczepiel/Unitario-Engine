@@ -44,7 +44,6 @@ public:
 	/// </summary>
 	/// <param name="id">Id audio</param>
 	void stop(int id);
-
 	/// <summary>
 	/// Sets the audio loop
 	/// </summary>
@@ -95,7 +94,15 @@ public:
 	/// Sets the current velocity of the entity.
 	/// </summary>
 	void setVelocity(float x, float y, float z);
-
+	/// <summary>
+	/// Pauses all channels, called when component is disabled
+	/// </summary>
+	void pauseAllChannels();
+	/// <summary>
+	/// Resumes all channels, called when component is enabled
+	/// </summary>
+	void resumeChannels();
+	
 private:
 	std::vector<FMOD::Sound*> _sound;
 	std::vector<FMOD::Channel*> _channel;

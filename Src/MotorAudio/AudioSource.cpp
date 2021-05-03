@@ -141,3 +141,13 @@ void AudioSource::setVelocity(float x, float y, float z)
 {
 	*_velocity = { x,y,z };
 }
+
+void AudioSource::resumeChannels()
+{
+	
+}
+
+void AudioSource::pauseAllChannels()
+{
+
+}

@@ -103,9 +103,7 @@ public:
 		return _enable;
 	}
 
-	inline void setEnabled(bool enable) {
-		_enable = enable;
-	}
+	void setEnabled(bool enable);
 
 	inline const bool getPersist() const {
 		return _persist;

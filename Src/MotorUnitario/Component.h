@@ -94,7 +94,7 @@ public:
 	/// Set the component to a new state (true=enabled, false=disabled)
 	/// </summary>
 	/// <param name="newState">New component's state (true=enabled/false=disabled)</param>
-	inline void setEnabled(bool newState) { _enabled = newState; }
+	void setEnabled(bool newState);
 
 	/// <summary>
 	/// Returns true if the component is enabled or false if it is not enabled
@@ -102,9 +102,17 @@ public:
 	/// <returns></returns>
 	inline bool getEnabled() { return _enabled; }
 
-
-
 protected:
+
+	/// <summary>
+	/// Redefined by child classes called when component is enabled
+	/// </summary>
+	virtual void onEnable(){}
+
+	/// <summary>
+	/// Redefined by child classes called when component is disabled
+	/// </summary>
+	virtual void onDisable(){}
 
 	GameObject* _gameObject;
 

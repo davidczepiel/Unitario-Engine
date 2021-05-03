@@ -101,6 +101,9 @@ public:
 	void set3DMinMaxDistanceChannel(float min, float max, int id);
 
 private:
+	void onEnable() override;
+	void onDisable() override;
+
 	AudioSource* _audioSource;
 	Transform* _tr;
 	// Sound routes

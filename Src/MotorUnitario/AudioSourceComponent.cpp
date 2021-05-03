@@ -103,3 +103,13 @@ void AudioSourceComponent::set3DMinMaxDistanceChannel(float min, float max, int 
 {
 	_audioSource->set3DMinMaxDistance(min, max, id);
 }
+
+void AudioSourceComponent::onEnable()
+{
+	_audioSource->resumeChannels();
+}
+
+void AudioSourceComponent::onDisable()
+{
+	_audioSource->pauseAllChannels();
+}
