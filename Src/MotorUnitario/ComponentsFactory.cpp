@@ -3,14 +3,14 @@
 #include "Exceptions.h"
 #include "Component.h"
 
-std::unique_ptr<ComponentsFactory> ComponentsFactory::instance = nullptr;
+ComponentsFactory* ComponentsFactory::instance = nullptr;
 
 ComponentsFactory* ComponentsFactory::getInstance()
 {
-	if (instance.get() == nullptr) {
-		instance.reset(new ComponentsFactory());
+	if (instance == nullptr) {
+		instance = new ComponentsFactory();
 	}
-	return instance.get();
+	return instance;
 }
 
 ComponentsFactory::~ComponentsFactory()
@@ -19,6 +19,7 @@ ComponentsFactory::~ComponentsFactory()
 		delete it.second; 
 	}
 	_componentTranslator.clear();
+	delete instance;
 	Logger::getInstance()->log("Destrucción");
 }
 

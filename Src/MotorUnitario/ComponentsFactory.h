@@ -44,7 +44,7 @@ private:
 
 	std::map<std::string, ComponentFactory*> _componentTranslator;
 
-	static std::unique_ptr<ComponentsFactory> instance;
+	static ComponentsFactory* instance;
 };
 #endif // !COMPONENTSFACTORY_H
 
