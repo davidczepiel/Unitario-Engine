@@ -19,7 +19,6 @@ ComponentsFactory::~ComponentsFactory()
 		delete it.second; 
 	}
 	_componentTranslator.clear();
-	delete instance;
 	Logger::getInstance()->log("Destrucción");
 }
 
