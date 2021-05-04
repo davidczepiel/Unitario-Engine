@@ -9,6 +9,7 @@
 #include "EngineTime.h"
 #include "LuaParser.h"
 #include "Logger.h"
+#include "ComponentsFactory.h"
 
 #include "Factories.h"
 
@@ -28,6 +29,7 @@ void Engine::processEvents()
 
 Engine::~Engine()
 {
+	ComponentsFactory::getInstance()->~ComponentsFactory();
 }
 
 Engine* Engine::getInstance()
