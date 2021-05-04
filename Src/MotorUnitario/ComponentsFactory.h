@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <memory>
+#include "Logger.h"
 
 class ComponentFactory;
 class Component;
@@ -38,7 +39,7 @@ public:
 private:
 
 	ComponentsFactory() : _componentTranslator() {
-
+		Logger::getInstance()->log("Creacion");
 	}
 
 	std::map<std::string, ComponentFactory*> _componentTranslator;

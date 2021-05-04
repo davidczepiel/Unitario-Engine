@@ -19,6 +19,7 @@ ComponentsFactory::~ComponentsFactory()
 		delete it.second; 
 	}
 	_componentTranslator.clear();
+	Logger::getInstance()->log("Destrucción");
 }
 
 void ComponentsFactory::add(const std::string& name, ComponentFactory* factory)
