@@ -35,8 +35,8 @@ void ButtonComponent::awake(luabridge::LuaRef& data)
 		_active = data["Active"].cast<bool>();
 	if (LUAFIELDEXIST(ContainerName))
 		_containerName = data["ContainerName"].cast<std::string>();
-	if (LUAFIELDEXIST(ContainerName))
-		_defaultMaterial = data["ContainerName"].cast<std::string>();
+	if (LUAFIELDEXIST(DefaultMaterial))
+		_defaultMaterial = data["DefaultMaterial"].cast<std::string>();
 	if (LUAFIELDEXIST(HoverMaterial))
 		_hoverMaterial = data["HoverMaterial"].cast<std::string>();
 	if (LUAFIELDEXIST(PressMaterial))
