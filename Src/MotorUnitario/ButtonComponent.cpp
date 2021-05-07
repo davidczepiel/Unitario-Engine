@@ -29,13 +29,18 @@ ButtonComponent::~ButtonComponent()
 
 void ButtonComponent::awake(luabridge::LuaRef& data)
 {
-	_overlayName = data["OverLayName"].cast<std::string>();
-	_button = new OverlayElement(_overlayName);
-	_active = data["Active"].cast<bool>();
-	_containerName = data["ContainerName"].cast<std::string>();
-	_defaultMaterial = data["ContainerName"].cast<std::string>();
-	_hoverMaterial = data["HoverMaterial"].cast<std::string>();
-	_pressMaterial = data["PressMaterial"].cast<std::string>();
+	if (LUAFIELDEXIST(OverLayName))
+		_overlayName = data["OverLayName"].cast<std::string>();
+	if (LUAFIELDEXIST(Active))
+		_active = data["Active"].cast<bool>();
+	if (LUAFIELDEXIST(ContainerName))
+		_containerName = data["ContainerName"].cast<std::string>();
+	if (LUAFIELDEXIST(ContainerName))
+		_defaultMaterial = data["ContainerName"].cast<std::string>();
+	if (LUAFIELDEXIST(HoverMaterial))
+		_hoverMaterial = data["HoverMaterial"].cast<std::string>();
+	if (LUAFIELDEXIST(PressMaterial))
+		_pressMaterial = data["PressMaterial"].cast<std::string>();
 
 	std::cout << "ButtonComponent loaded" << std::endl;
 }

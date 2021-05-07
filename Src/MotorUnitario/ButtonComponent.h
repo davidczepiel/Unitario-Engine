@@ -85,6 +85,12 @@ public:
 	/// <param name="pressMaterial">: material name in .material script used to press state button </param>
 	inline void setPressName(std::string const& pressMaterial) { _pressMaterial = pressMaterial; }
 
+	/// <summary>
+	/// Sets the press name material
+	/// </summary>
+	/// <param name="containerName">: container name in .overlay script</param>
+	inline void setContainerName(std::string const& containerName) { _containerName = containerName; }
+
 private:
 	void onEnable() override;
 	void onDisable() override;
