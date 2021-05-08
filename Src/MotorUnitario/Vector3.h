@@ -100,6 +100,13 @@ public:
 	/// <returns></returns>
 	inline bool operator==(const Vector3& other) const { return _x == other._x && _y == other._y && _z == other._z; }
 
+	/// <summary>
+	/// Returns if two vectors are equal
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	inline bool operator!=(const Vector3& other) const { return _x != other._x || _y != other._y || _z != other._z; }
+
 private:	
 	
 	double _x, _y, _z;
