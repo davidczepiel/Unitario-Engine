@@ -1,6 +1,6 @@
 font ariaFont {
     type truetype
     source ARIAL.ttf
-    size 24
+    size 40
     resolution 72
 }

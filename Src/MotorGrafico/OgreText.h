@@ -1,31 +1,40 @@
-#include "OgreTextAreaOverlayElement.h"
-#include "OgreStringConverter.h"
-#include <OgreOverlayManager.h>
-
-using namespace Ogre;
-
 #ifndef __OgreText_H__
 #define __OgreText_H__
+
+#include <string>
+
+namespace Ogre {
+    class OverlayManager;
+    class OverlayContainer;
+    class TextAreaOverlayElement;
+}
 
 class OgreText
 {
 public:
-    OgreText();
+    OgreText(std::string overlayName, std::string textAreaName);
     ~OgreText();
 
-    void setText(char* szString);
-    void setText(String szString);
+    /// <summary>
+    /// Sets the text content
+    /// </summary>
+    /// <param name="szString"></param>
+    void setText(std::string szString);
+
+    /// <summary>
+    /// Sets the text position
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     void setPos(float x, float y);
+
+    /// <summary>
+    /// Sets the text colour in RGBA
+    /// </summary>
     void setCol(float R, float G, float B, float I);
 private:
-    OverlayManager* olm;
-    OverlayContainer* panel;
-    Overlay* overlay;
-    TextAreaOverlayElement* textArea;
-    static int init;
-    String szElement;
+    Ogre::OverlayManager* _overlayManager;
+    Ogre::TextAreaOverlayElement* _textArea;
 };
-
-int OgreText::init = 0;
 
 #endif

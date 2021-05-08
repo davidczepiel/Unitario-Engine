@@ -4,9 +4,8 @@
 #include "MotorGrafico/OverlayElement.h"
 #include "includeLUA.h"
 
-
 OverlayComponent::OverlayComponent() : Component(ComponentId::OverlayComponent),
-_overlayElement(nullptr)
+_overlayElement(nullptr), _overlayName("")
 {
 }
 

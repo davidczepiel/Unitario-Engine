@@ -9,15 +9,14 @@ overlay MyOverlays/ANewOverlay
         top 0
         width 0.5
         height 0.1
-        material Prueba
-        // Another panel nested in this one
-        overlay_element MyOverlayElements/AnotherPanel Panel
+        material PruebaOverlay
+
+        overlay_element MyOverlayElements/PruebaTexto TextArea
         {
-             left 0
-             top 0
-             width 0.1
-             height 0.1
-             material PruebaOverlay
+            caption Hello world
+            font_name ariaFont
+            colour	1 1 1
+            alignment center
         }
     }
 }
