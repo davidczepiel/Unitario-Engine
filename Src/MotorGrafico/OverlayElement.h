@@ -12,7 +12,7 @@ public:
 	/// Class constructor
 	/// </summary>
 	/// <param name="overlayName"> Overlay name (in .overlay)</param>
-	OverlayElement(std::string const& overlayName);
+	OverlayElement();
 	~OverlayElement();
 
 	/// <summary>
@@ -42,12 +42,12 @@ public:
 	/// <param name="containerName"> Name of the overlays child </param>
 	std::pair<int, int> getSize(std::string const& containerName);
 
-protected:
-	Ogre::Overlay* _overlay;
-private:
 	/// <summary>
 	/// private method to load an overlay from a .overlay file
 	/// </summary>
 	/// <param name="overlayName"></param>
 	void loadOverlay(std::string const& overlayName);
+protected:
+	Ogre::Overlay* _overlay;
+private:
 };

@@ -28,6 +28,9 @@
     <ClCompile Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\MotorGrafico\OgreText.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MotorGrafico\Animator.h">
@@ -64,6 +67,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\MotorGrafico\OgreText.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

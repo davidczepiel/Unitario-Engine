@@ -7,9 +7,8 @@
 #include <OgreSceneManager.h>
 #include <SDL_video.h>
 
-OverlayElement::OverlayElement(std::string const& overlayName) : _overlay(nullptr)
+OverlayElement::OverlayElement() : _overlay(nullptr)
 {
-	loadOverlay(overlayName);
 }
 
 OverlayElement::~OverlayElement()

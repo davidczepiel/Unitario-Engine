@@ -47,7 +47,7 @@ void ButtonComponent::awake(luabridge::LuaRef& data)
 
 void ButtonComponent::start()
 {
-	_button = new OverlayElement(_overlayName);
+	_button = new OverlayElement();
 }
 
 void ButtonComponent::update()

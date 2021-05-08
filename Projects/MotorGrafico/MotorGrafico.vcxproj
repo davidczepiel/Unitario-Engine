@@ -204,6 +204,7 @@
     <ClCompile Include="..\..\Src\MotorGrafico\GraphicsEngine.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Camera.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\Light.cpp" />
+    <ClCompile Include="..\..\Src\MotorGrafico\OgreText.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\OverlayElement.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\RenderObject.cpp" />
     <ClCompile Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="..\..\Src\MotorGrafico\ImageRender.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\GraphicsEngine.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\Light.h" />
+    <ClInclude Include="..\..\Src\MotorGrafico\OgreText.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\OverlayElement.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\RenderObject.h" />
     <ClInclude Include="..\..\Src\MotorGrafico\RTSSDefaultTechniqueListener.h" />
