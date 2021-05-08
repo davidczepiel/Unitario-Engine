@@ -82,6 +82,23 @@ void BoxColliderComponent::setScale(float width, float heigh, float depth)
 	static_cast<BoxCollider*>(_collider)->setScale(width, heigh, depth);
 }
 
+float BoxColliderComponent::getWidth()
+{
+	return static_cast<BoxCollider*>(_collider)->getWidth();
+}
+
+float BoxColliderComponent::getHeight()
+{
+	return static_cast<BoxCollider*>(_collider)->getHeight();
+
+}
+
+float BoxColliderComponent::getDepth()
+{
+	return static_cast<BoxCollider*>(_collider)->getDepth();
+
+}
+
 ////////////////////////////////////////////
 
 SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider)
@@ -115,6 +132,12 @@ void SphereColliderComponent::awake(luabridge::LuaRef& data)
 void SphereColliderComponent::setScale(float radius)
 {
 	static_cast<SphereCollider*>(_collider)->setScale(radius);
+}
+
+float SphereColliderComponent::getRadius()
+{
+	return static_cast<SphereCollider*>(_collider)->getRadius();
+
 }
 
 /////////////////////////////////////////////////////////
@@ -152,6 +175,18 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 void CapsuleColliderComponent::setScale(float radius, float length)
 {
 	static_cast<CapsuleCollider*>(_collider)->setScale(radius, length);
+}
+
+float CapsuleColliderComponent::getRadius()
+{
+	return static_cast<CapsuleCollider*>(_collider)->getRadius();
+
+}
+
+float CapsuleColliderComponent::getHeight()
+{
+	return static_cast<CapsuleCollider*>(_collider)->getHeight();
+
 }
 
 void ColliderComponent::gameObjectsCollision(GameObject* thisGO, GameObject* otherGO)

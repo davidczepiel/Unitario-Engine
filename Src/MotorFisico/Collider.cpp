@@ -33,8 +33,8 @@ void Collider::rotate(const std::tuple<float, float, float>& rotation)
 void Collider::setMaterial(float staticFriction, float dynamicFriction, float restitution)
 {
 	int buffsize = 1;
-	physx::PxMaterial** buffer = new physx::PxMaterial*[buffsize];
-	
+	physx::PxMaterial** buffer = new physx::PxMaterial * [buffsize];
+
 	_mShape->getMaterials(buffer, buffsize);
 
 	buffer[0]->setStaticFriction(staticFriction);
@@ -71,7 +71,7 @@ void Collider::initParams(bool isTrigger)
 
 Collider::~Collider()
 {
-	_mShape->release(); 
+	_mShape->release();
 	_body->release();
 }
 
@@ -108,6 +108,23 @@ void BoxCollider::setScale(float width, float heigh, float depth) {
 	_mShape->setGeometry(physx::PxBoxGeometry(width / 2, heigh / 2, depth / 2));
 }
 
+float BoxCollider::getWidth()
+{
+	return _mShape->getGeometry().box().halfExtents.x * 2;
+}
+
+float BoxCollider::getHeight()
+{
+	return _mShape->getGeometry().box().halfExtents.y * 2;
+
+}
+
+float BoxCollider::getDepth()
+{
+	return _mShape->getGeometry().box().halfExtents.y * 2;
+
+}
+
 ///////////////////////////////////////////////
 
 SphereCollider::SphereCollider(float radius, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* callback, ContactCallback* triggerCallback,
@@ -124,6 +141,11 @@ void SphereCollider::setScale(float r) {
 	_mShape->setGeometry(physx::PxSphereGeometry(r));
 }
 
+float SphereCollider::getRadius()
+{
+	return _mShape->getGeometry().sphere().radius;
+}
+
 /////////////////////////////////////////////////
 
 CapsuleCollider::CapsuleCollider(float radius, float length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
@@ -138,4 +160,14 @@ CapsuleCollider::CapsuleCollider(float radius, float length, bool isTrigger, Gam
 
 void CapsuleCollider::setScale(float radius, float length) {
 	_mShape->setGeometry(physx::PxCapsuleGeometry(radius, length / 2));
+}
+
+float CapsuleCollider::getRadius()
+{
+	return _mShape->getGeometry().capsule().radius;
+}
+
+float CapsuleCollider::getHeight()
+{
+	return _mShape->getGeometry().capsule().halfHeight * 2;
 }

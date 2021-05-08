@@ -49,7 +49,7 @@ public:
 	/// Get the GameObject owner of the component owning thre collider
 	/// </summary>
 	/// <returns>A pointer to the GameObject owner of the component owning thre collider</returns>
-	inline GameObject* getGameObject() const override{ return _gameObject; }
+	inline GameObject* getGameObject() const override { return _gameObject; }
 
 	/// <summary>
 	/// Set the pointer to the GameObject used on callbacks
@@ -111,7 +111,7 @@ protected:
 	ContactCallback* _contCallback;
 	ContactCallback* _triggerCallback;
 	physx::PxRigidDynamic* _body;
-	
+
 	bool _isTrigger;
 };
 
@@ -146,6 +146,25 @@ public:
 	/// <param name="y">New height</param>
 	/// <param name="z">New depth</param>
 	void setScale(float x, float y, float z);
+
+	/// <summary>
+	/// Gets the width of the box
+	/// </summary>
+	/// <returns>The width of the box</returns>
+	float getWidth();
+
+	/// <summary>
+	/// Gets the height of the box
+	/// </summary>
+	/// <returns>The height of the box</returns>
+	float getHeight();
+
+	/// <summary>
+	/// Gets the depth of the box
+	/// </summary>
+	/// <returns>The depth of the box</returns>
+	float getDepth();
+
 };
 
 class SphereCollider : public Collider {
@@ -175,6 +194,12 @@ public:
 	/// </summary>
 	/// <param name="r">New new radius</param>
 	void setScale(float r);
+
+	/// <summary>
+	/// Gets the radius of the sphere
+	/// </summary>
+	/// <returns>The radius of the sphere</returns>
+	float getRadius();
 };
 
 class CapsuleCollider : public Collider {
@@ -206,6 +231,18 @@ public:
 	/// <param name="r">New radius</param>
 	/// <param name="l">New length</param>
 	void setScale(float r, float l);
+
+	/// <summary>
+	/// Gets the radius of the capsule
+	/// </summary>
+	/// <returns>The radius of the capsule</returns>
+	float getRadius();
+
+	/// <summary>
+	/// Gets the height of the capsule
+	/// </summary>
+	/// <returns>The height of the capsule</returns>
+	float getHeight();
 };
 
 #endif //!COLLIDER_H
