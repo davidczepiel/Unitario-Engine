@@ -6,6 +6,8 @@
 #include "KeyboardInput.h"
 #include "includeLUA.h"
 
+#define TUPLETOVECTOR3(tuple) Vector3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
+
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
 	/*setProjection(data["Projection"].cast<bool>());
@@ -91,10 +93,27 @@ void CameraComponent::start()
 
 void CameraComponent::update()
 {
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S)) {
+		_camera->pitchDegrees(-1, true);
+	}
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W)) {
+		_camera->pitchDegrees(1, true);
+	}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A)) {
+		_camera->yawDegrees(-1, true);
+	}
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D)) {
+		_camera->yawDegrees(1, true);
+	}
+
 	float x = static_cast<float>(_tr->getPosition().getX());
 	float y = static_cast<float>(_tr->getPosition().getY());
 	float z = static_cast<float>(_tr->getPosition().getZ());
+
 	_camera->setPosition(x, y, z);
+
+	Vector3 orientation = TUPLETOVECTOR3(_camera->getOrientation());
+	std::cout << "{ X: " << orientation.getX() << "; Y: " << orientation.getY() << " ; Z: " << orientation.getZ() << " }\n";
 }
 
 void CameraComponent::lateUpdate()

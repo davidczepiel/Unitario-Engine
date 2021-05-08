@@ -17,19 +17,18 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, const std::string& g
 	initParams(position, density, isKinematic, linearDamping, angularDamping);
 	physx::PxSphereGeometry aux(radious);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
-	physx::PxShape* e = _physx->createShape(aux, *mat);
-	setFlags(e);
+	_shape = _physx->createShape(aux, *mat);
+	setFlags(_shape);
 	mat->release();
 	if (_isStatic)
 	{
-		_staticBody->attachShape(*e);
+		_staticBody->attachShape(*_shape);
 		_scene->addActor(*_staticBody);
 	}
 	else {
-		_dynamicBody->attachShape(*e);
+		_dynamicBody->attachShape(*_shape);
 		_scene->addActor(*_dynamicBody);
 	}
-	e->release();
 }
 
 RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position,
@@ -41,19 +40,18 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
 	physx::PxBoxGeometry aux(width / 2, height / 2, depth / 2);
-	physx::PxShape* e = _physx->createShape(aux, *mat);
-	setFlags(e);
+	_shape = _physx->createShape(aux, *mat);
+	setFlags(_shape);
 	mat->release();
 	if (_isStatic)
 	{
-		_staticBody->attachShape(*e);
+		_staticBody->attachShape(*_shape);
 		_scene->addActor(*_staticBody);
 	}
 	else {
-		_dynamicBody->attachShape(*e);
+		_dynamicBody->attachShape(*_shape);
 		_scene->addActor(*_dynamicBody);
 	}
-	e->release();
 }
 
 RigidBody::RigidBody(float radious, float height, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* collisionCallback, bool isStatic, const std::tuple<float, float, float>& position, bool isKinematic,
@@ -64,25 +62,25 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, const 
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
 	physx::PxCapsuleGeometry aux(radious, height / 2);
-	physx::PxShape* e = _physx->createShape(aux, *mat);
-	setFlags(e);
+	_shape = _physx->createShape(aux, *mat);
+	setFlags(_shape);
 	mat->release();
 	if (_isStatic)
 	{
-		_staticBody->attachShape(*e);
+		_staticBody->attachShape(*_shape);
 		_staticBody->setName(gameObjectName.c_str());
 		_scene->addActor(*_staticBody);
 	}
 	else {
-		_dynamicBody->attachShape(*e);
+		_dynamicBody->attachShape(*_shape);
 		_dynamicBody->setName(gameObjectName.c_str());
 		_scene->addActor(*_dynamicBody);
 	}
-	e->release();
 }
 
 RigidBody::~RigidBody()
 {
+	_shape->release();
 	if (_isStatic)
 		_staticBody->release();
 	else
@@ -331,32 +329,27 @@ bool RigidBody::setRotation(float angle, const std::tuple<float, float, float>& 
 	bool RigidBody::setScale(const std::tuple<float, float, float>&scale)
 	{
 		if (!_isStatic) {
-			int nbShapes = _dynamicBody->getNbShapes();
-			physx::PxShape** shapes = new physx::PxShape * [nbShapes];
-			_dynamicBody->getShapes(shapes, nbShapes);
-			for (int i = 0; i < nbShapes; i++) {
-				if (shapes[i]->getGeometryType() == physx::PxGeometryType::eBOX) {
-					physx::PxVec3 boxScale = shapes[i]->getGeometry().box().halfExtents;
-					physx::PxVec3 newScale = TUPLE_TO_PHYSXVEC3(scale);
-					boxScale.x *= newScale.x;
-					boxScale.y *= newScale.y;
-					boxScale.z *= newScale.z;
 
-					shapes[i]->setGeometry(physx::PxBoxGeometry(boxScale));
-				}
-				else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eSPHERE) {
+			if (_shape->getGeometryType() == physx::PxGeometryType::eBOX) {
+				physx::PxVec3 boxScale = _shape->getGeometry().box().halfExtents;
+				physx::PxVec3 newScale = TUPLE_TO_PHYSXVEC3(scale);
+				boxScale.x *= newScale.x;
+				boxScale.y *= newScale.y;
+				boxScale.z *= newScale.z;
 
-					float sphereScale = shapes[i]->getGeometry().sphere().radius;
-					shapes[i]->setGeometry(physx::PxSphereGeometry(getGreater(scale) * sphereScale));
-				}
-				else if (shapes[i]->getGeometryType() == physx::PxGeometryType::eCAPSULE)
-				{
-					float capsuleRadious = shapes[i]->getGeometry().capsule().radius;
-					float capsuleHalfHeight = shapes[i]->getGeometry().capsule().halfHeight;
-					float greater = getGreater(scale);
-					shapes[i]->setGeometry(physx::PxCapsuleGeometry(capsuleRadious * greater, capsuleHalfHeight * greater));
+				_shape->setGeometry(physx::PxBoxGeometry(boxScale));
+			}
+			else if (_shape->getGeometryType() == physx::PxGeometryType::eSPHERE) {
 
-				}
+				float sphereScale = _shape->getGeometry().sphere().radius;
+				_shape->setGeometry(physx::PxSphereGeometry(getGreater(scale) * sphereScale));
+			}
+			else if (_shape->getGeometryType() == physx::PxGeometryType::eCAPSULE)
+			{
+				float capsuleRadious = _shape->getGeometry().capsule().radius;
+				float capsuleHalfHeight = _shape->getGeometry().capsule().halfHeight;
+				float greater = getGreater(scale);
+				_shape->setGeometry(physx::PxCapsuleGeometry(capsuleRadious * greater, capsuleHalfHeight * greater));
 
 			}
 			return true;
@@ -415,22 +408,16 @@ bool RigidBody::setRotation(float angle, const std::tuple<float, float, float>& 
 	std::list<physx::PxMaterial*> RigidBody::getAllMaterials()
 	{
 		std::list<physx::PxMaterial*> list = std::list<physx::PxMaterial*>();
-		int nbShapes = _dynamicBody->getNbShapes();
-		physx::PxShape** shapes = new physx::PxShape * [nbShapes];
-		_dynamicBody->getShapes(shapes, nbShapes);
-		for (int i = 0; i < nbShapes; i++)
-		{
-			int nbMaterials = shapes[i]->getNbMaterials();
-			physx::PxMaterial** auxMaterials = new physx::PxMaterial * [nbMaterials];
-			shapes[i]->getMaterials(auxMaterials, nbMaterials);
-			for (int j = 0; j < nbMaterials; j++)
-			{
-				list.push_back(auxMaterials[i]);
-			}
-			delete[] auxMaterials;
-		}
 
-		delete[] shapes;
+		int nbMaterials = _shape->getNbMaterials();
+		physx::PxMaterial** auxMaterials = new physx::PxMaterial * [nbMaterials];
+		_shape->getMaterials(auxMaterials, nbMaterials);
+		for (int j = 0; j < nbMaterials; j++)
+		{
+			list.push_back(auxMaterials[j]);
+		}
+		delete[] auxMaterials;
+
 		return list;
 	}
 

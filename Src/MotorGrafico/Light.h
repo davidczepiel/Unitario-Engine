@@ -166,11 +166,6 @@ public:
 	const bool getVisible() const;
 
 	/// <summary>
-	/// Sets the position of the light
-	/// </summary>
-	void setPosition(float x, float y, float z);
-
-	/// <summary>
 	/// Sets the direction of the light
 	/// </summary>
 	void setDirection(float x, float y, float z);

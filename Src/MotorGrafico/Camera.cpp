@@ -43,7 +43,7 @@ void Camera::lookAt(float x, float y, float z)
 
 void Camera::pitchDegrees(float degrees, bool world)
 {
-	if (world)
+	if (world) 
 		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)), Ogre::Node::TS_WORLD);
 	else
 		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)));
@@ -52,9 +52,9 @@ void Camera::pitchDegrees(float degrees, bool world)
 void Camera::pitchRadians(float radians, bool world)
 {
 	if (world)
-		_node->pitch(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+		_node->pitch(Ogre::Radian(radians), Ogre::Node::TS_WORLD);
 	else
-		_node->pitch(Ogre::Radian(Ogre::Degree(radians)));
+		_node->pitch(Ogre::Radian(radians));
 }
 
 void Camera::yawDegrees(float degrees, bool world)
@@ -68,9 +68,9 @@ void Camera::yawDegrees(float degrees, bool world)
 void Camera::yawRadians(float radians, bool world)
 {
 	if (world)
-		_node->yaw(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+		_node->yaw(Ogre::Radian(radians), Ogre::Node::TS_WORLD);
 	else
-		_node->yaw(Ogre::Radian(Ogre::Degree(radians)));
+		_node->yaw(Ogre::Radian(radians));
 }
 
 void Camera::rollDegrees(float degrees, bool world)
@@ -84,9 +84,9 @@ void Camera::rollDegrees(float degrees, bool world)
 void Camera::rollRadians(float radians, bool world)
 {
 	if (world)
-		_node->roll(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+		_node->roll(Ogre::Radian(radians), Ogre::Node::TS_WORLD);
 	else
-		_node->roll(Ogre::Radian(Ogre::Degree(radians)));
+		_node->roll(Ogre::Radian(radians));
 }
 
 void Camera::renderOverlays(bool render)
@@ -110,6 +110,7 @@ void Camera::setOrientation(float yaw, float pitch, float roll)
 	q.x = sr * cp * cy - cr * sp * sy;
 	q.y = cr * sp * cy + sr * cp * sy;
 	q.z = cr * cp * sy - sr * sp * cy;
+
 	_node->setOrientation(q);
 }
 

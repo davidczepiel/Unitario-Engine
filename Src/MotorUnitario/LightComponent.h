@@ -17,8 +17,8 @@ public:
 	~LightComponent();
 
 	/// <summary>
-/// Method to initialize required attributes for the component
-/// </summary>
+	/// Method to initialize required attributes for the component
+	/// </summary>
 	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
@@ -162,9 +162,7 @@ public:
 	/// </summary>
 	/// <returns>if it's visible or not</returns>
 	const Light::LightType convertLightType(std::string type);
-	/// Sets the light position
-	/// </summary>
-	inline void setPosition(float x, float y, float z) { _light->setPosition(x, y, z); }
+
 
 private:
 

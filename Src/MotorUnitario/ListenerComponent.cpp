@@ -79,7 +79,7 @@ void ListenerComponent::update()
 
 	Vector3 forward = _tr->getForward();
 
-	_listener->setForward(forward.getX(), forward.getY(), forward.getZ());
+	_listener->setForward(forward.getX(), 0, forward.getZ());
 }
 
 void ListenerComponent::lateUpdate()

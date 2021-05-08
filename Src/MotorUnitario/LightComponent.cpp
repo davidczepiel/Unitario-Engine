@@ -16,15 +16,14 @@ void LightComponent::awake(luabridge::LuaRef& data)
 {
 	_light = new Light(_gameObject->getName());
 
-	luabridge::LuaRef lua_coord = data["Coord"];
-	if (LUAFIELDEXIST(Position))
-		_light->setPosition(lua_coord["X"].cast<double>(), lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>());
+	if (LUAFIELDEXIST(Direction))
+		_light->setDirection(data["Direction"]["X"].cast<float>(), data["Direction"]["Y"].cast<float>(), data["Direction"]["Z"].cast<float>());
 
 	if (LUAFIELDEXIST(LightType))
 		_light->setLightType(convertLightType(data["LightType"]));
 
 	if (LUAFIELDEXIST(Visible))
-		_light->setVisible(data["Visible"].cast<bool>());
+		_light->setVisible(GETLUAFIELD(Visible, bool));
 
 	if (LUAFIELDEXIST(Diffuse))
 		_light->setDiffuse(data["Diffuse"]["Red"].cast<float>(), data["Diffuse"]["Green"].cast<float>(), data["Diffuse"]["Blue"].cast<float>());
@@ -40,8 +39,6 @@ void LightComponent::awake(luabridge::LuaRef& data)
 		_light->setSpotlightRange(data["SpotLightRange"]["InnerAngle"].cast<float>(), data["SpotLightRange"]["OuterAngle"].cast<float>(),
 			data["SpotLightRange"]["FallOf"].cast<float>());
 
-	if (LUAFIELDEXIST(LightDirection))
-		_light->setDirection(data["LightDirection"]["X"].cast<float>(), data["LightDirection"]["Y"].cast<float>(), data["LightDirection"]["Z"].cast<float>());
 }
 
 const Light::LightType LightComponent::convertLightType(std::string type)

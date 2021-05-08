@@ -3,6 +3,7 @@
 #define VECTOR3_H
 
 #include <math.h>
+#include <string>
 
 class Vector3 {
 public:

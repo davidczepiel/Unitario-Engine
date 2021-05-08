@@ -284,7 +284,7 @@ private:
 	/// gets all materials from the dynamic rigidBody
 	/// </summary>
 	/// <returns></returns>
-	std::list<physx::PxMaterial*>getAllMaterials();
+	std::list<physx::PxMaterial*> getAllMaterials();
 	
 	/// <summary>
 	/// gets the greater component of one tuple
@@ -297,6 +297,7 @@ private:
 	physx::PxScene* _scene;
 	physx::PxRigidDynamic* _dynamicBody;
 	physx::PxRigidStatic* _staticBody;
+	physx::PxShape* _shape;
 
 	GameObject* _gameObject;
 	ContactCallback* _collisionCallback;
