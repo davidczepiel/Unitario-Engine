@@ -94,7 +94,7 @@ public:
 	/// <param name="x">New width</param>
 	/// <param name="y">New height</param>
 	/// <param name="z">New depth</param>
-	void setScale(int width, int heigh, int depth);
+	void setScale(float width, float heigh, float depth);
 };
 
 #endif
@@ -119,7 +119,7 @@ public:
 	/// Changes sphere radius
 	/// </summary>
 	/// <param name="r">New new radius</param>
-	void setScale(int radius);
+	void setScale(float radius);
 };
 
 
@@ -146,7 +146,7 @@ public:
 	/// </summary>
 	/// <param name="r">New radius</param>
 	/// <param name="l">New length</param>
-	void setScale(int radius, int length);
+	void setScale(float radius, float length);
 };
 
 

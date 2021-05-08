@@ -131,7 +131,7 @@ public:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	BoxCollider(float width, float heigh, float depth, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		const std::tuple<float, float, float>& position, float staticFriction = 0.5f, float dynamicFriction = 0.5f, float restitution = 0.5f);
 
 	/// <summary>
@@ -145,7 +145,7 @@ public:
 	/// <param name="x">New width</param>
 	/// <param name="y">New height</param>
 	/// <param name="z">New depth</param>
-	void setScale(int x, int y, int z);
+	void setScale(float x, float y, float z);
 };
 
 class SphereCollider : public Collider {
@@ -162,7 +162,7 @@ public:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	SphereCollider(int r, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	SphereCollider(float r, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		const std::tuple<float, float, float>& position, float staticFriction = 0.5, float dynamicFriction = 0.5, float restitution = 0.5);
 
 	/// <summary>
@@ -174,7 +174,7 @@ public:
 	/// Changes sphere radius
 	/// </summary>
 	/// <param name="r">New new radius</param>
-	void setScale(int r);
+	void setScale(float r);
 };
 
 class CapsuleCollider : public Collider {
@@ -192,7 +192,7 @@ public:
 	/// <param name="staticFriction">Static friction of the shape</param>
 	/// <param name="dynamicFriction">Dynamic friction of the shape</param>
 	/// <param name="restitution">Shape's restitution coefficient</param>
-	CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+	CapsuleCollider(float radius, float length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 		const std::tuple<float, float, float>& position, float staticFriction = 0.5, float dynamicFriction = 0.5, float restitution = 0.5);
 
 	/// <summary>
@@ -205,7 +205,7 @@ public:
 	/// </summary>
 	/// <param name="r">New radius</param>
 	/// <param name="l">New length</param>
-	void setScale(int r, int l);
+	void setScale(float r, float l);
 };
 
 #endif //!COLLIDER_H

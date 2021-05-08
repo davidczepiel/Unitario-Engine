@@ -93,7 +93,7 @@ void Collider::setTrigger()
 
 //////////////////////////////////////////////////
 
-BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+BoxCollider::BoxCollider(float width, float heigh, float depth, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
 	: Collider(isTrigger, gameObject, gameObjectName, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
@@ -104,13 +104,13 @@ BoxCollider::BoxCollider(int width, int heigh, int depth, bool isTrigger, GameOb
 	initParams(isTrigger);
 }
 
-void BoxCollider::setScale(int width, int heigh, int depth) {
+void BoxCollider::setScale(float width, float heigh, float depth) {
 	_mShape->setGeometry(physx::PxBoxGeometry(width / 2, heigh / 2, depth / 2));
 }
 
 ///////////////////////////////////////////////
 
-SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* callback, ContactCallback* triggerCallback,
+SphereCollider::SphereCollider(float radius, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* callback, ContactCallback* triggerCallback,
 	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
 	:Collider(isTrigger, gameObject, gameObjectName, callback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
@@ -120,13 +120,13 @@ SphereCollider::SphereCollider(int radius, bool isTrigger, GameObject* gameObjec
 	initParams(isTrigger);
 }
 
-void SphereCollider::setScale(int r) {
+void SphereCollider::setScale(float r) {
 	_mShape->setGeometry(physx::PxSphereGeometry(r));
 }
 
 /////////////////////////////////////////////////
 
-CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
+CapsuleCollider::CapsuleCollider(float radius, float length, bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* colliderCallback, ContactCallback* triggerCallback,
 	const std::tuple<float, float, float>& position, float staticFriction, float dynamicFriction, float restitution)
 	:Collider(isTrigger, gameObject, gameObjectName, colliderCallback, triggerCallback, staticFriction, dynamicFriction, restitution, position)
 {
@@ -136,6 +136,6 @@ CapsuleCollider::CapsuleCollider(int radius, int length, bool isTrigger, GameObj
 	initParams(isTrigger);
 }
 
-void CapsuleCollider::setScale(int radius, int length) {
+void CapsuleCollider::setScale(float radius, float length) {
 	_mShape->setGeometry(physx::PxCapsuleGeometry(radius, length / 2));
 }

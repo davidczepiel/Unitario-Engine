@@ -53,12 +53,12 @@ BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::Bo
 
 void BoxColliderComponent::awake(luabridge::LuaRef& data)
 {
-	int width = 2;
-	if (LUAFIELDEXIST(Width)) width = GETLUAFIELD(Width, int);
-	int height = 2;
-	if (LUAFIELDEXIST(Height)) height = GETLUAFIELD(Height, int);
-	int depth = 2;
-	if (LUAFIELDEXIST(Depth)) depth = GETLUAFIELD(Depth, int);
+	float width = 2;
+	if (LUAFIELDEXIST(Width)) width = GETLUAFIELD(Width, float);
+	float height = 2;
+	if (LUAFIELDEXIST(Height)) height = GETLUAFIELD(Height, float);
+	float depth = 2;
+	if (LUAFIELDEXIST(Depth)) depth = GETLUAFIELD(Depth, float);
 
 	bool isTrigger = false;
 	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(IsTrigger, bool);
@@ -77,7 +77,7 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 
-void BoxColliderComponent::setScale(int width, int heigh, int depth)
+void BoxColliderComponent::setScale(float width, float heigh, float depth)
 {
 	static_cast<BoxCollider*>(_collider)->setScale(width, heigh, depth);
 }
@@ -92,8 +92,8 @@ SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentI
 
 void SphereColliderComponent::awake(luabridge::LuaRef& data)
 {
-	int radius = 2;
-	if (LUAFIELDEXIST(Radius)) GETLUAFIELD(radius, int);
+	float radius = 2;
+	if (LUAFIELDEXIST(Radius)) GETLUAFIELD(radius, float);
 
 	bool isTrigger = false;
 	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(isTrigger, bool);
@@ -112,7 +112,7 @@ void SphereColliderComponent::awake(luabridge::LuaRef& data)
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 
-void SphereColliderComponent::setScale(int radius)
+void SphereColliderComponent::setScale(float radius)
 {
 	static_cast<SphereCollider*>(_collider)->setScale(radius);
 }
@@ -127,10 +127,10 @@ CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(Compone
 
 void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 {
-	int radius = 1;
-	if (LUAFIELDEXIST(Radius)) radius = GETLUAFIELD(radius, int);
-	int length = 3;
-	if (LUAFIELDEXIST(Length)) length = GETLUAFIELD(length, int);
+	float radius = 1;
+	if (LUAFIELDEXIST(Radius)) radius = GETLUAFIELD(radius, float);
+	float length = 3;
+	if (LUAFIELDEXIST(Length)) length = GETLUAFIELD(length, float);
 
 	bool isTrigger = false;
 	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(isTrigger, bool);
@@ -149,7 +149,7 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
 }
 
-void CapsuleColliderComponent::setScale(int radius, int length)
+void CapsuleColliderComponent::setScale(float radius, float length)
 {
 	static_cast<CapsuleCollider*>(_collider)->setScale(radius, length);
 }
