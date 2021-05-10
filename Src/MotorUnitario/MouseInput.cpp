@@ -8,7 +8,8 @@ void MouseInput::setMouseRelativeMode(bool relative)
 	SDL_SetRelativeMouseMode((SDL_bool)relative);
 }
 
-MouseInput::MouseInput() : _mousePos({ 0.0, 0.0 }), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta()
+MouseInput::MouseInput() : _mousePos({ 0.0, 0.0 }), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta(),
+_windowWidth(1280), _windowHeight(720)
 {
 }
 
@@ -38,6 +39,8 @@ void MouseInput::receiveEvent(SDL_Event* event)
 	case SDL_MOUSEMOTION:
 		_mousePos[0] = event->motion.x;
 		_mousePos[1] = event->motion.y;
+		_mousePos[0] /= _windowWidth;
+		_mousePos[1] /= _windowHeight;
 		_mouseDelta[0] = event->motion.xrel;
 		_mouseDelta[1] = event->motion.yrel;
 		break;
@@ -51,6 +54,12 @@ void MouseInput::receiveEvent(SDL_Event* event)
 		break;
 	case SDL_MOUSEWHEEL:
 		_mouseWheelDelta = event->wheel.y;
+		break;
+	case SDL_WINDOWEVENT:
+		if (event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			_windowWidth = event->window.data1;
+			_windowHeight = event->window.data2;
+		}
 		break;
 	}
 }

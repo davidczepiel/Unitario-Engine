@@ -15,10 +15,10 @@
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
-Engine::Engine() : _physxEngine(nullptr),  _graphicsEngine(nullptr), _audioEngine(nullptr),
-	_GOs(), _deleteGOs(), 
-	_inputManager(nullptr), _time(nullptr), _luaParser(nullptr),
-	_run(true), alredyInitialized(false), _changeScene(false), scenesPath(""), _currentScene("")
+Engine::Engine() : _physxEngine(nullptr), _graphicsEngine(nullptr), _audioEngine(nullptr),
+_GOs(), _deleteGOs(),
+_inputManager(nullptr), _time(nullptr), _luaParser(nullptr),
+_run(true), alredyInitialized(false), _changeScene(false), scenesPath(""), _currentScene("")
 {
 }
 
@@ -140,7 +140,7 @@ void Engine::fixedUpdate()
 			it->fixedUpdate();
 		}
 	}
-	
+
 	_physxEngine->update(_time->deltaTime());
 
 	for (auto& it : _GOs) {
