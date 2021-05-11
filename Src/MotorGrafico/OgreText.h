@@ -12,7 +12,7 @@ namespace Ogre {
 class OgreText
 {
 public:
-    OgreText(std::string overlayName, std::string textAreaName);
+    OgreText(std::string textAreaName);
     ~OgreText();
 
     /// <summary>

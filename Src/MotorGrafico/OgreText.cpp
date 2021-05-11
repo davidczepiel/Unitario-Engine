@@ -2,10 +2,9 @@
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlayManager.h>
 
-OgreText::OgreText(std::string overlayName, std::string textAreaName)
+OgreText::OgreText(std::string textAreaName)
 {
-    _overlayManager = Ogre::OverlayManager::getSingletonPtr();
-    _textArea = static_cast<Ogre::TextAreaOverlayElement*>(_overlayManager->getOverlayElement(textAreaName));
+    _textArea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingletonPtr()->getOverlayElement(textAreaName));
 }
 
 OgreText::~OgreText()

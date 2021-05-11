@@ -13,7 +13,7 @@ class TextManagerElement {
 		/// </summary>
 		/// <param name="overlayName">Overlay name which contains the textArea you want to manage</param>
 		/// <param name="textAreaName">textArea name</param>
-		TextManagerElement(std::string overlayName, std::string textAreaName);
+		TextManagerElement(std::string textAreaName);
 		~TextManagerElement();
 
         /// <summary>

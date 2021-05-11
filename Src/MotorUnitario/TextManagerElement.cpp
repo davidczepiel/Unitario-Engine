@@ -1,9 +1,9 @@
 #include "TextManagerElement.h"
 #include "MotorGrafico/OgreText.h"
 
-TextManagerElement::TextManagerElement(std::string overlayName, std::string textAreaName)
+TextManagerElement::TextManagerElement(std::string textAreaName)
 {
-	_ogreText = new OgreText(overlayName, textAreaName);
+	_ogreText = new OgreText(textAreaName);
 }
 
 TextManagerElement::~TextManagerElement()
