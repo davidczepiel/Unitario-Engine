@@ -82,6 +82,8 @@ bool PhysxEngine::init()
 
 void PhysxEngine::update(float time)
 {
+	if (time <= 0.0001f)
+		return;
 	_scene->simulate(physx::PxReal(time));
 	_scene->fetchResults(true);
 }

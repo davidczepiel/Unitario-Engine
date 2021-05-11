@@ -54,6 +54,13 @@ EngineTime* EngineTime::getInstance()
 	return instance.get();
 }
 
+void EngineTime::startTimeNow()
+{
+	_msTimeLastTick = SDL_GetTicks();
+	_msTimeLastFixed = SDL_GetTicks();
+	_deltaTime = 0.0f;
+}
+
 EngineTime::Date EngineTime::getDate() const
 {
 	// get time
