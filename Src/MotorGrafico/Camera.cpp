@@ -7,6 +7,7 @@
 #include "Euler.h"
 #include "OgreRTShaderSystem.h"
 #include <iostream>
+#include <OgreCompositorManager.h>
 
 int Camera::_id = 1;
 
@@ -97,7 +98,7 @@ void Camera::renderOverlays(bool render)
 
 void Camera::setOrientation(float yaw, float pitch, float roll)
 {
-	//_node->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_PARENT);
+	//_node->lookAt(Ogre::Vector3(yaw, pitch, roll), Ogre::Node::TS_PARENT);
 	double cy = cos(yaw * 0.5);
 	double sy = sin(yaw * 0.5);
 	double cp = cos(pitch * 0.5);
@@ -182,3 +183,14 @@ void Camera::setViewportVisibility(bool visible, float x, float y, float w, floa
 		}
 	}
 }
+
+void Camera::addCompositor(const char* compositor)
+{
+	Ogre::CompositorManager::getSingleton().addCompositor(_viewport, compositor);
+}
+
+void Camera::setCompositor(const char* compositor, bool enable)
+{
+	Ogre::CompositorManager::getSingleton().setCompositorEnabled(_viewport, compositor, enable);
+}
+

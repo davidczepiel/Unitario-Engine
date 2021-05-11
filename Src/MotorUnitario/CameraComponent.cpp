@@ -73,9 +73,15 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	{
 		rollDegrees(GETLUAFIELD(Roll, float));
 	}
+	if (LUAFIELDEXIST(Compositors)) {
+		for (int i = 1; i <= data["Compositors"].length(); i += 2) {
+			_camera->addCompositor(data["Compositors"][i].tostring().c_str());
+			setCompositor(data["Compositors"][i].tostring().c_str(), data["Compositors"][i + 1].cast<bool>());
+		}
+	}
 }
 
-CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr)
+CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr), _tr(nullptr)
 {
 }
 
@@ -195,6 +201,11 @@ const Vector3& CameraComponent::getOrientation()
 {
 	std::tuple<float, float, float> rot = _camera->getOrientation();
 	return Vector3(std::get<0>(rot), std::get<1>(rot), std::get<2>(rot));
+}
+
+void CameraComponent::setCompositor(const char* compositor, bool enable)
+{
+	_camera->setCompositor(compositor, enable);
 }
 
 void CameraComponent::onEnable()

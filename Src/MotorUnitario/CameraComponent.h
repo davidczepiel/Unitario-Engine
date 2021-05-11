@@ -179,6 +179,13 @@ public:
 	/// </summary>
 	/// <returns>The camera orientation</returns>
 	const Vector3& getOrientation();
+
+	/// <summary>
+	/// Enables or disables a compositor of this camera
+	/// </summary>
+	/// <param name="compositor">: name of compositor</param>
+	void setCompositor(const char* compositor, bool enable);
+
 	
 private:
 	void onEnable() override;
