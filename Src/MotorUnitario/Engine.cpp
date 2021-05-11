@@ -15,10 +15,10 @@
 
 std::unique_ptr<Engine> Engine::instance = nullptr;
 
-Engine::Engine() : _physxEngine(nullptr),  _graphicsEngine(nullptr), _audioEngine(nullptr),
-	_GOs(), _deleteGOs(), 
-	_inputManager(nullptr), _time(nullptr), _luaParser(nullptr),
-	_run(true), alredyInitialized(false), _changeScene(false), scenesPath(""), _currentScene("")
+Engine::Engine() : _physxEngine(nullptr), _graphicsEngine(nullptr), _audioEngine(nullptr),
+_GOs(), _deleteGOs(),
+_inputManager(nullptr), _time(nullptr), _luaParser(nullptr),
+_run(true), alredyInitialized(false), _changeScene(false), scenesPath(""), _currentScene("")
 {
 }
 
@@ -71,8 +71,6 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 
 	scenesPath = scenesP + '/';
 
-	//-------------InputManager--------------
-	_inputManager = InputManager::getInstance();
 	//--------------GraphicsEngine---------------------
 	GraphicsEngine::CreateInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
@@ -89,6 +87,8 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 	AudioEngine::CreateInstance();
 	_audioEngine = AudioEngine::getInstance();
 	_audioEngine->init();
+	//-------------InputManager--------------
+	_inputManager = InputManager::getInstance();
 
 	_time = EngineTime::getInstance();
 
@@ -140,7 +140,7 @@ void Engine::fixedUpdate()
 			it->fixedUpdate();
 		}
 	}
-	
+
 	_physxEngine->update(_time->deltaTime());
 
 	for (auto& it : _GOs) {
@@ -264,4 +264,9 @@ GameObject* Engine::findGameObject(const std::string& name)
 			it++;
 	}
 	return (it == _GOs.end()) ? (nullptr) : (*it);
+}
+
+std::pair<int, int> Engine::getWindowSize()
+{
+	return _graphicsEngine->getWindowSize();
 }

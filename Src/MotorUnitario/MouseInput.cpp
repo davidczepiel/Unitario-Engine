@@ -1,5 +1,6 @@
 #include "MouseInput.h"
 #include "SDL_events.h"
+#include "Engine.h"
 
 std::unique_ptr<MouseInput> MouseInput::instance = nullptr;
 
@@ -8,8 +9,11 @@ void MouseInput::setMouseRelativeMode(bool relative)
 	SDL_SetRelativeMouseMode((SDL_bool)relative);
 }
 
-MouseInput::MouseInput() : _mousePos({ 0.0, 0.0 }), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta()
+MouseInput::MouseInput() : _mousePos({ 0.0, 0.0 }), _mouseDelta({ 0.0, 0.0 }), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta()
 {
+	std::pair<int, int> size = Engine::getInstance()->getWindowSize();
+	_windowWidth = size.first;
+	_windowHeight = size.second;
 }
 
 MouseInput::~MouseInput()
@@ -38,6 +42,8 @@ void MouseInput::receiveEvent(SDL_Event* event)
 	case SDL_MOUSEMOTION:
 		_mousePos[0] = event->motion.x;
 		_mousePos[1] = event->motion.y;
+		_mousePos[0] /= _windowWidth;
+		_mousePos[1] /= _windowHeight;
 		_mouseDelta[0] = event->motion.xrel;
 		_mouseDelta[1] = event->motion.yrel;
 		break;
@@ -51,6 +57,12 @@ void MouseInput::receiveEvent(SDL_Event* event)
 		break;
 	case SDL_MOUSEWHEEL:
 		_mouseWheelDelta = event->wheel.y;
+		break;
+	case SDL_WINDOWEVENT:
+		if (event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			_windowWidth = event->window.data1;
+			_windowHeight = event->window.data2;
+		}
 		break;
 	}
 }

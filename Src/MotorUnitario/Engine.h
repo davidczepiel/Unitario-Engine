@@ -82,6 +82,11 @@ public:
 	/// </summary>
 	GameObject* findGameObject(const std::string& name);
 
+	/// </sumary>
+	/// Gets the window size
+	/// </summary>
+	std::pair<int, int> getWindowSize();
+
 protected:
 
 	/// <summary>

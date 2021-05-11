@@ -5,7 +5,7 @@
 #include "Transform.h"
 #include "includeLUA.h"
 
-ColliderComponent::ColliderComponent(int id): Component(id, nullptr), _collider(nullptr)
+ColliderComponent::ColliderComponent(int id) : Component(id, nullptr), _collider(nullptr)
 {
 }
 
@@ -47,7 +47,7 @@ void ColliderComponent::setRotation(Vector3 rot)
 
 BoxColliderComponent::BoxColliderComponent() : ColliderComponent(ComponentId::BoxCollider)
 {
-	
+
 }
 
 
@@ -64,11 +64,11 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(IsTrigger, bool);
 
 	float staticFriction = 0.5f;
-	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(staticFriction, float);
+	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(StaticFriction, float);
 	float dynamicFriction = 0.5f;
-	if (LUAFIELDEXIST(DynamicFriction)) dynamicFriction = GETLUAFIELD(dynamicFriction, float);
+	if (LUAFIELDEXIST(DynamicFriction)) dynamicFriction = GETLUAFIELD(DynamicFriction, float);
 	float restitution = 0.5f;
-	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(restitution, float);
+	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(Restitution, float);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
@@ -82,28 +82,45 @@ void BoxColliderComponent::setScale(float width, float heigh, float depth)
 	static_cast<BoxCollider*>(_collider)->setScale(width, heigh, depth);
 }
 
+float BoxColliderComponent::getWidth()
+{
+	return static_cast<BoxCollider*>(_collider)->getWidth();
+}
+
+float BoxColliderComponent::getHeight()
+{
+	return static_cast<BoxCollider*>(_collider)->getHeight();
+
+}
+
+float BoxColliderComponent::getDepth()
+{
+	return static_cast<BoxCollider*>(_collider)->getDepth();
+
+}
+
 ////////////////////////////////////////////
 
-SphereColliderComponent::SphereColliderComponent(): ColliderComponent(ComponentId::SphereCollider)
+SphereColliderComponent::SphereColliderComponent() : ColliderComponent(ComponentId::SphereCollider)
 {
-	
+
 }
 
 
 void SphereColliderComponent::awake(luabridge::LuaRef& data)
 {
 	float radius = 2;
-	if (LUAFIELDEXIST(Radius)) GETLUAFIELD(radius, float);
+	if (LUAFIELDEXIST(Radius))radius = GETLUAFIELD(Radius, float);
 
 	bool isTrigger = false;
-	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(isTrigger, bool);
+	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(IsTrigger, bool);
 
 	float staticFriction = 0.5f;
-	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(staticFriction, float);
+	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(StaticFriction, float);
 	float dynamicFriction = 0.5f;
-	if (LUAFIELDEXIST(DynamicFriction)) dynamicFriction = GETLUAFIELD(dynamicFriction, float);
+	if (LUAFIELDEXIST(DynamicFriction)) dynamicFriction = GETLUAFIELD(DynamicFriction, float);
 	float restitution = 0.5f;
-	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(restitution, float);
+	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(Restitution, float);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
@@ -117,12 +134,18 @@ void SphereColliderComponent::setScale(float radius)
 	static_cast<SphereCollider*>(_collider)->setScale(radius);
 }
 
+float SphereColliderComponent::getRadius()
+{
+	return static_cast<SphereCollider*>(_collider)->getRadius();
+
+}
+
 /////////////////////////////////////////////////////////
 
 
 CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(ComponentId::CapsuleCollider)
 {
-	
+
 }
 
 void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
@@ -152,6 +175,18 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 void CapsuleColliderComponent::setScale(float radius, float length)
 {
 	static_cast<CapsuleCollider*>(_collider)->setScale(radius, length);
+}
+
+float CapsuleColliderComponent::getRadius()
+{
+	return static_cast<CapsuleCollider*>(_collider)->getRadius();
+
+}
+
+float CapsuleColliderComponent::getHeight()
+{
+	return static_cast<CapsuleCollider*>(_collider)->getHeight();
+
 }
 
 void ColliderComponent::gameObjectsCollision(GameObject* thisGO, GameObject* otherGO)

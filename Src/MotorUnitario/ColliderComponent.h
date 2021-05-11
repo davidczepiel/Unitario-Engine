@@ -95,6 +95,25 @@ public:
 	/// <param name="y">New height</param>
 	/// <param name="z">New depth</param>
 	void setScale(float width, float heigh, float depth);
+	
+	/// <summary>
+	/// Gets the width of the box
+	/// </summary>
+	/// <returns>The width of the box</returns>
+	float getWidth();
+
+	/// <summary>
+	/// Gets the height of the box
+	/// </summary>
+	/// <returns>The height of the box</returns>
+	float getHeight();
+
+	/// <summary>
+	/// Gets the depth of the box
+	/// </summary>
+	/// <returns>The depth of the box</returns>
+	float getDepth();
+
 };
 
 #endif
@@ -120,6 +139,12 @@ public:
 	/// </summary>
 	/// <param name="r">New new radius</param>
 	void setScale(float radius);
+
+	/// <summary>
+	/// Gets the radius of the sphere
+	/// </summary>
+	/// <returns>The radius of the sphere</returns>
+	float getRadius();
 };
 
 
@@ -147,6 +172,19 @@ public:
 	/// <param name="r">New radius</param>
 	/// <param name="l">New length</param>
 	void setScale(float radius, float length);
+
+
+	/// <summary>
+	/// Gets the radius of the capsule
+	/// </summary>
+	/// <returns>The radius of the capsule</returns>
+	float getRadius();
+
+	/// <summary>
+	/// Gets the height of the capsule
+	/// </summary>
+	/// <returns>The height of the capsule</returns>
+	float getHeight();
 };
 
 

@@ -23,7 +23,7 @@ public:
 	MouseInput(MouseInput& other) = delete;
 
 	/// <summary>
-	/// Returns the mouse position
+	/// Returns the mouse position with its values ranging from 0 to 1
 	/// </summary>
 	/// <returns>Mouse pos {x, y}</returns>
 	inline const std::array<double, 2>& getMousePos() { return _mousePos; }
@@ -93,6 +93,8 @@ private:
 	std::bitset<5> _mouseButtonJustUp;
 
 	double _mouseWheelDelta;
+	float _windowWidth;
+	float _windowHeight;
 
 	friend class InputManager;
 };

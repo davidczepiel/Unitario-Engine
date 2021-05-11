@@ -3,12 +3,11 @@
 #include "GraphicsEngine.h"
 #include "OgreSceneManager.h"
 
-
-ParticleSystem::ParticleSystem() : _pSystem(nullptr), _node(nullptr),_name(), _path()
+ParticleSystem::ParticleSystem() : _pSystem(nullptr), _node(nullptr), _name(), _path()
 {
 }
 
-ParticleSystem::ParticleSystem(std::string const& path, std::string const& name): _pSystem(nullptr),_node(nullptr), _name(name), _path(path)
+ParticleSystem::ParticleSystem(std::string const& path, std::string const& name) : _pSystem(nullptr), _node(nullptr), _name(name), _path(path)
 {
 }
 
@@ -31,5 +30,3 @@ void ParticleSystem::setPosition(double x, double y, double z)
 	Ogre::Real z_ = static_cast<Ogre::Real>(z);
 	_node->setPosition(Ogre::Vector3(x_, y_, z_));
 }
-
-

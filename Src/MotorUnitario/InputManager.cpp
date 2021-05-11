@@ -5,7 +5,6 @@
 #include "SDL_events.h"
 #include "Engine.h"
 
-
 std::unique_ptr<InputManager> InputManager::instance = nullptr;
 
 InputManager::InputManager() : _keyBoardInput(KeyBoardInput::getInstance()),
@@ -52,6 +51,9 @@ void InputManager::update()
 			_mouseInput->receiveEvent(&event);
 			break;
 		case SDL_MOUSEWHEEL:
+			_mouseInput->receiveEvent(&event);
+			break;
+		case SDL_WINDOWEVENT:
 			_mouseInput->receiveEvent(&event);
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
