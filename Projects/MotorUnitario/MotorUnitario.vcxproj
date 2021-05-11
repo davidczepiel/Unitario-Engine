@@ -251,6 +251,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\EngineTime.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\TextManagerElement.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
@@ -297,6 +298,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\EngineTime.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\TextManagerElement.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>
