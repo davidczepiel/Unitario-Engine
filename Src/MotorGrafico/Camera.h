@@ -172,7 +172,17 @@ public:
 	/// <param name="h">The viewport new height</param>
 	void setViewportVisibility(bool visible, float x = 0., float y = 0., float w = 1., float h = 1.);
 
+	/// <summary>
+	/// Only call once per compositor. This function doesn't activate the compositor
+	/// </summary>
+	/// <param name="compositor">: name of compositor</param>
+	void addCompositor(const char* compositor);
 
+	/// <summary>
+	/// Changes a compositor of this camera
+	/// </summary>
+	/// <param name="compositor">: name of compositor</param>
+	void setCompositor(const char* compositor, bool enable);
 
 private:
 	static int _id;

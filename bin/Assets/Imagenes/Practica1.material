@@ -184,3 +184,62 @@ material Practica2/ColaAvion{
 		}
 	}
 }
+
+vertex_program RenderQuadVS hlsl
+{
+    source DefaultVS.hlsl
+	target vs_2_0
+	entry_point vs_main
+    default_params {
+        param_named_auto worldViewProj worldviewproj_matrix
+    }
+}
+
+fragment_program JugadorVisionPS hlsl
+{
+    source JugadorVisionPS.hlsl
+	target ps_4_0
+	entry_point ps_main
+    default_params {
+        param_named strength float 0.0f
+		param_named_auto Time time
+    }
+}
+
+material JugadorVisionWeakMaterial {
+    technique {
+        pass {
+            depth_check off
+            depth_write off
+            vertex_program_ref RenderQuadVS {
+            }
+            fragment_program_ref JugadorVisionPS {
+				param_named strength float 0.4f
+            }
+            texture_unit RTT0
+            {
+                filtering none
+                tex_address_mode clamp
+            }
+        }
+    } 
+}
+
+material JugadorVisionStrongMaterial {
+    technique {
+        pass {
+            depth_check off
+            depth_write off
+            vertex_program_ref RenderQuadVS {
+            }
+            fragment_program_ref JugadorVisionPS {
+				param_named strength float 1.0f
+            }
+            texture_unit RTT0
+            {
+                filtering none
+                tex_address_mode clamp
+            }
+        }
+    } 
+}
