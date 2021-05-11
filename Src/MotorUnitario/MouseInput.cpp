@@ -1,5 +1,6 @@
 #include "MouseInput.h"
 #include "SDL_events.h"
+#include "Engine.h"
 
 std::unique_ptr<MouseInput> MouseInput::instance = nullptr;
 
@@ -8,9 +9,11 @@ void MouseInput::setMouseRelativeMode(bool relative)
 	SDL_SetRelativeMouseMode((SDL_bool)relative);
 }
 
-MouseInput::MouseInput() : _mousePos({ 0.0, 0.0 }), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta(),
-_windowWidth(1280), _windowHeight(720)
+MouseInput::MouseInput() : _mousePos({ 0.0, 0.0 }), _mouseDelta({ 0.0, 0.0 }), _mouseButtonState(), _mouseButtonJustDown(), _mouseButtonJustUp(), _mouseWheelDelta()
 {
+	std::pair<int, int> size = Engine::getInstance()->getWindowSize();
+	_windowWidth = size.first;
+	_windowHeight = size.second;
 }
 
 MouseInput::~MouseInput()

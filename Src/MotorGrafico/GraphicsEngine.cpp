@@ -326,6 +326,12 @@ void GraphicsEngine::removeViewport(Ogre::Viewport* vp)
 	_window->removeViewport(vp->getZOrder());
 }
 
+std::pair<int, int> GraphicsEngine::getWindowSize()
+{
+	SDL_GetWindowSize(_sdlWindow, &_width, &_height);
+	return std::pair<int, int>(_width, _height);
+}
+
 void GraphicsEngine::addNode(const std::string& name, const std::string& parent)
 {
 	if (parent != "" && !_sceneManager->hasSceneNode(parent))

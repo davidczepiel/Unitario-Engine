@@ -71,8 +71,6 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 
 	scenesPath = scenesP + '/';
 
-	//-------------InputManager--------------
-	_inputManager = InputManager::getInstance();
 	//--------------GraphicsEngine---------------------
 	GraphicsEngine::CreateInstance();
 	_graphicsEngine = GraphicsEngine::getInstance();
@@ -89,6 +87,8 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 	AudioEngine::CreateInstance();
 	_audioEngine = AudioEngine::getInstance();
 	_audioEngine->init();
+	//-------------InputManager--------------
+	_inputManager = InputManager::getInstance();
 
 	_time = EngineTime::getInstance();
 
@@ -264,4 +264,9 @@ GameObject* Engine::findGameObject(const std::string& name)
 			it++;
 	}
 	return (it == _GOs.end()) ? (nullptr) : (*it);
+}
+
+std::pair<int, int> Engine::getWindowSize()
+{
+	return _graphicsEngine->getWindowSize();
 }

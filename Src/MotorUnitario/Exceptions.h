@@ -103,5 +103,5 @@ DECLARE_EXCEPTION(LuaComponentNotFoundException);
 /// </summary>
 DECLARE_EXCEPTION(AnimatorException);
 
-#endif // EXCEPTIONS_H
+#endif // !EXCEPTIONS_H
 

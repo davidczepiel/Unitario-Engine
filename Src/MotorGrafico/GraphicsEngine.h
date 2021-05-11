@@ -103,7 +103,7 @@ public:
 	/// </sumary>
 	/// Gets the window size
 	/// </summary>
-	inline std::pair<int, int> getWindowSize() { return std::pair<int, int>(_width, _height); }
+	std::pair<int, int> getWindowSize();
 
 	/// <summary>
 	/// If the parent name is not "" tries to find it and creates a child node
