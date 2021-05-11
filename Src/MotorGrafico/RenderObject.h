@@ -97,6 +97,8 @@ public:
 	///<param name="y">: Y rotation</param>
 	///<param name="z">: Z rotation</param>
 	void setRotation(float x, float y, float z, float w);
+	void setAlpha(float alpha);
+
 protected:
 	Ogre::SceneNode* _objectNode;
 	Ogre::Entity* _objectEntity;

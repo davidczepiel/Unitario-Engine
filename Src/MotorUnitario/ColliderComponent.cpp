@@ -151,19 +151,19 @@ CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent(Compone
 void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 {
 	float radius = 1;
-	if (LUAFIELDEXIST(Radius)) radius = GETLUAFIELD(radius, float);
+	if (LUAFIELDEXIST(Radius)) radius = GETLUAFIELD(Radius, float);
 	float length = 3;
-	if (LUAFIELDEXIST(Length)) length = GETLUAFIELD(length, float);
+	if (LUAFIELDEXIST(Length)) length = GETLUAFIELD(Length, float);
 
 	bool isTrigger = false;
-	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(isTrigger, bool);
+	if (LUAFIELDEXIST(IsTrigger)) isTrigger = GETLUAFIELD(IsTrigger, bool);
 
 	float staticFriction = 0.5f;
-	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(staticFriction, float);
+	if (LUAFIELDEXIST(StaticFriction)) staticFriction = GETLUAFIELD(StaticFriction, float);
 	float dynamicFriction = 0.5f;
-	if (LUAFIELDEXIST(DynamicFriction)) dynamicFriction = GETLUAFIELD(dynamicFriction, float);
+	if (LUAFIELDEXIST(DynamicFriction)) dynamicFriction = GETLUAFIELD(DynamicFriction, float);
 	float restitution = 0.5f;
-	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(restitution, float);
+	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(Restitution, float);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());

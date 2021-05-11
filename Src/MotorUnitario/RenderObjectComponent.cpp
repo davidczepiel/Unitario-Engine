@@ -113,6 +113,12 @@ void RenderObjectComponent::setRenderingDistance(float distance)
 {
 	_renderObject->setRenderingDistance(distance);
 }
+void RenderObjectComponent::setAlpha(float alpha)
+{
+	if (alpha >= 0.0f && alpha <= 1.0f)
+		_renderObject->setAlpha(alpha);
+	else Logger::getInstance()->log("alpha value must be in range [0,1]", Logger::Level::WARN);
+}
 
 void RenderObjectComponent::onEnable()
 {

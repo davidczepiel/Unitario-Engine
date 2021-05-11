@@ -2,6 +2,9 @@
 #include "GraphicsEngine.h"
 #include <OgreSceneNode.h>
 #include <OgreEntity.h>
+#include <OgreSubEntity.h>
+#include <OgrePass.h>
+#include <OgreTechnique.h>
 #include <OgreQuaternion.h>
 #include <OgreSceneManager.h>
 
@@ -36,6 +39,23 @@ void RenderObject::setRotation(float x, float y, float z, float w)
 	_objectNode->setOrientation(w, x, y, z);
 }
 
+void RenderObject::setAlpha(float alpha)
+{
+	for (Ogre::SubEntity* i : _objectEntity->getSubEntities())
+	{
+		for (Ogre::Technique* tech : i->getMaterial()->getTechniques())
+		{
+			for (Ogre::Pass* pass : tech->getPasses())
+			{
+				pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+				pass->setCullingMode(Ogre::CullingMode::CULL_NONE);
+				pass->setManualCullingMode(Ogre::ManualCullingMode::MANUAL_CULL_FRONT);
+				Ogre::ColourValue col = pass->getDiffuse();
+				pass->setDiffuse(col.r, col.g, col.b, alpha);
+			}
+		}
+	}
+}
 void RenderObject::rotate(float angle, float x, float y, float z)
 {
 	_objectNode->rotate(Ogre::Vector3(x, y, z), (Ogre::Radian)angle);
