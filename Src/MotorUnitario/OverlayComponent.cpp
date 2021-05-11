@@ -17,10 +17,17 @@ OverlayComponent::~OverlayComponent()
 void OverlayComponent::awake(luabridge::LuaRef& data)
 {
 	_overlayElement = new OverlayElement();
-	if (LUAFIELDEXIST(Name)) _overlayElement->loadOverlay(data["Name"].cast<std::string>());
+	if (LUAFIELDEXIST(Name)) {
+		std::string name = data["Name"].cast<std::string>();
+		_overlayElement->loadOverlay(name);
+	}
 	if (data["Hide"].cast<bool>()) _overlayElement->hideOverlay();
 	else _overlayElement->showOverlay();
-	if (LUAFIELDEXIST(Container))_overlayElement->setMaterial(data["Container"].cast<std::string>(), data["Material"].cast<std::string>());
+	if (LUAFIELDEXIST(Container)) {
+		std::string container = data["Container"].cast<std::string>();
+		std::string material = data["Material"].cast<std::string>();
+		_overlayElement->setMaterial(container, material);
+	}
 }
 
 void OverlayComponent::start()
