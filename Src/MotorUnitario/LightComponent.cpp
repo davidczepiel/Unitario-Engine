@@ -42,6 +42,10 @@ void LightComponent::awake(luabridge::LuaRef& data)
 
 	if (LUAFIELDEXIST(LightDirection))
 		_light->setDirection(data["LightDirection"]["X"].cast<float>(), data["LightDirection"]["Y"].cast<float>(), data["LightDirection"]["Z"].cast<float>());
+
+	if (LUAFIELDEXIST(Intensity))	
+		_light->setPowerScale(data["Intensity"].cast<float>());
+	
 }
 
 const Light::LightType LightComponent::convertLightType(std::string type)
