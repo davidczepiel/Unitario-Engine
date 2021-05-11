@@ -53,18 +53,18 @@ physx::PxQuat Collider::toQuaternion(const std::tuple<float, float, float>& rota
 {
 	physx::PxVec3 rot = TUPLE_TO_PHYSXVEC3(rotation);
 
-	double cy = cos(rot.y * 0.5);
-	double sy = sin(rot.y * 0.5);
-	double cp = cos(rot.z * 0.5);
-	double sp = sin(rot.z * 0.5);
-	double cr = cos(rot.x * 0.5);
-	double sr = sin(rot.x * 0.5);
+	double cy = cos(rot.x * 0.5);
+	double sy = sin(rot.x * 0.5);
+	double cp = cos(rot.y * 0.5);
+	double sp = sin(rot.y * 0.5);
+	double cr = cos(rot.z * 0.5);
+	double sr = sin(rot.z * 0.5);
 
 	physx::PxQuat q;
 	q.w = cr * cp * cy + sr * sp * sy;
-	q.x = sr * cp * cy - cr * sp * sy;
+	q.z = sr * cp * cy - cr * sp * sy;
 	q.y = cr * sp * cy + sr * cp * sy;
-	q.z = cr * cp * sy - sr * sp * cy;
+	q.x = cr * cp * sy - sr * sp * cy;
 
 	return q;
 }
@@ -76,19 +76,19 @@ physx::PxVec3 Collider::ToEulerAngles(physx::PxQuat q)
 	// roll (x-axis rotation)
 	double sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
 	double cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
-	angles.z = std::atan2(sinr_cosp, cosr_cosp);
+	angles.x = std::atan2(sinr_cosp, cosr_cosp);
 
 	// pitch (y-axis rotation)
 	double sinp = 2 * (q.w * q.y - q.z * q.x);
 	if (std::abs(sinp) >= 1)
-		angles.x = std::copysign(physx::PxPi / 2, sinp); // use 90 degrees if out of range
+		angles.y = std::copysign(physx::PxPi / 2, sinp); // use 90 degrees if out of range
 	else
-		angles.x = std::asin(sinp);
+		angles.y = std::asin(sinp);
 
 	// yaw (z-axis rotation)
 	double siny_cosp = 2 * (q.w * q.z + q.x * q.y);
 	double cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
-	angles.y = std::atan2(siny_cosp, cosy_cosp);
+	angles.z = std::atan2(siny_cosp, cosy_cosp);
 
 	return angles;
 }
