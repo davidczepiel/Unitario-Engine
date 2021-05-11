@@ -34,12 +34,12 @@ void ColliderComponent::setTrigger() {
 
 void ColliderComponent::setPosition(Vector3 pos)
 {
-	_collider->setPosition(VEC3_TO_TUPLE(pos));
+	_collider->setPosition(pos.toTuple());
 }
 
 void ColliderComponent::setRotation(Vector3 rot)
 {
-	_collider->setRotation(VEC3_TO_TUPLE(rot));
+	_collider->setRotation(rot.toTuple());
 }
 
 /////////////////////////////////////////////
@@ -71,8 +71,8 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(Restitution, float);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
+	std::tuple<float, float, float> pos = t->getPosition().toTuple();
+	std::tuple<float, float, float> rot = t->getRotation().toTuple();
 
 	_collider = new BoxCollider(width, height, depth, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
@@ -125,8 +125,8 @@ void SphereColliderComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(Restitution, float);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
+	std::tuple<float, float, float> pos = t->getPosition().toTuple();
+	std::tuple<float, float, float> rot = t->getRotation().toTuple();
 
 	_collider = new SphereCollider(radius, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
@@ -170,8 +170,8 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Restitution)) restitution = GETLUAFIELD(restitution, float);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
+	std::tuple<float, float, float> pos = t->getPosition().toTuple();
+	std::tuple<float, float, float> rot = t->getRotation().toTuple();
 
 	_collider = new CapsuleCollider(radius, length, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);

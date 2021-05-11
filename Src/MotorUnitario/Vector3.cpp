@@ -12,6 +12,10 @@ Vector3::Vector3(double x, double y, double z):_x(x),_y(y),_z(z)
 {
 }
 
+Vector3::Vector3(const std::tuple<float, float, float>& tuple): _x(std::get<0>(tuple)), _y(std::get<1>(tuple)), _z(std::get<2>(tuple))
+{
+}
+
 Vector3::~Vector3()
 {
 }

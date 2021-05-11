@@ -4,6 +4,7 @@
 
 #include <math.h>
 #include <string>
+#include <tuple>
 
 class Vector3 {
 public:
@@ -11,6 +12,8 @@ public:
 	Vector3();
 	Vector3(const Vector3& v);
 	Vector3(double x, double y, double z);
+	Vector3(const std::tuple<float, float, float>& tuple);
+
 	~Vector3();
 		
 	/// <summary>
@@ -69,6 +72,12 @@ public:
 	/// Returns a vector3 with a magnitude of 1  
 	/// </summary>
 	Vector3 normalize() const;
+
+	/// <summary>
+	/// Returns a tuple
+	/// </summary>
+	/// <returns></returns>
+	inline std::tuple<float, float, float> toTuple() const { return { _x, _y, _z }; }
 
 	/// <summary>
 	/// Allows subtraction of vectors

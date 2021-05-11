@@ -6,7 +6,7 @@
 
 std::unique_ptr<EngineTime> EngineTime::instance = nullptr;
 
-EngineTime::EngineTime(): _msTimeLastTick(), _deltaTime(0.01f), _msTimeLastFixed(), _maxDeltaTimeRecorded(0.0f), _fps(60), _fixedDeltaTime(20)
+EngineTime::EngineTime(): _msTimeLastTick(), _deltaTime(0.0f), _msTimeLastFixed(), _maxDeltaTimeRecorded(0.0f), _fps(60), _fixedDeltaTime(20)
 {
 	_msTimeLastTick = SDL_GetTicks();
 	_msTimeLastFixed = SDL_GetTicks();

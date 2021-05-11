@@ -11,9 +11,6 @@ class SphereCollider;
 class CapsuleCollider;
 class Vector3;
 
-#define VEC3_TO_TUPLE(vec) std::tuple<float, float, float>(vec.getX(), vec.getY(), vec.getZ())
-#define TUPLE_TO_VEC3(tuple) Vector3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
-
 class ColliderComponent : public Component {
 public:
 

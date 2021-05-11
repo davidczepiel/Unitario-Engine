@@ -55,10 +55,10 @@ physx::PxQuat Collider::toQuaternion(const std::tuple<float, float, float>& rota
 
 	double cy = cos(rot.y * 0.5);
 	double sy = sin(rot.y * 0.5);
-	double cp = cos(rot.x * 0.5);
-	double sp = sin(rot.x * 0.5);
-	double cr = cos(rot.z * 0.5);
-	double sr = sin(rot.z * 0.5);
+	double cp = cos(rot.z * 0.5);
+	double sp = sin(rot.z * 0.5);
+	double cr = cos(rot.x * 0.5);
+	double sr = sin(rot.x * 0.5);
 
 	physx::PxQuat q;
 	q.w = cr * cp * cy + sr * sp * sy;

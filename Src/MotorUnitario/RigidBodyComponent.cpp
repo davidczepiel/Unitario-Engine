@@ -55,8 +55,8 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 		isStatic = GETLUAFIELD(Static, bool);
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
-	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
+	std::tuple<float, float, float> pos = t->getPosition().toTuple();
+	std::tuple<float, float, float> rot = t->getRotation().toTuple();
 
 	if (LUAFIELDEXIST(Type)) { //Sphere
 		std::string t = GETLUASTRINGFIELD(Type);
@@ -66,7 +66,6 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				r = GETLUAFIELD(Radius, float);
 			_rb = new RigidBody(r, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
-			_rb->setRotation(rot);
 		}
 		else if (t == "Box") { //Box
 			float w = 1.0f, h = 1.0f, d = 1.0f;
@@ -119,8 +118,8 @@ void RigidBodyComponent::postFixedUpdate()
 {
 	if (_rb->isStatic()) return;
 
-	Vector3 position = TUPLE_TO_VEC3(_rb->getPosition());
-	Vector3 rotation = TUPLE_TO_VEC3(_rb->getRotation());
+	Vector3 position = _rb->getPosition();
+	Vector3 rotation = _rb->getRotation();
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 
 	if (!_constrainRotation)
@@ -130,24 +129,24 @@ void RigidBodyComponent::postFixedUpdate()
 
 void RigidBodyComponent::setPosition(Vector3 pos)
 {
-	_rb->setPosition(VEC3_TO_TUPLE(pos));
+	_rb->setPosition(pos.toTuple());
 }
 
 void RigidBodyComponent::rotate(Vector3 rot)
 {
-	if (!_rb->rotate(VEC3_TO_TUPLE(rot)))
+	if (!_rb->rotate(rot.toTuple()))
 		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setRotation(Vector3 rot)
 {
-	if (!_rb->setRotation(VEC3_TO_TUPLE(rot)))
+	if (!_rb->setRotation(rot.toTuple()))
 		_log->log("trying to rotate a static rigidBody will result in nothing", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setScale(Vector3 scale)
 {
-	if (!_rb->setScale(VEC3_TO_TUPLE(scale)))
+	if (!_rb->setScale(scale.toTuple()))
 		_log->log("trying to scale a static rigidBody will result in nothing", Logger::Level::WARN);
 }
 
@@ -177,13 +176,13 @@ void RigidBodyComponent::setMass(float m)
 
 void RigidBodyComponent::setLinearVelocity(const Vector3& vel)
 {
-	if (!_rb->setLinearVelocity(VEC3_TO_TUPLE(vel)))
+	if (!_rb->setLinearVelocity(vel.toTuple()))
 		_log->log("trying to set the linear velocity of a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setAngularVelocity(const Vector3& vel)
 {
-	if (!_rb->setAngularVelocity(VEC3_TO_TUPLE(vel)))
+	if (!_rb->setAngularVelocity(vel.toTuple()))
 		_log->log("trying to set the angular velocity of a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
@@ -195,12 +194,12 @@ void RigidBodyComponent::setGravity(bool g)
 
 const Vector3& RigidBodyComponent::getAngularVelocity()
 {
-	return TUPLE_TO_VEC3(_rb->getAngularVelocity());
+	return _rb->getAngularVelocity();
 }
 
 const Vector3& RigidBodyComponent::getLinearVelocity()
 {
-	return TUPLE_TO_VEC3(_rb->getLinearVelocity());
+	return _rb->getLinearVelocity();
 }
 
 float RigidBodyComponent::getMass()
@@ -210,28 +209,28 @@ float RigidBodyComponent::getMass()
 
 void RigidBodyComponent::addForce(Vector3& force)
 {
-	auto tupleForce = VEC3_TO_TUPLE(force);
+	auto tupleForce = force.toTuple();
 	if (!_rb->addForce(tupleForce))
 		_log->log("trying to move a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::addImpulse(Vector3& impulse)
 {
-	auto tupleImpulse = VEC3_TO_TUPLE(impulse);
+	auto tupleImpulse = impulse.toTuple();
 	if (!_rb->addImpulse(tupleImpulse))
 		_log->log("trying to move a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::addTorque(Vector3& torque)
 {
-	auto tupleTorque = VEC3_TO_TUPLE(torque);
+	auto tupleTorque = torque.toTuple();
 	if (!_rb->addTorque(tupleTorque))
 		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::moveTo(Vector3& dest)
 {
-	auto tupleDest = VEC3_TO_TUPLE(dest);
+	auto tupleDest = dest.toTuple();
 	if (!_rb->moveTo(tupleDest))
 		_log->log("trying to move a static/not kinematic rigidBody will result in nothig", Logger::Level::WARN);
 }

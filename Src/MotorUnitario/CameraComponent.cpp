@@ -6,8 +6,6 @@
 #include "KeyboardInput.h"
 #include "includeLUA.h"
 
-#define TUPLETOVECTOR3(tuple) Vector3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
-
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
 	/*setProjection(data["Projection"].cast<bool>());
@@ -118,7 +116,7 @@ void CameraComponent::update()
 
 	_camera->setPosition(x, y, z);
 
-	Vector3 orientation = TUPLETOVECTOR3(_camera->getOrientation());
+	Vector3 orientation = _camera->getOrientation();
 }
 
 void CameraComponent::lateUpdate()
