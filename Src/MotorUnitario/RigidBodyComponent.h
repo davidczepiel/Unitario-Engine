@@ -54,7 +54,7 @@ public:
 	/// </summary>
 	/// <param name="angle">the angle in radians to rotate</param>
 	/// <param name="axis">the axis to rotate</param>
-	void setRotation(float angle, Vector3 axis);
+	void setRotation(Vector3 rot);
 
 	/// <summary>
 	/// Sets the scale of the transform to a specified one

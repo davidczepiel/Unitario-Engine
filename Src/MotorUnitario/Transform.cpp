@@ -48,7 +48,7 @@ void Transform::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Coord)) {
 		luabridge::LuaRef lua_coord = data["Coord"];
 		_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
-		std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
+		//std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
 	}
 
 	if (LUAFIELDEXIST(Rotation)) {
@@ -74,7 +74,7 @@ void Transform::setRotation(const Vector3& rotation)
 
 	RigidBodyComponent* rb = dynamic_cast<RigidBodyComponent*>(_gameObject->getComponent(ComponentId::Rigidbody));
 	if (rb != nullptr) {
-		rb->rotate(getForward());
+		rb->setRotation(getForward());
 	}
 
 	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
@@ -115,7 +115,7 @@ EulerAngles Transform::ToEulerAngles(Quaternion q)
 	return angles;
 }
 
-Quaternion Transform::ToQuaternion(double yaw, double pitch, double roll)
+Quaternion Transform::ToQuaternion(double pitch, double yaw, double roll)
 {
 	// Abbreviations for the various angular functions
 	double cy = cos(yaw * 0.5);

@@ -66,7 +66,7 @@ bool PhysxEngine::init()
 	_mMaterial = _mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
 	physx::PxSceneDesc sceneDesc(_mPhysics->getTolerancesScale());
-	sceneDesc.gravity = physx::PxVec3(0.0f, -9.8f, 0.0f);
+	sceneDesc.gravity = physx::PxVec3(0.0f, -9.81f, 0.0f);
 	_gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = _gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;

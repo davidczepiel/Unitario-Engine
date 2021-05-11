@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "Vector3.h"
 #include "includeLUA.h"
+#include <MotorUnitario/KeyboardInput.h>
 
 RigidBodyComponent::RigidBodyComponent() : Component(ComponentId::Rigidbody, nullptr), _rb(nullptr), _tr(nullptr), _log(nullptr), _constrainRotation(false)
 {
@@ -26,7 +27,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	float angularDamping = 0.99f;
 	float staticFriction = .5;
 	float dynamicFriction = .5;
-	float bounciness = .5;
+	float bounciness = .6;
 	float mass = 1;
 
 	if (LUAFIELDEXIST(Mass))
@@ -52,16 +53,20 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 
 	if (LUAFIELDEXIST(Static))
 		isStatic = GETLUAFIELD(Static, bool);
+
+	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
+
 	if (LUAFIELDEXIST(Type)) { //Sphere
 		std::string t = GETLUASTRINGFIELD(Type);
 		if (t == "Sphere") {
 			float r = 1.0f;
 			if (LUAFIELDEXIST(Radius))
 				r = GETLUAFIELD(Radius, float);
-			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
 			_rb = new RigidBody(r, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
+			_rb->setRotation(rot);
 		}
 		else if (t == "Box") { //Box
 			float w = 1.0f, h = 1.0f, d = 1.0f;
@@ -71,8 +76,6 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				h = GETLUAFIELD(Height, float);
 			if (LUAFIELDEXIST(Depth))
 				d = GETLUAFIELD(Depth, float);
-			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
 			_rb = new RigidBody(w, h, d, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
@@ -82,12 +85,10 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 				r = GETLUAFIELD(Radius, float);
 			if (LUAFIELDEXIST(Height))
 				h = GETLUAFIELD(Height, float);
-			Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-			std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
 			_rb = new RigidBody(r, h, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
-
+		_rb->setRotation(rot);
 	}
 
 	if (LUAFIELDEXIST(ConstrainAngle) && GETLUAFIELD(ConstrainAngle, bool)) {
@@ -110,7 +111,8 @@ void RigidBodyComponent::onDisable()
 }
 
 void RigidBodyComponent::fixedUpdate()
-{	
+{
+
 }
 
 void RigidBodyComponent::postFixedUpdate()
@@ -123,7 +125,7 @@ void RigidBodyComponent::postFixedUpdate()
 
 	if (!_constrainRotation)
 		t->updateFromPhysics(position, rotation);
-	else t->updateFromPhysics(position);	
+	else t->updateFromPhysics(position);
 }
 
 void RigidBodyComponent::setPosition(Vector3 pos)
@@ -135,35 +137,30 @@ void RigidBodyComponent::rotate(Vector3 rot)
 {
 	if (!_rb->rotate(VEC3_TO_TUPLE(rot)))
 		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
-void RigidBodyComponent::setRotation(float angle, Vector3 axis)
+void RigidBodyComponent::setRotation(Vector3 rot)
 {
-	if (!_rb->setRotation(angle, VEC3_TO_TUPLE(axis)))
-		_log->log("trying to rotate a static rigidBody will result in nothig", Logger::Level::WARN);
-
+	if (!_rb->setRotation(VEC3_TO_TUPLE(rot)))
+		_log->log("trying to rotate a static rigidBody will result in nothing", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setScale(Vector3 scale)
 {
 	if (!_rb->setScale(VEC3_TO_TUPLE(scale)))
-		_log->log("trying to scale a static rigidBody will result in nothig", Logger::Level::WARN);
-
+		_log->log("trying to scale a static rigidBody will result in nothing", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setStaticFriction(float f)
 {
 	if (!_rb->setStaticFriction(f))
-		_log->log("trying to set the static friction of a static rigidBody will result in nothig", Logger::Level::WARN);
-
+		_log->log("trying to set the static friction of a static rigidBody will result in nothing", Logger::Level::WARN);
 }
 
 void RigidBodyComponent::setDynamicFriction(float f)
 {
 	if (_rb->setDynamicFriction(f))
 		_log->log("trying to set the dynamic friction of a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::setBounciness(float b)
@@ -176,28 +173,24 @@ void RigidBodyComponent::setMass(float m)
 {
 	if (!_rb->setMass(m))
 		_log->log("trying to set the mass of a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::setLinearVelocity(const Vector3& vel)
 {
 	if (!_rb->setLinearVelocity(VEC3_TO_TUPLE(vel)))
 		_log->log("trying to set the linear velocity of a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::setAngularVelocity(const Vector3& vel)
 {
 	if (!_rb->setAngularVelocity(VEC3_TO_TUPLE(vel)))
 		_log->log("trying to set the angular velocity of a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 void RigidBodyComponent::setGravity(bool g)
 {
 	if (!_rb->setGravity(g))
 		_log->log("trying to enable or disable the gravity of a static rigidBody will result in nothig", Logger::Level::WARN);
-
 }
 
 const Vector3& RigidBodyComponent::getAngularVelocity()

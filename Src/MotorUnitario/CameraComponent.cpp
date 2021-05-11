@@ -119,7 +119,6 @@ void CameraComponent::update()
 	_camera->setPosition(x, y, z);
 
 	Vector3 orientation = TUPLETOVECTOR3(_camera->getOrientation());
-	std::cout << "{ X: " << orientation.getX() << "; Y: " << orientation.getY() << " ; Z: " << orientation.getZ() << " }\n";
 }
 
 void CameraComponent::lateUpdate()

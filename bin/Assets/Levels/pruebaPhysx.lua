@@ -12,18 +12,27 @@
 
 -- You can find component definition examples at the end of this document
 
-HowManyGameObjects = 3
+HowManyGameObjects = 4
+
+go_3 = {}
+go_3[0] = { Name = "Suelo", HowManyCmps = 3, Persist = false}
+go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 5}, Rotation={X=0, Y=0, Z=0}, Scale = { X=0.01, Y=0.01, Z=0.01}}
+go_3[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Yellow", 
+  			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, LookAt ={X=0, Y=0, Z=-1},
+  			Visible=true, Shadows=true, RenderingDistance = 1000}
+go_3[3] = { Component = "RigidBody", Static = true, Type = "Box", Width = 1, Height = 1, Depth = 1, Kinematic = false, Mass = 1}
 
 go_0 = {}
-go_0[0] = { Name = "Objeto", HowManyCmps = 2, Persist = false}
-go_0[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 300}}
+go_0[0] = { Name = "Objeto", HowManyCmps = 3, Persist = false}
+go_0[1] = { Component = "Transform", Coord = {X = 0.8, Y = 5, Z = 5}, Rotation={X=0, Y=0, Z=3.14/6}, Scale = {X=0.01, Y=0.01, Z=0.01}}
 go_0[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Yellow", 
- 			RotateAngle = 0, Rotate={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}, LookAt ={X=0, Y=0, Z=-1},
+ 			RotateAngle = 0, LookAt ={X=0, Y=0, Z=-1},
  			Visible=true, Shadows=true, RenderingDistance = 1000}
+go_0[3] = { Component = "RigidBody", Static = false, Type = "Box", Width = 1, Height = 1, Depth = 1, Kinematic = false, Mass = 100}
 
 go_1 = {}
 go_1[0] = { Name = "Camara", HowManyCmps = 2, Persist = false}
-go_1[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}}
+go_1[1] = { Component = "Transform", Coord = {X = 0, Y = 1, Z = -10}}
 go_1[2] = { Component = "Camera", Orientation = {X = 0, Y = 3.14, Z = 0}, Plane = {Near = 1, Far = 9999},
 			Projection = true, Fovy = 60, Frustrum = {Left = 1, Right = 1, Top = 1, Bot = 1}, 
 			OrthoWindow = {W = 100, H = 100}, Viewport = {Left = 0, Top = 0, W = 1, H = 1},
@@ -34,7 +43,7 @@ go_2 = {}
 go_2[0] = { Name = "Luz", HowManyCmps = 2, Persist = false}
 go_2[1] = { Component = "Transform", Coord = {X = 300, Y = 5, Z = -1000}}
 go_2[2] = { Component = "LightComponent", LightType= "DIRECTIONAL", Visible = true, Diffuse = {Red = 1, Green= 1, Blue = 1}, 
-			LightDirection = {X = 1, Y = 1, Z = 1},
+			Direction = {X = 1, Y = 1, Z = 1},
 			Specular = {Red = 1, Green= 1, Blue = 1}, 
 			Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1},
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}

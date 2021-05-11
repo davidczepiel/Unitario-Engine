@@ -219,7 +219,7 @@ bool RigidBody::addImpulse(std::tuple<float, float, float>& impulse)
 
 }
 
-bool RigidBody::addTorque(std::tuple<float, float, float>& torque)
+bool RigidBody::addTorque(const std::tuple<float, float, float>& torque)
 {
 	if (!_isStatic)
 	{
@@ -310,16 +310,21 @@ bool RigidBody::rotate(const std::tuple<float, float, float>& rotation)
 {
 	if (!_isStatic) {
 		physx::PxVec3 postRot = _dynamicBody->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
+		physx::PxQuat q = toQuaternion(PHYSXVEC3_TO_TUPLE(postRot));
+		physx::PxTransform tr(_dynamicBody->getGlobalPose().p, q);
+		_dynamicBody->setGlobalPose(tr);
 		return true;
 	}
 	return false;
 }
 
-bool RigidBody::setRotation(float angle, const std::tuple<float, float, float>& axis) 
+bool RigidBody::setRotation(const std::tuple<float, float, float>& rotation)
 {
 	if (!_isStatic) {
 		{
-			_dynamicBody->setGlobalPose(physx::PxTransform(_dynamicBody->getGlobalPose().p, physx::PxQuat(angle, TUPLE_TO_PHYSXVEC3(axis))));
+			physx::PxQuat q = toQuaternion(rotation);
+			physx::PxTransform tr(_dynamicBody->getGlobalPose().p, q);
+			_dynamicBody->setGlobalPose(tr);
 			return true;
 		}
 		return false;
@@ -371,10 +376,51 @@ bool RigidBody::setRotation(float angle, const std::tuple<float, float, float>& 
 
 	const std::tuple<float, float, float> RigidBody::getRotation()
 	{
-		float angle = 0;
-		physx::PxVec3 axis;
-		_dynamicBody->getGlobalPose().q.toRadiansAndUnitAxis(angle, axis);
-		return PHYSXVEC3_TO_TUPLE(axis);
+		return PHYSXVEC3_TO_TUPLE(ToEulerAngles(_dynamicBody->getGlobalPose().q));
+	}
+
+	physx::PxQuat RigidBody::toQuaternion(const std::tuple<float, float, float>& rotation)
+	{
+		physx::PxVec3 rot = TUPLE_TO_PHYSXVEC3(rotation);
+
+		double cy = cos(rot.y * 0.5);
+		double sy = sin(rot.y * 0.5);
+		double cp = cos(rot.x * 0.5);
+		double sp = sin(rot.x * 0.5);
+		double cr = cos(rot.z * 0.5);
+		double sr = sin(rot.z * 0.5);
+
+		physx::PxQuat q;
+		q.w = cr * cp * cy + sr * sp * sy;
+		q.x = sr * cp * cy - cr * sp * sy;
+		q.y = cr * sp * cy + sr * cp * sy;
+		q.z = cr * cp * sy - sr * sp * cy;
+
+		return q;
+	}
+
+	physx::PxVec3 RigidBody::ToEulerAngles(physx::PxQuat q)
+	{
+		physx::PxVec3 angles;
+
+		// roll (x-axis rotation)
+		double sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
+		double cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+
+		// pitch (y-axis rotation)
+		double sinp = 2 * (q.w * q.y - q.z * q.x);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(physx::PxPi / 2, sinp); // use 90 degrees if out of range
+		else
+			angles.x = std::asin(sinp);
+
+		// yaw (z-axis rotation)
+		double siny_cosp = 2 * (q.w * q.z + q.x * q.y);
+		double cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+		return angles;
 	}
 
 	void RigidBody::setFlags(physx::PxShape * shape)
@@ -402,6 +448,7 @@ bool RigidBody::setRotation(float angle, const std::tuple<float, float, float>& 
 			_dynamicBody->setAngularDamping(angularDamping);
 			_dynamicBody->userData = this;
 			physx::PxRigidBodyExt::updateMassAndInertia(*_dynamicBody, mass);
+			_dynamicBody->setMassSpaceInertiaTensor(physx::PxVec3(1, 1, 1));
 		}
 	}
 

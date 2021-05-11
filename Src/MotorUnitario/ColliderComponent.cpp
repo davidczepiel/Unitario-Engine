@@ -39,7 +39,7 @@ void ColliderComponent::setPosition(Vector3 pos)
 
 void ColliderComponent::setRotation(Vector3 rot)
 {
-	_collider->rotate(VEC3_TO_TUPLE(rot));
+	_collider->setRotation(VEC3_TO_TUPLE(rot));
 }
 
 /////////////////////////////////////////////
@@ -72,9 +72,11 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
 
 	_collider = new BoxCollider(width, height, depth, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
+	_collider->setRotation(rot);
 }
 
 void BoxColliderComponent::setScale(float width, float heigh, float depth)
@@ -124,9 +126,11 @@ void SphereColliderComponent::awake(luabridge::LuaRef& data)
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
 
 	_collider = new SphereCollider(radius, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
+	_collider->setRotation(rot);
 }
 
 void SphereColliderComponent::setScale(float radius)
@@ -167,9 +171,11 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = VEC3_TO_TUPLE(t->getPosition());
+	std::tuple<float, float, float> rot = VEC3_TO_TUPLE(t->getRotation());
 
 	_collider = new CapsuleCollider(radius, length, isTrigger, _gameObject, _gameObject->getName(),
 		gameObjectsCollision, gameObjectTriggered, pos, staticFriction, dynamicFriction, restitution);
+	_collider->setRotation(rot);
 }
 
 void CapsuleColliderComponent::setScale(float radius, float length)

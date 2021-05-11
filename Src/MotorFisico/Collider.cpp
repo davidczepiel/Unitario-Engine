@@ -5,6 +5,7 @@
 #include <PxPhysics.h>
 #include <PxPhysicsAPI.h>
 #include "foundation/PxTransform.h"
+#include <iostream>
 
 #define GetPhysx() PhysxEngine::getPxInstance()->getScene()->getPhysics()
 
@@ -25,9 +26,11 @@ void Collider::setPosition(const std::tuple<float, float, float>& position)
 	_body->setGlobalPose(physx::PxTransform(TUPLE_TO_PHYSXVEC3(position)));
 }
 
-void Collider::rotate(const std::tuple<float, float, float>& rotation)
+void Collider::setRotation(const std::tuple<float, float, float>& rotation)
 {
-	_body->getGlobalPose().rotate(TUPLE_TO_PHYSXVEC3(rotation));
+	physx::PxQuat q = toQuaternion(rotation);
+	physx::PxTransform tr(_body->getGlobalPose().p, q);
+	_body->setGlobalPose(tr);
 }
 
 void Collider::setMaterial(float staticFriction, float dynamicFriction, float restitution)
@@ -44,6 +47,50 @@ void Collider::setMaterial(float staticFriction, float dynamicFriction, float re
 	_mShape->setMaterials(buffer, 1);
 
 	delete[] buffer;
+}
+
+physx::PxQuat Collider::toQuaternion(const std::tuple<float, float, float>& rotation)
+{
+	physx::PxVec3 rot = TUPLE_TO_PHYSXVEC3(rotation);
+
+	double cy = cos(rot.y * 0.5);
+	double sy = sin(rot.y * 0.5);
+	double cp = cos(rot.x * 0.5);
+	double sp = sin(rot.x * 0.5);
+	double cr = cos(rot.z * 0.5);
+	double sr = sin(rot.z * 0.5);
+
+	physx::PxQuat q;
+	q.w = cr * cp * cy + sr * sp * sy;
+	q.x = sr * cp * cy - cr * sp * sy;
+	q.y = cr * sp * cy + sr * cp * sy;
+	q.z = cr * cp * sy - sr * sp * cy;
+
+	return q;
+}
+
+physx::PxVec3 Collider::ToEulerAngles(physx::PxQuat q)
+{
+	physx::PxVec3 angles;
+
+	// roll (x-axis rotation)
+	double sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
+	double cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
+	angles.z = std::atan2(sinr_cosp, cosr_cosp);
+
+	// pitch (y-axis rotation)
+	double sinp = 2 * (q.w * q.y - q.z * q.x);
+	if (std::abs(sinp) >= 1)
+		angles.x = std::copysign(physx::PxPi / 2, sinp); // use 90 degrees if out of range
+	else
+		angles.x = std::asin(sinp);
+
+	// yaw (z-axis rotation)
+	double siny_cosp = 2 * (q.w * q.z + q.x * q.y);
+	double cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+	angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+	return angles;
 }
 
 Collider::Collider(bool isTrigger, GameObject* gameObject, const std::string& gameObjectName, ContactCallback* coliderCallback, ContactCallback* triggerCallback,

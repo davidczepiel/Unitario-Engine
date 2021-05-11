@@ -97,7 +97,7 @@ public:
 	/// Conversion to Quaternion by Euler angle
 	/// </summary>
 	/// <param name="position">New scale</param>
-	Quaternion ToQuaternion(double yaw, double pitch, double roll); // yaw (Z), pitch (Y), roll (X)
+	Quaternion ToQuaternion(double pitch, double yaw, double roll); // yaw (Z), pitch (Y), roll (X)
 
 private:
 	Vector3 _position;
