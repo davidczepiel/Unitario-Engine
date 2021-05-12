@@ -74,7 +74,7 @@ void BoxColliderComponent::awake(luabridge::LuaRef& data)
 	std::tuple<float, float, float> pos = t->getPosition().toTuple();
 	std::tuple<float, float, float> rot = t->getRotation().toTuple();
 	
-	Vector3 scale = t->getScale();
+	Vector3 scale = t->getSize();
 	width *= scale.getX();
 	height *= scale.getY();
 	depth *= scale.getZ();
@@ -178,7 +178,7 @@ void CapsuleColliderComponent::awake(luabridge::LuaRef& data)
 	std::tuple<float, float, float> pos = t->getPosition().toTuple();
 	std::tuple<float, float, float> rot = t->getRotation().toTuple();
 	
-	Vector3 scale = t->getScale();
+	Vector3 scale = t->getSize();
 	radius *= std::max({ scale.getX(), scale.getZ() });
 	radius /= 2;
 	length *= scale.getY();

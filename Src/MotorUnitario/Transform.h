@@ -74,7 +74,12 @@ public:
 	/// <summary>
 	/// Returns the current scale of the transform
 	/// </summary>
-	inline Vector3 getScale() const { return _scale * _proportions; }
+	inline Vector3 getScale() const { return _scale; }
+
+	/// <summary>
+	/// Returns the current size of the transform
+	/// </summary>
+	inline Vector3 getSize() const { return _scale * _proportions; }
 
 	/// <summary>
 	/// Returns the current scale of the transform

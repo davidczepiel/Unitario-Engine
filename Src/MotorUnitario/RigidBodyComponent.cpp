@@ -57,7 +57,7 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = t->getPosition().toTuple();
 	std::tuple<float, float, float> rot = t->getRotation().toTuple();
-	Vector3 scale = t->getScale();
+	Vector3 scale = t->getSize();
 
 	if (LUAFIELDEXIST(Type)) { //Sphere
 		std::string t = GETLUASTRINGFIELD(Type);

@@ -76,8 +76,8 @@ void RenderObjectComponent::update()
 	/*	
 		start size: 50  200  50  -> scale 1 1 1 -> end size: 0.25  1  0.25
 	*/
-	Vector3 scale = _transform->getScale();
-	_renderObject->setScale(scale.getX(), scale.getY(), scale.getZ());
+	Vector3 size = _transform->getSize();
+	_renderObject->setScale(size.getX(), size.getY(), size.getZ());
 }
 
 void RenderObjectComponent::setMaterial(std::string const& materialName)
