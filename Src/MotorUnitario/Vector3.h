@@ -3,6 +3,7 @@
 #define VECTOR3_H
 
 #include <math.h>
+#include <tuple>
 #include <cmath>
 
 #define PI 3.14159265 
@@ -13,6 +14,8 @@ public:
 	Vector3();
 	Vector3(const Vector3& v);
 	Vector3(double x, double y, double z);
+	Vector3(const std::tuple<float, float, float>& tuple);
+
 	~Vector3();
 		
 	/// <summary>
@@ -73,6 +76,17 @@ public:
 	Vector3 normalize() const;
 
 	/// <summary>
+	/// Returns a tuple
+	/// </summary>
+	/// <returns></returns>
+	inline std::tuple<float, float, float> toTuple() const { return { _x, _y, _z }; }
+
+	/// <summary>
+	/// Returns the inverse vector
+	/// </summary>
+	/// <returns></returns>
+	inline Vector3 inverse() const { return Vector3(1 / _x, 1 / _y, 1 / _z); }
+	
 	/// Returns a radian angle between this vector and other
 	/// </summary>
 	/// <param name="other"></param>
@@ -105,10 +119,10 @@ public:
 	inline Vector3 operator*(double d) const { return Vector3(_x * d, _y * d, _z * d); }
 
 	/// <summary>
-	/// Dot product between vectors
+	/// Dot multiplication
 	/// </summary>
-	/// <param name="d">Number to be multiplied</param>
-	inline float operator*(const Vector3& other) const { return _x * other._x + _y * other._y + _z * other._z; }
+	/// <param name="other">other vector</param>
+	inline Vector3 operator*(const Vector3& other) const { return Vector3(_x * other._x, _y * other._y, _z * other._z); }
 
 	/// <summary>
 	/// Allows to divide vectors

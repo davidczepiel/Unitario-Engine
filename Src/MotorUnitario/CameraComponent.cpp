@@ -8,20 +8,25 @@
 
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
-	/*setProjection(data["Projection"].cast<bool>());
+	/*
+	setProjection(data["Projection"].cast<bool>());
 	setFovY(data["Fovy"].cast<float>());
 	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
 		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
 	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
 */
 
-//It is necesary to create the camera in this method and not in the constructor because each camera
-//Has its own viewport and it is necesary to specify its zOrder when creating a new one
-// (Viewports zOrders can not be modified)
+	//It is necesary to create the camera in this method and not in the constructor because each camera
+	//Has its own viewport and it is necesary to specify its zOrder when creating a new one
+	// (Viewports zOrders can not be modified)
 
 	int zOrder = 1;
 	if (LUAFIELDEXIST(zOrder))
 		zOrder = GETLUAFIELD(zOrder, int);
+
+	if(LUAFIELDEXIST(SlaveRotation))
+		_slaveRotation = GETLUAFIELD(SlaveRotation, bool);
+
 	float l, t, w, h;
 	l = t = 0, w = h = 1;
 	if (LUAFIELDEXIST(Viewport))
@@ -37,20 +42,10 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	}
 
 	_camera = new Camera(_gameObject->getName(), zOrder, l, t, w, h);
+
 	if (LUAFIELDEXIST(DisplayOverlays))
 		_camera->renderOverlays(GETLUAFIELD(DisplayOverlays, bool));
-	if (LUAFIELDEXIST(Orientation)) {
-		float x, y, z;
-		x = y = z = 0;
-		if (!data["Orientation"]["X"].isNil())
-			x = data["Orientation"]["X"].cast<float>();
-		if (!data["Orientation"]["Y"].isNil())
-			y = data["Orientation"]["Y"].cast<float>();
-		if (!data["Orientation"]["Z"].isNil())
-			z = data["Orientation"]["Z"].cast<float>();
 
-		setOrientation(x, y, z);
-	}
 	if (LUAFIELDEXIST(Plane)) {
 		float near, far;
 		near = far = 0;
@@ -61,18 +56,6 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 		setPlanes(near, far);
 	}
 
-	if (LUAFIELDEXIST(Pitch))
-	{
-		pitchDegrees(GETLUAFIELD(Pitch, float));
-	}
-	if (LUAFIELDEXIST(Yaw))
-	{
-		yawDegrees(GETLUAFIELD(Yaw, float));
-	}
-	if (LUAFIELDEXIST(Roll))
-	{
-		rollDegrees(GETLUAFIELD(Roll, float));
-	}
 	if (LUAFIELDEXIST(Compositors)) {
 		for (int i = 1; i <= data["Compositors"].length(); i += 2) {
 			_camera->addCompositor(data["Compositors"][i].tostring().c_str());
@@ -81,7 +64,7 @@ void CameraComponent::awake(luabridge::LuaRef& data)
 	}
 }
 
-CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr), _tr(nullptr)
+CameraComponent::CameraComponent() : Component(ComponentId::Camera), _camera(nullptr), _tr(nullptr), _slaveRotation(false)
 {
 }
 
@@ -93,38 +76,57 @@ CameraComponent::~CameraComponent()
 void CameraComponent::start()
 {
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+
+	Vector3 rot = _tr->getRotation();
+	_camera->setOrientation(rot.getX(), rot.getY(), rot.getZ());
 }
 
 void CameraComponent::update()
 {
-	float x = static_cast<float>(_tr->getPosition().getX());
-	float y = static_cast<float>(_tr->getPosition().getY());
-	float z = static_cast<float>(_tr->getPosition().getZ());
-	_camera->setPosition(x, y, z);
-}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S)) {
+		_camera->pitchDegrees(-1, true);
+	}
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W)) {
+		_camera->pitchDegrees(1, true);
+	}
+	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A)) {
+		_camera->yawDegrees(-1, true);
+	}
+	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D)) {
+		_camera->yawDegrees(1, true);
+	}
 
-void CameraComponent::lateUpdate()
-{
+	Vector3 pos = _tr->getPosition();
+	_camera->setPosition(static_cast<float>(pos.getX()), static_cast<float>(pos.getY()), static_cast<float>(pos.getZ()));
+
+	if (_slaveRotation) {
+		Vector3 rot = _tr->getRotation();
+		_camera->setOrientation(rot.getX(), rot.getY(), rot.getZ());
+	}
 }
 
 void CameraComponent::rotate(float angle, int xAxis, int yAxis, int zAxis)
 {
-	_camera->rotate(angle, xAxis, yAxis, zAxis);
+	if(!_slaveRotation)
+		_camera->rotate(angle, xAxis, yAxis, zAxis);
 }
 
 void CameraComponent::lookAt(float x, float y, float z)
 {
-	_camera->lookAt(x, y, z);
+	if (!_slaveRotation)
+		_camera->lookAt(x, y, z);
 }
 
 void CameraComponent::pitchDegrees(float degrees, bool world)
 {
-	_camera->pitchDegrees(degrees, world);	
+	if (!_slaveRotation)
+		_camera->pitchDegrees(degrees, world);	
 }
 
 void CameraComponent::pitchRadians(float radians, bool world)
 {
-	_camera->pitchRadians(radians, world);
+	if (!_slaveRotation)
+		_camera->pitchRadians(radians, world);
 }
 
 void CameraComponent::yawDegrees(float degrees, bool world)
@@ -134,32 +136,26 @@ void CameraComponent::yawDegrees(float degrees, bool world)
 
 void CameraComponent::yawRadians(float radians, bool world)
 {
-	_camera->yawRadians(radians, world);
+	if (!_slaveRotation)
+		_camera->yawRadians(radians, world);
 }
 
 void CameraComponent::rollDegrees(float degrees, bool world)
 {
-	_camera->rollDegrees(degrees, world);
+	if (!_slaveRotation)
+		_camera->rollDegrees(degrees, world);
 }
 
 void CameraComponent::rollRadians(float radians, bool world)
 {
-	_camera->rollRadians(radians, world);
+	if (!_slaveRotation)
+		_camera->rollRadians(radians, world);
 }
 
 void CameraComponent::setOrientation(float x, float y, float z)
 {
-	_camera->setOrientation(x, y, z);
-}
-
-void CameraComponent::setPosition(float x, float y, float z)
-{
-	_camera->setPosition(x, y, z);
-}
-
-void CameraComponent::translate(float x, float y, float z)
-{
-	_camera->translate(x, y, z);
+	if (!_slaveRotation)
+		_camera->setOrientation(x, y, z);
 }
 
 void CameraComponent::setPlanes(float near, float far)

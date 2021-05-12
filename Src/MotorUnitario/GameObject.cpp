@@ -71,7 +71,7 @@ void GameObject::postFixedUpdate()
 
 	for (GameObject* go : _children)
 		if (go->getEnabled())
-			go->fixedUpdate();
+			go->postFixedUpdate();
 }
 
 void GameObject::lateUpdate()

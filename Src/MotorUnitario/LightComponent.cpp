@@ -16,15 +16,11 @@ void LightComponent::awake(luabridge::LuaRef& data)
 {
 	_light = new Light(_gameObject->getName());
 
-	luabridge::LuaRef lua_coord = data["Coord"];
-	if (LUAFIELDEXIST(Position))
-		_light->setPosition(lua_coord["X"].cast<double>(), lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>());
-
 	if (LUAFIELDEXIST(LightType))
 		_light->setLightType(convertLightType(data["LightType"]));
 
 	if (LUAFIELDEXIST(Visible))
-		_light->setVisible(data["Visible"].cast<bool>());
+		_light->setVisible(GETLUAFIELD(Visible, bool));
 
 	if (LUAFIELDEXIST(Diffuse))
 		_light->setDiffuse(data["Diffuse"]["Red"].cast<float>(), data["Diffuse"]["Green"].cast<float>(), data["Diffuse"]["Blue"].cast<float>());

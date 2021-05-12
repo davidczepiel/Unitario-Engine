@@ -13,6 +13,7 @@ namespace physx {
 	class PxRigidDynamic;
 	class PxRigidActor;
 	class PxVec3;
+	class PxQuat;
 	class PxTransform;
 }
 
@@ -79,7 +80,7 @@ public:
 	/// Sets the transform rotation to a specified one
 	/// </summary>
 	/// <param name="position">Set of values that determine the position</param>
-	void rotate(const std::tuple<float, float, float>& rotation);
+	void setRotation(const std::tuple<float, float, float>& rotation);
 
 	/// <summary>
 	/// Sets collider's material to given parameters
@@ -90,6 +91,8 @@ public:
 	void setMaterial(float staticFriction, float dynamicFriction, float restitution);
 
 protected:
+	physx::PxQuat toQuaternion(const std::tuple<float, float, float>& rotation);
+	physx::PxVec3 ToEulerAngles(physx::PxQuat q);
 
 	/// <summary>
 	/// Contructor of the class

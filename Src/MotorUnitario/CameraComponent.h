@@ -32,14 +32,11 @@ public:
 	/// Initializes the component, called once at the start of the execution
 	/// </summary>
 	virtual void start() override;
+
 	/// <summary>
 	/// Update the component
 	/// </summary>
 	virtual void update() override;
-	/// <summary>
-	/// Called each frame after update.
-	/// </summary>
-	virtual void lateUpdate() override;
 
 	/// <summary>
 	/// Rotate the camera "angle" angles in the given axis
@@ -48,6 +45,7 @@ public:
 	/// <param name="y" >value for x axis</param>
 	/// <param name="z"> value for z axis</param>
 	void rotate(float angle, int xAxis, int yAxis, int zAxis);
+
 	/// <summary>
 	/// Redirects the Z axis of the camera so that it points to a specific world position
 	/// </summary>
@@ -99,28 +97,6 @@ public:
 	/// <param name="y">The worlds y position that the camera will point at</param>
 	/// <param name="z">The worlds z position that the camera will point at</param>
 	void setOrientation(float x, float y, float z);
-
-	/// <summary>
-	/// Adjusts the cameras node so that it is oriented given a Quarternion
-	/// </summary>
-	/// <param name="orientation">Quaternion wich specifies the camera new orientation </param>
-	//void setOrientation(Ogre::Quaternion orientation);
-
-	/// <summary>
-	/// Sets the camera position to a specified location
-	/// </summary>
-	/// <param name="x">The camera new x position</param>
-	/// <param name="y">The camera new y position</param>
-	/// <param name="z">The camera new z position </param>
-	void setPosition(float x, float y, float z);
-
-	/// <summary>
-	/// Moves the camera from its position an specified amount of units in each axis
-	/// </summary>
-	/// <param name="x">The camera movement on the x axis</param>
-	/// <param name="y">The camera movement on the y axis</param>
-	/// <param name="z">The camera movement on the z axis</param>
-	void translate(float x, float y, float z);
 
 	/// <summary>
 	/// Sets the near clip plane and the far clip plane
@@ -193,6 +169,8 @@ private:
 
 	Camera* _camera;
 	Transform* _tr;
+
+	bool _slaveRotation;
 };
 
 

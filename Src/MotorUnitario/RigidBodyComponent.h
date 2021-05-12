@@ -2,9 +2,6 @@
 #ifndef RIGIDBODYCOMPONENT_H
 #define RIGIDBODYCOMPONENT_H
 
-#define VEC3_TO_TUPLE(vec) std::tuple<float, float, float>(vec.getX(), vec.getY(), vec.getZ())
-#define TUPLE_TO_VEC3(tuple) Vector3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
-
 #include "Component.h"
 #include "Vector3.h"
 #include <string>
@@ -54,7 +51,7 @@ public:
 	/// </summary>
 	/// <param name="angle">the angle in radians to rotate</param>
 	/// <param name="axis">the axis to rotate</param>
-	void setRotation(float angle, Vector3 axis);
+	void setRotation(Vector3 rot);
 
 	/// <summary>
 	/// Sets the scale of the transform to a specified one

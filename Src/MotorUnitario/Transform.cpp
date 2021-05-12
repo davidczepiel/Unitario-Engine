@@ -9,7 +9,9 @@
 #include <math.h>
 #define PI 3.14159265
 
-Transform::Transform() : Component(ComponentId::Transform), _position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1), _dir(0, 0, -1)
+
+Transform::Transform() : Component(ComponentId::Transform), 
+	_position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1), _dir(0, 0, -1), _proportions(1, 1, 1)
 {
 }
 
@@ -48,12 +50,12 @@ void Transform::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Coord)) {
 		luabridge::LuaRef lua_coord = data["Coord"];
 		_position = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
-		std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
+		//std::cout << "Tr: X=" << _position.getX() << ", Y=" << _position.getY() << ", Z=" << _position.getZ() << std::endl;
 	}
 
 	if (LUAFIELDEXIST(Rotation)) {
 		luabridge::LuaRef lua_coord = data["Rotation"];
-		_rotation = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+		_rotation = { lua_coord["X"].cast<double>() * PI / 180, lua_coord["Y"].cast<double>() * PI / 180, lua_coord["Z"].cast<double>() * PI / 180 };
 	}
 
 	if (LUAFIELDEXIST(Scale)) {
@@ -74,7 +76,7 @@ void Transform::setRotation(const Vector3& rotation)
 
 	RigidBodyComponent* rb = dynamic_cast<RigidBodyComponent*>(_gameObject->getComponent(ComponentId::Rigidbody));
 	if (rb != nullptr) {
-		rb->rotate(getForward());
+		rb->setRotation(getForward());
 	}
 
 	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
@@ -91,45 +93,46 @@ void Transform::setRotation(const Vector3& rotation)
 	}
 }
 
+
 EulerAngles Transform::ToEulerAngles(Quaternion q)
 {
 	EulerAngles angles;
 
-	// roll (x-axis rotation)
+	// pitch (x-axis rotation)
 	double sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
 	double cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
-	angles.roll = std::atan2(sinr_cosp, cosr_cosp);
+	angles.pitch = std::atan2(sinr_cosp, cosr_cosp);
 
-	// pitch (y-axis rotation)
+	// yaw (y-axis rotation)
 	double sinp = 2 * (q.w * q.y - q.z * q.x);
 	if (std::abs(sinp) >= 1)
-		angles.pitch = std::copysign(PI / 2, sinp); // use 90 degrees if out of range
+		angles.yaw = std::copysign(PI / 2, sinp); // use 90 degrees if out of range
 	else
-		angles.pitch = std::asin(sinp);
+		angles.yaw = std::asin(sinp);
 
-	// yaw (z-axis rotation)
+	// roll (z-axis rotation)
 	double siny_cosp = 2 * (q.w * q.z + q.x * q.y);
 	double cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
-	angles.yaw = std::atan2(siny_cosp, cosy_cosp);
+	angles.roll = std::atan2(siny_cosp, cosy_cosp);
 
 	return angles;
 }
 
-Quaternion Transform::ToQuaternion(double yaw, double pitch, double roll)
+Quaternion Transform::ToQuaternion(double pitch, double yaw, double roll)
 {
 	// Abbreviations for the various angular functions
-	double cy = cos(yaw * 0.5);
-	double sy = sin(yaw * 0.5);
-	double cp = cos(pitch * 0.5);
-	double sp = sin(pitch * 0.5);
+	double cy = cos(pitch * 0.5);
+	double sy = sin(pitch * 0.5);
+	double cp = cos(yaw * 0.5);
+	double sp = sin(yaw * 0.5);
 	double cr = cos(roll * 0.5);
 	double sr = sin(roll * 0.5);
 
 	Quaternion q;
 	q.w = cr * cp * cy + sr * sp * sy;
-	q.x = sr * cp * cy - cr * sp * sy;
+	q.z = sr * cp * cy - cr * sp * sy;
 	q.y = cr * sp * cy + sr * cp * sy;
-	q.z = cr * cp * sy - sr * sp * cy;
+	q.x = cr * cp * sy - sr * sp * cy;
 
 	return q;
 }

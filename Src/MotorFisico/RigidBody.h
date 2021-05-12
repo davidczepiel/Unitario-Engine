@@ -23,6 +23,8 @@ namespace physx {
 	class PxTransform;
 	class PxMaterial;
 	class PxScene;
+	class PxQuat;
+	class PxVec3;
 };
 
 class RigidBody : public CollisionBody
@@ -116,7 +118,7 @@ public:
 	/// </summary>
 	/// <param name="torque">The torque to add</param>
 	/// <returns>The new rotation of the object and if it's valid</returns>
-	bool  addTorque(std::tuple<float, float, float>& torque);
+	bool  addTorque(const std::tuple<float, float, float>& torque);
 
 	/// <summary>
 	/// Moves the rigidBody to a point, (only if Kinematic)
@@ -164,7 +166,7 @@ public:
 	/// <param name="angle">angle in degrees to rotate</param>
 	/// <param name="axis">axis to rotate</param>
 	/// <returns></returns>
-	bool setRotation(float angle, const std::tuple<float, float, float>& axis);
+	bool setRotation(const std::tuple<float, float, float>& rotation);
 
 	/// <summary>
 	/// Sets the rigidbodys scale to a specified one
@@ -263,6 +265,9 @@ public:
 	inline bool isStatic() const { return _isStatic; }
 
 private:
+	physx::PxQuat toQuaternion(const std::tuple<float, float, float>& rotation);
+	physx::PxVec3 ToEulerAngles(physx::PxQuat q);
+
 	/// <summary>
 	/// Configures a shape to avoid collision detection and scene queries (raycasts, sweeps and overlays)
 	/// </summary>
@@ -284,7 +289,7 @@ private:
 	/// gets all materials from the dynamic rigidBody
 	/// </summary>
 	/// <returns></returns>
-	std::list<physx::PxMaterial*>getAllMaterials();
+	std::list<physx::PxMaterial*> getAllMaterials();
 	
 	/// <summary>
 	/// gets the greater component of one tuple
@@ -297,6 +302,7 @@ private:
 	physx::PxScene* _scene;
 	physx::PxRigidDynamic* _dynamicBody;
 	physx::PxRigidStatic* _staticBody;
+	physx::PxShape* _shape;
 
 	GameObject* _gameObject;
 	ContactCallback* _collisionCallback;

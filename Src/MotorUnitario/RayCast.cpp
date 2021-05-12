@@ -4,13 +4,10 @@
 #include "Engine.h"
 #include "Logger.h"
 
-#define VEC3_TO_TUPLE(vec) std::tuple<float,float,float>(vec.getX(),vec.getY(),vec.getZ())
-#define TUPLE_TO_VEC3(tuple) Vector3(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple))
-
 RayCast::RayCast(const Vector3& source, const Vector3& directionVector, float distance, RayCast::Type collidesWith) : _raycast()
 {
 	try {
-		PxRayCast ray = PxRayCast(VEC3_TO_TUPLE(source), VEC3_TO_TUPLE(directionVector), distance, (PxRayCast::Type)collidesWith);
+		PxRayCast ray = PxRayCast(source.toTuple(), directionVector.toTuple(), distance, (PxRayCast::Type)collidesWith);
 		getInformation(ray);
 	}
 	catch (const ExcepcionTAD& e) {
@@ -24,7 +21,7 @@ RayCast::RayCast(const Vector3& source, const Vector3& target, RayCast::Type col
 		throw ERayCast("Raycast source position cannot be the same as target position");
 
 	try {
-		PxRayCast ray = PxRayCast(VEC3_TO_TUPLE(source), VEC3_TO_TUPLE((target - source).normalize()), (target - source).magnitude(), (PxRayCast::Type)collidesWith);
+		PxRayCast ray = PxRayCast(source.toTuple(), ((target - source).normalize()).toTuple(), (target - source).magnitude(), (PxRayCast::Type)collidesWith);
 		getInformation(ray);
 	}
 	catch (const ExcepcionTAD& e) {
@@ -39,7 +36,7 @@ void RayCast::getInformation(const PxRayCast& ray)
 	_raycast.hit = info.hit;
 	if (_raycast.hit) {
 		_raycast.distance = info.distance;
-		_raycast.hitPosition = TUPLE_TO_VEC3(info.hitPosition);
+		_raycast.hitPosition = info.hitPosition;
 		_raycast.gameObjectHitted = Engine::getInstance()->findGameObject(info.actorName);
 	}
 }

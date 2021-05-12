@@ -44,7 +44,7 @@ void Camera::lookAt(float x, float y, float z)
 
 void Camera::pitchDegrees(float degrees, bool world)
 {
-	if (world)
+	if (world) 
 		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)), Ogre::Node::TS_WORLD);
 	else
 		_node->pitch(Ogre::Radian(Ogre::Degree(degrees)));
@@ -53,9 +53,9 @@ void Camera::pitchDegrees(float degrees, bool world)
 void Camera::pitchRadians(float radians, bool world)
 {
 	if (world)
-		_node->pitch(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+		_node->pitch(Ogre::Radian(radians), Ogre::Node::TS_WORLD);
 	else
-		_node->pitch(Ogre::Radian(Ogre::Degree(radians)));
+		_node->pitch(Ogre::Radian(radians));
 }
 
 void Camera::yawDegrees(float degrees, bool world)
@@ -69,9 +69,9 @@ void Camera::yawDegrees(float degrees, bool world)
 void Camera::yawRadians(float radians, bool world)
 {
 	if (world)
-		_node->yaw(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+		_node->yaw(Ogre::Radian(radians), Ogre::Node::TS_WORLD);
 	else
-		_node->yaw(Ogre::Radian(Ogre::Degree(radians)));
+		_node->yaw(Ogre::Radian(radians));
 }
 
 void Camera::rollDegrees(float degrees, bool world)
@@ -85,9 +85,9 @@ void Camera::rollDegrees(float degrees, bool world)
 void Camera::rollRadians(float radians, bool world)
 {
 	if (world)
-		_node->roll(Ogre::Radian(Ogre::Degree(radians)), Ogre::Node::TS_WORLD);
+		_node->roll(Ogre::Radian(radians), Ogre::Node::TS_WORLD);
 	else
-		_node->roll(Ogre::Radian(Ogre::Degree(radians)));
+		_node->roll(Ogre::Radian(radians));
 }
 
 void Camera::renderOverlays(bool render)
@@ -96,21 +96,22 @@ void Camera::renderOverlays(bool render)
 		_viewport->setOverlaysEnabled(render);
 }
 
-void Camera::setOrientation(float yaw, float pitch, float roll)
+void Camera::setOrientation(double pitch, double yaw, double roll)
 {
-	//_node->lookAt(Ogre::Vector3(yaw, pitch, roll), Ogre::Node::TS_PARENT);
-	double cy = cos(yaw * 0.5);
-	double sy = sin(yaw * 0.5);
-	double cp = cos(pitch * 0.5);
-	double sp = sin(pitch * 0.5);
+	// Abbreviations for the various angular functions
+	double cy = cos(pitch * 0.5);
+	double sy = sin(pitch * 0.5);
+	double cp = cos(yaw * 0.5);
+	double sp = sin(yaw * 0.5);
 	double cr = cos(roll * 0.5);
 	double sr = sin(roll * 0.5);
 
 	Ogre::Quaternion q;
 	q.w = cr * cp * cy + sr * sp * sy;
-	q.x = sr * cp * cy - cr * sp * sy;
+	q.z = sr * cp * cy - cr * sp * sy;
 	q.y = cr * sp * cy + sr * cp * sy;
-	q.z = cr * cp * sy - sr * sp * cy;
+	q.x = cr * cp * sy - sr * sp * cy;
+
 	_node->setOrientation(q);
 }
 
@@ -122,11 +123,6 @@ void Camera::setOrientation(Ogre::Quaternion orientation)
 void Camera::setPosition(float x, float y, float z)
 {
 	_node->setPosition(Ogre::Vector3(x, y, z));
-}
-
-void Camera::translate(float x, float y, float z)
-{
-	_node->translate(x, y, z, Ogre::Node::TS_WORLD);
 }
 
 void Camera::setPlanes(float near, float far)
@@ -141,11 +137,13 @@ void Camera::setProjection(bool ortho)
 		_camera->setProjectionType(Ogre::PT_ORTHOGRAPHIC);
 	else _camera->setProjectionType(Ogre::PT_PERSPECTIVE);
 }
+
 void Camera::setFovY(float fovy)
 {
 	Ogre::Radian fovyInRadians(Ogre::Math::DegreesToRadians(fovy));
 	_camera->setFOVy(fovyInRadians);
 }
+
 void Camera::setFrustrumDimensions(float left, float right, float top, float bot)
 {
 	_camera->setFrustumExtents(left, right, top, bot);

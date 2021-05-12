@@ -72,7 +72,12 @@ public:
 	/// <summary>
 	/// Returns the current scale of the transform
 	/// </summary>
-	inline const Vector3& getScale() const { return _scale; }
+	inline Vector3 getScale() const { return _scale; }
+
+	/// <summary>
+	/// Returns the current size of the transform
+	/// </summary>
+	inline Vector3 getSize() const { return _scale * _proportions; }
 
 	/// <summary>
 	/// Returns the current scale of the transform
@@ -95,12 +100,19 @@ public:
 	/// Conversion to Quaternion by Euler angle
 	/// </summary>
 	/// <param name="position">New scale</param>
-	Quaternion ToQuaternion(double yaw, double pitch, double roll); // yaw (Z), pitch (Y), roll (X)
+	Quaternion ToQuaternion(double pitch, double yaw, double roll); // pitch (X), yaw (Y), roll (Z)
+
+	/// <summary>
+	/// Setted by RenderObject to be in accordance to the mesh proportions
+	/// </summary>
+	/// <param name="proportions"></param>
+	inline void setProportions(const Vector3& proportions) { _proportions = proportions; }
 
 private:
 	Vector3 _position;
 	Vector3 _rotation;
 	Vector3 _scale;
+	Vector3 _proportions;
 	Vector3 _dir;
 };
 

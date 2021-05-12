@@ -28,6 +28,8 @@ public:
 	EngineTime& operator=(const EngineTime&) = delete;
 	EngineTime(EngineTime& other) = delete;
 
+	void startTimeNow();
+
 	/// <summary>
 	/// Time since last frame
 	/// </summary>

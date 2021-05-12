@@ -126,6 +126,8 @@ void Engine::start()
 	for (auto& it : _GOs) {
 		it->start();
 	}
+
+	_time->startTimeNow();
 }
 
 void Engine::fixedUpdate()

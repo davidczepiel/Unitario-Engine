@@ -4,6 +4,7 @@
 #include "ComponentIDs.h"
 #include "includeLUA.h"
 #include "MotorGrafico/RenderObject.h"
+#include <algorithm>
 
 RenderObjectComponent::RenderObjectComponent() :Component(ComponentId::RenderObject, nullptr), _renderObject(nullptr),
 _transform(nullptr), _meshName("")
@@ -21,6 +22,13 @@ void RenderObjectComponent::awake(luabridge::LuaRef& data)
 	else throw "Mesh doesn't exists\n";
 	_renderObject = new RenderObject(_meshName, _gameObject->getName());
 	_renderObject->init();
+
+	_transform = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+
+	//To establish proportions relative to the mesh
+	Vector3 size = _renderObject->getMeshSize();
+	float _maxSize = std::max({ size.getX(), size.getY(), size.getZ() });
+	_transform->setProportions(size / _maxSize);
 
 	if (LUAFIELDEXIST(Material))
 		setMaterial(GETLUASTRINGFIELD(Material));
@@ -47,7 +55,6 @@ void RenderObjectComponent::awake(luabridge::LuaRef& data)
 
 void RenderObjectComponent::start()
 {
-	_transform = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	float x = static_cast<float>(_transform->getPosition().getX());
 	float y = static_cast<float>(_transform->getPosition().getY());
 	float z = static_cast<float>(_transform->getPosition().getZ());
@@ -65,8 +72,12 @@ void RenderObjectComponent::update()
 	Quaternion q = _transform->ToQuaternion(dir.getX(), dir.getY(), dir.getZ());
 	_renderObject->setRotation(q.x, q.y, q.z, q.w);
 
-	Vector3 scale = _transform->getScale();
-	_renderObject->setScale(scale.getX(), scale.getY(), scale.getZ());
+
+	/*	
+		start size: 50  200  50  -> scale 1 1 1 -> end size: 0.25  1  0.25
+	*/
+	Vector3 size = _transform->getSize();
+	_renderObject->setScale(size.getX(), size.getY(), size.getZ());
 }
 
 void RenderObjectComponent::setMaterial(std::string const& materialName)
