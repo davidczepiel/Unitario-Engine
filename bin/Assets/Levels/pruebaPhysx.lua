@@ -16,17 +16,17 @@ HowManyGameObjects = 4
 
 go_3 = {}
 go_3[0] = { Name = "Suelo", HowManyCmps = 3, Persist = false}
-go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}, Rotation={X=0, Y=0, Z=0.5}, Scale = { X=1, Y=1, Z=1}}
+go_3[1] = { Component = "Transform", Coord = {X = 0, Y = 0, Z = 0}, Rotation={X=0, Y=0, Z=-0.5}, Scale = { X=1, Y=1, Z=1}}
 go_3[2] = {	Component = "RenderObject", MeshName="cube.mesh", Material="Practica1/Yellow", UnifyScale=true,
   			Visible=true, Shadows=true, RenderingDistance = 1000}
-go_3[3] = { Component = "RigidBody", Static = true, Type = "Box", Kinematic = false, Mass = 1}
+go_3[3] = { Component = "BoxCollider"}
 
 go_0 = {}
 go_0[0] = { Name = "Objeto", HowManyCmps = 3, Persist = false}
 go_0[1] = { Component = "Transform", Coord = {X = 0, Y = 3, Z = 0}, Rotation={X=0, Y=0, Z=0}, Scale = {X=1, Y=1, Z=1}}
 go_0[2] = {	Component = "RenderObject", MeshName="uv_sphere.mesh", Material="Practica1/Yellow", UnifyScale=true,
  			Visible=true, Shadows=true, RenderingDistance = 1000}
-go_0[3] = { Component = "RigidBody", Static = false, Type = "Sphere", Diameter = 2, Kinematic = false, Mass = 100}
+go_0[3] = { Component = "RigidBody", Static = false, Type = "Sphere", Diameter = 1, Kinematic = false, Mass = 100}
 
 go_1 = {}
 go_1[0] = { Name = "Camara", HowManyCmps = 2, Persist = false}

@@ -10,7 +10,7 @@
 #define PI 3.14159265
 
 Transform::Transform() : Component(ComponentId::Transform), 
-	_position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1), _dir(0, 0, -1)
+	_position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1), _dir(0, 0, -1), _proportions(1, 1, 1)
 {
 }
 
