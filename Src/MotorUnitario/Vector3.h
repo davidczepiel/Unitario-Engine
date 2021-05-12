@@ -79,6 +79,10 @@ public:
 	/// <returns></returns>
 	inline std::tuple<float, float, float> toTuple() const { return { _x, _y, _z }; }
 
+	/// <summary>
+	/// Returns the inverse vector
+	/// </summary>
+	/// <returns></returns>
 	inline Vector3 inverse() const { return Vector3(1 / _x, 1 / _y, 1 / _z); }
 
 	/// <summary>

@@ -9,6 +9,7 @@
 #include <math.h>
 #define PI 3.14159265
 
+
 Transform::Transform() : Component(ComponentId::Transform), 
 	_position(0, 0, 0), _rotation(0, 0, 0), _scale(1, 1, 1), _dir(0, 0, -1), _proportions(1, 1, 1)
 {
@@ -54,7 +55,7 @@ void Transform::awake(luabridge::LuaRef& data)
 
 	if (LUAFIELDEXIST(Rotation)) {
 		luabridge::LuaRef lua_coord = data["Rotation"];
-		_rotation = { lua_coord["X"].cast<double>(),lua_coord["Y"].cast<double>(), lua_coord["Z"].cast<double>() };
+		_rotation = { lua_coord["X"].cast<double>() * PI / 180, lua_coord["Y"].cast<double>() * PI / 180, lua_coord["Z"].cast<double>() * PI / 180 };
 	}
 
 	if (LUAFIELDEXIST(Scale)) {
@@ -91,6 +92,7 @@ void Transform::setRotation(const Vector3& rotation)
 		capsColl->setRotation(getForward());
 	}
 }
+
 
 EulerAngles Transform::ToEulerAngles(Quaternion q)
 {

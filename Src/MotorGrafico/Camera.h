@@ -89,7 +89,7 @@ public:
 	/// <param name="yaw">The worlds x position that the camera will point at</param>
 	/// <param name="pitch">The worlds y position that the camera will point at</param>
 	/// <param name="roll">The worlds z position that the camera will point at</param>
-	void setOrientation(float yaw, float pitch, float roll);
+	void setOrientation(double pitch, double yaw, double roll);
 
 	/// <summary>
 	/// Adjusts the cameras node so that it is oriented given a Quarternion
@@ -105,13 +105,7 @@ public:
 	/// <param name="z">The camera new z position </param>
 	void setPosition(float x, float y, float z);
 
-	/// <summary>
-	/// Moves the camera from its position an specified amount of units in each axis
-	/// </summary>
-	/// <param name="x">The camera movement on the x axis</param>
-	/// <param name="y">The camera movement on the y axis</param>
-	/// <param name="z">The camera movement on the z axis</param>
-	void translate(float x, float y, float z);
+	
 
 	/// <summary>
 	/// Sets the near clip plane and the far clip plane
