@@ -4,6 +4,7 @@
 #define RENDEROBJECT_H
 
 #include <string>
+#include <tuple>
 
 namespace Ogre {
 	class SceneNode;
@@ -97,6 +98,13 @@ public:
 	///<param name="y">: Y rotation</param>
 	///<param name="z">: Z rotation</param>
 	void setRotation(float x, float y, float z, float w);
+
+	/// <summary>
+	/// Returns the size of the mesh in absolute units
+	/// </summary>
+	/// <returns></returns>
+	const std::tuple<float, float, float>& getMeshSize();
+
 protected:
 	Ogre::SceneNode* _objectNode;
 	Ogre::Entity* _objectEntity;
@@ -104,6 +112,7 @@ protected:
 	std::string _objectName;
 	std::string _meshName;
 private:
+	std::tuple<float, float, float> _meshSize;
 };
 
 #endif //!RENDEROBJECT_H

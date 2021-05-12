@@ -57,33 +57,41 @@ void RigidBodyComponent::awake(luabridge::LuaRef& data)
 	Transform* t = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	std::tuple<float, float, float> pos = t->getPosition().toTuple();
 	std::tuple<float, float, float> rot = t->getRotation().toTuple();
+	Vector3 scale = t->getScale();
 
 	if (LUAFIELDEXIST(Type)) { //Sphere
 		std::string t = GETLUASTRINGFIELD(Type);
 		if (t == "Sphere") {
 			float r = 1.0f;
-			if (LUAFIELDEXIST(Radius))
-				r = GETLUAFIELD(Radius, float);
+			if (LUAFIELDEXIST(Diameter)) r = GETLUAFIELD(Diameter, float);
+			r /= 2.0f;
+
 			_rb = new RigidBody(r, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 		else if (t == "Box") { //Box
 			float w = 1.0f, h = 1.0f, d = 1.0f;
-			if (LUAFIELDEXIST(Width))
-				w = GETLUAFIELD(Width, float);
-			if (LUAFIELDEXIST(Height))
-				h = GETLUAFIELD(Height, float);
-			if (LUAFIELDEXIST(Depth))
-				d = GETLUAFIELD(Depth, float);
+			if (LUAFIELDEXIST(Width)) w = GETLUAFIELD(Width, float);
+			if (LUAFIELDEXIST(Height)) h = GETLUAFIELD(Height, float);
+			if (LUAFIELDEXIST(Depth)) d = GETLUAFIELD(Depth, float);
+
+			w *= scale.getX();
+			h *= scale.getY();
+			d *= scale.getZ();
+
 			_rb = new RigidBody(w, h, d, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}
 		else if (t == "Capsule") { //Capsule
 			float r = 1.0f, h = 1.0f;
-			if (LUAFIELDEXIST(Radius))
-				r = GETLUAFIELD(Radius, float);
-			if (LUAFIELDEXIST(Height))
-				h = GETLUAFIELD(Height, float);
+			if (LUAFIELDEXIST(Radius)) r = GETLUAFIELD(Radius, float);
+			if (LUAFIELDEXIST(Height)) h = GETLUAFIELD(Height, float);
+
+			r *= std::max({ scale.getX(), scale.getZ() });
+			r /= 2;
+			h *= scale.getY();
+			h = abs(h - r);
+
 			_rb = new RigidBody(r, h, _gameObject, _gameObject->getName(), gameObjectsCollision, isStatic, pos, isKinematic, linearDamping,
 				angularDamping, staticFriction, dynamicFriction, bounciness, mass);
 		}

@@ -79,6 +79,8 @@ public:
 	/// <returns></returns>
 	inline std::tuple<float, float, float> toTuple() const { return { _x, _y, _z }; }
 
+	inline Vector3 inverse() const { return Vector3(1 / _x, 1 / _y, 1 / _z); }
+
 	/// <summary>
 	/// Allows subtraction of vectors
 	/// </summary>
@@ -96,6 +98,12 @@ public:
 	/// </summary>
 	/// <param name="d">Number to be multiplied</param>
 	inline Vector3 operator*(double d) const { return Vector3(_x * d, _y * d, _z * d); }
+
+	/// <summary>
+	/// Dot multiplication
+	/// </summary>
+	/// <param name="other">other vector</param>
+	inline Vector3 operator*(const Vector3& other) const { return Vector3(_x * other._x, _y * other._y, _z * other._z); }
 
 	/// <summary>
 	/// Allows to divide vectors
