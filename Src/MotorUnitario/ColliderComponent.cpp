@@ -4,6 +4,7 @@
 #include "ComponentIDs.h"
 #include "Transform.h"
 #include "includeLUA.h"
+#include <algorithm>
 
 ColliderComponent::ColliderComponent(int id) : Component(id, nullptr), _collider(nullptr)
 {
