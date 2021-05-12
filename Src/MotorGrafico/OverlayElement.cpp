@@ -14,7 +14,7 @@ OverlayElement::OverlayElement() : _overlay(nullptr)
 OverlayElement::~OverlayElement()
 {
 	_overlay->clear();
-	delete _overlay;
+	//delete _overlay;
 }
 
 void OverlayElement::loadOverlay(std::string const& overlayName)
