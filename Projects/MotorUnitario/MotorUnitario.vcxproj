@@ -246,11 +246,13 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClCompile Include="..\..\Src\MotorUnitario\LuaParser.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\MouseInput.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\OverlayComponent.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\OverlayElementMngr.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RayCast.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RenderObjectComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\RigidBodyComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\ParticleSystemComponent.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\EngineTime.cpp" />
+    <ClCompile Include="..\..\Src\MotorUnitario\TextManagerElement.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Transform.cpp" />
     <ClCompile Include="..\..\Src\MotorUnitario\Vector3.cpp" />
   </ItemGroup>
@@ -292,11 +294,13 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\LuaParser.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\MouseInput.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\OverlayComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\OverlayElementMngr.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RayCast.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RenderObjectComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\RigidBodyComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ParticleSystemComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\EngineTime.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\TextManagerElement.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Transform.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Vector3.h" />
   </ItemGroup>

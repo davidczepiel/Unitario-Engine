@@ -90,6 +90,11 @@ public:
 	/// </summary>
 	///<param name="distance">: render distance</param>
 	void setRenderingDistance(float distance);
+	/// <summary>
+	/// Sets the alpha value of the object
+	/// </summary>
+	/// <param name="alpha">The value to use</param>
+	void setAlpha(float alpha);
 
 protected:
 private:

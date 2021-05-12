@@ -6,8 +6,6 @@
 #include "Component.h"
 #include <cmath>
 
-#define PI 3.1416 
-
 class GameObject;
 
 struct Quaternion {

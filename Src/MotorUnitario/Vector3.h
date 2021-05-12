@@ -3,8 +3,10 @@
 #define VECTOR3_H
 
 #include <math.h>
-#include <string>
 #include <tuple>
+#include <cmath>
+
+#define PI 3.14159265 
 
 class Vector3 {
 public:
@@ -66,7 +68,7 @@ public:
 	/// <summary>
 	/// Returns the magnitude(length) of the vector3
 	/// </summary>
-	inline double magnitude() const { return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2)); }
+	inline double magnitude() const { return sqrt(_x * _x + _y * _y + _z * _z); }
 
 	/// <summary>
 	/// Returns a vector3 with a magnitude of 1  
@@ -84,6 +86,19 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	inline Vector3 inverse() const { return Vector3(1 / _x, 1 / _y, 1 / _z); }
+	
+	/// Returns a radian angle between this vector and other
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	inline float angleRadiansBetweenVector(const Vector3& other) const { return std::acos((_x * other._x + _y * other._y + _z * other._z) / (magnitude() * other.magnitude())); }
+
+	/// <summary>
+	/// Returns a degree angle between this vector and other
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	inline float angleDegreesBetweenVector(const Vector3& other) const { return std::acos((_x * other._x + _y * other._y + _z * other._z) / (magnitude() * other.magnitude())) * 180 / PI; }
 
 	/// <summary>
 	/// Allows subtraction of vectors

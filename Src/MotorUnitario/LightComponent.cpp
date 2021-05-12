@@ -16,9 +16,6 @@ void LightComponent::awake(luabridge::LuaRef& data)
 {
 	_light = new Light(_gameObject->getName());
 
-	if (LUAFIELDEXIST(Direction))
-		_light->setDirection(data["Direction"]["X"].cast<float>(), data["Direction"]["Y"].cast<float>(), data["Direction"]["Z"].cast<float>());
-
 	if (LUAFIELDEXIST(LightType))
 		_light->setLightType(convertLightType(data["LightType"]));
 
@@ -39,6 +36,12 @@ void LightComponent::awake(luabridge::LuaRef& data)
 		_light->setSpotlightRange(data["SpotLightRange"]["InnerAngle"].cast<float>(), data["SpotLightRange"]["OuterAngle"].cast<float>(),
 			data["SpotLightRange"]["FallOf"].cast<float>());
 
+	if (LUAFIELDEXIST(LightDirection))
+		_light->setDirection(data["LightDirection"]["X"].cast<float>(), data["LightDirection"]["Y"].cast<float>(), data["LightDirection"]["Z"].cast<float>());
+
+	if (LUAFIELDEXIST(Intensity))	
+		_light->setPowerScale(data["Intensity"].cast<float>());
+	
 }
 
 const Light::LightType LightComponent::convertLightType(std::string type)
