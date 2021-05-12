@@ -49,23 +49,7 @@ const std::tuple<float, float, float>& RenderObject::getMeshSize()
 	return _meshSize;
 }
 
-void RenderObject::setAlpha(float alpha)
-{
-	for (Ogre::SubEntity* i : _objectEntity->getSubEntities())
-	{
-		for (Ogre::Technique* tech : i->getMaterial()->getTechniques())
-		{
-			for (Ogre::Pass* pass : tech->getPasses())
-			{
-				pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-				pass->setCullingMode(Ogre::CullingMode::CULL_NONE);
-				pass->setManualCullingMode(Ogre::ManualCullingMode::MANUAL_CULL_FRONT);
-				Ogre::ColourValue col = pass->getDiffuse();
-				pass->setDiffuse(col.r, col.g, col.b, alpha);
-			}
-		}
-	}
-}
+
 void RenderObject::rotate(float angle, float x, float y, float z)
 {
 	_objectNode->rotate(Ogre::Vector3(x, y, z), (Ogre::Radian)angle);

@@ -105,10 +105,7 @@ public:
 	/// <returns></returns>
 	const std::tuple<float, float, float>& getMeshSize();
 
-	/// <summary>
-	/// Sets alpha of this render Object
-	/// </summary>
-	void setAlpha(float alpha);
+
 
 protected:
 	Ogre::SceneNode* _objectNode;
