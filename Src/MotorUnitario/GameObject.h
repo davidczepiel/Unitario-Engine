@@ -21,17 +21,17 @@ public:
 	~GameObject();
 
 	/// <summary>
-	/// Calls start method of every component and then of every children it has
+	/// Calls start method of every component 
 	/// </summary>
 	void start();
 
 	/// <summary>
-	/// Calls update method of every component and then of every children it has
+	/// Calls update method of every component
 	/// </summary>
 	void update();
 
 	/// <summary>
-	/// Calls fixedUpdate method of every component and then of every children it has
+	/// Calls fixedUpdate method of every component
 	/// </summary>
 	void fixedUpdate();
 
@@ -41,7 +41,7 @@ public:
 	void postFixedUpdate();
 
 	/// <summary>
-	/// Calls lateUpdate method of every component and then of every children it has
+	/// Calls lateUpdate method of every component 
 	/// </summary>
 	void lateUpdate();
 
@@ -64,13 +64,6 @@ public:
 	void removeComponent(unsigned int componentId);
 
 	/// <summary>
-	/// Adds gameObject as a child of this gameObject. 
-	/// <para> Parent of the child is set to this gameObject. </para>
-	/// </summary>
-	/// <param name="gameObject_">: child</param>
-	void addChild(GameObject* gameObject);
-
-	/// <summary>
 	/// Returns a component of the gameObject
 	/// </summary>
 	/// <param name="componentId_">: id of component</param>
@@ -78,17 +71,13 @@ public:
 	/// <returns>Component* if it exists, nullptr if it doesn't</returns>
 	Component* getComponent(unsigned int componentId) const;
 
-	inline const std::list<GameObject*>& getChildren() const {
-		return _children;
-	}
+	/// <summary>
+	/// Returns true if this this gameObject contains the component
+	/// </summary>
+	/// <param name="componentID"></param>
+	/// <returns></returns>
+	bool hasComponent(unsigned int componentID) const;
 
-	inline const GameObject* getParent() const {
-		return _parent;
-	}
-
-	inline void setParent(GameObject* gameObject) {
-		_parent = gameObject;
-	}
 
 	inline const std::string& getName() const {
 		return _name;
@@ -129,10 +118,6 @@ private:
 	std::vector<Component*> _components;
 
 	std::list<std::pair<unsigned int, Component*>> _activeComponents;
-
-	std::list<GameObject*> _children;	
-
-	GameObject* _parent;
 
 	std::string _name;
 

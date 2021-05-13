@@ -18,23 +18,11 @@ Transform::Transform() : Component(ComponentId::Transform),
 void Transform::setPosition(const Vector3& position)
 {
 	_position = position;
-	RigidBodyComponent* rb = dynamic_cast<RigidBodyComponent*>(_gameObject->getComponent(ComponentId::Rigidbody));
-	if (rb != nullptr) {
-		rb->setPosition(_position);
-	}
 
-	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
-	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
-	ColliderComponent* capsColl = dynamic_cast<CapsuleColliderComponent*>(_gameObject->getComponent(ComponentId::CapsuleCollider));
-	if (boxColl != nullptr) {
-		boxColl->setPosition(_position);
-	}
-	else if (sphColl != nullptr) {
-		sphColl->setPosition(_position);
-	}
-	else if (capsColl != nullptr) {
-		capsColl->setPosition(_position);
-	}
+	if (_gameObject->hasComponent(ComponentId::Rigidbody))			GETCOMPONENT(RigidBodyComponent, ComponentId::Rigidbody)->setPosition(_position);
+	if (_gameObject->hasComponent(ComponentId::BoxCollider))		GETCOMPONENT(BoxColliderComponent, ComponentId::BoxCollider)->setPosition(_position); 
+	if (_gameObject->hasComponent(ComponentId::SphereCollider))		GETCOMPONENT(SphereColliderComponent, ComponentId::SphereCollider)->setPosition(_position);
+	if (_gameObject->hasComponent(ComponentId::CapsuleCollider))	GETCOMPONENT(CapsuleColliderComponent, ComponentId::CapsuleCollider)->setPosition(_position);
 }
 
 void Transform::updateFromPhysics(const Vector3& position)
@@ -44,8 +32,7 @@ void Transform::updateFromPhysics(const Vector3& position)
 
 void Transform::awake(luabridge::LuaRef& data)
 {
-	const std::string& parentName = _gameObject->getParent() != nullptr ? _gameObject->getParent()->getName() : "";
-	GraphicsEngine::getInstance()->addNode(_gameObject->getName(), parentName);
+	GraphicsEngine::getInstance()->addNode(_gameObject->getName());
 
 	if (LUAFIELDEXIST(Coord)) {
 		luabridge::LuaRef lua_coord = data["Coord"];
@@ -74,23 +61,10 @@ void Transform::setRotation(const Vector3& rotation)
 {
 	_rotation = rotation;
 
-	RigidBodyComponent* rb = dynamic_cast<RigidBodyComponent*>(_gameObject->getComponent(ComponentId::Rigidbody));
-	if (rb != nullptr) {
-		rb->setRotation(getForward());
-	}
-
-	ColliderComponent* boxColl = dynamic_cast<BoxColliderComponent*>(_gameObject->getComponent(ComponentId::BoxCollider));
-	ColliderComponent* sphColl = dynamic_cast<SphereColliderComponent*>(_gameObject->getComponent(ComponentId::SphereCollider));
-	ColliderComponent* capsColl = dynamic_cast<CapsuleColliderComponent*>(_gameObject->getComponent(ComponentId::CapsuleCollider));
-	if (boxColl != nullptr) {
-		boxColl->setRotation(getForward());
-	}
-	else if (sphColl != nullptr) {
-		sphColl->setRotation(getForward());
-	}
-	else if (capsColl != nullptr) {
-		capsColl->setRotation(getForward());
-	}
+	if (_gameObject->hasComponent(ComponentId::Rigidbody))			GETCOMPONENT(RigidBodyComponent, ComponentId::Rigidbody)->setRotation(_rotation);
+	if (_gameObject->hasComponent(ComponentId::BoxCollider))		GETCOMPONENT(BoxColliderComponent, ComponentId::BoxCollider)->setRotation(_rotation);
+	if (_gameObject->hasComponent(ComponentId::SphereCollider))		GETCOMPONENT(SphereColliderComponent, ComponentId::SphereCollider)->setRotation(_rotation);
+	if (_gameObject->hasComponent(ComponentId::CapsuleCollider))	GETCOMPONENT(CapsuleColliderComponent, ComponentId::CapsuleCollider)->setRotation(_rotation);
 }
 
 

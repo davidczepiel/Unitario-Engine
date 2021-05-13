@@ -332,18 +332,14 @@ std::pair<int, int> GraphicsEngine::getWindowSize()
 	return std::pair<int, int>(_width, _height);
 }
 
-void GraphicsEngine::addNode(const std::string& name, const std::string& parent)
+void GraphicsEngine::addNode(const std::string& name)
 {
-	if (parent != "" && !_sceneManager->hasSceneNode(parent))
-		throw SceneNodeException("Parent does not exist");
-
-	Ogre::SceneNode* nodeParent = parent != "" ? _sceneManager->getSceneNode(parent) : _sceneManager->getRootSceneNode();
-	nodeParent->createChildSceneNode(name);
+	_sceneManager->getRootSceneNode()->createChildSceneNode(name);
 }
 
 void GraphicsEngine::removeNode(const std::string& name)
 {
 	Ogre::SceneNode* node = _sceneManager->getSceneNode(name, false);
 	if (node != nullptr)
-		node->getParentSceneNode()->removeAndDestroyChild(name);
+		node->removeAndDestroyAllChildren();
 }

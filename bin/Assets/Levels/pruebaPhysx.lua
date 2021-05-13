@@ -40,7 +40,7 @@ go_2 = {}
 go_2[0] = { Name = "Luz", HowManyCmps = 2, Persist = false}
 go_2[1] = { Component = "Transform", Coord = {X = 300, Y = 5, Z = -1000}}
 go_2[2] = { Component = "LightComponent", LightType= "DIRECTIONAL", Visible = true, Diffuse = {Red = 1, Green= 1, Blue = 1}, 
-			Direction = {X = 1, Y = -1, Z = 2},
+			LightDirection = {X = 1, Y = -1, Z = 2},
 			Specular = {Red = 1, Green= 1, Blue = 1}, 
 			Attenuation = {Range = 1, Constant = 1, Linear = 1, Quadratic = 1},
 			SpotLightRange = {InnerAngle = 1, OuterAngle = 1, FallOf = 1}}

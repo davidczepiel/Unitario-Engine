@@ -8,11 +8,8 @@
 #define _COMPONENT_START_SIZE_ 15
 #define _COMPONENT_INCREASE_SIZE_ size_t(5)
 
-GameObject::GameObject() : _children(), _components(_COMPONENT_START_SIZE_, nullptr), _parent(nullptr), _name(), _enable(true), _persist(false)
+GameObject::GameObject() : _components(_COMPONENT_START_SIZE_, nullptr), _name(), _enable(true), _persist(false)
 {
-	//Transform* tranform = new Transform(this);
-	//_components[0] = tranform;	
-	//_activeComponents.push_back(std::make_pair(ComponentId::ComponentId::Transform, tranform));
 }
 
 GameObject::~GameObject()
@@ -21,13 +18,6 @@ GameObject::~GameObject()
 		delete c.second; c.second = nullptr;
 	}
 	_activeComponents.clear();
-
-	if (_children.size() != 0) {
-		for (auto g : _children) {
-			Engine::getInstance()->remGameObject(g);
-		}
-		_children.clear();
-	}
 }
 
 void GameObject::start()
@@ -35,10 +25,6 @@ void GameObject::start()
 	for (auto& comp : _activeComponents)
 		if(comp.second->getEnabled()) 
 			comp.second->start();
-
-	for (GameObject* go : _children)
-		if(go->getEnabled()) 
-			go->start();
 }
 
 void GameObject::update()
@@ -46,10 +32,6 @@ void GameObject::update()
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
 			comp.second->update();
-
-	for (GameObject* go : _children)
-		if (go->getEnabled()) 
-			go->update();
 }
 
 void GameObject::fixedUpdate()
@@ -57,10 +39,6 @@ void GameObject::fixedUpdate()
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
 			comp.second->fixedUpdate();
-
-	for (GameObject* go : _children)
-		if (go->getEnabled()) 
-			go->fixedUpdate();
 }
 
 void GameObject::postFixedUpdate()
@@ -68,10 +46,6 @@ void GameObject::postFixedUpdate()
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
 			comp.second->postFixedUpdate();
-
-	for (GameObject* go : _children)
-		if (go->getEnabled())
-			go->postFixedUpdate();
 }
 
 void GameObject::lateUpdate()
@@ -79,10 +53,6 @@ void GameObject::lateUpdate()
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
 			comp.second->lateUpdate();
-
-	for (GameObject* go : _children)
-		if (go->getEnabled()) 
-			go->lateUpdate();
 }
 
 void GameObject::onCollision(GameObject* other)
@@ -90,10 +60,6 @@ void GameObject::onCollision(GameObject* other)
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
 			comp.second->onCollision(other);
-
-	for (GameObject* go : _children)
-		if (go->getEnabled())
-			go->onCollision(other);
 }
 
 void GameObject::onTrigger(GameObject* other)
@@ -101,10 +67,6 @@ void GameObject::onTrigger(GameObject* other)
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled())
 			comp.second->onTrigger(other);
-
-	for (GameObject* go : _children)
-		if (go->getEnabled())
-			go->onTrigger(other);
 }
 
 void GameObject::addComponent(Component* component)
@@ -136,11 +98,6 @@ void GameObject::removeComponent(unsigned int componentId)
 	_components[componentId] = nullptr;
 }
 
-void GameObject::addChild(GameObject* gameObject)
-{
-	gameObject->setParent(this);
-	_children.push_back(gameObject);
-}
 Component* GameObject::getComponent(unsigned int componentId) const
 {
 	if (componentId >= _components.size())
@@ -149,16 +106,17 @@ Component* GameObject::getComponent(unsigned int componentId) const
 	return _components[componentId];
 }
 
+bool GameObject::hasComponent(unsigned int componentID) const
+{
+	return (componentID >= 0 && componentID < _components.size() && _components[componentID] != nullptr);
+}
+
 void GameObject::setEnabled(bool enable)
 {
 	_enable = enable;
 	for (auto& comp : _activeComponents)
 		if (comp.second->getEnabled() != _enable)
 			comp.second->setEnabled(_enable);
-
-	for (GameObject* go : _children)
-		if (go->getEnabled() != _enable)
-			go->setEnabled(_enable);
 }
 
 void GameObject::insertInOrder(unsigned int componentId, Component* component)

@@ -106,16 +106,15 @@ public:
 	std::pair<int, int> getWindowSize();
 
 	/// <summary>
-	/// If the parent name is not "" tries to find it and creates a child node
+	/// Adds an ogre node
 	/// </summary>
 	/// <param name="name"> name of the new node</param>
-	/// <param name="parent"> Name of the father that will contain the new node</param>
-	void addNode(const std::string& name, const std::string& parent = "");
+	void addNode(const std::string& name);
 
 	/// <summary>
-	/// Removes a specific node from the scene and all of his children
+	/// Removes a specific node from the scene 
 	/// </summary>
-	/// <param name="name"> Searches a Node given a determined name and deletes it and all his children</param>
+	/// <param name="name"> Searches a Node given a determined name and deletes it</param>
 	void removeNode(const std::string& name);
 
 private:

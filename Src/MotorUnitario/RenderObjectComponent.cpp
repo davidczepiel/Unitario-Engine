@@ -125,7 +125,6 @@ void RenderObjectComponent::setRenderingDistance(float distance)
 	_renderObject->setRenderingDistance(distance);
 }
 
-
 void RenderObjectComponent::onEnable()
 {
 	_renderObject->setVisible(true);
