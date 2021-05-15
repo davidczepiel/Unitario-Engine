@@ -30,6 +30,8 @@ Camera::~Camera()
 {
 	if (_viewport != nullptr)
 		GraphicsEngine::getInstance()->removeViewport(_viewport);
+	if (_camera != nullptr)
+		GraphicsEngine::getInstance()->getSceneManager()->destroyCamera(_camera->getName());
 }
 
 void Camera::rotate(float angle, int xAxis, int yAxis, int zAxis)

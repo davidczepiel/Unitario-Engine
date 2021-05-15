@@ -223,7 +223,7 @@ void Engine::changeScene()
 		else
 			++it;
 	}
-
+	_graphicsEngine->clearScene();
 	//Load new scene
 	_luaParser->loadScene(scenesPath + _currentScene);
 

@@ -343,3 +343,8 @@ void GraphicsEngine::removeNode(const std::string& name)
 	if (node != nullptr)
 		node->removeAndDestroyAllChildren();
 }
+
+void GraphicsEngine::clearScene()
+{
+_sceneManager->clearScene();
+}

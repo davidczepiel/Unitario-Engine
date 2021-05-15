@@ -117,6 +117,11 @@ public:
 	/// <param name="name"> Searches a Node given a determined name and deletes it</param>
 	void removeNode(const std::string& name);
 
+	/// <summary>
+	/// Removes all nodes
+	/// </summary>
+	void clearScene();
+
 private:
 
 	/// <summary>
