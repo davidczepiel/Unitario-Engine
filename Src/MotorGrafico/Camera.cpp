@@ -162,7 +162,7 @@ void Camera::setViewportDimensions(float left, float top, float w, float h)
 	_viewport->setDimensions(left, top, w, h);
 }
 
-const std::tuple<float, float, float>& Camera::getOrientation() {
+std::tuple<float, float, float> Camera::getOrientation() {
 	Ogre::Euler rot;
 	rot.fromQuaternion(_node->getOrientation());
 	return std::tuple<float, float, float>(rot.getPitch().valueDegrees(), rot.getYaw().valueDegrees(), rot.getRoll().valueDegrees());

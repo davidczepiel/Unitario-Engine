@@ -154,7 +154,7 @@ public:
 	/// gets the rotation in degrees
 	/// </summary>
 	/// <returns>The rotation in degrees</returns>
-	const std::tuple<float, float, float>& getOrientation();
+	std::tuple<float, float, float> getOrientation();
 
 	/// <summary>
 	/// Creates a new viewport if visible is True and removes it if Visible is false

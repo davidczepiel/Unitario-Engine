@@ -3,7 +3,6 @@
 #include "ComponentIDs.h"
 #include "Transform.h"
 #include "GameObject.h"
-#include "KeyboardInput.h"
 #include "includeLUA.h"
 
 void CameraComponent::awake(luabridge::LuaRef& data)
@@ -83,19 +82,6 @@ void CameraComponent::start()
 
 void CameraComponent::update()
 {
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_S)) {
-		_camera->pitchDegrees(-1, true);
-	}
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_W)) {
-		_camera->pitchDegrees(1, true);
-	}
-	if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_A)) {
-		_camera->yawDegrees(-1, true);
-	}
-	else if (KeyBoardInput::getInstance()->isKeyDown(KeyCode::KEYCODE_D)) {
-		_camera->yawDegrees(1, true);
-	}
-
 	Vector3 pos = _tr->getPosition();
 	_camera->setPosition(static_cast<float>(pos.getX()), static_cast<float>(pos.getY()), static_cast<float>(pos.getZ()));
 
@@ -193,7 +179,7 @@ void CameraComponent::setViewportDimensions(float left, float top, float w, floa
 	_camera->setViewportDimensions(left, top, w, h);
 }
 
-const Vector3& CameraComponent::getOrientation()
+Vector3 CameraComponent::getOrientation()
 {
 	std::tuple<float, float, float> rot = _camera->getOrientation();
 	return Vector3(std::get<0>(rot), std::get<1>(rot), std::get<2>(rot));

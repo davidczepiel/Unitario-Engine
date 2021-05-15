@@ -154,7 +154,7 @@ public:
 	/// gets the camera orientation in degrees
 	/// </summary>
 	/// <returns>The camera orientation</returns>
-	const Vector3& getOrientation();
+	Vector3 getOrientation();
 
 	/// <summary>
 	/// Enables or disables a compositor of this camera
