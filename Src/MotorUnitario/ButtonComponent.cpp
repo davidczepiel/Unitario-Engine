@@ -5,6 +5,7 @@
 #include "KeyCodes.h"
 #include <SDL.h>
 #include "includeLUA.h"
+#include "Engine.h"
 
 
 ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),
@@ -48,6 +49,7 @@ void ButtonComponent::awake(luabridge::LuaRef& data)
 void ButtonComponent::start()
 {
 	_button = new OverlayElement();
+	_button->loadOverlay(_overlayName);
 }
 
 void ButtonComponent::update()
@@ -58,8 +60,8 @@ void ButtonComponent::update()
 		std::pair<int, int> buttonPos = _button->getPosition(_containerName);
 		std::pair<int, int> buttonSize = _button->getSize(_containerName);
 		std::pair<int, int> mousePos;
-		mousePos.first = mouse->getMousePos()[0];
-		mousePos.second = mouse->getMousePos()[1];
+		mousePos.first = mouse->getMousePos()[0] * Engine::getInstance()->getWindowSize().first;
+		mousePos.second = mouse->getMousePos()[1] * Engine::getInstance()->getWindowSize().second;
 
 		SDL_Point mousePosition = { mousePos.first, mousePos.second };
 		SDL_Rect buttonRect = { buttonPos.first, buttonPos.second, buttonSize.first, buttonSize.second };
