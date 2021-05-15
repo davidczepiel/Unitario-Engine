@@ -118,9 +118,9 @@ Transform::~Transform()
 
 Vector3 Transform::getForward() const
 {
-	double X = sin(_rotation.getY()) * cos(_rotation.getX());
-	double Y = sin(-_rotation.getX());
-	double Z = cos(_rotation.getX()) * cos(_rotation.getY());
+	double X = sin(_rotation.getY() * PI / 180.0) * cos(_rotation.getX() * PI / 180.0);
+	double Y = sin(-_rotation.getX() * PI / 180.0);
+	double Z = cos(_rotation.getX() * PI / 180.0) * cos(_rotation.getY() * PI / 180.0);
 
 	return Vector3(X, Y, -Z);
 }
