@@ -50,7 +50,7 @@ bool LuaParser::loadScene(std::string scene)
 			bool persist = gameObjectData_Lua["Persist"].cast<bool>();
 
 			GameObject* go = Engine::getInstance()->addGameObject();
-			if (persist && Engine::getInstance()->findGameObject(GO_name) == nullptr)
+			if (persist && Engine::getInstance()->findGameObject(GO_name) != nullptr)
 				continue;
 			go->setName(GO_name);
 			go->setPersist(persist);
