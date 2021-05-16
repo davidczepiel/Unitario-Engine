@@ -88,9 +88,9 @@ void ButtonComponent::hideShowButton(bool show)
 {
 	_active = show;
 	if (show)
-		_button->showOverlay();
+		_button->showOverlay(_containerName);
 	else
-		_button->hideOverlay();
+		_button->hideOverlay(_containerName);
 }
 
 void ButtonComponent::onEnable()

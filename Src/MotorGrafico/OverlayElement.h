@@ -18,12 +18,12 @@ public:
 	/// <summary>
 	/// Shows the overlay
 	/// </summary>
-	void showOverlay();
+	void showOverlay(std::string const& containerName = " ");
 
 	/// <summary>
 	/// Hides the overlay
 	/// </summary>
-	void hideOverlay();
+	void hideOverlay(std::string const& containerName= " ");
 
 	/// <summary>
 	/// Sets the material of an overlays child

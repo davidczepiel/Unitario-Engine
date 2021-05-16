@@ -23,16 +23,24 @@ void OverlayElement::loadOverlay(std::string const& overlayName)
 	_overlay->show();
 }
 
-void OverlayElement::showOverlay()
+void OverlayElement::showOverlay(std::string const& containerName)
 {
-	if (_overlay != nullptr)
-		_overlay->show();
+	if (_overlay != nullptr) {
+		if (containerName == " ")
+			_overlay->show();
+		else
+			_overlay->getChild(containerName)->show();
+	}
 }
 
-void OverlayElement::hideOverlay()
+void OverlayElement::hideOverlay(std::string const& containerName)
 {
-	if (_overlay != nullptr)
-		_overlay->hide();
+	if (_overlay != nullptr) {
+		if (containerName == " ")
+			_overlay->show();
+		else
+			_overlay->getChild(containerName)->hide();
+	}
 }
 
 void OverlayElement::setMaterial(std::string const& containerName, std::string const& materialName)
