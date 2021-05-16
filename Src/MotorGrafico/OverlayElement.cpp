@@ -13,8 +13,7 @@ OverlayElement::OverlayElement() : _overlay(nullptr)
 
 OverlayElement::~OverlayElement()
 {
-	_overlay->clear();
-	//delete _overlay;
+	hideOverlay();
 }
 
 void OverlayElement::loadOverlay(std::string const& overlayName)
@@ -37,7 +36,7 @@ void OverlayElement::hideOverlay(std::string const& containerName)
 {
 	if (_overlay != nullptr) {
 		if (containerName == " ")
-			_overlay->show();
+			_overlay->hide();
 		else
 			_overlay->getChild(containerName)->hide();
 	}
