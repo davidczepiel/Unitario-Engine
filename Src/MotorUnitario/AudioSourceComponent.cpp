@@ -29,10 +29,32 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 			std::cout << "As: " << _route[i] << std::endl;
 	}
 	_audioSource = new AudioSource(_route);
+		if (LUAFIELDEXIST(Route)) 
+	{ 
+		//en la posicion 0 no hay nada, es "Route" en si
+		for (int i = 1; i <= data["Route"].length(); ++i) {
+			_route.push_back(data["Route"][i].cast<std::string>());
+		}
+		for(int i = 0; i < _route.size(); ++i)
+			std::cout << "As: " << _route[i] << std::endl;
+	}
+	_audioSource = new AudioSource(_route);
+	if (LUAFIELDEXIST(Loop)) {
+		int loop = GETLUAFIELD(Loop, int);
+		for (int i = 0; i < _route.size(); ++i)
+			setAudioLoop(i, loop);
+	}
 	if (LUAFIELDEXIST(Stereo)) {
 		bool stereo = GETLUAFIELD(Stereo, bool);
 		for (int i = 0; i < _route.size(); ++i)
 			setStereo(i, stereo);
+	}
+	if (LUAFIELDEXIST(Play)) {
+		if (GETLUAFIELD(Play, bool)) {
+			for (int i = 0; i < _route.size(); ++i){
+				playAudio(i);
+			}
+		}
 	}
 	if (LUAFIELDEXIST(Volume)) {
 		for (int i = 0; i < _route.size(); ++i)
@@ -41,13 +63,6 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 	if (LUAFIELDEXIST(MinMaxDistance)) {
 		for (int i = 0; i < _route.size(); ++i)
 			set3DMinMaxDistanceChannel(data["MinMaxDistance"]["Min"].cast<float>(), data["MinMaxDistance"]["Min"].cast<float>(), i);
-		}
-	if (LUAFIELDEXIST(Play)) {
-		if (GETLUAFIELD(Play, bool)) {
-			for (int i = 0; i < _route.size(); ++i){
-				playAudio(i);
-			}
-		}
 	}
 }
 
