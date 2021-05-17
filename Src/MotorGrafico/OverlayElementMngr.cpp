@@ -36,3 +36,13 @@ void OgreOverlayElement::setEnabled(bool b)
 {
 	_overlayElement->setEnabled(b);
 }
+
+void OgreOverlayElement::show()
+{
+	_overlayElement->show();
+}
+
+void OgreOverlayElement::hide()
+{
+	_overlayElement->hide();
+}

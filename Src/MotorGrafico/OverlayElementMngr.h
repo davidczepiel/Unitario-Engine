@@ -40,6 +40,16 @@ class OgreOverlayElement {
 		/// Sets the overlay element visibility
 		/// </summary>
 		void setEnabled(bool b);
+
+		/// <summary>
+		/// Shows the element
+		/// </summary>
+		void show();
+
+		/// <summary>
+		/// Hides the element
+		/// </summary>
+		void hide();
 	private:
 		Ogre::OverlayElement* _overlayElement;
 };
