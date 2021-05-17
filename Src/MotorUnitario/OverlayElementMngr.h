@@ -26,7 +26,7 @@ public:
 	/// Hides the overlay
 	/// </summary>
 	/// <param name="hide"></param>
-	void setEnabled(bool hide);
+	void setEnabled(bool b);
 
 	/// <summary>
 	/// Sets the overlay element width

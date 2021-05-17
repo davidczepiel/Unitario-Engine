@@ -37,7 +37,7 @@ class OgreOverlayElement {
 		void setHeight(float h);
 
 		/// <summary>
-		/// Sets the overlay element visibility
+		/// Sets the overlay element enabled or disabled
 		/// </summary>
 		void setEnabled(bool b);
 

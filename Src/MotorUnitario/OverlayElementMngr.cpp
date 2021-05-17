@@ -15,9 +15,9 @@ void OverlayElementMngr::setPosition(float left, float top)
 	_overlayElement->setPosition(left, top);
 }
 
-void OverlayElementMngr::setEnabled(bool hide)
+void OverlayElementMngr::setEnabled(bool b)
 {
-	_overlayElement->setEnabled(hide);
+	b ? _overlayElement->show() : _overlayElement->hide();
 }
 
 void OverlayElementMngr::setWidth(float w)
