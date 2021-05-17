@@ -139,14 +139,16 @@ void Engine::fixedUpdate()
 
 	for (calls; calls > 0; --calls) {
 		for (auto& it : _GOs) {
-			it->fixedUpdate();
+			if (it->getEnabled())
+				it->fixedUpdate();
 		}
 	}
 
 	_physxEngine->update(_time->deltaTime());
 
 	for (auto& it : _GOs) {
-		it->postFixedUpdate();
+		if (it->getEnabled())
+			it->postFixedUpdate();
 	}
 
 	_time->fixedTimeUpdate();
@@ -155,14 +157,16 @@ void Engine::fixedUpdate()
 void Engine::update()
 {
 	for (auto& it : _GOs) {
-		it->update();
+		if(it->getEnabled())
+			it->update();
 	}
 }
 
 void Engine::lateUpdate()
 {
 	for (auto& it : _GOs) {
-		it->lateUpdate();
+		if (it->getEnabled())
+			it->lateUpdate();
 	}
 }
 
