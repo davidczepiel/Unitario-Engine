@@ -47,6 +47,11 @@ void Engine::CreateInstance()
 	}
 }
 
+void Engine::setViewportColour(float r, float g, float b)
+{
+	_graphicsEngine->setViewportColour(r, g, b);
+}
+
 void Engine::tick()
 {
 	processEvents();
@@ -275,4 +280,14 @@ GameObject* Engine::findGameObject(const std::string& name)
 std::pair<int, int> Engine::getWindowSize()
 {
 	return _graphicsEngine->getWindowSize();
+}
+
+void Engine::setShadowColour(float r, float g, float b)
+{
+	_graphicsEngine->setShadowColour(r, g, b);
+}
+
+void Engine::setAmbientLight(float r, float g, float b)
+{
+	_graphicsEngine->setAmbientLight(r, g, b);
 }

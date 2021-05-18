@@ -95,6 +95,30 @@ public:
 	Ogre::Viewport* setupViewport(Ogre::Camera* cam, int zOrder, float x, float y, float w, float h);
 
 	/// <summary>
+	/// Sets the colour of the shade in the scene
+	/// </summary>
+	/// <param name="r"> Red color-- [0,1] </param>
+	/// <param name="g"> Green color-- [0,1] </param>
+	/// <param name="b"> Blue color-- [0,1] </param>
+	void setShadowColour(float r, float g, float b);
+	
+	/// <summary>
+	/// Sets the ambient light
+	/// </summary>
+	/// <param name="r"> Red color-- [0,1] </param>
+	/// <param name="g"> Green color-- [0,1] </param>
+	/// <param name="b"> Blue color-- [0,1] </param>
+	void setAmbientLight(float r, float g, float b);
+
+	/// <summary>
+	/// Sets the colour viewport
+	/// </summary>
+	/// <param name="r"> Red color-- [0,1] </param>
+	/// <param name="g"> Green color-- [0,1] </param>
+	/// <param name="b"> Blue color-- [0,1] </param>
+	void setViewportColour(float r, float g, float b);
+
+	/// <summary>
 	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
 	/// </summary>
 	/// <param name="vp"> Viewport that is going to be removed from the renderWindow </param>
