@@ -1,6 +1,6 @@
 #include "ButtonComponent.h"
 #include "ComponentIDs.h"
-#include "MotorGrafico/OverlayElement.h"ç
+#include "MotorGrafico/OverlayElement.h"
 #include "AudioSourceComponent.h"
 #include "MouseInput.h"
 #include "KeyCodes.h"
