@@ -13,6 +13,7 @@ _transform(nullptr), _meshName("")
 
 RenderObjectComponent::~RenderObjectComponent()
 {
+	if (_renderObject != nullptr) delete _renderObject; _renderObject = nullptr;
 }
 
 void RenderObjectComponent::awake(luabridge::LuaRef& data)
@@ -72,8 +73,7 @@ void RenderObjectComponent::update()
 	Quaternion q = _transform->ToQuaternion(dir.getX(), dir.getY(), dir.getZ());
 	_renderObject->setRotation(q.x, q.y, q.z, q.w);
 
-
-	/*	
+	/*
 		start size: 50  200  50  -> scale 1 1 1 -> end size: 0.25  1  0.25
 	*/
 	Vector3 size = _transform->getSize();

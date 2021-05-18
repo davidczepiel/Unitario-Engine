@@ -9,13 +9,14 @@
 #include <OgreSceneManager.h>
 #include <OgreMesh.h>
 
-RenderObject::RenderObject(std::string const& meshName, std::string const& objectName) : 
+RenderObject::RenderObject(std::string const& meshName, std::string const& objectName) :
 	_objectNode(nullptr), _objectEntity(nullptr), _objectName(objectName), _meshName(meshName), _meshSize()
 {
 }
 
 RenderObject::~RenderObject()
 {
+	if (_objectEntity != nullptr) GraphicsEngine::getInstance()->getSceneManager()->destroyEntity(_objectEntity);
 }
 
 void RenderObject::init()
@@ -48,7 +49,6 @@ const std::tuple<float, float, float>& RenderObject::getMeshSize()
 {
 	return _meshSize;
 }
-
 
 void RenderObject::rotate(float angle, float x, float y, float z)
 {
