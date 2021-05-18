@@ -127,6 +127,9 @@ void GraphicsEngine::setup()
 	_defaultViewport->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 	_defaultViewport->setDimensions(0, 0, 0, 0);
 	_defaultViewport->setBackgroundColour(Ogre::ColourValue::Blue);
+
+	_sceneManager->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_STENCIL_MODULATIVE);
+	_sceneManager->setShadowFarDistance(50);
 }
 
 void GraphicsEngine::shutdown()
