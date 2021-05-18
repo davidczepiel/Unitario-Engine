@@ -324,6 +324,21 @@ Ogre::Viewport* GraphicsEngine::setupViewport(Ogre::Camera* cam, int zOrder, flo
 	return vp;
 }
 
+void GraphicsEngine::setShadowColour(float r, float g, float b)
+{
+	_sceneManager->setShadowColour(Ogre::ColourValue(r, g, b));
+}
+
+void GraphicsEngine::setAmbientLight(float r, float g, float b)
+{
+	_sceneManager->setAmbientLight(Ogre::ColourValue(r, g, b));
+}
+
+void GraphicsEngine::setViewportColour(float r, float g, float b)
+{
+	_defaultViewport->setBackgroundColour(Ogre::ColourValue(r,g,b));
+}
+
 void GraphicsEngine::removeViewport(Ogre::Viewport* vp)
 {
 	_window->removeViewport(vp->getZOrder());

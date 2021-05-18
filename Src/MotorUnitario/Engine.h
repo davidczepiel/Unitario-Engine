@@ -87,6 +87,30 @@ public:
 	/// </summary>
 	std::pair<int, int> getWindowSize();
 
+	/// <summary>
+	/// Sets the colour of the shade in the scene
+	/// </summary>
+	/// <param name="r"> Red color-- [0,1] </param>
+	/// <param name="g"> Green color-- [0,1] </param>
+	/// <param name="b"> Blue color-- [0,1] </param>
+	void setShadowColour(float r, float g, float b);
+
+	/// <summary>
+	/// Sets the ambient light
+	/// </summary>
+	/// <param name="r"> Red color-- [0,1] </param>
+	/// <param name="g"> Green color-- [0,1] </param>
+	/// <param name="b"> Blue color-- [0,1] </param>
+	void setAmbientLight(float r, float g, float b);
+
+	/// <summary>
+	/// Sets the colour viewport
+	/// </summary>
+	/// <param name="r"> Red color-- [0,1] </param>
+	/// <param name="g"> Green color-- [0,1] </param>
+	/// <param name="b"> Blue color-- [0,1] </param>
+	void setViewportColour(float r, float g, float b);
+
 protected:
 
 	/// <summary>
