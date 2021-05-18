@@ -162,7 +162,7 @@ void Engine::fixedUpdate()
 void Engine::update()
 {
 	for (auto& it : _GOs) {
-		if(it->getEnabled())
+		if (it->getEnabled())
 			it->update();
 	}
 }
@@ -255,8 +255,7 @@ void Engine::remGameObjectString(const std::string& GOname)
 	auto it = _GOs.begin();
 	while (it != _GOs.end()) {
 		if ((*it)->getName() == GOname) {
-			delete (*it);
-			it = _GOs.erase(it);
+			_deleteGOs.push_back(*it);
 			break;
 		}
 		else
