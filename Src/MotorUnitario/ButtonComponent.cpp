@@ -1,15 +1,17 @@
 #include "ButtonComponent.h"
 #include "ComponentIDs.h"
-#include "MotorGrafico/OverlayElement.h"
+#include "MotorGrafico/OverlayElement.h"ç
+#include "AudioSourceComponent.h"
 #include "MouseInput.h"
 #include "KeyCodes.h"
 #include <SDL.h>
 #include "includeLUA.h"
+#include "GameObject.h"
 #include "Engine.h"
 
 
 ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),
-_button(nullptr), _callback(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
+_button(nullptr), _callback(nullptr), _audio(nullptr), _callbackParam(nullptr), _overlayName(), _containerName(),
 _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
 }
@@ -50,6 +52,8 @@ void ButtonComponent::start()
 {
 	_button = new OverlayElement();
 	_button->loadOverlay(_overlayName);
+
+	_audio = GETCOMPONENT(AudioSourceComponent, ComponentId::AudioSource);
 }
 
 void ButtonComponent::update()
@@ -76,6 +80,8 @@ void ButtonComponent::update()
 				_button->setMaterial(_containerName, _pressMaterial);
 				//Calls the function
 				_callback(_callbackParam);
+
+				if (_audio != nullptr) _audio->playAudio(0);
 			}
 		}
 		else {

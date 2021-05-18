@@ -6,6 +6,7 @@
 #include <string>
 
 class OverlayElement;
+class AudioSourceComponent;
 
 class ButtonComponent: public Component
 {
@@ -97,7 +98,10 @@ private:
 
 	OverlayElement* _button;
 	CallBackOnClick* _callback;
+	AudioSourceComponent* _audio;
+
 	void* _callbackParam;
+
 	std::string _overlayName;
 	std::string _containerName;
 	std::string _defaultMaterial;
