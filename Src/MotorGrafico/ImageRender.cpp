@@ -15,6 +15,7 @@ ImageRender::ImageRender(const std::string& name) :_billboardSet(nullptr), _bill
 
 ImageRender::~ImageRender()
 {
+	if (_billboardSet != nullptr) GraphicsEngine::getInstance()->getSceneManager()->destroyBillboardSet(_billboardSet);
 }
 
 void ImageRender::setDefaultDimensions(float width, float height)
