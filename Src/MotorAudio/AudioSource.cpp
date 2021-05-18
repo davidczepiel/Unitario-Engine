@@ -147,7 +147,19 @@ void AudioSource::resumeChannels()
 	
 }
 
+bool AudioSource::isPlaying(int id)
+{
+	bool isPlaying = true;
+	_channel[id]->isPlaying(&isPlaying);
+
+	return isPlaying;
+}
+
 void AudioSource::pauseAllChannels()
 {
-
+	for (int i = 0; i < _channel.size(); i++) {
+		bool isPause = true;
+		_channel[i]->getPaused(&isPause);
+		_channel[i]->setPaused(!isPause);
+	}
 }

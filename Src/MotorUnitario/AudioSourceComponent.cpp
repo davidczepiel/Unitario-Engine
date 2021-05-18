@@ -98,6 +98,11 @@ void AudioSourceComponent::stopChannel(int id)
 	_audioSource->stop(id);
 }
 
+bool AudioSourceComponent::isPlaying(int id)
+{
+	return _audioSource->isPlaying(id);
+}
+
 void AudioSourceComponent::setAudioLoop(int id, int loop)
 {
 	_audioSource->setLoop(id, loop);

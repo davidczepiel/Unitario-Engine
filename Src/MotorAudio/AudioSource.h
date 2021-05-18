@@ -102,6 +102,11 @@ public:
 	/// Resumes all channels, called when component is enabled
 	/// </summary>
 	void resumeChannels();
+	/// <summary>
+	/// Return if the audio is playing
+	/// </summary>
+	/// <param name="id">Id audio</param>
+	bool isPlaying(int id);
 	
 private:
 	std::vector<FMOD::Sound*> _sound;

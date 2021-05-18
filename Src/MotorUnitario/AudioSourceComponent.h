@@ -57,6 +57,12 @@ public:
 	/// </summary>
 	/// <param name="id">Id audio</param>
 	void stopChannel(int id);
+
+	/// <summary>
+	/// Return if the audio is playing
+	/// </summary>
+	/// <param name="id">Id audio</param>
+	bool isPlaying(int id);
 	/// <summary>
 	/// Sets the audio loop 
 	/// </summary>
