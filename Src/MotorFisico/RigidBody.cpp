@@ -24,10 +24,12 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, const std::string& g
 	{
 		_staticBody->attachShape(*_shape);
 		_scene->addActor(*_staticBody);
+		_staticBody->setName(gameObjectName.c_str());
 	}
 	else {
 		_dynamicBody->attachShape(*_shape);
 		_scene->addActor(*_dynamicBody);
+		_dynamicBody->setName(gameObjectName.c_str());
 	}
 }
 
@@ -47,10 +49,12 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	{
 		_staticBody->attachShape(*_shape);
 		_scene->addActor(*_staticBody);
+		_staticBody->setName(gameObjectName.c_str());
 	}
 	else {
 		_dynamicBody->attachShape(*_shape);
 		_scene->addActor(*_dynamicBody);
+		_dynamicBody->setName(gameObjectName.c_str());
 	}
 }
 
@@ -68,13 +72,13 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, const 
 	if (_isStatic)
 	{
 		_staticBody->attachShape(*_shape);
-		_staticBody->setName(gameObjectName.c_str());
 		_scene->addActor(*_staticBody);
+		_staticBody->setName(gameObjectName.c_str());
 	}
 	else {
 		_dynamicBody->attachShape(*_shape);
-		_dynamicBody->setName(gameObjectName.c_str());
 		_scene->addActor(*_dynamicBody);
+		_dynamicBody->setName(gameObjectName.c_str());
 	}
 }
 
