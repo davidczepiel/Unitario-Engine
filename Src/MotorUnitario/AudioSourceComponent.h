@@ -114,6 +114,8 @@ private:
 	Transform* _tr;
 	// Sound routes
 	std::vector<std::string> _route;
+
+	bool _stopOnDestroy;
 };
 
 #endif AUDIOSOURCECOMPONENT_H

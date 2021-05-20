@@ -7,26 +7,34 @@
 #include "includeLUA.h"
 
 
-AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route()
+AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route(), _stopOnDestroy(true)
 {
 	_audioSource = new AudioSource();
 }
 
 AudioSourceComponent::~AudioSourceComponent()
 {
+	if (_stopOnDestroy) {
+		for (int i = 0; i < _route.size(); ++i)
+			_audioSource->stop(i);
+	}
+
 	delete _audioSource; _audioSource = nullptr;
 }
 
 void AudioSourceComponent::awake(luabridge::LuaRef &data)
 {
+	if (LUAFIELDEXIST(StopOnDestroy))
+	{
+		_stopOnDestroy = GETLUAFIELD(StopOnDestroy, bool);
+	}
+
 	if (LUAFIELDEXIST(Route)) 
 	{ 
 		//en la posicion 0 no hay nada, es "Route" en si
 		for (int i = 1; i <= data["Route"].length(); ++i) {
 			_route.push_back(data["Route"][i].cast<std::string>());
 		}
-		for(int i = 0; i < _route.size(); ++i)
-			std::cout << "As: " << _route[i] << std::endl;
 	}
 	_audioSource = new AudioSource(_route);
 	if (LUAFIELDEXIST(Loop)) {
@@ -39,6 +47,18 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 		for (int i = 0; i < _route.size(); ++i)
 			setStereo(i, stereo);
 	}
+
+	if (LUAFIELDEXIST(Loops)) {
+		for (int i = 1; i <= data["Loops"].length(); ++i) {
+			setAudioLoop(i - 1, data["Loops"][i].cast<int>());
+		}
+	}
+	if (LUAFIELDEXIST(Stereos)) {
+		for (int i = 1; i <= data["Stereos"].length(); ++i) {
+			setStereo(i - 1, data["Stereos"][i].cast<bool>());
+		}
+	}
+
 	if (LUAFIELDEXIST(Play)) {
 		if (GETLUAFIELD(Play, bool)) {
 			for (int i = 0; i < _route.size(); ++i){
@@ -46,6 +66,14 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 			}
 		}
 	}
+
+	if (LUAFIELDEXIST(Plays)) {
+		for (int i = 1; i <= data["Plays"].length(); ++i) {
+			if(data["Plays"][i].cast<bool>()) 
+				playAudio(i - 1);
+		}
+	}
+
 	if (LUAFIELDEXIST(Volume)) {
 		for (int i = 0; i < _route.size(); ++i)
 			setVolumeChannel(GETLUAFIELD(Volume, float), i);
@@ -53,6 +81,17 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 	if (LUAFIELDEXIST(MinMaxDistance)) {
 		for (int i = 0; i < _route.size(); ++i)
 			set3DMinMaxDistanceChannel(data["MinMaxDistance"]["Min"].cast<float>(), data["MinMaxDistance"]["Min"].cast<float>(), i);
+	}
+
+	if (LUAFIELDEXIST(Volumes)) {
+		for (int i = 1; i <= data["Volumes"].length(); ++i) {
+			setVolumeChannel(data["Volumes"][i].cast<float>(), i - 1);
+		}
+	}
+	if (LUAFIELDEXIST(MinMaxDistances)) {
+		for (int i = 1; i <= data["MinMaxDistances"].length(); ++i) {
+			set3DMinMaxDistanceChannel(data["MinMaxDistances"][i]["Min"].cast<float>(), data["MinMaxDistances"][i]["Max"].cast<float>(), i - 1);
+		}
 	}
 }
 
