@@ -171,6 +171,14 @@ public:
 	void setDirection(float x, float y, float z);
 
 	/// <summary>
+	/// Changes node position in the scene
+	/// </summary>
+	/// <param name="x"></param>
+	/// <param name="y"></param>
+	/// <param name="z"></param>
+	void setPosition(float x, float y, float z);
+
+	/// <summary>
 	/// Static count of lights, used so each Light has a unique name
 	/// </summary>
 	static unsigned int _lightCount;

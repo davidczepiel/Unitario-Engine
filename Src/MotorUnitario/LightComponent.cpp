@@ -2,8 +2,9 @@
 #include "ComponentIDs.h"
 #include "GameObject.h"
 #include "includeLUA.h"
+#include "Transform.h"
 
-LightComponent::LightComponent() :Component(ComponentId::LightComponent), _light(nullptr)
+LightComponent::LightComponent() :Component(ComponentId::LightComponent), _light(nullptr), _tr(nullptr)
 {
 }
 
@@ -42,6 +43,19 @@ void LightComponent::awake(luabridge::LuaRef& data)
 	if (LUAFIELDEXIST(Intensity))	
 		_light->setPowerScale(data["Intensity"].cast<float>());
 	
+}
+
+void LightComponent::start()
+{
+	_tr = GETCOMPONENT(Transform, ComponentId::Transform);
+}
+
+void LightComponent::update()
+{
+	float x = static_cast<float>(_tr->getPosition().getX());
+	float y = static_cast<float>(_tr->getPosition().getY());
+	float z = static_cast<float>(_tr->getPosition().getZ());
+	_light->setPosition(x, y, z);
 }
 
 const Light::LightType LightComponent::convertLightType(std::string type)
