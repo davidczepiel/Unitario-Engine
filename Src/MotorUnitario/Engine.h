@@ -111,6 +111,11 @@ public:
 	/// <param name="b"> Blue color-- [0,1] </param>
 	void setViewportColour(float r, float g, float b);
 
+	/// <summary>
+	/// Disables shadows
+	/// </summary>
+	void disableShadows();
+
 protected:
 
 	/// <summary>

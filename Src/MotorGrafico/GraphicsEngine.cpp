@@ -339,6 +339,11 @@ void GraphicsEngine::setViewportColour(float r, float g, float b)
 	_defaultViewport->setBackgroundColour(Ogre::ColourValue(r,g,b));
 }
 
+void GraphicsEngine::disableShadows()
+{
+	_sceneManager->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_NONE);
+}
+
 void GraphicsEngine::removeViewport(Ogre::Viewport* vp)
 {
 	_window->removeViewport(vp->getZOrder());

@@ -52,6 +52,12 @@ void Engine::setViewportColour(float r, float g, float b)
 	_graphicsEngine->setViewportColour(r, g, b);
 }
 
+void Engine::disableShadows()
+{
+	_graphicsEngine->disableShadows();
+}
+
+
 void Engine::tick()
 {
 	processEvents();

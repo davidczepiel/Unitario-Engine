@@ -119,6 +119,11 @@ public:
 	void setViewportColour(float r, float g, float b);
 
 	/// <summary>
+	/// Disables the shadow-casts
+	/// </summary>
+	void disableShadows();
+
+	/// <summary>
 	/// Removes a specific vireport drom the renderWindow so that the camera attached to it doesnt get rendered anymore.
 	/// </summary>
 	/// <param name="vp"> Viewport that is going to be removed from the renderWindow </param>
