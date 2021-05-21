@@ -88,6 +88,11 @@ public:
 	std::pair<int, int> getWindowSize();
 
 	/// <summary>
+	/// Calls graphics engine to set the window to fullscreen or windowed depending on the current window state
+	/// </summary>
+	void setWindowFullScreen();
+
+	/// <summary>
 	/// Sets the colour of the shade in the scene
 	/// </summary>
 	/// <param name="r"> Red color-- [0,1] </param>

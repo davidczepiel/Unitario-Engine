@@ -22,6 +22,16 @@ public:
 	virtual void awake(luabridge::LuaRef& data) override;
 
 	/// <summary>
+	/// Initialize the component
+	/// </summary>
+	virtual void start() override;
+
+	/// <summary>
+	/// Updates Light position
+	/// </summary>
+	void update() override;
+
+	/// <summary>
 	/// Changes light type to given type
 	/// </summary>
 	/// <param name="type">: light's type</param>
@@ -177,6 +187,8 @@ private:
 	void onDisable() override;
 
 	Light* _light;
+
+	Transform* _tr;
 };
 
 #endif LIGHT_COMPONENT_H

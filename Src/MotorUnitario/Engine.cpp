@@ -299,6 +299,11 @@ std::pair<int, int> Engine::getWindowSize()
 	return _graphicsEngine->getWindowSize();
 }
 
+void Engine::setWindowFullScreen()
+{
+	_graphicsEngine->setFullScreen();
+}
+
 void Engine::setShadowColour(float r, float g, float b)
 {
 	_graphicsEngine->setShadowColour(r, g, b);
