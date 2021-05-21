@@ -106,6 +106,13 @@ void GraphicsEngine::initWindow() {
 	setWindowGrab(false);
 }
 
+void GraphicsEngine::setFullScreen()
+{
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+	bool IsFullscreen = SDL_GetWindowFlags(_sdlWindow) & FullscreenFlag;
+	SDL_SetWindowFullscreen(_sdlWindow, IsFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+}
+
 void GraphicsEngine::setup()
 {
 	_sceneManager = _root->createSceneManager();

@@ -129,6 +129,11 @@ public:
 	/// <param name="vp"> Viewport that is going to be removed from the renderWindow </param>
 	void removeViewport(Ogre::Viewport* vp);
 
+	/// <summary>
+	/// Puts the SDL Window in full screen or puts it back to windowed size.
+	/// </summary>
+	void setFullScreen();
+
 	/// </sumary>
 	/// Gets the window size
 	/// </summary>
