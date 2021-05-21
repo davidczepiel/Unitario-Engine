@@ -5,6 +5,7 @@
 #include "Vector3.h"
 #include "ComponentIDs.h"
 #include "includeLUA.h"
+#include "Exceptions.h"
 
 
 AudioSourceComponent::AudioSourceComponent() : Component(ComponentId::AudioSource), _audioSource(nullptr), _tr(nullptr), _route(), _stopOnDestroy(true)
@@ -36,7 +37,14 @@ void AudioSourceComponent::awake(luabridge::LuaRef &data)
 			_route.push_back(data["Route"][i].cast<std::string>());
 		}
 	}
-	_audioSource = new AudioSource(_route);
+	//--------------------Creation-------------------------------
+	try {
+		_audioSource = new AudioSource(_route);
+	}
+	catch (ExcepcionTAD e) {
+		throw SourcePathException("Wrong route in AudioSourceComponent: the file " + e.msg() + " doesn't exist");
+	}
+	//---------------Default paramtres-----------------------------
 	if (LUAFIELDEXIST(Loop)) {
 		int loop = GETLUAFIELD(Loop, int);
 		for (int i = 0; i < _route.size(); ++i)

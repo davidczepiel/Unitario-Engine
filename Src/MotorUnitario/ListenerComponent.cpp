@@ -5,6 +5,7 @@
 #include "ComponentIDs.h"
 #include "Logger.h"
 #include "includeLUA.h"
+#include "Exceptions.h"
 
 ListenerComponent::ListenerComponent() :Component(ComponentId::ListenerComponent), _tr(nullptr), _listener(new Listener())
 {
@@ -20,7 +21,9 @@ void ListenerComponent::awake(luabridge::LuaRef& data)
 {
 	if (LUAFIELDEXIST(ListenerNumber))
 		_listener->setListenerNumber(GETLUAFIELD(ListenerNumber, int));
-	else throw "Can't assign a default listener number.";
+	else
+		_listener->setListenerNumber(0);
+
 	if (LUAFIELDEXIST(Velocity)) {
 		float x, y, z;
 		x = y = z = 0;

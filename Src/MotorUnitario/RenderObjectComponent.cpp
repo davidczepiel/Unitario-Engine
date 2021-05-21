@@ -4,6 +4,7 @@
 #include "ComponentIDs.h"
 #include "includeLUA.h"
 #include "MotorGrafico/RenderObject.h"
+#include "Exceptions.h"
 #include <algorithm>
 
 RenderObjectComponent::RenderObjectComponent() :Component(ComponentId::RenderObject, nullptr), _renderObject(nullptr),
@@ -20,7 +21,8 @@ void RenderObjectComponent::awake(luabridge::LuaRef& data)
 {
 	if (LUAFIELDEXIST(MeshName))
 		_meshName = GETLUASTRINGFIELD(MeshName);
-	else throw "Mesh doesn't exists\n";
+	else _meshName = "cube.mesh";
+
 	_renderObject = new RenderObject(_meshName, _gameObject->getName());
 	_renderObject->init();
 
@@ -31,9 +33,15 @@ void RenderObjectComponent::awake(luabridge::LuaRef& data)
 	float _maxSize = std::max({ size.getX(), size.getY(), size.getZ() });
 	_transform->setProportions(size / _maxSize);
 
-	if (LUAFIELDEXIST(Material))
-		setMaterial(GETLUASTRINGFIELD(Material));
-	else throw "Material doesn't exists\n ";
+	std::string material = "Practica1/Red";
+	if (LUAFIELDEXIST(Material)) {
+		material = GETLUASTRINGFIELD(Material);
+	}
+	else {
+		Logger::getInstance()->log("Material doesn't exist: default material has been used", Logger::Level::WARN);
+	}
+	setMaterial(GETLUASTRINGFIELD(Material));
+
 	if (LUAFIELDEXIST(Visible))
 		setVisible(GETLUAFIELD(Visible, bool));
 

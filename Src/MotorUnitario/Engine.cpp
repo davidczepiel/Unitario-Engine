@@ -10,6 +10,7 @@
 #include "LuaParser.h"
 #include "Logger.h"
 #include "ComponentsFactory.h"
+#include "Exceptions.h"
 
 #include "Factories.h"
 
@@ -60,17 +61,22 @@ void Engine::disableShadows()
 
 void Engine::tick()
 {
-	processEvents();
-	fixedUpdate();
-	update();
-	lateUpdate();
-	_graphicsEngine->render();
-	_audioEngine->update();
-	_time->update();
+	try {
+		processEvents();
+		fixedUpdate();
+		update();
+		lateUpdate();
+		_graphicsEngine->render();
+		_audioEngine->update();
+		_time->update();
 
-	cleanUpGameObjects();
-	if (_changeScene)
-		changeScene();
+		cleanUpGameObjects();
+		if (_changeScene)
+			changeScene();
+	}
+	catch (ExcepcionTAD e) {
+		throw "Error while executing engine: " + e.msg() + "\n";
+	}
 }
 
 bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
@@ -83,31 +89,37 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 	scenesPath = scenesP + '/';
 
 	//--------------GraphicsEngine---------------------
-	GraphicsEngine::CreateInstance();
-	_graphicsEngine = GraphicsEngine::getInstance();
-	_graphicsEngine->setResourcePath(resourcesPath);
-	if (!_graphicsEngine->initializeRenderEngine()) {
-		Logger::getInstance()->log("Graphics Engine init error", Logger::Level::ERROR);
-		throw "Graphics Engine init error";
+	try {
+		GraphicsEngine::CreateInstance();
+		_graphicsEngine = GraphicsEngine::getInstance();
+		_graphicsEngine->setResourcePath(resourcesPath);
+		if (!_graphicsEngine->initializeRenderEngine()) {
+			Logger::getInstance()->log("Graphics Engine init error", Logger::Level::ERROR);
+			throw "Graphics Engine init error";
+		}
+
+		//--------------PhysXEngine--------------------
+		PhysxEngine::CreateInstance();
+		_physxEngine = PhysxEngine::getPxInstance();
+		_physxEngine->init();
+		//---------------AudioEngine--------------------
+		AudioEngine::CreateInstance();
+		_audioEngine = AudioEngine::getInstance();
+		_audioEngine->init();
+		//-------------InputManager--------------
+		_inputManager = InputManager::getInstance();
+
+		_time = EngineTime::getInstance();
+
+		initEngineFactories();
+
+		_luaParser = new LuaParser();
+
+		alredyInitialized = true;
 	}
-	//--------------PhysXEngine--------------------
-	PhysxEngine::CreateInstance();
-	_physxEngine = PhysxEngine::getPxInstance();
-	_physxEngine->init();
-	//---------------AudioEngine--------------------
-	AudioEngine::CreateInstance();
-	_audioEngine = AudioEngine::getInstance();
-	_audioEngine->init();
-	//-------------InputManager--------------
-	_inputManager = InputManager::getInstance();
-
-	_time = EngineTime::getInstance();
-
-	initEngineFactories();
-
-	_luaParser = new LuaParser();
-
-	alredyInitialized = true;
+	catch (ExcepcionTAD e) {
+		throw "Error inizialise engine: " + e.msg() + "\n";
+	}
 	return true;
 }
 

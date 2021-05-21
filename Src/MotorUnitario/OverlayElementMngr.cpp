@@ -1,9 +1,15 @@
 #include "OverlayElementMngr.h"
 #include "MotorGrafico/OverlayElementMngr.h"
+#include "Exceptions.h"
 
 OverlayElementMngr::OverlayElementMngr(std::string elementName)
 {
-	_overlayElement = new OgreOverlayElement(elementName);
+	try {
+		_overlayElement = new OgreOverlayElement(elementName);
+	}
+	catch(...){
+		throw SourcePathException("The overlay element " + elementName + " doesn't exist");
+	}
 }
 
 OverlayElementMngr::~OverlayElementMngr()
@@ -30,7 +36,11 @@ void OverlayElementMngr::setHeight(float h)
 	_overlayElement->setHeight(h);
 }
 
-void OverlayElementMngr::setMaterial(std::string const& materialName)
-{
-	_overlayElement->setMaterial(materialName);
+void OverlayElementMngr::setMaterial(std::string const& materialName){
+	try {
+		_overlayElement->setMaterial(materialName);
+	}
+	catch (...) {
+		throw SourcePathException("The material " + materialName + " doesn't exist");
+	}
 }

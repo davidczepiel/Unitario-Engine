@@ -8,6 +8,8 @@
 #include <OgreQuaternion.h>
 #include <OgreSceneManager.h>
 #include <OgreMesh.h>
+#include <OgreException.h>
+#include "Exceptions.h"
 
 RenderObject::RenderObject(std::string const& meshName, std::string const& objectName) :
 	_objectNode(nullptr), _objectEntity(nullptr), _objectName(objectName), _meshName(meshName), _meshSize()
@@ -22,9 +24,14 @@ RenderObject::~RenderObject()
 void RenderObject::init()
 {
 	Ogre::SceneManager* sM = GraphicsEngine::getInstance()->getSceneManager();
-	_objectNode = sM->getSceneNode(_objectName);
-	_objectEntity = sM->createEntity(_meshName);
-	_objectNode->attachObject(_objectEntity);
+	try {
+		_objectNode = sM->getSceneNode(_objectName);
+		_objectEntity = sM->createEntity(_meshName);
+		_objectNode->attachObject(_objectEntity);
+	}
+	catch (Ogre::Exception e) {
+		throw SceneNodeException(_objectName + e.getDescription());
+	}
 
 	Ogre::Vector3 s = _objectEntity->getMesh()->getBounds().getSize();
 	_meshSize = { s.x, s.y, s.z };

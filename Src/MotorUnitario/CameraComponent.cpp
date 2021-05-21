@@ -7,14 +7,6 @@
 
 void CameraComponent::awake(luabridge::LuaRef& data)
 {
-	/*
-	setProjection(data["Projection"].cast<bool>());
-	setFovY(data["Fovy"].cast<float>());
-	setFrustrumDimensions(data["Frustrum"]["Left"].cast<float>(), data["Frustrum"]["Right"].cast<float>(),
-		data["Frustrum"]["Top"].cast<float>(), data["Frustrum"]["Bot"].cast<float>());
-	setOrthoWindowDimensions(data["OrthoWindow"]["W"].cast<float>(), data["OrthoWindow"]["H"].cast<float>());
-*/
-
 	//It is necesary to create the camera in this method and not in the constructor because each camera
 	//Has its own viewport and it is necesary to specify its zOrder when creating a new one
 	// (Viewports zOrders can not be modified)

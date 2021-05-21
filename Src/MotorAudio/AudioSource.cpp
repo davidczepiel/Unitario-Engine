@@ -39,7 +39,7 @@ void AudioSource::createAudio()
 			&audio);
 
 		if (result != FMOD_OK) {
-			//throw EAudioSource("Error loading sound");
+			throw EAudioSource(_route[i]);
 		}
 		_sound.push_back(audio);
 	}

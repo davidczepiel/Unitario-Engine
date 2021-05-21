@@ -65,10 +65,10 @@ bool LuaParser::loadScene(std::string scene)
 				{
 					attachComponent(go, type, componentData);
 				}
-				catch (const LuaComponentNotFoundException& e)
+				catch (const ExcepcionTAD& e)
 				{
-					std::cout << e.msg() << std::endl;
-					//Log?
+					throw LuaComponentNotFoundException("Error while inicialise component" + type + " with Lua: " + e.msg());
+					Logger::getInstance()->log("Error while inicialise component with Lua: ", Logger::Level::FATAL);
 				}
 
 			}

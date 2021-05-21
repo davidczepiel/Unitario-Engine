@@ -3,6 +3,7 @@
 #include "ComponentIDs.h"
 #include "MotorGrafico/OverlayElement.h"
 #include "includeLUA.h"
+#include "Exceptions.h"
 
 OverlayComponent::OverlayComponent() : Component(ComponentId::OverlayComponent),
 _overlayElement(nullptr), _overlayName("")
@@ -17,16 +18,21 @@ OverlayComponent::~OverlayComponent()
 void OverlayComponent::awake(luabridge::LuaRef& data)
 {
 	_overlayElement = new OverlayElement();
-	if (LUAFIELDEXIST(Name)) {
-		std::string name = data["Name"].cast<std::string>();
-		_overlayElement->loadOverlay(name);
+	try {
+		if (LUAFIELDEXIST(Name)) {
+			std::string name = data["Name"].cast<std::string>();
+			_overlayElement->loadOverlay(name);
+		}
+		if (data["Hide"].cast<bool>()) _overlayElement->hideOverlay();
+		else _overlayElement->showOverlay();
+		if (LUAFIELDEXIST(Container)) {
+			std::string container = data["Container"].cast<std::string>();
+			std::string material = data["Material"].cast<std::string>();
+			_overlayElement->setMaterial(container, material);
+		}
 	}
-	if (data["Hide"].cast<bool>()) _overlayElement->hideOverlay();
-	else _overlayElement->showOverlay();
-	if (LUAFIELDEXIST(Container)) {
-		std::string container = data["Container"].cast<std::string>();
-		std::string material = data["Material"].cast<std::string>();
-		_overlayElement->setMaterial(container, material);
+	catch (...) {
+		throw SourcePathException("The path of the overlay name, material, or the conteiner of the game object " + _gameObject->getName() + " is wrong");
 	}
 }
 
@@ -41,5 +47,10 @@ void OverlayComponent::hideOverlay(bool hide)
 
 void OverlayComponent::setMaterial(std::string const& containerName, std::string const& materialName)
 {
-	_overlayElement->setMaterial(containerName, materialName);
+	try {
+		_overlayElement->setMaterial(containerName, materialName);
+	}
+	catch (...) {
+		throw SourcePathException("The path of the material " + materialName + " or the cointer" + containerName + "is wrong");
+	}
 }

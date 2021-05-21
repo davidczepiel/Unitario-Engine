@@ -16,6 +16,8 @@ RigidBody::RigidBody(float radious, GameObject* gameObject, const std::string& g
 {
 	initParams(position, density, isKinematic, linearDamping, angularDamping);
 	physx::PxSphereGeometry aux(radious);
+
+	//Set the material of the objct(how it interacts with other objects)
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
 	_shape = _physx->createShape(aux, *mat);
 	setFlags(_shape);
@@ -40,11 +42,14 @@ RigidBody::RigidBody(float width, float height, float depth, GameObject* gameObj
 	_gameObject(gameObject), _collisionCallback(collisionCallback)
 {
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
+	//Set the material of the objct(how it interacts with other objects)
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
+	//Create the geometry for the collider
 	physx::PxBoxGeometry aux(width / 2, height / 2, depth / 2);
 	_shape = _physx->createShape(aux, *mat);
 	setFlags(_shape);
 	mat->release();
+
 	if (_isStatic)
 	{
 		_staticBody->attachShape(*_shape);
@@ -64,7 +69,9 @@ RigidBody::RigidBody(float radious, float height, GameObject* gameObject, const 
 	_gameObject(gameObject), _collisionCallback(collisionCallback)
 {
 	initParams(position, mass, isKinematic, linearDamping, angularDamping);
+	//Set the material of the object(how it interacts with other objects)
 	physx::PxMaterial* mat = _physx->createMaterial(staticFriction, dynamicFriction, restitution);
+	//Create the geometry for the collider
 	physx::PxCapsuleGeometry aux(radious, height / 2);
 	_shape = _physx->createShape(aux, *mat);
 	setFlags(_shape);

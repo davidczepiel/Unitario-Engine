@@ -8,6 +8,7 @@
 #include "includeLUA.h"
 #include "GameObject.h"
 #include "Engine.h"
+#include "Exceptions.h"
 
 
 ButtonComponent::ButtonComponent() :Component(ComponentId::ButtonComponent),
@@ -51,7 +52,12 @@ void ButtonComponent::awake(luabridge::LuaRef& data)
 void ButtonComponent::start()
 {
 	_button = new OverlayElement();
-	_button->loadOverlay(_overlayName);
+	try {
+		_button->loadOverlay(_overlayName);
+	}
+	catch (...) {
+		throw SourcePathException("Overlay could not be loaded, the overlay " + _overlayName + "doesn't exist");
+	}
 
 	_audio = GETCOMPONENT(AudioSourceComponent, ComponentId::AudioSource);
 }

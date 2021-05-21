@@ -70,7 +70,7 @@ void AnimatorComponent::createState(const std::string& name, bool loop)
 		}
 	}
 	if(!foundState) _states.push_back({ name, loop, std::list<AnimatorComponent::Transition>() });
-	throw AnimatorException(name + " already exists");
+	else throw AnimatorException(name + " already exists");
 }
 
 void AnimatorComponent::addTransition(const std::string& origin, TransitionFunction* function, const std::string& end, void* functionParam)

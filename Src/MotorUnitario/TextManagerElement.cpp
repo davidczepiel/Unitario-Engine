@@ -1,9 +1,15 @@
 #include "TextManagerElement.h"
 #include "MotorGrafico/OgreText.h"
+#include "Exceptions.h"
 
 TextManagerElement::TextManagerElement(std::string textAreaName)
 {
-	_ogreText = new OgreText(textAreaName);
+	try {
+		_ogreText = new OgreText(textAreaName);
+	}
+	catch (...) {
+		throw SourcePathException("Overlay Text with the path " + textAreaName + "doesn't exist");
+	}
 }
 
 TextManagerElement::~TextManagerElement()
