@@ -27,17 +27,17 @@ void ImageRenderComponent::awake(luabridge::LuaRef& data)
 		_imageRender->setDefaultDimensions(w, h);
 	}
 
-	if (LUAFIELDEXIST("MaterialName"))_imageRender->setMaterialName(data["MaterialName"].cast<std::string>());
+	if (LUAFIELDEXIST("MaterialName"))_imageRender->setMaterialName(GETLUASTRINGFIELD(MaterialName));
 
 	if (LUAFIELDEXIST("Visible"))
-		_imageRender->setVisible(data["Visible"].cast<bool>());
+		_imageRender->setVisible(GETLUAFIELD(Visible, bool));
 
 	if (LUAFIELDEXIST("BillboardOrigin"))
-		_imageRender->setBillboardOrigin(getBillboardOrigin(data["BillboardOrigin"].cast<std::string>()));
+		_imageRender->setBillboardOrigin(getBillboardOrigin(GETLUASTRINGFIELD(BillboardOrigin)));
 	if (LUAFIELDEXIST("BillboardType"))
-		_imageRender->setBillboardType(getBillboardType(data["BillboardType"].cast<std::string>()));
+		_imageRender->setBillboardType(getBillboardType(GETLUASTRINGFIELD(BillboardType)));
 	if (LUAFIELDEXIST("BillboardRotationType"))
-		_imageRender->setBillboardRotationType(getBillboardRotationType(data["BillboardRotationType"].cast<std::string>()));
+		_imageRender->setBillboardRotationType(getBillboardRotationType(GETLUASTRINGFIELD(BillboardRotationType)));
 
 	if (LUAFIELDEXIST("Scale"))_imageRender->setScale(data["Scale"]["X"].cast<float>(), data["Scale"]["Y"].cast<float>(), data["Scale"]["Z"].cast<float>());
 
@@ -48,10 +48,20 @@ void ImageRenderComponent::awake(luabridge::LuaRef& data)
 void ImageRenderComponent::start()
 {
 	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
-	float x = static_cast<float>(_tr->getPosition().getX());
-	float y = static_cast<float>(_tr->getPosition().getY());
-	float z = static_cast<float>(_tr->getPosition().getZ());
 
+	float x, y, z;
+	if (_tr != nullptr) {
+		x = static_cast<float>(_tr->getPosition().getX());
+		y = static_cast<float>(_tr->getPosition().getY());
+		z = static_cast<float>(_tr->getPosition().getZ());		
+	}
+	else {
+		//Default positions
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+	}
+	
 	_imageRender->setPosition(x, y, z);
 }
 

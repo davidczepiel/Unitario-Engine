@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "ComponentIDs.h"
 #include "includeLUA.h"
+#include "Exceptions.h"
 
 ParticleSystemComponent::ParticleSystemComponent() : Component(ComponentId::ParticleSystem), _pSystem(nullptr), _tr(nullptr), _path()
 {
@@ -16,12 +17,17 @@ ParticleSystemComponent::~ParticleSystemComponent()
 
 void ParticleSystemComponent::awake(luabridge::LuaRef& data)
 {
-	if (LUAFIELDEXIST(Path))
-	{
-		_path = data["Path"].cast<std::string>();
-		_pSystem = new ParticleSystem(_path, _gameObject->getName());
+	try {
+		if (LUAFIELDEXIST(Path))
+		{
+			_path = GETLUASTRINGFIELD(Path);
+			_pSystem = new ParticleSystem(_path, _gameObject->getName());
+		}
+		_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
 	}
-	_tr = static_cast<Transform*>(_gameObject->getComponent(ComponentId::Transform));
+	catch (...) {
+		throw SourcePathException("The path of the PartycleSystem or the conteiner of the game object " + _gameObject->getName() + " is wrong");
+	}	
 }
 
 void ParticleSystemComponent::start()

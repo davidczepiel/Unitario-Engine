@@ -33,18 +33,31 @@ ButtonComponent::~ButtonComponent()
 
 void ButtonComponent::awake(luabridge::LuaRef& data)
 {
+	//if (LUAFIELDEXIST(OverLayName))
+	//	_overlayName = data["OverLayName"].cast<std::string>();
+	//if (LUAFIELDEXIST(Active))
+	//	_active = data["Active"].cast<bool>();
+	//if (LUAFIELDEXIST(ContainerName))
+	//	_containerName = data["ContainerName"].cast<std::string>();
+	//if (LUAFIELDEXIST(DefaultMaterial))
+	//	_defaultMaterial = data["DefaultMaterial"].cast<std::string>();
+	//if (LUAFIELDEXIST(HoverMaterial))
+	//	_hoverMaterial = data["HoverMaterial"].cast<std::string>();
+	//if (LUAFIELDEXIST(PressMaterial))
+	//	_pressMaterial = data["PressMaterial"].cast<std::string>();
+
 	if (LUAFIELDEXIST(OverLayName))
-		_overlayName = data["OverLayName"].cast<std::string>();
+		_overlayName = GETLUASTRINGFIELD(OverLayName);
 	if (LUAFIELDEXIST(Active))
-		_active = data["Active"].cast<bool>();
+		_active = GETLUAFIELD(Active, bool);
 	if (LUAFIELDEXIST(ContainerName))
-		_containerName = data["ContainerName"].cast<std::string>();
+		_containerName = GETLUASTRINGFIELD(ContainerName);
 	if (LUAFIELDEXIST(DefaultMaterial))
-		_defaultMaterial = data["DefaultMaterial"].cast<std::string>();
+		_defaultMaterial = GETLUASTRINGFIELD(DefaultMaterial);
 	if (LUAFIELDEXIST(HoverMaterial))
-		_hoverMaterial = data["HoverMaterial"].cast<std::string>();
+		_hoverMaterial = GETLUASTRINGFIELD(HoverMaterial);
 	if (LUAFIELDEXIST(PressMaterial))
-		_pressMaterial = data["PressMaterial"].cast<std::string>();
+		_pressMaterial = GETLUASTRINGFIELD(PressMaterial);
 
 	std::cout << "ButtonComponent loaded" << std::endl;
 }
