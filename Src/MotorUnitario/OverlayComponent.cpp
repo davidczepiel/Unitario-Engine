@@ -27,14 +27,8 @@ void OverlayComponent::awake(luabridge::LuaRef& data)
 		else _overlayElement->showOverlay();
 
 		std::string container = "";
-		if (LUAFIELDEXIST(Container)) 
-			std::string container = GETLUASTRINGFIELD(Container);
-
-		std::string material = "";
-		if (LUAFIELDEXIST(Material))
-			std::string material = GETLUASTRINGFIELD(Material);		
-		
-		_overlayElement->setMaterial(container, material);
+		if (LUAFIELDEXIST(Container) && LUAFIELDEXIST(Material))
+			_overlayElement->setMaterial(GETLUASTRINGFIELD(Container), GETLUASTRINGFIELD(Material));
 	}
 	catch (...) {
 		throw SourcePathException("The path of the overlay name, material, or the conteiner of the game object " + _gameObject->getName() + " is wrong");
