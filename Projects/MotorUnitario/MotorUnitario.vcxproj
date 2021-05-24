@@ -273,6 +273,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     <ClInclude Include="..\..\Src\MotorUnitario\ButtonComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\CameraComponent.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ColliderComponent.h" />
+    <ClInclude Include="..\..\Src\MotorUnitario\Colour.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\Component.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\MotorUnitario\ComponentsFactory.h" />
