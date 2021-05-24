@@ -1,14 +1,15 @@
 cd dependencies\Physx
-mkdir PhysxSolution
 
 cd Src\PhysX-4.1\physx
 generate_projects.bat
-13
+echo 13
 generate_projects.bat
-12
+echo 12
 
+echo patata
 cd compiler\vc16win64
 msbuild "PhysXSDK.sln" \p:configuration=Debug 
+echo patatadone
 msbuild "PhysXSDK.sln" \p:configuration=Release
 
 cd ..\vc16win32
