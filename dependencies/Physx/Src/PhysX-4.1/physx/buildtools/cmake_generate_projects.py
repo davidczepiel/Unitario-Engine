@@ -59,7 +59,7 @@ def noPresetProvided():
     	input = raw_input
     except NameError: 
     	pass    
-    mode = int(input('Enter preset number: '))
+    mode = int(13)
     print('Running generate_projects.bat ' + presetList[mode])
     return presetList[mode]
 

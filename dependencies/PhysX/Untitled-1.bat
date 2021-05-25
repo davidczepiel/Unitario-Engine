@@ -1,29 +1,14 @@
 cd dependencies\Physx
 
 cd Src\PhysX-4.1\physx
-generate_projects.bat
-echo 13
-generate_projects.bat
-echo 12
+call generate_projects.bat
 
-echo patata
 cd compiler\vc16win64
-msbuild "PhysXSDK.sln" \p:configuration=Debug 
-echo patatadone
-msbuild "PhysXSDK.sln" \p:configuration=Release
-
-cd ..\vc16win32
-msbuild "PhysXSDK.sln" \p:configuration=Debug
-msbuild "PhysXSDK.sln" \p:configuration=Release
+call "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\Tools\VsMSBuildCmd.bat"
+msbuild PhysXSDK.sln /p:Configuration=Debug /p:Platform=x64
+msbuild PhysXSDK.sln /p:Configuration=Release /p:Platform=x64
 
 cd ..\..\..\..\..\
 XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx64 /E
-XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx64 /E
-XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx86 /E
-XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx86 /E
-
-
-
-
 
 
