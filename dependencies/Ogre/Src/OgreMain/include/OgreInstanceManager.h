@@ -50,7 +50,7 @@ namespace Ogre
         This class takes care of managing batches automatically, so that more are created when
         needed, and reuse existing ones as much as possible; thus the user doesn't have to worry
         of managing all those low level issues.
-        @see InstanceBatch & @see InstanceEntity for more information.
+        See @ref InstanceBatch and see @ref InstancedEntity for more information.
 
     @remarks
         Design discussion webpage: http://www.ogre3d.org/forums/viewtopic.php?f=4&t=59902
@@ -150,7 +150,7 @@ namespace Ogre
         /** Called when we you use a mesh which has shared vertices, the function creates separate
             vertex/index buffers and also recreates the bone assignments.
         */
-        void unshareVertices(const Ogre::MeshPtr &mesh);
+        static void unshareVertices(const Ogre::MeshPtr &mesh);
 
     public:
         InstanceManager( const String &customName, SceneManager *sceneManager,

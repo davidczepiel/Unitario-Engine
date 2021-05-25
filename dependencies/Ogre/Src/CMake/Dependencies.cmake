@@ -179,24 +179,24 @@ if(OGRE_BUILD_DEPENDENCIES AND NOT EXISTS ${OGREDEPS_PATH})
             --build ${PROJECT_BINARY_DIR}/freetype-2.10.1/objs ${BUILD_COMMAND_OPTS})
     endif()
 
-    if(MSVC OR MINGW) # other platforms dont need this
+    if(MSVC OR MINGW OR SKBUILD) # other platforms dont need this
         message(STATUS "Building SDL2")
         file(DOWNLOAD
-            https://libsdl.org/release/SDL2-2.0.10.tar.gz
-            ${PROJECT_BINARY_DIR}/SDL2-2.0.10.tar.gz)
+            https://libsdl.org/release/SDL2-2.0.14.tar.gz
+            ${PROJECT_BINARY_DIR}/SDL2-2.0.14.tar.gz)
         execute_process(COMMAND ${CMAKE_COMMAND} 
-            -E tar xf SDL2-2.0.10.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+            -E tar xf SDL2-2.0.14.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
         execute_process(COMMAND ${CMAKE_COMMAND}
             -E make_directory ${PROJECT_BINARY_DIR}/SDL2-build)
         execute_process(COMMAND ${BUILD_COMMAND_COMMON}
             -DSDL_STATIC=FALSE
-            ${PROJECT_BINARY_DIR}/SDL2-2.0.10
+            ${PROJECT_BINARY_DIR}/SDL2-2.0.14
             WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/SDL2-build)
         execute_process(COMMAND ${CMAKE_COMMAND}
             --build ${PROJECT_BINARY_DIR}/SDL2-build ${BUILD_COMMAND_OPTS})
     endif()
 
-    if(MSVC OR MINGW) # other platforms dont need this
+    if(MSVC OR MINGW OR SKBUILD) # other platforms dont need this
       message(STATUS "Building Assimp")
       file(DOWNLOAD
           https://github.com/assimp/assimp/archive/v5.0.1.tar.gz
@@ -373,6 +373,3 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/Dependencies/CMakeLists.txt")
 elseif (EXISTS "${PROJECT_SOURCE_DIR}/ogredeps/CMakeLists.txt")
   add_subdirectory(ogredeps)
 endif ()
-
-# provide option to install dependencies on Windows
-include(InstallDependencies)

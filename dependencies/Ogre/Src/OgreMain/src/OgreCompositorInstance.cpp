@@ -380,6 +380,9 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                     OGRE_NEW RSRestoreSchemeOperation(setSchemeOperation));
             }
 
+            finalState.cameraOverride = pass->getCameraName();
+            finalState.alignCameraToFace = pass->getAlignCameraToFace() ? target->getOutputSlice() : -1;
+
             finalState.findVisibleObjects = true;
 
             break;
@@ -485,7 +488,7 @@ void CompositorInstance::_compileTargetOperations(CompiledState &compiledState)
     /// Texture targets
     for (CompositionTargetPass *target : mTechnique->getTargetPasses())
     {        
-        TargetOperation ts(getTargetForTex(target->getOutputName()));
+        TargetOperation ts(getTargetForTex(target->getOutputName(), target->getOutputSlice()));
         /// Set "only initial" flag, visibilityMask and lodBias according to CompositionTargetPass.
         ts.onlyInitial = target->getOnlyInitial();
         ts.visibilityMask = target->getVisibilityMask();
@@ -651,18 +654,13 @@ void CompositorInstance::createResources(bool forResizeOnly)
     /// are composited.
     CompositorManager::UniqueTextureSet assignedTextures;
 
-    const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-    CompositionTechnique::TextureDefinitions::const_iterator it = tdefs.begin();
-    for (; it != tdefs.end(); ++it)
+    for (auto def : mTechnique->getTextureDefinitions())
     {
-        CompositionTechnique::TextureDefinition *def = *it;
-        
         if (!def->refCompName.empty()) {
             //This is a reference, isn't created in this compositor
             continue;
         }
-        
-        RenderTarget* rendTarget;
+
         if (def->scope == CompositionTechnique::TS_GLOBAL) {
             //This is a global texture, just link the created resources from the parent
             Compositor* parentComp = mTechnique->getParent();
@@ -679,12 +677,13 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 (parentComp->getRenderTarget(def->name));
                 mLocalMRTs[def->name] = mrt;
                 
-                rendTarget = mrt;
+                setupRenderTarget(mrt, def->depthBufferId);
             } else {
                 Ogre::TexturePtr tex = parentComp->getTextureInstance(def->name, 0);
                 mLocalTextures[def->name] = tex;
                 
-                rendTarget = tex->getBuffer()->getRenderTarget();
+                for(size_t i = 0; i < tex->getNumFaces(); i++)
+                    setupRenderTarget(tex->getBuffer(i)->getRenderTarget(), def->depthBufferId);
             }
             
         } else {
@@ -746,14 +745,13 @@ void CompositorInstance::createResources(bool forResizeOnly)
                                                                                  mrtLocalName, 
                                                                                  width, height, *p, fsaa, fsaaHint,  
                                                                                  hwGamma && !PixelUtil::isFloatingPoint(*p), 
-                                                                                 assignedTextures, this, def->scope);
+                                                                                 assignedTextures, this, def->scope, def->type);
                     }
                     else
                     {
-                        tex = TextureManager::getSingleton().createManual(
-                                                                          texname, 
-                                                                          ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                                                                          (uint)width, (uint)height, 0, *p, TU_RENDERTARGET, 0, 
+                        tex = TextureManager::getSingleton().createManual(texname,
+                                                                          RGN_INTERNAL, def->type,
+                                                                          width, height, 0, *p, TU_RENDERTARGET, 0,
                                                                           hwGamma && !PixelUtil::isFloatingPoint(*p), fsaa, fsaaHint ); 
                     }
                     
@@ -766,7 +764,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                     
                 }
                 
-                rendTarget = mrt;
+                setupRenderTarget(mrt, def->depthBufferId);
             }
             else
             {
@@ -777,71 +775,77 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 // this is an auto generated name - so no spaces can't hart us.
                 std::replace( texName.begin(), texName.end(), ' ', '_' ); 
                 
+                hwGamma = hwGamma && !PixelUtil::isFloatingPoint(def->formatList[0]);
+
                 TexturePtr tex;
                 if (def->pooled)
                 {
                     // get / create pooled texture
                     tex = CompositorManager::getSingleton().getPooledTexture(texName, 
                                                                              def->name, width, height, def->formatList[0], fsaa, fsaaHint,
-                                                                             hwGamma && !PixelUtil::isFloatingPoint(def->formatList[0]), assignedTextures, 
-                                                                             this, def->scope);
+                                                                             hwGamma, assignedTextures,
+                                                                             this, def->scope, def->type);
                 }
                 else
                 {
                     tex = TextureManager::getSingleton().createManual(
-                                                                      texName, 
-                                                                      ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                                                                      (uint)width, (uint)height, 0, def->formatList[0], TU_RENDERTARGET, 0,
-                                                                      hwGamma && !PixelUtil::isFloatingPoint(def->formatList[0]), fsaa, fsaaHint); 
+                        texName, RGN_INTERNAL, def->type, width, height, 0, def->formatList[0],
+                        TU_RENDERTARGET, 0, hwGamma, fsaa, fsaaHint);
                 }
-                
-                rendTarget = tex->getBuffer()->getRenderTarget();
+
                 mLocalTextures[def->name] = tex;
-            }
-        }
 
-        if(rendTarget->getDepthBufferPool() != DepthBuffer::POOL_NO_DEPTH)
-        {
-            //Set DepthBuffer pool for sharing
-            rendTarget->setDepthBufferPool( def->depthBufferId );
-        }
-
-        /// Set up viewport over entire texture
-        rendTarget->setAutoUpdated( false );
-        
-        // We may be sharing / reusing this texture, so test before adding viewport
-        if (rendTarget->getNumViewports() == 0)
-        {
-            Viewport* v;
-            Camera* camera = mChain->getViewport()->getCamera();
-            if (!camera)
-            {
-                v = rendTarget->addViewport( camera );
+                for(size_t i = 0; i < tex->getNumFaces(); i++)
+                    setupRenderTarget(tex->getBuffer(i)->getRenderTarget(), def->depthBufferId);
             }
-            else
-            {
-                // Save last viewport and current aspect ratio
-                Viewport* oldViewport = camera->getViewport();
-                Real aspectRatio = camera->getAspectRatio();
-                
-                v = rendTarget->addViewport( camera );
-                
-                // Should restore aspect ratio, in case of auto aspect ratio
-                // enabled, it'll changed when add new viewport.
-                camera->setAspectRatio(aspectRatio);
-                // Should restore last viewport, i.e. never disturb user code
-                // which might based on that.
-                camera->_notifyViewport(oldViewport);
-            }
-            
-            v->setClearEveryFrame( false );
-            v->setOverlaysEnabled( false );
-            v->setBackgroundColour( ColourValue( 0, 0, 0, 0 ) );
         }
     }
-    
+
     _fireNotifyResourcesCreated(forResizeOnly);
 }
+
+void CompositorInstance::setupRenderTarget(RenderTarget* rendTarget, uint16 depthBufferId)
+{
+    if(rendTarget->getDepthBufferPool() != DepthBuffer::POOL_NO_DEPTH)
+    {
+        //Set DepthBuffer pool for sharing
+        rendTarget->setDepthBufferPool( depthBufferId );
+    }
+
+    /// Set up viewport over entire texture
+    rendTarget->setAutoUpdated( false );
+
+    // We may be sharing / reusing this texture, so test before adding viewport
+    if (rendTarget->getNumViewports() != 0)
+        return;
+
+    Viewport* v;
+    Camera* camera = mChain->getViewport()->getCamera();
+    if (!camera)
+    {
+        v = rendTarget->addViewport( camera );
+    }
+    else
+    {
+        // Save last viewport and current aspect ratio
+        Viewport* oldViewport = camera->getViewport();
+        Real aspectRatio = camera->getAspectRatio();
+        
+        v = rendTarget->addViewport( camera );
+
+        // Should restore aspect ratio, in case of auto aspect ratio
+        // enabled, it'll changed when add new viewport.
+        camera->setAspectRatio(aspectRatio);
+        // Should restore last viewport, i.e. never disturb user code
+        // which might based on that.
+        camera->_notifyViewport(oldViewport);
+    }
+    
+    v->setClearEveryFrame( false );
+    v->setOverlaysEnabled( false );
+    v->setBackgroundColour( ColourValue( 0, 0, 0, 0 ) );
+}
+
 //---------------------------------------------------------------------
 void CompositorInstance::deriveTextureRenderTargetOptions(
     const String& texname, bool *hwGammaWrite, uint *fsaa, String* fsaaHint)
@@ -1018,9 +1022,9 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
     CompositorManager::getSingleton().freePooledTextures(true);
 }
 //---------------------------------------------------------------------
-RenderTarget* CompositorInstance::getRenderTarget(const String& name)
+RenderTarget* CompositorInstance::getRenderTarget(const String& name, int slice)
 {
-    return getTargetForTex(name);
+    return getTargetForTex(name, slice);
 }
 
 CompositionTechnique::TextureDefinition*
@@ -1066,12 +1070,12 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
 }
 
 //-----------------------------------------------------------------------
-RenderTarget *CompositorInstance::getTargetForTex(const String &name)
+RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
 {
     // try simple texture
     LocalTextureMap::iterator i = mLocalTextures.find(name);
     if(i != mLocalTextures.end())
-        return i->second->getBuffer()->getRenderTarget();
+        return i->second->getBuffer(slice)->getRenderTarget();
 
     // try MRTs
     LocalMRTMap::iterator mi = mLocalMRTs.find(name);
@@ -1116,7 +1120,7 @@ RenderTarget *CompositorInstance::getTargetForTex(const String &name)
                     OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Referencing compositor that is later in the chain",
                         "CompositorInstance::getTargetForTex");
                 }
-                return refCompInst->getRenderTarget(texDef->refTexName);
+                return refCompInst->getRenderTarget(texDef->refTexName, slice);
             }
             case CompositionTechnique::TS_GLOBAL:
             {
@@ -1127,7 +1131,7 @@ RenderTarget *CompositorInstance::getTargetForTex(const String &name)
                     OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Referencing non-existent compositor",
                         "CompositorInstance::getTargetForTex");
                 }
-                return refComp->getRenderTarget(texDef->refTexName);
+                return refComp->getRenderTarget(texDef->refTexName, slice);
             }
             case CompositionTechnique::TS_LOCAL:
                 break; // handled by resolveTexReference

@@ -46,7 +46,8 @@ CompositionPass::CompositionPass(CompositionTargetPass *parent):
     mQuadCornerModified(false),
     mQuad(-1, 1, 1, -1),
     mQuadFarCorners(false),
-    mQuadFarCornersViewSpace(false)
+    mQuadFarCornersViewSpace(false),
+    mAlignCameraToFace(false)
 {
 }
 //-----------------------------------------------------------------------
@@ -326,7 +327,7 @@ bool CompositionPass::_isSupported(void)
             return false;
         }
 
-        mMaterial->compile();
+        mMaterial->load();
         if (mMaterial->getSupportedTechniques().empty())
         {
             return false;

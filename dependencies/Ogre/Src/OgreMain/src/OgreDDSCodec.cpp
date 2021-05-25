@@ -33,8 +33,6 @@ THE SOFTWARE.
 
 namespace Ogre {
     // Internal DDS structure definitions
-#define FOURCC(c0, c1, c2, c3) (c0 | (c1 << 8) | (c2 << 16) | (c3 << 24))
-    
 #if OGRE_COMPILER == OGRE_COMPILER_MSVC
 #pragma pack (push, 1)
 #else
@@ -121,6 +119,7 @@ namespace Ogre {
 #pragma pack ()
 #endif
 
+namespace {
     const uint32 DDS_MAGIC = FOURCC('D', 'D', 'S', ' ');
     const uint32 DDS_PIXELFORMAT_SIZE = 8 * sizeof(uint32);
     const uint32 DDS_CAPS_SIZE = 4 * sizeof(uint32);
@@ -158,7 +157,7 @@ namespace Ogre {
     const uint32 D3DFMT_R32F            = 114;
     const uint32 D3DFMT_G32R32F         = 115;
     const uint32 D3DFMT_A32B32G32R32F   = 116;
-
+}
 
     //---------------------------------------------------------------------
     DDSCodec* DDSCodec::msInstance = 0;

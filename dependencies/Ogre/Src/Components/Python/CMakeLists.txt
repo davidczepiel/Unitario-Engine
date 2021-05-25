@@ -10,6 +10,10 @@ include(${SWIG_USE_FILE})
 
 set(PYTHON_SITE_PACKAGES lib/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/dist-packages/Ogre/)
 
+if(SKBUILD)
+    set(PYTHON_SITE_PACKAGES Ogre/)
+endif()
+
 set(CMAKE_SWIG_FLAGS -w401,314 -builtin)
 
 if (APPLE AND NOT ANDROID)
@@ -37,6 +41,13 @@ else()
 endif()
 set_source_files_properties(../../OgreMain/include/Ogre.i PROPERTIES CPLUSPLUS ON)
 
+# weakly link libpython on Unix to allow relocation
+if(APPLE)
+    set(PYTHON_LIBRARIES "-Wl,-undefined,dynamic_lookup")
+elseif(UNIX)
+    set(PYTHON_LIBRARIES "")
+endif()
+
 set(CMAKE_WARN_DEPRECATED OFF)
 swig_add_module(Ogre python ../../OgreMain/include/Ogre.i)
 swig_link_libraries(Ogre OgreMain ${PYTHON_LIBRARIES})
@@ -57,6 +68,13 @@ if(OGRE_BUILD_COMPONENT_OVERLAY)
     swig_add_module(Overlay python ../Overlay/include/OgreOverlay.i)
     swig_link_libraries(Overlay OgreOverlay ${PYTHON_LIBRARIES})
     ogre_python_module(Overlay)
+endif()
+
+if(OGRE_BUILD_COMPONENT_TERRAIN)
+	set_source_files_properties(../Terrain/include/OgreTerrain.i PROPERTIES CPLUSPLUS ON)
+    swig_add_module(Terrain python ../Terrain/include/OgreTerrain.i)
+    swig_link_libraries(Terrain OgreTerrain ${PYTHON_LIBRARIES})
+    ogre_python_module(Terrain)
 endif()
 
 if(OGRE_BUILD_COMPONENT_BITES)    

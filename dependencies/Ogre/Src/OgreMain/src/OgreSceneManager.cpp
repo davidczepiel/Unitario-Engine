@@ -1067,28 +1067,17 @@ const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
         if (pTex->getContentType() == TextureUnitState::CONTENT_COMPOSITOR)
         {
             CompositorChain* currentChain = _getActiveCompositorChain();
-            if (!currentChain)
-            {
-                OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                    "A pass that wishes to reference a compositor texture "
-                    "attempted to render in a pipeline without a compositor",
-                    "SceneManager::_setPass");
-            }
-            CompositorInstance* refComp = currentChain->getCompositor(pTex->getReferencedCompositorName());
-            if (refComp == 0)
-            {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Invalid compositor content_type compositor name",
-                    "SceneManager::_setPass");
-            }
-            TexturePtr refTex = refComp->getTextureInstance(pTex->getReferencedTextureName(),
-                                                            pTex->getReferencedMRTIndex());
-            if (!refTex)
-            {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    "Invalid compositor content_type texture name",
-                    "SceneManager::_setPass");
-            }
+            OgreAssert(currentChain, "A pass that wishes to reference a compositor texture "
+                                     "attempted to render in a pipeline without a compositor");
+            auto compName = pTex->getReferencedCompositorName();
+            CompositorInstance* refComp = currentChain->getCompositor(compName);
+            OgreAssert(refComp,
+                       ("Current CompositorChain does not contain compositor named " + compName).c_str());
+
+            auto texName = pTex->getReferencedTextureName();
+            TexturePtr refTex = refComp->getTextureInstance(texName, pTex->getReferencedMRTIndex());
+
+            OgreAssert(refTex, ("Compositor " + compName + " does not declare texture " + texName).c_str());
             pTex->_setTexturePtr(refTex);
         }
         mDestRenderSystem->_setTextureUnitSettings(unit, *pTex);
@@ -1199,9 +1188,14 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
     assert(camera);
     OgreProfileGroup(camera->getName(), OGREPROF_GENERAL);
 
-    Root::getSingleton()._pushCurrentSceneManager(this);
+    auto prevSceneManager = Root::getSingleton()._getCurrentSceneManager();
+    Root::getSingleton()._setCurrentSceneManager(this);
     mActiveQueuedRenderableVisitor->targetSceneMgr = this;
     mAutoParamDataSource->setCurrentSceneManager(this);
+
+    // preserve the previous scheme, in case this is a RTT update with an outer _renderScene pending
+    MaterialManager& matMgr = MaterialManager::getSingleton();
+    String prevMaterialScheme = matMgr.getActiveScheme();
 
     // Also set the internal viewport pointer at this point, for calls that need it
     // However don't call setViewport just yet (see below)
@@ -1276,40 +1270,29 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
             // Locate any lights which could be affecting the frustum
             findLightsAffectingFrustum(camera);
 
-            // Are we using any shadows at all?
-            if (isShadowTechniqueInUse() && vp->getShadowsEnabled())
+            // Prepare shadow textures if texture shadow based shadowing
+            // technique in use
+            if (isShadowTechniqueTextureBased() && vp->getShadowsEnabled())
             {
-                // Prepare shadow textures if texture shadow based shadowing
-                // technique in use
-                if (isShadowTechniqueTextureBased())
-                {
-                    OgreProfileGroup("prepareShadowTextures", OGREPROF_GENERAL);
+                OgreProfileGroup("prepareShadowTextures", OGREPROF_GENERAL);
 
-                    // *******
-                    // WARNING
-                    // *******
-                    // This call will result in re-entrant calls to this method
-                    // therefore anything which comes before this is NOT 
-                    // guaranteed persistent. Make sure that anything which 
-                    // MUST be specific to this camera / target is done 
-                    // AFTER THIS POINT
-                    prepareShadowTextures(camera, vp);
-                    // reset the cameras & viewport because of the re-entrant call
-                    mCameraInProgress = camera;
-                    mCurrentViewport = vp;
-                }
+                // *******
+                // WARNING
+                // *******
+                // This call will result in re-entrant calls to this method
+                // therefore anything which comes before this is NOT
+                // guaranteed persistent. Make sure that anything which
+                // MUST be specific to this camera / target is done
+                // AFTER THIS POINT
+                prepareShadowTextures(camera, vp);
+                // reset the cameras & viewport because of the re-entrant call
+                mCameraInProgress = camera;
+                mCurrentViewport = vp;
             }
         }
 
         // Invert vertex winding?
-        if (camera->isReflected())
-        {
-            mDestRenderSystem->setInvertVertexWinding(true);
-        }
-        else
-        {
-            mDestRenderSystem->setInvertVertexWinding(false);
-        }
+        mDestRenderSystem->setInvertVertexWinding(camera->isReflected());
 
         // Set the viewport - this is deliberately after the shadow texture update
         setViewport(vp);
@@ -1392,7 +1375,8 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
     // Notify camera of vis batches
     camera->_notifyRenderedBatches(mDestRenderSystem->_getBatchCount());
 
-    Root::getSingleton()._popCurrentSceneManager(this);
+    matMgr.setActiveScheme(prevMaterialScheme);
+    Root::getSingleton()._setCurrentSceneManager(prevSceneManager);
 }
 //-----------------------------------------------------------------------
 void SceneManager::_setDestinationRenderSystem(RenderSystem* sys)
