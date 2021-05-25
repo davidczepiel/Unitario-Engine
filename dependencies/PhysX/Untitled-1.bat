@@ -9,6 +9,6 @@ msbuild PhysXSDK.sln /p:Configuration=Debug /p:Platform=x64
 msbuild PhysXSDK.sln /p:Configuration=Release /p:Platform=x64
 
 cd ..\..\..\..\..\
-XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx64 /E
+XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx64 /E /y /i
 
 
