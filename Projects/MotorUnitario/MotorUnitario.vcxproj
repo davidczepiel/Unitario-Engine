@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src\include;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -111,7 +111,6 @@
     </Link>
     <PostBuildEvent>
       <Command>call "$(SolutionDir)dependencies\Lua\compileLua_x86.bat"
-call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -130,7 +129,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src\include;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -143,7 +142,6 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
     </Link>
     <PostBuildEvent>
       <Command>call "$(SolutionDir)dependencies\Lua\compileLua_x86.bat"
-call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -160,7 +158,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src\include;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -171,7 +169,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x86.bat"
     </Link>
     <PostBuildEvent>
       <Command>call "$(SolutionDir)dependencies\Lua\compileLua_x64.bat"
-call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
+call "$(SolutionDir)dependencies\SDL2\compileSDL_$(Configuration).bat"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -190,7 +188,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\src\include;$(SolutionDir)Src\;$(SolutionDir)dependencies\Lua\Src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -203,7 +201,7 @@ call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
     </Link>
     <PostBuildEvent>
       <Command>call "$(SolutionDir)dependencies\Lua\compileLua_x64.bat"
-call "$(SolutionDir)dependencies\SDL2\compileSDL_x64.bat"</Command>
+call "$(SolutionDir)dependencies\SDL2\compileSDL_$(Configuration).bat"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
