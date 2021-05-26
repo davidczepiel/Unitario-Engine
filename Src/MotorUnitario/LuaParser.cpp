@@ -65,19 +65,18 @@ bool LuaParser::loadScene(std::string scene)
 				{
 					attachComponent(go, type, componentData);
 				}
-				catch (const ExcepcionTAD& e)
+				catch (...)
 				{
-					throw LuaComponentNotFoundException("Error while inicialise component" + type + " with Lua: " + e.msg());
-					Logger::getInstance()->log("Error while inicialise component with Lua: ", Logger::Level::FATAL);
+					throw LuaComponentException("Error while initialising component " + type + " with Lua");
 				}
 
 			}
 			
 		}
-		Logger::getInstance()->log("Archivo de carga de escena de lua correctamente inicializado");
+		Logger::getInstance()->log("Lua scene properly initialized");
 		return true;
 	}
-	Logger::getInstance()->log("Archivo de carga de escena de lua no encontrado",Logger::Level::FATAL);
+	throw ExcepcionTAD("Can not open Lua file " + scene);
 	return false;
 }
 

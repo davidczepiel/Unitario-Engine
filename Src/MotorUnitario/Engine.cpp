@@ -75,7 +75,9 @@ void Engine::tick()
 			changeScene();
 	}
 	catch (ExcepcionTAD e) {
-		throw "Error while executing engine: " + e.msg() + "\n";
+		Logger::getInstance()->log("Error while executing engine: " + e.msg(), Logger::Level::FATAL);
+		shutDown();
+		exit(0);
 	}
 }
 
@@ -97,17 +99,20 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 			Logger::getInstance()->log("Graphics Engine init error", Logger::Level::ERROR);
 			throw "Graphics Engine init error";
 		}
-
+		Logger::getInstance()->log("Graphics Engine initialized correctly", Logger::Level::INFO);
 		//--------------PhysXEngine--------------------
 		PhysxEngine::CreateInstance();
 		_physxEngine = PhysxEngine::getPxInstance();
 		_physxEngine->init();
+		Logger::getInstance()->log("Physics Engine initialized correctly", Logger::Level::INFO);
 		//---------------AudioEngine--------------------
 		AudioEngine::CreateInstance();
 		_audioEngine = AudioEngine::getInstance();
 		_audioEngine->init();
+		Logger::getInstance()->log("Audio Engine initialized correctly", Logger::Level::INFO);
 		//-------------InputManager--------------
 		_inputManager = InputManager::getInstance();
+		Logger::getInstance()->log("Input manager initialized correctly", Logger::Level::INFO);
 
 		_time = EngineTime::getInstance();
 
@@ -118,7 +123,9 @@ bool Engine::init(std::string const& resourcesPath, std::string const& scenesP)
 		alredyInitialized = true;
 	}
 	catch (ExcepcionTAD e) {
-		throw "Error inizialise engine: " + e.msg() + "\n";
+		Logger::getInstance()->log("Error inizialise engine: " + e.msg(), Logger::Level::FATAL);
+		shutDown();
+		exit(0);
 	}
 	return true;
 }

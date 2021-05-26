@@ -17,15 +17,6 @@ _defaultMaterial(), _hoverMaterial(), _pressMaterial(), _active(true)
 {
 }
 
-//
-//ButtonComponent::ButtonComponent(GameObject* gO, CallBackOnClick* callback, std::string const& overlayName,
-//	std::string const& containerName, std::string const& defaultMaterial, std::string const& passingMaterial,
-//	std::string const& pressMaterial, void* callbackParam) : Component(ComponentId::ButtonComponent, gO),
-//	_button(nullptr), _callback(callback), _callbackParam(callbackParam), _overlayName(overlayName), _containerName(containerName), _defaultMaterial(defaultMaterial),
-//	_hoverMaterial(passingMaterial), _pressMaterial(pressMaterial), _active(true)
-//{
-//}
-
 ButtonComponent::~ButtonComponent()
 {
 	delete _button;
@@ -33,19 +24,6 @@ ButtonComponent::~ButtonComponent()
 
 void ButtonComponent::awake(luabridge::LuaRef& data)
 {
-	//if (LUAFIELDEXIST(OverLayName))
-	//	_overlayName = data["OverLayName"].cast<std::string>();
-	//if (LUAFIELDEXIST(Active))
-	//	_active = data["Active"].cast<bool>();
-	//if (LUAFIELDEXIST(ContainerName))
-	//	_containerName = data["ContainerName"].cast<std::string>();
-	//if (LUAFIELDEXIST(DefaultMaterial))
-	//	_defaultMaterial = data["DefaultMaterial"].cast<std::string>();
-	//if (LUAFIELDEXIST(HoverMaterial))
-	//	_hoverMaterial = data["HoverMaterial"].cast<std::string>();
-	//if (LUAFIELDEXIST(PressMaterial))
-	//	_pressMaterial = data["PressMaterial"].cast<std::string>();
-
 	if (LUAFIELDEXIST(OverLayName))
 		_overlayName = GETLUASTRINGFIELD(OverLayName);
 	if (LUAFIELDEXIST(Active))
