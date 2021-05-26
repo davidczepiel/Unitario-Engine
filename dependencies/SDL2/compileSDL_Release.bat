@@ -1,0 +1,1 @@
+xcopy ..\..\dependencies\SDL2\Build\Release\SDL2.dll ..\..\bin\ /s /d /y

@@ -21,3 +21,8 @@ bin/Testing_x86_RELEASE.exe
 bin/Testing_x86_DEBUG.exe
 bin/Assets/Logs/log.txt
 bin/Assets/ShaderCache/
+
+!dependencies/Fmod/Buildx86
+!dependencies/Fmod/Buildx86/*.*
+!dependencies/Fmod/Buildx64
+!dependencies/Fmod/Buildx64/*.*
