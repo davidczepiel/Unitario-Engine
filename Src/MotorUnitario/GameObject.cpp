@@ -100,8 +100,11 @@ void GameObject::removeComponent(unsigned int componentId)
 
 Component* GameObject::getComponent(unsigned int componentId) const
 {
-	if (componentId >= _components.size())
+	if (componentId >= _components.size()) {
+		std::string componentString = componentId + "";
+		Logger::getInstance()->log("The component with the ID " + componentString + " in the gameobject " + _name + " has not been found", Logger::Level::WARN);
 		return nullptr;
+	}
 
 	return _components[componentId];
 }

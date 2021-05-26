@@ -154,7 +154,12 @@ void Engine::stopExecution()
 void Engine::start()
 {
 	for (auto& it : _GOs) {
-		it->start();
+		try {
+			it->start();
+		}
+		catch (...) {
+			throw ExcepcionTAD("Error in Start at gameObject " + it->getName());
+		}
 	}
 
 	_time->startTimeNow();
@@ -169,16 +174,28 @@ void Engine::fixedUpdate()
 
 	while (calls--) {
 		for (auto& it : _GOs) {
-			if (it->getEnabled())
-				it->fixedUpdate();
+			if (it->getEnabled()) {
+				try {
+					it->fixedUpdate();
+				}
+				catch (...) {
+					throw ExcepcionTAD("Error in FixedUpdate at gameObject " + it->getName());
+				}
+			}
 		}
 		_physxEngine->update(_time->fixedDeltaTime() / 1000);
 	}
 
 
 	for (auto& it : _GOs) {
-		if (it->getEnabled())
-			it->postFixedUpdate();
+		if (it->getEnabled()) {
+			try {
+				it->postFixedUpdate();
+			}
+			catch (...) {
+				throw ExcepcionTAD("Error in PostFixedUpdate at gameObject " + it->getName());
+			}
+		}		
 	}
 
 	_time->fixedTimeUpdate();
@@ -187,16 +204,28 @@ void Engine::fixedUpdate()
 void Engine::update()
 {
 	for (auto& it : _GOs) {
-		if (it->getEnabled())
-			it->update();
+		if (it->getEnabled()) {
+			try {
+				it->update();
+			}
+			catch (...) {
+				throw ExcepcionTAD("Error in Update at gameObject " + it->getName());
+			}
+		}
 	}
 }
 
 void Engine::lateUpdate()
 {
 	for (auto& it : _GOs) {
-		if (it->getEnabled())
-			it->lateUpdate();
+		if (it->getEnabled()) {
+			try {
+				it->lateUpdate();
+			}
+			catch (...) {
+				throw ExcepcionTAD("Error in LateUpdate at gameObject " + it->getName());
+			}
+		}
 	}
 }
 
@@ -298,7 +327,11 @@ GameObject* Engine::findGameObject(const std::string& name)
 		else
 			it++;
 	}
-	return (it == _GOs.end()) ? (nullptr) : (*it);
+	if (it == _GOs.end()) {
+		Logger::getInstance()->log("The game object with the name " + name + " has not been found", Logger::Level::WARN);
+		return nullptr;
+	}
+	return (*it);
 }
 
 std::pair<int, int> Engine::getWindowSize()
