@@ -459,16 +459,16 @@ namespace Ogre
     };
 
     /// @deprecated do not use
-    class OGRE_DEPRECATED _OgreExport PreApplyTextureAliasesScriptCompilerEvent : public ScriptCompilerEvent
-    {
-    public:
-        Material *mMaterial;
-        AliasTextureNamePairList *mAliases;
-        static String eventType;
+    //class OGRE_DEPRECATED _OgreExport PreApplyTextureAliasesScriptCompilerEvent : public ScriptCompilerEvent
+    //{
+    //public:
+    //    Material *mMaterial;
+    //    AliasTextureNamePairList *mAliases;
+    //    static String eventType;
 
-        PreApplyTextureAliasesScriptCompilerEvent(Material *material, AliasTextureNamePairList *aliases)
-            :ScriptCompilerEvent(eventType), mMaterial(material), mAliases(aliases){}
-    };
+    //    PreApplyTextureAliasesScriptCompilerEvent(Material *material, AliasTextureNamePairList *aliases)
+    //        :ScriptCompilerEvent(eventType), mMaterial(material), mAliases(aliases){}
+    //};
 
     class _OgreExport ProcessResourceNameScriptCompilerEvent : public ScriptCompilerEvent
     {
@@ -524,21 +524,21 @@ namespace Ogre
     };
 
     /// @deprecated use CreateGpuProgramScriptCompilerEvent
-    class OGRE_DEPRECATED _OgreExport CreateHighLevelGpuProgramScriptCompilerEvent : public CreateGpuProgramScriptCompilerEvent
-    {
-    public:
-        String mLanguage;
-        static String eventType;
+    //class OGRE_DEPRECATED _OgreExport CreateHighLevelGpuProgramScriptCompilerEvent : public CreateGpuProgramScriptCompilerEvent
+    //{
+    //public:
+    //    String mLanguage;
+    //    static String eventType;
 
-        CreateHighLevelGpuProgramScriptCompilerEvent(const String& file, const String& name,
-                                                     const String& resourceGroup, const String& source,
-                                                     const String& language, GpuProgramType programType)
-            : CreateGpuProgramScriptCompilerEvent(file, name, resourceGroup, source, language, programType),
-              mLanguage(language)
-        {
-            mType = eventType; // override
-        }
-    };
+    //    CreateHighLevelGpuProgramScriptCompilerEvent(const String& file, const String& name,
+    //                                                 const String& resourceGroup, const String& source,
+    //                                                 const String& language, GpuProgramType programType)
+    //        : CreateGpuProgramScriptCompilerEvent(file, name, resourceGroup, source, language, programType),
+    //          mLanguage(language)
+    //    {
+    //        mType = eventType; // override
+    //    }
+    //};
 
     class _OgreExport CreateGpuSharedParametersScriptCompilerEvent : public ScriptCompilerEvent
     {
