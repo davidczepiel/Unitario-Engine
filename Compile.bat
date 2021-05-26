@@ -1,3 +1,5 @@
+rem THIS .BAT NEEDS TO BE EXECUTED FROM NATIVE COMMAND PROMPT
+
 rem --------------------------------------------------------------------------
 rem --------------------------------------------------------------------------
 rem -------------------------------OGRE---------------------------------------
@@ -51,3 +53,31 @@ cmake -S "..\..\SDL2\Src" -B "..\..\SDL2\Build"
 cd ..\..\SDL2\Build
 msbuild "SDL2.sln" /p:configuration=Debug
 msbuild "SDL2.sln" /p:configuration=Release
+
+rem --------------------------------------------------------------------------
+rem --------------------------------------------------------------------------
+rem -------------------------------PHYSX--------------------------------------
+rem --------------------------------------------------------------------------
+rem --------------------------------------------------------------------------
+cd ..\..\Physx
+
+cd Src\PhysX-4.1\physx
+call generate_projects.bat
+
+cd compiler\vc16win64
+msbuild PhysXSDK.sln /p:Configuration=Debug /p:Platform=x64
+msbuild PhysXSDK.sln /p:Configuration=Release /p:Platform=x64
+
+cd ..\..\..\..\..\
+XCOPY Src\PhysX-4.1\physx\bin\win.x86_64.vc142.md .\Buildx64 /E /y /i
+
+rmdir /s /q .\Src\PhysX-4.1\physx\compiler\vc16win64
+
+rem --------------------------------------------------------------------------
+rem --------------------------------------------------------------------------
+rem -------------------------------MOTOR--------------------------------------
+rem --------------------------------------------------------------------------
+rem --------------------------------------------------------------------------
+cd ..\..
+msbuild Motor.sln /p:Configuration=Debug /p:Platform=x64 /t:Testing
+msbuild Motor.sln /p:Configuration=Release /p:Platform=x64 /t:Testing
