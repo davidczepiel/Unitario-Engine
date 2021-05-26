@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreD3D9Device.h"
 #include "OgreD3D9ResourceManager.h"
+#include "OgreDefaultHardwareBufferManager.h"
 
 namespace Ogre {
 
@@ -40,11 +41,7 @@ namespace Ogre {
     D3D9HardwareBuffer::D3D9HardwareBuffer(D3DFORMAT type, size_t sizeInBytes,
         Usage usage,
         bool useShadowBuffer)
-        : HardwareBuffer(usage, false,
-        useShadowBuffer || 
-        // Allocate the system memory buffer for restoring after device lost.
-        (((usage & HBU_DETAIL_WRITE_ONLY) != 0) &&
-            D3D9RenderSystem::getResourceManager()->getAutoHardwareBufferManagement()))
+        : HardwareBuffer(usage, false, useShadowBuffer)
     {
         mType = type;
         mSizeInBytes = sizeInBytes;
@@ -63,7 +60,12 @@ namespace Ogre {
             IDirect3DDevice9* d3d9Device = D3D9RenderSystem::getResourceCreationDevice(i);
 
             createBuffer(d3d9Device, mBufferDesc.Pool, false);
-        }                       
+        }
+
+        if (useShadowBuffer)
+        {
+            mShadowBuffer.reset(new DefaultHardwareBuffer(mSizeInBytes));
+        }
     }
     //---------------------------------------------------------------------
     D3D9HardwareBuffer::~D3D9HardwareBuffer()
@@ -307,7 +309,14 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Cannot restore D3D9 buffer: " + msg);
         }
 
-        hr = static_cast<IDirect3DVertexBuffer9*>(bufferResources->mBuffer)->GetDesc(&mBufferDesc);
+        if(mType == D3DFMT_VERTEXDATA)
+        {
+            hr = static_cast<IDirect3DVertexBuffer9*>(bufferResources->mBuffer)->GetDesc(&mBufferDesc);
+        }
+        else
+        {
+            hr = static_cast<IDirect3DIndexBuffer9*>(bufferResources->mBuffer)->GetDesc((D3DINDEXBUFFER_DESC*)&mBufferDesc);
+        }
         if (FAILED(hr))
         {
             String msg = DXGetErrorDescription(hr);
@@ -398,7 +407,7 @@ namespace Ogre {
 
 
         // Lock the buffer.
-        if(mType = D3DFMT_VERTEXDATA)
+        if(mType == D3DFMT_VERTEXDATA)
         {
             hr = static_cast<IDirect3DVertexBuffer9*>(bufferResources->mBuffer)->Lock(
                 static_cast<UINT>(offset),
@@ -430,7 +439,7 @@ namespace Ogre {
         HRESULT hr;
 
         // Unlock the buffer.
-        if(mType = D3DFMT_VERTEXDATA)
+        if(mType == D3DFMT_VERTEXDATA)
         {
             hr = static_cast<IDirect3DVertexBuffer9*>(bufferResources->mBuffer)->Unlock();
         }

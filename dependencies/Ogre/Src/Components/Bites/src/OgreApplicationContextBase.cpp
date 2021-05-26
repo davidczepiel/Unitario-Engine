@@ -84,7 +84,7 @@ void ApplicationContextBase::closeApp()
         mRoot = NULL;
     }
 
-#ifdef OGRE_STATIC_LIB
+#ifdef OGRE_BITES_STATIC_PLUGINS
     mStaticPluginLoader.unload();
 #endif
 }
@@ -178,7 +178,7 @@ void ApplicationContextBase::createRoot()
     mRoot = OGRE_NEW Ogre::Root("");
 #else
     Ogre::String pluginsPath;
-#   ifndef OGRE_STATIC_LIB
+#   ifndef OGRE_BITES_STATIC_PLUGINS
     pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
 
     if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
@@ -191,7 +191,7 @@ void ApplicationContextBase::createRoot()
                                 mFSLayer->getWritablePath("ogre.log"));
 #endif
 
-#ifdef OGRE_STATIC_LIB
+#ifdef OGRE_BITES_STATIC_PLUGINS
     mStaticPluginLoader.load();
 #endif
     mOverlaySystem = OGRE_NEW Ogre::OverlaySystem();
@@ -426,6 +426,7 @@ void ApplicationContextBase::locateResources()
 
     if (Ogre::FileSystemLayer::fileExists(resourcesPath) || OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN)
     {
+        Ogre::LogManager::getSingleton().logMessage("Parsing '"+resourcesPath+"'");
         cf.load(resourcesPath);
     }
     else
@@ -459,6 +460,12 @@ void ApplicationContextBase::locateResources()
             }
 
             arch = Ogre::FileSystemLayer::resolveBundlePath(arch);
+
+            if((type == "Zip" || type == "FileSystem") && !Ogre::FileSystemLayer::fileExists(arch))
+            {
+                Ogre::LogManager::getSingleton().logWarning("resource location '"+arch+"' does not exist - skipping");
+                continue;
+            }
 
             rgm.addResourceLocation(arch, type, sec);
         }

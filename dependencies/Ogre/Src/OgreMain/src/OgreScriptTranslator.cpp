@@ -4828,6 +4828,7 @@ namespace Ogre{
                         bool pooled = false;
                         bool hwGammaWrite = false;
                         bool fsaa = true;
+                        auto type = TEX_TYPE_2D;
                         uint16 depthBufferId = DepthBuffer::POOL_DEFAULT;
                         CompositionTechnique::TextureScope scope = CompositionTechnique::TS_LOCAL;
                         Ogre::PixelFormatList formats;
@@ -4892,6 +4893,9 @@ namespace Ogre{
                                 break;
                             case ID_POOLED:
                                 pooled = true;
+                                break;
+                            case ID_CUBIC:
+                                type = TEX_TYPE_CUBE_MAP;
                                 break;
                             case ID_SCOPE_LOCAL:
                                 scope = CompositionTechnique::TS_LOCAL;
@@ -4972,6 +4976,7 @@ namespace Ogre{
                         CompositionTechnique::TextureDefinition *def = mTechnique->createTextureDefinition(atom0->value);
                         def->width = width;
                         def->height = height;
+                        def->type = type;
                         def->widthFactor = widthFactor;
                         def->heightFactor = heightFactor;
                         def->formatList = formats;
@@ -5050,11 +5055,18 @@ namespace Ogre{
         if(obj->id == ID_TARGET)
         {
             mTarget = technique->createTargetPass();
-            if(!obj->name.empty())
+            if(obj->name.empty())
             {
-                String name = obj->name;
+                compiler->addError(ScriptCompiler::CE_OBJECTNAMEEXPECTED, obj->file, obj->line);
+                return;
+            }
+            mTarget->setOutputName(obj->name);
 
-                mTarget->setOutputName(name);
+            if(!obj->values.empty())
+            {
+                int val;
+                if(getInt(obj->values.front(), &val))
+                    mTarget->setOutputSlice(val);
             }
         }
         else if(obj->id == ID_TARGET_OUTPUT)
@@ -5127,7 +5139,7 @@ namespace Ogre{
         // The name is the type of the pass
         if(obj->values.empty() || obj->values.front()->type != ANT_ATOM)
         {
-            compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, obj->file, obj->line);
+            compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, obj->file, obj->line, "pass type missing");
             return;
         }
 
@@ -5375,6 +5387,30 @@ namespace Ogre{
                         else
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
+                        }
+                    }
+                    break;
+                case ID_CAMERA:
+                    if(prop->values.empty())
+                    {
+                        compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, prop->file, prop->line);
+                        return;
+                    }
+                    else if (prop->values.size() > 2)
+                    {
+                        compiler->addError(ScriptCompiler::CE_FEWERPARAMETERSEXPECTED, prop->file, prop->line);
+                        return;
+                    }
+                    else
+                    {
+                        if (!getValue(prop->values.front(), sval))
+                            return;
+                        mPass->setCameraName(sval);
+                        if (prop->values.back()->type == ANT_ATOM &&
+                            static_cast<AtomAbstractNode*>(prop->values.back().get())->id ==
+                                ID_ALIGN_TO_FACE)
+                        {
+                            mPass->setAlignCameraToFace(true);
                         }
                     }
                     break;

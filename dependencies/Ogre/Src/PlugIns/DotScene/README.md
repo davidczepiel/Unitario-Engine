@@ -2,7 +2,7 @@
 
 DotScene (aka .scene) is just a standardized XML file format.
 
-This file format is meant to be used to set up a scene in [Ogre](http://www.ogre3d.org/). It is useful for any type of application/ game. Editors can export to .scene format, and apps can load the format.
+This file format is meant to be used to set up a scene or scene-part. It is useful for any type of application/ game. Editors can export to .scene format, and apps can load the format.
 
 Besides Ogre, the [jMonkeyEngine](http://jmonkeyengine.org/) also supports loading .scene files.
 
@@ -43,3 +43,31 @@ To add logic properties to the scene you can use the `<userData>` node as follow
     </userData>
 </entity>
 ```
+
+On the C++ side, these are acessible via e.g.
+```cpp
+mSceneMgr->getEntity("Cube")->getUserObjectBindings().getUserAny("mass");
+```
+
+## How to use DotScene
+To use DotScene it has to be loaded as another OGRE Plugin.
+
+In `plugins.cfg`, add the following line:
+```ini
+Plugin=Plugin_DotScene
+```
+
+The Plugin will be then automatically used when you call `SceneNode::loadChildren()` like
+```cpp
+SceneNode* attachmentNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+// set the desired resource group first
+ResourceGroupManager::getSingleton().setWorldResourceGroupName("MyGroup");
+attachmentNode->loadChildren("myScene.scene");
+```
+
+If there is a TerrainGroup defined in the .scene file, you can get it by:
+```cpp
+attachmentNode->getUserObjectBindings().getUserAny("TerrainGroup");
+```
+The type is `std::shared_ptr<Ogre::TerrainGroup>`, hence `attachmentNode` owns it and will take it down on destruction.

@@ -326,21 +326,22 @@ Techniques can have the following nested elements:
 
 This declares a render texture for use in subsequent @ref Compositor-Target-Passes.
 @par
-Format: texture &lt;Name&gt; &lt;Width&gt; &lt;Height&gt; &lt;Pixel_Format&gt; \[&lt;MRT Pixel_Format2&gt;\] \[&lt;MRT Pixel_FormatN&gt;\] \[pooled\] \[gamma\] \[no\_fsaa\] \[depth\_pool &lt;poolId&gt;\] \[&lt;scope&gt;\]
+Format: texture &lt;name&gt; &lt;width&gt; &lt;height&gt; &lt;PixelFormat&gt; \[&lt;MRT Pixel_Format2&gt;\] \[&lt;MRT Pixel_FormatN&gt;\] \[pooled\] \[gamma\] \[no\_fsaa\] \[depth\_pool &lt;poolId&gt;\] \[&lt;scope&gt;\] \[&lt;cubic&gt;\]
 
-@param Name
+@param name
 A name to give the render texture, which must be unique within this compositor. This name is used to reference the texture in @ref Compositor-Target-Passes, when the texture is rendered to, and in @ref Compositor-Passes, when the texture is used as input to a material rendering a fullscreen quad.
 
-@param Width
-@param Height 
+@param width
+@param height
 @parblock
 The dimensions of the render texture. You can either specify a fixed width and height, or you can request that the texture is based on the physical dimensions of the viewport to which the compositor is attached. The options for the latter are either of
-- @c target_width and @c target_height
-- @c target_width_scaled &lt;factor&gt; and @c target_height_scaled &lt;factor&gt;
-
-where ’factor’ is the amount by which you wish to multiply the size of the main target to derive the dimensions.
+<ul>
+<li> @c target_width and @c target_height
+<li> @c target_width_scaled &lt;factor&gt; and @c target_height_scaled &lt;factor&gt;
+</ul>
+where &lt;factor&gt; is the amount by which you wish to multiply the size of the main target to derive the dimensions.
 @endparblock
-@param Pixel_Format
+@param PixelFormat
 The pixel format of the render texture. This affects how much memory it will take, what colour channels will be available, and what precision you will have within those channels.
 See Ogre::PixelFormat. You can in fact repeat this element if you wish. If you do so, that means that this render texture becomes a Multiple Render Target (MRT), when the GPU writes to multiple textures at once.
 
@@ -362,6 +363,9 @@ If present, this directive sets the scope for the texture for being accessed by 
 1. @c local_scope (which is also the default) means that only the compositor defining the texture can access it. 
 2. @c chain_scope means that the compositors after this compositor in the chain can reference its textures, and 
 3. @c global_scope means that the entire application can access the texture. This directive also affects the creation of the textures (global textures are created once and thus can’t be used with the pooled directive, and can’t rely on viewport size).
+
+@param cubic
+This texture is of type Ogre::TEX_TYPE_CUBE_MAP - i.e. made up of 6 2D textures which are pasted around the inside of a cube.
 
 @par
 Example: texture rt0 512 512 PF\_R8G8B8A8
@@ -424,7 +428,7 @@ A target section defines the rendering of either a render texture or the final o
 There are two types of target sections, the sort that updates a render texture
 
 @par
-Format: target &lt;Name&gt; { }
+Format: target &lt;Name&gt; [&lt;slice&gt;] { }
 
 and the sort that defines the final output render
 
@@ -432,6 +436,8 @@ and the sort that defines the final output render
 Format: target\_output { }
 
 The contents of both are identical, the only real difference is that you can only have a single target\_output entry, whilst you can have many target entries. 
+
+Note, the target entry can refer to @ref Cube-map-textures. Therefore, it takes an optional _decimal_ slice parameter that specifies which face you want to render on. The default is 0, hence +X.
 
 Here are the attributes you can use in a ’target’ or ’target\_output’ section of a .compositor script:
 
@@ -478,11 +484,11 @@ Default: only\_initial off
 
 ## visibility\_mask
 
-Sets the visibility mask for any render\_scene passes performed in this target pass. This is a bitmask (although it must be specified as decimal, not hex) and maps to Ogre::Viewport::setVisibilityMask.
+Sets the visibility mask for any render\_scene passes performed in this target pass. This is a bitmask (specified as decimal or hex) and maps to Ogre::Viewport::setVisibilityMask.
 @par
 Format: visibility\_mask &lt;mask&gt;
 @par
-Default: visibility\_mask 4294967295
+Default: visibility\_mask 0xFFFFFFFF
 
 <a name="compositor_005flod_005fbias"></a><a name="lod_005fbias"></a>
 
@@ -565,6 +571,7 @@ Here are the attributes you can use in a ’pass’ section of a .compositor scr
 -   [thread_groups](#thread_groups)
 -   [material\_scheme](#compositor_005fpass_005fmaterial_005fscheme)
 -   [quad_normals](#quad_normals)
+-   [camera](#camera)
 
 <a name="material"></a><a name="material-1"></a>
 
@@ -661,6 +668,19 @@ Format: quad_normals &lt;camera_far_corners_world_space|camera_far_corners_view_
 @par
 Default: None
 
+<a name="camera"></a>
+
+## camera
+
+Use a camera different from the output Viewport for rendering the scene into this target. Very useful for reflection effects like mirrors or water. The camera will be searched by name in the currently active scene and must be created prior to activating the compositor.
+
+The optional parameter @c align_to_face automatically rotates the camera towards the target cubemap face, when rendering to a cubic texture.
+
+@par
+Format: camera &lt;name&gt; [&lt;align_to_face&gt;]
+@par
+Default: None
+
 ## clear {#Clear-Section}
 
 For passes of type ’clear’, this section defines the buffer clearing parameters.  
@@ -675,7 +695,7 @@ Here are the attributes you can use in a ’clear’ section of a .compositor sc
 -   [depth\_value](#compositor_005fclear_005fdepth_005fvalue)
 -   [stencil\_value](#compositor_005fclear_005fstencil_005fvalue) <a name="compositor_005fclear_005fbuffers"></a><a name="buffers"></a>
 
-    ## buffers
+    ### buffers
 
     Sets the buffers cleared by this pass.
 
@@ -686,7 +706,7 @@ Here are the attributes you can use in a ’clear’ section of a .compositor sc
 
     <a name="compositor_005fclear_005fcolour_005fvalue"></a><a name="colour_005fvalue"></a>
 
-    ## colour\_value
+    ### colour\_value
 
     Set the colour used to fill the colour buffer by this pass, if the colour buffer is being cleared
     @par
@@ -698,7 +718,7 @@ Here are the attributes you can use in a ’clear’ section of a .compositor sc
 
     <a name="compositor_005fclear_005fdepth_005fvalue"></a><a name="depth_005fvalue"></a>
 
-    ## depth\_value
+    ### depth\_value
 
     Set the depth value used to fill the depth buffer by this pass, if the depth buffer is being cleared
     @par
@@ -708,7 +728,7 @@ Here are the attributes you can use in a ’clear’ section of a .compositor sc
 
     <a name="compositor_005fclear_005fstencil_005fvalue"></a><a name="stencil_005fvalue"></a>
 
-    ## stencil\_value
+    ### stencil\_value
 
     Set the stencil value used to fill the stencil buffer by this pass, if the stencil buffer is being cleared
     @par
@@ -736,7 +756,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 -   [pass\_op](#compositor_005fstencil_005fpass_005fop)
 -   [two\_sided](#compositor_005fstencil_005ftwo_005fsided) <a name="compositor_005fstencil_005fcheck"></a><a name="check"></a>
 
-    ## check
+    ### check
 
     Enables or disables the stencil check, thus enabling the use of the rest of the features in this section. The rest of the options in this section do nothing if the stencil check is off. 
     @par
@@ -744,7 +764,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     <a name="compositor_005fstencil_005fcomp_005ffunc"></a><a name="comp_005ffunc"></a>
 
-    ## comp\_func
+    ### comp\_func
 
     Sets the function used to perform the stencil comparison.
 
@@ -755,7 +775,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     <a name="compositor_005fstencil_005fref_005fvalue"></a><a name="ref_005fvalue"></a>
 
-    ## ref\_value
+    ### ref\_value
 
     Sets the reference value used to compare with the stencil buffer as described in [comp\_func](#compositor_005fstencil_005fcomp_005ffunc). 
     @par
@@ -765,7 +785,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     <a name="compositor_005fstencil_005fmask"></a><a name="mask"></a>
 
-    ## mask
+    ### mask
 
     Sets the mask used to compare with the stencil buffer as described in [comp\_func](#compositor_005fstencil_005fcomp_005ffunc). 
     @par
@@ -775,7 +795,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     <a name="compositor_005fstencil_005ffail_005fop"></a><a name="fail_005fop"></a>
 
-    ## fail\_op
+    ### fail\_op
 
     Sets what to do with the stencil buffer value if the result of the stencil comparison ([comp\_func](#compositor_005fstencil_005fcomp_005ffunc)) and depth comparison is that both fail. 
     @par
@@ -818,7 +838,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     </dd> </dl> <a name="compositor_005fstencil_005fdepth_005ffail_005fop"></a><a name="depth_005ffail_005fop"></a>
 
-    ## depth\_fail\_op
+    ### depth\_fail\_op
 
     Sets what to do with the stencil buffer value if the result of the stencil comparison ([comp\_func](#compositor_005fstencil_005fcomp_005ffunc)) passes but the depth comparison fails. 
 
@@ -829,7 +849,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     <a name="compositor_005fstencil_005fpass_005fop"></a><a name="pass_005fop"></a>
 
-    ## pass\_op
+    ### pass\_op
 
     Sets what to do with the stencil buffer value if the result of the stencil comparison ([comp\_func](#compositor_005fstencil_005fcomp_005ffunc)) and the depth comparison pass.  
     @par
@@ -839,7 +859,7 @@ Here are the attributes you can use in a ’stencil’ section of a .compositor 
 
     <a name="compositor_005fstencil_005ftwo_005fsided"></a><a name="two_005fsided"></a>
 
-    ## two\_sided
+    ### two\_sided
 
     Enables or disables two-sided stencil operations, which means the inverse of the operations applies to back-facing polygons.
     @par

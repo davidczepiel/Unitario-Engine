@@ -466,8 +466,8 @@ namespace Ogre
         AliasTextureNamePairList *mAliases;
         static String eventType;
 
-       /* PreApplyTextureAliasesScriptCompilerEvent(Material *material, AliasTextureNamePairList *aliases)
-            :ScriptCompilerEvent(eventType), mMaterial(material), mAliases(aliases){}*/
+        PreApplyTextureAliasesScriptCompilerEvent(Material *material, AliasTextureNamePairList *aliases)
+            :ScriptCompilerEvent(eventType), mMaterial(material), mAliases(aliases){}
     };
 
     class _OgreExport ProcessResourceNameScriptCompilerEvent : public ScriptCompilerEvent
@@ -530,14 +530,14 @@ namespace Ogre
         String mLanguage;
         static String eventType;
 
-        //CreateHighLevelGpuProgramScriptCompilerEvent(const String& file, const String& name,
-        //                                             const String& resourceGroup, const String& source,
-        //                                             const String& language, GpuProgramType programType)
-        //    : CreateGpuProgramScriptCompilerEvent(file, name, resourceGroup, source, language, programType),
-        //      mLanguage(language)
-        //{
-        //    mType = eventType; // override
-        //}
+        CreateHighLevelGpuProgramScriptCompilerEvent(const String& file, const String& name,
+                                                     const String& resourceGroup, const String& source,
+                                                     const String& language, GpuProgramType programType)
+            : CreateGpuProgramScriptCompilerEvent(file, name, resourceGroup, source, language, programType),
+              mLanguage(language)
+        {
+            mType = eventType; // override
+        }
     };
 
     class _OgreExport CreateGpuSharedParametersScriptCompilerEvent : public ScriptCompilerEvent
@@ -870,6 +870,8 @@ namespace Ogre
         ID_THREAD_GROUPS,
         ID_RENDER_CUSTOM,
         ID_AUTO,
+        ID_CAMERA,
+        ID_ALIGN_TO_FACE,
 
         ID_END_BUILTIN_IDS
     };

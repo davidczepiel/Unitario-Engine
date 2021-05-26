@@ -70,16 +70,6 @@ class _OgreSampleClassExport Sample_Terrain : public SdkSample
         mHeightUpdateRate = 1.0 / 20.0;
     }
 
-    StringVector getRequiredPlugins()
-    {
-        StringVector names;
-        if (!GpuProgramManager::getSingleton().isSyntaxSupported("glsles") &&
-            !GpuProgramManager::getSingleton().isSyntaxSupported("glsl") &&
-            !GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
-            names.push_back("Cg Program Manager");
-        return names;
-    }
-
     void doTerrainModify(Terrain* terrain, const Vector3& centrepos, Real timeElapsed)
     {
         Vector3 tsPos;
@@ -305,14 +295,12 @@ class _OgreSampleClassExport Sample_Terrain : public SdkSample
         case SDLK_F10:
             // dump
             {
-                TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
-                while (ti.hasMoreElements())
+                for (const auto& ti : mTerrainGroup->getTerrainSlots())
                 {
-                    Ogre::uint32 tkey = ti.peekNextKey();
-                    TerrainGroup::TerrainSlot* ts = ti.getNext();
+                    TerrainGroup::TerrainSlot* ts = ti.second;
                     if (ts->instance && ts->instance->isLoaded())
                     {
-                        ts->instance->_dumpTextures("terrain_" + StringConverter::toString(tkey), ".png");
+                        ts->instance->_dumpTextures("terrain_" + std::to_string(ti.first), ".png");
                     }
                 }
             }
@@ -734,7 +722,7 @@ class _OgreSampleClassExport Sample_Terrain : public SdkSample
         mSceneMgr->setFog(Ogre::FOG_LINEAR, fadeColour, 0, 2000, 10000);
         //! [linear_fog]
 
-        LogManager::getSingleton().setLogDetail(LL_BOREME);
+        LogManager::getSingleton().setMinLogLevel(LML_TRIVIAL);
 
         //! [light]
         Ogre::Light* l = mSceneMgr->createLight();
@@ -780,11 +768,9 @@ class _OgreSampleClassExport Sample_Terrain : public SdkSample
         //! [init_blend]
         if (mTerrainsImported)
         {
-            TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
-            while(ti.hasMoreElements())
+            for (const auto& ti : mTerrainGroup->getTerrainSlots())
             {
-                Terrain* t = ti.getNext()->instance;
-                initBlendMaps(t);
+                initBlendMaps(ti.second->instance);
             }
         }
 
