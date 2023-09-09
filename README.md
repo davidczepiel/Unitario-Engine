@@ -6,7 +6,7 @@
 
 <!-- What is your project about??? -->
 # About the project
-Unitario Engine is a custom C++ game engine built from scratch, this is a project made by a group of 10 university students and its objective is to analyse which are the elements that compose a videogame engine as well as the function of each one of them.
+Unitario Engine is a custom C++ game engine built from scratch, this is a project made by a group of 10 university students and its objective is to explore the elements that comprise a game engine as well as the function of each of them.
 
 ## Key Features
 
