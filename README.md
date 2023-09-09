@@ -4,9 +4,6 @@
   [![MIT License][license-shield]][license-url]
 </div>
 
-  <div align="center"><img src="4AnotherDayLogo.png" height="100" alt="ArminC AutoExec"></div>
-
-
 <!-- What is your project about??? -->
 # About the project
 Unitario Engine is a custom C++ game engine built from scratch, featuring integration with Ogre for graphics rendering, PhysX for physics simulation, FMOD for audio, and support for LUA scripting. This is a project made by a group of 10 university students and its objective is to analyse which are the elements that compose a videogame engine as well as the function of each one of them.
@@ -41,11 +38,22 @@ In order to prove that the engine can indeed be used to create video games, two 
 
 This is a first-person stealth game in which the player finds themselves inside a dark maze, and their objective is to find the key that allows them to escape. However, the maze is filled with enemies and traps, so the player will have to make use of medkits and switches to navigate through it safely.
 
+<<div align="center">
+
+https://github.com/davidczepiel/Unitario-Engine/assets/48888283/1144db1a-f5c6-4f0f-94ed-17fdaad64a12
+</div>
+
 <a href="https://github.com/4anotherday/CallOfCooking">
   <div align="center"><img src="CallOfCookingGardenWafare.png" height="100" alt="ArminC AutoExec"></div>
 </a>
 
 This is a top down arcade game where the player faces endless waves of enemies, and the goal is to survive as many rounds as possible. After each wave, the player is offered a series of upgrades for his character to help him during his run. 
+
+<<div align="center">
+
+https://github.com/davidczepiel/Unitario-Engine/assets/48888283/a8d29a2d-ad44-4c69-bacd-2c490b156aea
+</div>
+
 
 <!-- Let everyone know who made this project possible -->
 <h2 align="center">
